@@ -6,14 +6,18 @@ import Footer from "../Footer/footer";
 import Header  from "../Header/header";
 import Accordion from "../Acordion/acordion";
 import AccordionCard from "../Acordion/accordionCard";
+import  "./Home.css";
 
 const Home = () => {
   return (
-    <div>
+    <div classname = 'Home'>
       <CustomNavbar />
-        <AccordionCard />
+      <body>
+      <AccordionCard />
       <h1>Home Page</h1>
+    
       <Header />
+      </body>
       <Footer />
     </div>
   );

@@ -1,0 +1,11 @@
+
+body{
+    background-image: url("../Image/Fondo.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+    padding-bottom: 180px;
+  
+}
+
