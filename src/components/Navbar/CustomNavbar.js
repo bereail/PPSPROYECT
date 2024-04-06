@@ -6,6 +6,10 @@ import Logo from "./Logo";
 import Login from "../Login/login";
 import { Link, useLocation } from 'react-router-dom';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import{faCartShopping} from '@fortawesome/free-solid-svg-icons'
+import FilterBar from "../FilterBar/FilterBar";
+
 const CustomNavbar = () => {
   const { pathname } = useLocation(); 
   const [currentPage, SetCurrentPage] = useState('Home');
@@ -31,16 +35,34 @@ const CustomNavbar = () => {
 
   return (
     <BootstrapNavbar className="navbar" style={{ backgroundImage: "linear-gradient(to right,#AFDFF3, #8AB5E8)", borderBottomLeftRadius: "15%", borderBottomRightRadius: "15%"}}>
+  
       <Container fluid>
 
-    
-            
-            <Link to='/' onclick={()=>handlePageChange('Home')}>  <Logo /> </Link> 
-   
-            <Link to='/' onclick={()=>handlePageChange('Home')} type="button" className="btn btn-outline-primary">  Home </Link> 
+     
+        <Link to='/' onclick={()=>handlePageChange('Home')}>  <Logo /> </Link> 
+        <Link to='/' onclick={()=>handlePageChange('Home')} type="button" className="btn btn-outline-primary">  Home </Link> 
         <Nav className="flex-grow-1 d-flex justify-content-center"> {/* Utiliza flex-grow-1 para que el Search ocupe todo el espacio disponible */}
-        <div>{currentPage === 'Home' && <Search />}</div>
+        <div>
+        <div style={{ display: 'inline-flex', alignItems: 'center' }}>{currentPage === 'Home' && <Search  />}
+    
+        {currentPage === 'Home' && (
+         <Link to="/cart" style={{ color: 'black' }}>
+            <FontAwesomeIcon icon={faCartShopping} style={{ fontSize: '30px', marginLeft: '5px' }} />
+          </Link>
+          
+        )}
+        
+        
+        </div>
+        
+        {/* {currentPage === 'Home' && (
+         <FilterBar ></FilterBar>
+          
+        )}
+        */}
+        </div>
         </Nav>
+       
         <Nav className="ml-auto">
         
           <div onclick={()=>handlePageChange('Register')}>

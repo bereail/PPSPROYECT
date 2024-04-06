@@ -7,6 +7,7 @@ import Logout from "./components/Login/logout";
 import Signin from "./components/Login/SignIn/SignIn";
 import SignupUser from "./components/Login/SingUp/SignUpUser";
 import SignupEmployee from "./components/Login/SingUp/SignUpEmployee";
+import Cart from "./components/Cart/Cart";
 
 
 
@@ -28,6 +29,9 @@ const App = () => {
     },
     {
       path: "/signupEmployee", element: <SignupEmployee />
+    },
+    {
+      path: "/cart", element: <Cart></Cart>
     }
   ])
   return( 

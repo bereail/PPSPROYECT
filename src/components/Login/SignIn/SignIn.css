@@ -11,3 +11,12 @@
     padding-bottom: 100px;
 }
 
+.icon{
+    position: absolute;
+    top: 75%;
+    right: 10px; /* Ajusta esta distancia del icono al borde derecho del input */
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+

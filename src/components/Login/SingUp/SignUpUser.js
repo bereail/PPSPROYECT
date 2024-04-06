@@ -6,10 +6,15 @@ import CustomNavbar from "../../Navbar/CustomNavbar";
 import Footer from "../../Footer/footer";
 import './SignUpUser.css'
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 
 
 const SignupUser = () => {
 
+  const [Style, SetStyle] = useState(faEyeSlash);
+  const [TypeInput, SetTypeInput] = useState("Password");
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -103,15 +108,19 @@ const SignupUser = () => {
           <input type="email" className="form-control" id="email" name="email" value={formData.email} onChange={handleChange} />
           {Error === 1 && formData.email =='' &&<p className='Error'>Set a Email</p>}
        </div>
-        <div className="mb-3">
+        <div className="mb-3"style={{ position: 'relative' }}>
           <label htmlFor="password" className="form-label">Password</label>
-          <input type="password" className="form-control" id="password" name="password" value={formData.password} onChange={handleChange} />
+          <input type={TypeInput} className="form-control" id="password" name="password" value={formData.password} onChange={handleChange} />
+          <FontAwesomeIcon icon={Style} className="icon" onClick={() => (SetTypeInput(
+            Style === faEyeSlash ? "Text" : "Password"),
+          SetStyle(Style === faEyeSlash ? faEye : faEyeSlash))}></FontAwesomeIcon>
+
           {Error === 1 && formData.password =='' &&<p className='Error'>Set a password</p>}
           {Error === 1 && formData.password !== formData.confirmPassword && formData.password !== '' &&<p className='Error'>Passwords do not match</p>}
         </div>
         <div className="mb-3">
           <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
-          <input type="password" className="form-control" id="confirmPassword" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
+          <input type={TypeInput} className="form-control" id="confirmPassword" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
         
         </div>
         <button type="submit" className="btn btn-primary">Sign Up</button>
