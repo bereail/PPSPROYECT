@@ -6,7 +6,7 @@ const Search = () => {
       <div className="container-fluid">
         <form className="d-flex" role="search" style={{ display: "flex", alignItems: "center" }}>
           <input className="form-control me-2" style={{ width: "300px", marginRight: "10px" }} type="search" placeholder="Consigue lo que buscas" aria-label="Search" />
-          <button className="btn btn-outline-primary" style={{ width: "100px" }} type="submit">Buscar</button>
+          <button className="btn btn-outline-primary" style={{ width: "100px" }} type="submit">Search</button>
         </form>
       </div>
     </nav>

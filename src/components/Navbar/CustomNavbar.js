@@ -34,7 +34,7 @@ const CustomNavbar = () => {
   }
 
   return (
-    <BootstrapNavbar className="navbar" style={{ backgroundImage: "linear-gradient(to right,#AFDFF3, #8AB5E8)", borderBottomLeftRadius: "15%", borderBottomRightRadius: "15%"}}>
+    <BootstrapNavbar className="navbar" style={{ backgroundImage: "linear-gradient(to right,#507657, #3f7449)", borderBottomLeftRadius: "5%", borderBottomRightRadius: "5%"}}>
   
       <Container fluid>
 
@@ -46,7 +46,7 @@ const CustomNavbar = () => {
         <div style={{ display: 'inline-flex', alignItems: 'center' }}>{currentPage === 'Home' && <Search  />}
     
         {currentPage === 'Home' && (
-         <Link to="/cart" style={{ color: 'black' }}>
+         <Link to="/cart" style={{ color: 'blue' }}>
             <FontAwesomeIcon icon={faCartShopping} style={{ fontSize: '30px', marginLeft: '5px' }} />
           </Link>
           
@@ -67,11 +67,11 @@ const CustomNavbar = () => {
         
           <div onclick={()=>handlePageChange('Register')}>
             {currentPage !=='Register' && (
-            <Link  to="/signupUser" type="button" className="btn btn-outline-primary"> Sing Up</Link>)}
+            <Link  to="/signupUser" type="button" className="btn btn-outline-primary"> Sign Up</Link>)}
             </div>
           <div onclick={()=>handlePageChange('Login')} >
             {currentPage !== 'Login' &&( 
-            <Link to="/signin" type="button" className="btn btn-outline-primary">Sing In</Link>
+            <Link to="/signin" type="button" className="btn btn-outline-primary">Sign In</Link>
             )}
             </div>
           

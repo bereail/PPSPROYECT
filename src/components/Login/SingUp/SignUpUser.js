@@ -82,7 +82,7 @@ const SignupUser = () => {
     
       <div className="Register">
       <div className="Welcome">
-      <h3 >¡Welcome to (MARCA)'s online registration</h3>
+      <h3 >¡Welcome to Family Market's online registration</h3>
       <p>Sign up now to access our wide selection of fresh, quality products. It's time to simplify your online shopping with (MARCA)!</p>
       <p>If you already have an account:</p>
       <Link to="/signin" type="button" >Sing In</Link>      

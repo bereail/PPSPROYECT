@@ -4,24 +4,39 @@ import { Button } from "react-bootstrap";
 import CustomNavbar from "../Navbar/CustomNavbar";
 import Footer from "../Footer/footer";
 import Header  from "../Header/header";
-import Accordion from "../Acordion/acordion";
+
 import AccordionCard from "../Acordion/accordionCard";
 import  "./Home.css";
 import FilterBar from "../FilterBar/FilterBar";
+import { useContext } from "react";
 
-const Home = () => {
+
+const Home = (props) => {
+
   return (
-    <div classname = 'Home'>
+    <div classname ={props.Home}>
+      <img alt="" src={props.homeImg} className={props.imgClass} />
+     
+      <div
+       
+      >
+        <h1>{props.title}</h1>
+        <p>{props.text}</p>
+      </div>
+     
       <CustomNavbar />
       
       <body>
-      <AccordionCard />
-      <h1>Home Page</h1>
-    
-      <Header />
+      
+      
+  
+     <Header />
       </body>
       <Footer />
     </div>
+
+
+
   );
 }
 

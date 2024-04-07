@@ -1,13 +1,13 @@
 // Header.js
 import React from 'react';
-import HeaderCard from './headerCard';
+
 
 const Header = () => {
   return (
     <header className="header">
       <div className="container">
-        <h1>Header</h1>
-        <HeaderCard />
+        <h1>One Store for the community</h1>
+       
       </div>
     </header>
   );
