@@ -1,15 +1,20 @@
 import React from "react";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import{faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons"
 const Search = () => {
+
+
   return (
-    <nav style={{ width: "100%", padding: "10px", backgroundColor: "#f8f9fa", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-      <div className="container-fluid">
-        <form className="d-flex" role="search" style={{ display: "flex", alignItems: "center" }}>
-          <input className="form-control me-2" style={{ width: "300px", marginRight: "10px" }} type="search" placeholder="Consigue lo que buscas" aria-label="Search" />
-          <button className="btn btn-outline-primary" style={{ width: "100px" }} type="submit">Buscar</button>
-        </form>
-      </div>
-    </nav>
+<div className="container-fluid">
+  <form className="d-flex" role="search" style={{ display: "flex", alignItems: "center", margin: "-5px" }}>
+    <div className="input-group" style={{ position: "relative", width: "390px" }}>
+      <input className="form-control me-2" style={{ border: "none", padding: "12px 30px", borderRadius: "25px" }} type="search" placeholder="Search" aria-label="Search"></input>
+      <button  style={{ position: "absolute", top: "50%", transform: "translateY(-50%)", right: "5px", border:"none", backgroundColor: 'transparent', padding: "15px" }} type="submit">
+        <FontAwesomeIcon icon={faMagnifyingGlass} />
+      </button>
+    </div>
+  </form>
+</div>
   );
 }
 
