@@ -1,0 +1,40 @@
+.filter-bar-container {
+    position: relative;
+  }
+  
+  .icon-category {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #873b3b;
+  }
+  
+  .filter-bar {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .filter-bar.expanded {
+    display: flex;
+  }
+  
+  .btn-outline-primary {
+    color: #a5351ca4;
+    border-color: #220a05a4;
+  }
+  
+  .btn-outline-primary:hover {
+    color: #a5351ca4;
+    background-color: #a5351ca4;
+    border-color: #a5351ca4;
+  }
+  
+  .btn-outline-primary:focus,
+  .btn-outline-primary.focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+  }
+  

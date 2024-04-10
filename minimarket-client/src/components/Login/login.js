@@ -40,12 +40,12 @@ const Login = () => {
               <Nav className="ml-auto">
                 <div style={{ marginRight: '5px', width: '100px' }} onClick={() => SetCurrentPage('Register')}>
                   {currentPage !== 'Register' && (
-                    <Link to="/signupUser" type="button" className="btn btn-outline-primary"> Sing Up</Link>
+                    <Link to="/signupUser" type="button" className="btn btn-outline-primary"> Sign Up</Link>
                   )}
                 </div>
                 <div style={{ width: '80px' }} onClick={() => SetCurrentPage('Login')} >
                   {currentPage !== 'Login' && (
-                    <Link to="/signin" type="button" className="btn btn-outline-primary" >Sing In</Link>
+                    <Link to="/signin" type="button" className="btn btn-outline-primary" >Sign In</Link>
                   )}
                 </div>
               </Nav>
@@ -54,10 +54,10 @@ const Login = () => {
         </div>
       )}
       {currentPage == 'Login' && (
-        <Link to="/signupUser" type="button" className="btn btn-outline-primary"> Sing Up</Link>
+        <Link to="/signupUser" type="button" className="btn btn-outline-primary"> Sign Up</Link>
       )}
       {currentPage == 'Register' && (
-        <Link to="/signin" type="button" className="btn btn-outline-primary" >Sing In</Link>
+        <Link to="/signin" type="button" className="btn btn-outline-primary" >Sign In</Link>
       )}
 
 

@@ -1,4 +1,4 @@
-import React from "react";
+/*import React from "react";
 import Accordion from "./acordion";
 
 const AccordionCard = () => {
@@ -14,4 +14,4 @@ const AccordionCard = () => {
   );
 }
 
-export default AccordionCard;
+export default AccordionCard;*/

@@ -1,9 +1,14 @@
 import React from "react";
+import './Logo.css';
+import logoImage from '../Image/Logo.jpg';
+
 
 const Logo = () => {
   return (
       <div className="container-fluid">
-        <h1>LOGO</h1>
+         <img src={logoImage} alt="Logo" className="logo-image" />
+        
+
       </div>
   );
 }

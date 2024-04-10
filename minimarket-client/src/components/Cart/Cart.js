@@ -6,7 +6,7 @@ export default function Cart() {
   return (
     <div style={{paddingBottom: '500px'}}>
         <CustomNavbar></CustomNavbar>
-        -SOY UN CARRO DE COMPRAS
+        Finalize your Purchase
         <Footer></Footer>
     </div>
   )

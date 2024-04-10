@@ -35,7 +35,7 @@ const CustomNavbar = () => {
   }, [pathname]);
 
   return (
-    <BootstrapNavbar className="navbar" style={{ backgroundImage: "linear-gradient(to right,#AFDFF3, #8AB5E8)", borderBottomLeftRadius: "15%", borderBottomRightRadius: "15%" }}>
+    <BootstrapNavbar className="navbar" style={{ backgroundImage: "linear-gradient(to right, #a5351ca4, #a5351ca4)", borderBottomLeftRadius: "15%", borderBottomRightRadius: "15%" }}>
 
       <Container fluid style={{ maxHeight: '50px', padding: '0px' }}>
 

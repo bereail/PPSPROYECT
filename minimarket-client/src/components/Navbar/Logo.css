@@ -1,0 +1,25 @@
+.container-fluid {
+    width: 100%;
+    padding: 10px 0; /* Ajusta el relleno según sea necesario */
+    text-decoration: none;
+    text-align: center; /* Centra el texto horizontalmente */
+  }
+  
+  .container-fluid h1 {
+    margin: 0; /* Elimina el margen predeterminado del encabezado */
+    color: #e9a1a1; /* Color del texto */
+    font-size: 42px; /* Tamaño del texto */
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 2px; /* Ajusta el espaciado entre letras */
+  }
+  
+  .logo-image {
+    width: 200px; /* Ajusta el ancho de la imagen según sea necesario */
+    height: auto; /* Mantiene la proporción de aspecto original */
+    padding: 10px 0; /* Ajusta el relleno según sea necesario */
+    text-decoration: none;
+    text-align: center; 
+    background-color: #9d371faf;
+  }
+  

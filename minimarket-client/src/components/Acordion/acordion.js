@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+/*import React, { useState } from "react";
+import './acordion.css';
+
 
 const Accordion = () => {
   const [isHovered1, setIsHovered1] = useState(false);
@@ -17,7 +19,7 @@ const Accordion = () => {
             aria-expanded="false"
             aria-controls="collapseOne"
           >
-           Producto
+           Product
           </button>
         </h2>
         <div
@@ -35,4 +37,4 @@ const Accordion = () => {
   );
 };
 
-export default Accordion;
+export default Accordion;*/

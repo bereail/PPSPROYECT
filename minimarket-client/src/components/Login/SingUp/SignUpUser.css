@@ -32,7 +32,7 @@
    justify-content: center; 
    align-items: center; 
    flex: 1;
-   background-color: #268fc0; 
+   background-color: #b35a1f; 
    padding: 20px;
    border-top-right-radius: 10px;
    border-bottom-right-radius: 10px;
@@ -51,7 +51,7 @@
    width: 100px;
    text-align: center;
    padding: 10px;
-   background-color: #4CAF50;
+   background-color: #a3511b;
    color: white;
    text-decoration: none;
    margin: 15px auto 0;
