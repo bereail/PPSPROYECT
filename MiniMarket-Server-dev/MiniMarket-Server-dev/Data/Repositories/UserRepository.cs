@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MiniMarket_Server_dev.Data.Interfaces;
 using MiniMarket_Server_dev.Model;
+using MiniMarket_Server_dev.Model.DTOs;
 using MiniMarket_Server_dev.Model.Entities;
 
 namespace MiniMarket_Server_dev.Data.Repositories
@@ -13,6 +14,45 @@ namespace MiniMarket_Server_dev.Data.Repositories
         {
             _context = context;
         }
+
+        public int CreateUser(UserDto userDto)
+
+        {
+            try
+            {
+                //verifica si el usuario ya existe
+                
+                var existingUser = _context.Users.FirstOrDefault(u => u.Email == userDto.Email);
+
+                if (existingUser == null)
+                {
+                    User newUser = new User
+                    {
+                        Name = userDto.Name,
+                        Email = userDto.Email,
+                        PhoneNumber = userDto.PhoneNumber,
+                        Address = userDto.Address,
+                        UserType = userDto.UserType
+                    };
+                    _context.Users.Add(newUser);
+                    _context.SaveChanges();
+                    return existingUser.Id;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error al crear un usuario: {ex.Message}");
+                throw;
+            }
+         }
+     }
+
+
 
         public async Task<User> CreateUserAsync(User user)
         {
@@ -79,4 +119,4 @@ namespace MiniMarket_Server_dev.Data.Repositories
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
     }
-}
+

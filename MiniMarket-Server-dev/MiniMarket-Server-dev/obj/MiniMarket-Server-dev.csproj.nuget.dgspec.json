@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\BLCanoe\\source\\repos\\MiniMarket-Server-dev\\MiniMarket-Server-dev\\MiniMarket-Server-dev.csproj": {}
+    "C:\\Users\\Administrador\\Desktop\\utn\\PPS4\\PPSPROYECT\\MiniMarket-Server-dev\\MiniMarket-Server-dev\\MiniMarket-Server-dev.csproj": {}
   },
   "projects": {
-    "C:\\Users\\BLCanoe\\source\\repos\\MiniMarket-Server-dev\\MiniMarket-Server-dev\\MiniMarket-Server-dev.csproj": {
+    "C:\\Users\\Administrador\\Desktop\\utn\\PPS4\\PPSPROYECT\\MiniMarket-Server-dev\\MiniMarket-Server-dev\\MiniMarket-Server-dev.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\BLCanoe\\source\\repos\\MiniMarket-Server-dev\\MiniMarket-Server-dev\\MiniMarket-Server-dev.csproj",
+        "projectUniqueName": "C:\\Users\\Administrador\\Desktop\\utn\\PPS4\\PPSPROYECT\\MiniMarket-Server-dev\\MiniMarket-Server-dev\\MiniMarket-Server-dev.csproj",
         "projectName": "MiniMarket-Server-dev",
-        "projectPath": "C:\\Users\\BLCanoe\\source\\repos\\MiniMarket-Server-dev\\MiniMarket-Server-dev\\MiniMarket-Server-dev.csproj",
-        "packagesPath": "C:\\Users\\BLCanoe\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\BLCanoe\\source\\repos\\MiniMarket-Server-dev\\MiniMarket-Server-dev\\obj\\",
+        "projectPath": "C:\\Users\\Administrador\\Desktop\\utn\\PPS4\\PPSPROYECT\\MiniMarket-Server-dev\\MiniMarket-Server-dev\\MiniMarket-Server-dev.csproj",
+        "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Administrador\\Desktop\\utn\\PPS4\\PPSPROYECT\\MiniMarket-Server-dev\\MiniMarket-Server-dev\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\BLCanoe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Administrador\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -34,30 +38,15 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-            "Microsoft.EntityFrameworkCore.SqlServer": {
+            "Microsoft.AspNetCore.Mvc.Core": {
               "target": "Package",
-              "version": "[8.0.3, )"
-            },
-            "Microsoft.EntityFrameworkCore.Tools": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[8.0.3, )"
-            },
-            "Swashbuckle.AspNetCore": {
-              "target": "Package",
-              "version": "[6.4.0, )"
+              "version": "[2.2.5, )"
             }
           },
           "imports": [
@@ -71,15 +60,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }
