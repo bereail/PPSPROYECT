@@ -40,7 +40,7 @@ const Login = () => {
             onMouseLeave={() => setIsExpanded(false)}
           >
             {" "}
-            My Count
+             Account
           </button>
           {isExpanded && (
             <div
