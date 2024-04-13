@@ -1,7 +1,10 @@
 import React from "react";
+import './Login.css'
 import { Navbar as Nav } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons"
 
 const Login = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -22,6 +25,9 @@ const Login = () => {
       case "/cart":
         SetCurrentPage("cart");
         break;
+      case "/user":
+        SetCurrentPage("User");
+        break;
       default:
         SetCurrentPage("");
     }
@@ -29,22 +35,23 @@ const Login = () => {
 
   return (
     <div>
-      {currentPage !== "Login" && currentPage !== "Register" && (
+      {currentPage !== "Login" && currentPage !== "Register" && currentPage !== "User" && (
         <div
-          style={{ marginRight: currentPage === "cart" && "100px" }}
-          className="filter-bar-container"
+          style={{ marginRight: currentPage === "cart" && "130px" }}
+          className="Count-container"
         >
           <button
-            className="icon-category"
+            className="Count"
             onMouseEnter={() => setIsExpanded(true)}
             onMouseLeave={() => setIsExpanded(false)}
           >
-            {" "}
-             Account
+
+            <p style={{ margin: '0px' }}>My Account</p>
+            <FontAwesomeIcon icon={faUser} />
           </button>
           {isExpanded && (
             <div
-              className="filter-bar expanded"
+              className="Count-expanded"
               onMouseEnter={() => setIsExpanded(true)}
               onMouseLeave={() => setIsExpanded(false)}
               style={{
@@ -59,30 +66,28 @@ const Login = () => {
                   style={{ marginRight: "5px", width: "100px" }}
                   onClick={() => SetCurrentPage("Register")}
                 >
-                  {currentPage !== "Register" && (
-                    <Link
-                      to="/signupUser"
-                      type="button"
-                      className="btn btn-outline-primary"
-                    >
-                      {" "}
-                      Sign Up
-                    </Link>
-                  )}
+
+                  <Link
+                    to="/signupUser"
+                    type="button"
+                    className="btn btn-outline-primary"
+                  >
+                    Sign Up
+                  </Link>
+
                 </div>
                 <div
                   style={{ width: "80px" }}
                   onClick={() => SetCurrentPage("Login")}
                 >
-                  {currentPage !== "Login" && (
-                    <Link
-                      to="/signin"
-                      type="button"
-                      className="btn btn-outline-primary"
-                    >
-                      Sign In
-                    </Link>
-                  )}
+                  <Link
+                    to="/signin"
+                    type="button"
+                    className="btn btn-outline-primary"
+                  >
+                    Sign In
+                  </Link>
+
                 </div>
               </Nav>
             </div>

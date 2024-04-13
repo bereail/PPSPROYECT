@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./FilterBar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faSortDown } from "@fortawesome/free-solid-svg-icons";
 export default function FilterBar() {
   const [activeButton, setActiveButton] = useState(null);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -26,7 +27,7 @@ export default function FilterBar() {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <FontAwesomeIcon icon={faBars} /> Categories
+        <FontAwesomeIcon icon={faBars} /> All<FontAwesomeIcon icon={faSortDown} />
       </button>
       {isExpanded && (
         <div
@@ -42,7 +43,7 @@ export default function FilterBar() {
                 : "filter-button"
             }
           >
-            Bebidas
+            Drinks
           </button>
           <button
             onClick={() => handleFilter("Limpieza")}
@@ -52,7 +53,7 @@ export default function FilterBar() {
                 : "filter-button"
             }
           >
-            Limpieza
+            Cleaning
           </button>
           <button
             onClick={() => handleFilter("Higiene")}
@@ -62,7 +63,7 @@ export default function FilterBar() {
                 : "filter-button"
             }
           >
-            Higiene
+            hygiene
           </button>
           <button
             onClick={() => handleFilter("Tecnología")}
@@ -72,7 +73,7 @@ export default function FilterBar() {
                 : "filter-button"
             }
           >
-            Tecnología
+            Technology
           </button>
         </div>
       )}

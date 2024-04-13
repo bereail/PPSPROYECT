@@ -5,7 +5,8 @@ import Signin from "./components/Login/SignIn/SignIn";
 import SignupUser from "./components/Login/SingUp/SignUpUser";
 import SignupEmployee from "./components/Login/SingUp/SignUpEmployee";
 import Cart from "./components/Cart/Cart";
-
+import './App.css'
+import User from "./components/User/User";
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -32,9 +33,13 @@ const App = () => {
       path: "/cart",
       element: <Cart></Cart>,
     },
+    {
+      path: "/user",
+      element: <User/>
+    }
   ]);
   return (
-    <div>
+    <div className="app">
       <RouterProvider router={router}></RouterProvider>
     </div>
   );

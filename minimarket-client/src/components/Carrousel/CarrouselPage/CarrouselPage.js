@@ -10,11 +10,11 @@ import ofertas4 from "./../../Image/ofertas4.jpg";
 function CarrouselPage() {
   return (
     <div>
-      <Carousel>
-        <Carousel.Item>
-          <img
-            
-            className="d-block w-100"
+ <Carousel>
+        <Carousel.Item >
+          <img 
+            style={{maxWidth: '100%', maxHeight:'450px'}}
+            className="d-block w-100 img-fluid"
             src={coca}
             alt="First slide"
           />
@@ -25,42 +25,42 @@ function CarrouselPage() {
         </Carousel.Item>
         <Carousel.Item>
           <img
-            
-            className="d-block w-100"
+            style={{maxWidth: '100%', maxHeight:'450px'}}
+            className="d-block w-100 img-fluid"
             src={ofertas}
             alt="Second slide"
           />
         </Carousel.Item>
         <Carousel.Item>
           <img
-            
-            className="d-block w-100"
+            style={{maxWidth: '100%', maxHeight:'450px'}}
+            className="d-block w-100 img-fluid"
             src={ofertas1}
             alt="Second slide"
           />
         </Carousel.Item>
         <Carousel.Item>
           <img
-            
-            className="d-block w-100"
+            style={{maxWidth: '100%', maxHeight:'450px'}}
+            className="d-block w-100 img-fluid"
             src={mp}
-            alt="Second slide"
+            alt="third slide"
           />
         </Carousel.Item>
         <Carousel.Item>
           <img
-            
-            className="d-block w-100"
+            style={{maxWidth: '100%', maxHeight:'450px'}} 
+            className="d-block w-100 img-fluid"
             src={bancario}
             alt="Second slide"
           />
         </Carousel.Item>
         <Carousel.Item>
           <img
-            
-            className="d-block w-100"
+            style={{maxWidth: '100%', maxHeight:'450px'}}
+            className="d-block w-100 img-fluid"
             src={ofertas4}
-            alt="Second slide"
+            alt="quarter slide"
           />
         </Carousel.Item>
       </Carousel>

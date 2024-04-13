@@ -4,9 +4,13 @@
 }
 .icon-category{
   border: none;
-  background-color: transparent;
-  font-size: 22px;
-  margin-right: 10px;
+  padding: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #cc713d;
+  font-size: 20px;
+  border-top-left-radius: 20%;
+  border-bottom-left-radius: 20%;
 }
 
 .filter-bar {

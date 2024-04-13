@@ -1,0 +1,19 @@
+.Cart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh; /* Ajusta la altura según necesites */
+    margin-top: 50px;
+    margin-bottom: 0px;
+  }
+.Buttom-Cart{
+    background-color: #E4832A;
+    font-size: 50px;
+    border-radius: 40%;
+    padding: 30px;
+
+}
+.bolsa-image{
+    align-items: center;
+    max-width: 80%;
+}

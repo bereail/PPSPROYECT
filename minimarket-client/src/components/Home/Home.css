@@ -1,5 +1,6 @@
 
 body{
+
     background-image: url("../Image/Fondo.jpg");
     background-size: cover;
     background-repeat: no-repeat;
@@ -8,10 +9,7 @@ body{
     padding-bottom: 180px;
   
 }
-.Home {
-    padding: 20px; /* Agrega relleno alrededor del contenido */
-  }
-  
+
   .Home h1 {
     font-size: 42px; /* Tamaño del texto */
     color: #333; /* Color del texto */

@@ -28,6 +28,9 @@ const CustomNavbar = () => {
       case "/cart":
         SetCurrentPage("cart");
         break;
+      case "/user":
+        SetCurrentPage("User");
+        break;
       default:
         SetCurrentPage("");
     }
@@ -38,25 +41,18 @@ const CustomNavbar = () => {
       className="navbar"
       style={{
         backgroundImage: "linear-gradient(to right, #a5351ca4, #a5351ca4)",
-        borderBottomLeftRadius: "15%",
+       
         borderBottomRightRadius: "15%",
       }}
     >
       <Container fluid style={{ maxHeight: "50px", padding: "0px" }}>
-        <Link to="/" onclick={() => SetCurrentPage("Home")}>
+
+        <Link to="/" style={{ textDecoration: 'none' }} onclick={() => SetCurrentPage("Home")}>
           {" "}
           <Logo />{" "}
         </Link>
-        <Link
-          to="/"
-          onclick={() => SetCurrentPage("Home")}
-          type="button"
-          className="btn btn-outline-primary"
-        >
-          {" "}
-          Home{" "}
-        </Link>
-        <Nav className="flex-grow-1 d-flex justify-content-center">
+
+        <Nav className="flex-grow- d-flex justify-content-center">
           {" "}
           {/* Utiliza flex-grow-1 para que el Search ocupe todo el espacio disponible */}
           <div style={{ display: "flex", alignItems: "center" }}>
@@ -66,7 +62,7 @@ const CustomNavbar = () => {
         </Nav>
 
         <Login></Login>
-        {currentPage === "Home" && (
+        { (currentPage === "Home" || currentPage === "User")  && (
           <Link
             to="/cart"
             style={{
@@ -76,7 +72,6 @@ const CustomNavbar = () => {
               backgroundColor: "#a5351ca4",
               padding: "14px",
               borderBottomRightRadius: "15%",
-              marginLeft: "30px",
             }}
           >
             My cart
