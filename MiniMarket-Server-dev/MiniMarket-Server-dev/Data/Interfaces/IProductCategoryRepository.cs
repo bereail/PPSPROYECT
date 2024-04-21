@@ -8,7 +8,7 @@ namespace MiniMarket_Server_dev.Data.Interfaces
         Task<ProductCategory?> UpdateProductCategoryAsync(Guid id, ProductCategory category);
         Task<ProductCategory?> DeactivateProductCategoryAsync(Guid id);
         Task<ProductCategory?> EraseProductCategoryAsync(Guid id);
-        Task<IEnumerable<ProductCategory>> GetAllProductCategoriesAsync();
+        Task<IEnumerable<ProductCategory>> GetAllProductCategoriesAsync(bool? isActive, string? sortBy = null, bool isAscending = true);
         Task<ProductCategory?> GetCategoryByIdAsync(Guid id);
     }
 }

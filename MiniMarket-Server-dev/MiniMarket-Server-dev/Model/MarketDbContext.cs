@@ -22,6 +22,16 @@ namespace MiniMarket_Server_dev.Model
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasDiscriminator(u => u.UserType);
+
+            modelBuilder.Entity<SaleOrder>()
+                .HasMany(s => s.Details)
+                .WithOne(d => d.SaleOrder)
+                .HasForeignKey(d => d.OrderId);
+
+            modelBuilder.Entity<Product>()
+                .HasMany(p => p.Details)
+                .WithOne(d => d.Product)
+                .HasForeignKey(d => d.ProductId);
         }
     }
 }

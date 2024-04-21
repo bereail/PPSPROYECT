@@ -9,7 +9,6 @@ namespace MiniMarket_Server_dev.Model.Entities
         [Required]
         [MinLength(16)]
         public string EmployeeCode { get; set; }
-        public bool InUse { get; set; } = false;
         public bool IsActive { get; set; } = true;
 
         public Seller? Seller { get; set; } //Nullable reference navigation to the dependent.

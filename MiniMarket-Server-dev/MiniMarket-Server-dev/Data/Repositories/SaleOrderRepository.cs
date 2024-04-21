@@ -23,7 +23,7 @@ namespace MiniMarket_Server_dev.Data.Repositories
             return order;
         }
 
-        public async Task<SaleOrder?> UpdateOrderAsync(Guid id, SaleOrder order)
+        public async Task<SaleOrder?> UpdateOrderAsync(Guid id, SaleOrder order)                //Will be properly implemented later.
         {
             var getOrder = await _context.Orders.FirstOrDefaultAsync(o => o.Id == id);
             if (getOrder == null) 
@@ -36,9 +36,19 @@ namespace MiniMarket_Server_dev.Data.Repositories
             return getOrder;
         }
 
-        public async Task<SaleOrder?> DeactivateOrderAsync (Guid id)
+        public async Task SetFinalOrderPriceAsync (Guid id, decimal finalPrice)
         {
             var getOrder = await _context.Orders.FirstOrDefaultAsync(o => o.Id == id);
+            
+            getOrder.FinalPrice = finalPrice;
+            await _context.SaveChangesAsync();
+        } 
+
+        public async Task<SaleOrder?> DeactivateOrderAsync (Guid id)
+        {
+            var getOrder = await _context.Orders
+                .Include(o => o.Details)
+                .FirstOrDefaultAsync(o => o.Id == id && o.IsActive);
             if (getOrder == null)
             {
                 return null;
@@ -61,12 +71,50 @@ namespace MiniMarket_Server_dev.Data.Repositories
             return getOrder;
         }
 
-        public async Task<IEnumerable<SaleOrder>> GetAllOrdersByUserAsync(Guid userId)
+        public async Task<IEnumerable<SaleOrder>> GetAllOrders(bool? isActive, string? sortBy = null, bool isAscending = true, 
+            int pageNumber = 1, int pageSize = 30)
         {
-            return await 
-                _context.Orders
-                .Where(o => o.UserId == userId && o.IsActive)
-                .ToListAsync();
+            var orders = _context.Orders.AsQueryable();
+
+            if (isActive != null)
+            {
+                orders = isActive.Value ? orders.Where(o => o.IsActive) : orders.Where(o => !o.IsActive);
+            }
+
+            if (string.IsNullOrWhiteSpace(sortBy) == false)
+            {
+                if (sortBy.Equals("Date", StringComparison.OrdinalIgnoreCase))
+                {
+                    orders = isAscending ? orders.OrderBy(o => o.OrderTime) : orders.OrderByDescending(o => o.OrderTime);
+                }
+            }
+
+            var skipResults = (pageNumber - 1) * pageSize;
+
+            return await orders.Skip(skipResults).Take(pageSize).ToListAsync();
+        }
+
+        public async Task<IEnumerable<SaleOrder>> GetAllOrdersByUserAsync(Guid userId, bool? isActive, string? sortBy = null, bool isAscending = true,
+            int pageNumber = 1, int pageSize = 30)
+        {
+            var orders = _context.Orders.Where(o => o.UserId == userId).AsQueryable();
+
+            if (isActive != null)
+            {
+                orders = isActive.Value ? orders.Where(o => o.IsActive) : orders.Where(o => !o.IsActive);
+            }
+
+            if (string.IsNullOrWhiteSpace(sortBy) == false)
+            {
+                if (sortBy.Equals("Date", StringComparison.OrdinalIgnoreCase))
+                {
+                    orders = isAscending ? orders.OrderBy(o => o.OrderTime) : orders.OrderByDescending(o => o.OrderTime);
+                }
+            }
+
+            var skipResults = (pageNumber - 1) * pageSize;
+
+            return await orders.Skip(skipResults).Take(pageSize).ToListAsync();
         }
 
         //public async Task<IEnumerable<SaleOrder>> GetAllOrdersFromTodayAsync (DateTime today)             
@@ -77,6 +125,7 @@ namespace MiniMarket_Server_dev.Data.Repositories
         public Task<SaleOrder?> GetOrderByIdAsync(Guid id)
         {
             return _context.Orders
+                .Include(o => o.Details)
                 .FirstOrDefaultAsync(o => o.Id == id);
         } 
     }

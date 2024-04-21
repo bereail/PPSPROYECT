@@ -59,16 +59,32 @@ namespace MiniMarket_Server_dev.Data.Repositories
             return getCategoryToErase;
         }
 
-        public async Task<IEnumerable<ProductCategory>> GetAllProductCategoriesAsync()
+        public async Task<IEnumerable<ProductCategory>> GetAllProductCategoriesAsync(bool? isActive, string? sortBy = null, bool isAscending = true)
         {
-            return await 
-                _context.Categories
-                .ToListAsync();
+            var categories = _context.Categories.AsQueryable();
+
+            if (isActive != null)
+            {
+                categories = isActive.Value ? categories.Where(c => c.IsActive) : categories.Where(c => !c.IsActive);
+            }
+
+            //Sorting the categories using Queryable
+            if (string.IsNullOrWhiteSpace(sortBy) == false)
+            {
+                if (sortBy.Equals("Name", StringComparison.OrdinalIgnoreCase))
+                {
+                    //Returns all categories in a new order by name. If isAscending is true, they will be by ascending order, else, descending. 
+                    categories = isAscending ? categories.OrderBy(p => p.CategoryName) : categories.OrderByDescending(p => p.CategoryName);
+                }
+            }
+
+            return await categories.ToListAsync();
         }
 
-        public Task<ProductCategory?> GetCategoryByIdAsync (Guid id)
+        public Task<ProductCategory?> GetCategoryByIdAsync (Guid id)        //We can tell this to include all it's products here.
         {
             return _context.Categories
+                .Include(c => c.Products)
                 .FirstOrDefaultAsync (c => c.Id == id);
         }
     }

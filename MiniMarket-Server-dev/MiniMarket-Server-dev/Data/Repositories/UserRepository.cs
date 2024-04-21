@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MiniMarket_Server_dev.Data.Interfaces;
 using MiniMarket_Server_dev.Model;
-using MiniMarket_Server_dev.Model.DTOs;
 using MiniMarket_Server_dev.Model.Entities;
 
 namespace MiniMarket_Server_dev.Data.Repositories
@@ -14,45 +13,6 @@ namespace MiniMarket_Server_dev.Data.Repositories
         {
             _context = context;
         }
-
-        public int CreateUser(UserDto userDto)
-
-        {
-            try
-            {
-                //verifica si el usuario ya existe
-                
-                var existingUser = _context.Users.FirstOrDefault(u => u.Email == userDto.Email);
-
-                if (existingUser == null)
-                {
-                    User newUser = new User
-                    {
-                        Name = userDto.Name,
-                        Email = userDto.Email,
-                        PhoneNumber = userDto.PhoneNumber,
-                        Address = userDto.Address,
-                        UserType = userDto.UserType
-                    };
-                    _context.Users.Add(newUser);
-                    _context.SaveChanges();
-                    return existingUser.Id;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-            catch (Exception ex)
-            {
-
-                Console.WriteLine($"Error al crear un usuario: {ex.Message}");
-                throw;
-            }
-         }
-     }
-
-
 
         public async Task<User> CreateUserAsync(User user)
         {
@@ -82,7 +42,7 @@ namespace MiniMarket_Server_dev.Data.Repositories
 
         public async Task<User?> DeactivateUserAsync(Guid id)
         {
-            var getUserToDeactivate = await _context.Users.FirstOrDefaultAsync (x => x.Id == id);
+            var getUserToDeactivate = await _context.Users.FirstOrDefaultAsync (x => x.Id == id && x.IsActive);
             if (getUserToDeactivate == null)
             {
                 return null;
@@ -106,17 +66,90 @@ namespace MiniMarket_Server_dev.Data.Repositories
             return getUserToErase;
         }
 
-        public async Task<IEnumerable<User>> GetAllUsersAsync()
+        public async Task<IEnumerable<User>> GetAllUsersAsync(bool? isActive, string? filterOn = null, string? filterQuery = null,
+            string? sortBy = null, bool isAscending = true, int pageNumber = 1, int pageSize = 30)
         {
-            return await
-                _context.Users
-                .ToListAsync();
+            //We define users as Queryable
+            var users = _context.Users.AsQueryable();
+
+            //Filtering by isActive using Query. In case of no bool value, it should return all states.
+            //Only Admins should be able to set it to anything other than true.
+            if (isActive != null)
+            {
+                users = isActive.Value ? users.Where(x => x.IsActive) : users.Where(x => !x.IsActive);
+            }
+
+            //Filtering by name or type using Queryable
+            if (string.IsNullOrWhiteSpace(filterOn) == false && string.IsNullOrWhiteSpace(filterQuery) == false)
+            {
+                if (filterOn.Equals("Name", StringComparison.OrdinalIgnoreCase))
+                {
+                    //Returns all users whose's name contain what we sent in the Filter Query
+                    users = users.Where(u => u.Name.Contains(filterQuery));
+                }
+
+                else if (filterOn.Equals("UserType", StringComparison.OrdinalIgnoreCase))
+                {
+                    //Returns all users whose's type contains what we sent in the Filter Query
+                    users = users.Where(u => u.UserType.Contains(filterQuery));
+                }
+            }
+
+            //Sorting the users using Queryable
+            if (string.IsNullOrWhiteSpace(sortBy) == false)
+            {
+                if (sortBy.Equals("Name", StringComparison.OrdinalIgnoreCase))
+                {
+                    //Returns all users in a new order by name. If isAscending is true, they will be by ascending order, else, descending. 
+                    users = isAscending ? users.OrderBy(p => p.Name) : users.OrderByDescending(p => p.Name);
+                }
+            }
+
+            //Pagination of users using Queryable
+
+            var skipResults = (pageNumber - 1) * pageSize;      //If this results in 0, it will skip it. 
+
+            return await users.Skip(skipResults).Take(pageSize).ToListAsync();
         }
 
-        public Task<User?> GetByIdAsync(Guid id)
+        public Task<User?> GetUserByIdAsync(Guid id)
         {
             return _context.Users
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
-    }
 
+        public async Task<Guid?> CheckIfUserIdExistsAsync(Guid id)
+        {
+            var userId = await _context.Users
+                .Where(u => u.Id == id)
+                .Select(u => u.Id)
+                .FirstOrDefaultAsync();
+            return userId;                                              //Checks if the User's ID already exists in the db. If it does, it will return the ID, else it will be null.
+        }
+
+        public async Task<Guid?> GetUserIdByEmailAsync(string email)
+        {
+            var userId = await _context.Users
+                .Where(u => u.Email == email)
+                .Select(u => u.Id)
+                .FirstOrDefaultAsync();
+            return userId;                                              //Checks if the User's Email already exists in the db. If it does, it will return the User's ID, else it will be null.
+        }
+
+        public async Task<User?> GetUserByEmailAsync(string email)
+        {
+            var user = await _context.Users
+                .Where(u => u.Email == email)
+                .FirstOrDefaultAsync();
+            return user;                                              //Checks if the User's Email already exists in the db. If it does, it will return the User's ID, else it will be null.
+        }
+
+
+        //public Task<User?> GetProfileByIdAsync(Guid id)
+        //{
+        //    return _context.Users
+        //        .Include(x => x.SaleOrders)
+        //        .FirstOrDefaultAsync(x => x.Id == id);
+        //}
+    }
+}

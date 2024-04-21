@@ -25,7 +25,9 @@ namespace MiniMarket_Server_dev.Data.Repositories
 
         public async Task<CompanyCode?> DeactivateCompanyCodeAsync(Guid id)
         {
-            var getCodeToDeactivate = await _context.EmployeeCodes.FirstOrDefaultAsync(e => e.Id == id);
+            var getCodeToDeactivate = await _context.EmployeeCodes
+                .Include(e => e.Seller)
+                .FirstOrDefaultAsync(e => e.Id == id);
             if (getCodeToDeactivate == null) 
             {
                 return null;
@@ -47,7 +49,7 @@ namespace MiniMarket_Server_dev.Data.Repositories
             return getCodeToErase;
         }
 
-        public async Task<IEnumerable<CompanyCode>> GetAllCodesAsync (Guid id)
+        public async Task<IEnumerable<CompanyCode>> GetAllCodesAsync()
         {
             return await 
                 _context.EmployeeCodes

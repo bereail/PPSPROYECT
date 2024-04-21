@@ -13,6 +13,6 @@
         public Guid UserId { get; set; }
         public User User { get; set; } = null!;
 
-        public ICollection<OrderDetails> Details { get; set; } = new List<OrderDetails>();       //Principal collective property for OrdDtls
+        public ICollection<OrderDetails>? Details { get; set; }      //Principal collective property for OrdDtls
     }
 }

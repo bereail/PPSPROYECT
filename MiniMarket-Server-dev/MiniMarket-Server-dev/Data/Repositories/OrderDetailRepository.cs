@@ -35,16 +35,16 @@ namespace MiniMarket_Server_dev.Data.Repositories
             return getDetails;
         }
 
-        //public async Task<OrderDetails?> DeactivateDetailAsync(Guid id)           //Will be implemented when OrderDetails receives the IsActive attribute.
-        //{
-        //    var getDetailToDeactivate = await _context.Details.FirstOrDefaultAsync(x => x.Id == id);
-        //    if (getDetailToDeactivate == null)
-        //    {
-        //        return null;
-        //    }
-        //    getDetailToDeactivate.IsActive = false;
-        //    return getDetailToDeactivate;
-        //}
+        public async Task<OrderDetails?> DeactivateDetailAsync(Guid id)           //Will be implemented when OrderDetails receives the IsActive attribute.
+        {
+            var getDetailToDeactivate = await _context.Details.FirstOrDefaultAsync(x => x.Id == id);
+            if (getDetailToDeactivate == null)
+            {
+                return null;
+            }
+            getDetailToDeactivate.isActive = false;
+            return getDetailToDeactivate;
+        }
 
         public async Task<OrderDetails?> EraseDetailAsync(Guid id)
         {
@@ -58,7 +58,7 @@ namespace MiniMarket_Server_dev.Data.Repositories
             return getDetailToErase;
         }
 
-        public async Task<IEnumerable<OrderDetails>> GetDetailsByOrderId(Guid orderId)
+        public async Task<IEnumerable<OrderDetails>> GetDetailsByOrderId(Guid orderId)      //Could theoretically be swapped for a .Include(); in SaleOrderRepository
         {
             return await
                 _context.Details

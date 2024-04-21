@@ -13,10 +13,11 @@ namespace MiniMarket_Server_dev.Model.Entities
         [MinLength(8)]
         public string Password { get; set; }
         public int PhoneNumber { get; set; }
-        [Required]
         public string Address { get; set; }
         public string UserType { get; set; }
         public bool IsActive { get; set; } = true;
         public DateTime? DeactivationTime { get; set; }
+
+        public ICollection<SaleOrder>? SaleOrders { get; set; }
     }
 }

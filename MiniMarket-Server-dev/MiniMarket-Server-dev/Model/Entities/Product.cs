@@ -13,6 +13,6 @@
         public Guid CategoryId { get; set; }        //Required FK
         public ProductCategory Category { get; set; } = null!;      //Required navigation property to principal
 
-        public ICollection<OrderDetails> Details { get; set; } = new List<OrderDetails>();      //Principal collective property for OrDtls
+        public ICollection<OrderDetails> Details { get; set; }      //Principal collective property for OrDtls
     }
 }

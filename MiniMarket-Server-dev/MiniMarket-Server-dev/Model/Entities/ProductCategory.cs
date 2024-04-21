@@ -5,6 +5,6 @@
         public Guid Id { get; set; }
         public string CategoryName { get; set; }
         public bool IsActive { get; set; } = true;
-        public ICollection<Product> Products { get; set; } = new List<Product>();    //Collection navigation to contain dependents
+        public ICollection<Product> Products { get; set; }    //Collection navigation to contain dependents
     }
 }

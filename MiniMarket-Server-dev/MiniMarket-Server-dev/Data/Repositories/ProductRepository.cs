@@ -38,6 +38,14 @@ namespace MiniMarket_Server_dev.Data.Repositories
             return getProduct;
         }
 
+        public async Task<int> HandleProductStockAsync (Guid id, int newStock)
+        {
+            var getProduct = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
+            getProduct.Stock = newStock;
+            await _context.SaveChangesAsync();
+            return getProduct.Stock;
+        }
+
         public async Task<Product?> DeactivateProductAsync (Guid id)
         {
             var getProductToDeactivate = await _context.Products.FirstOrDefaultAsync (x =>x.Id == id);
@@ -64,11 +72,49 @@ namespace MiniMarket_Server_dev.Data.Repositories
             return getProductToErase;
         }
 
-        public async Task<IEnumerable<Product>> GetAllProductsAsync()
+        public async Task<IEnumerable<Product>> GetAllProductsAsync(bool? isActive, string? filterOn = null, string? filterQuery = null,
+            string? sortBy = null, bool isAscending = true, int pageNumber = 1, int pageSize = 50)
         {
-            return await
-                _context.Products
-                .ToListAsync();
+            //We define products as Queryable
+            var products = _context.Products.AsQueryable();
+
+            //Filtering by isActive using Query. In case of no bool value, it should return all states.
+            //Only Sellers or Admins should be able to set it to anything other than true.
+            if (isActive != null)
+            {
+                products = isActive.Value ? products.Where (x => x.IsActive) : products.Where (x => !x.IsActive);
+            }
+
+            //Filtering by the product name using Queryable
+            if(string.IsNullOrWhiteSpace(filterOn) == false && string.IsNullOrWhiteSpace(filterQuery) == false)
+            {
+                if (filterOn.Equals("Name", StringComparison.OrdinalIgnoreCase))
+                {
+                    //Returns all products which's name contain what we sent in the Filter Query
+                    products = products.Where(p => p.Name.Contains(filterQuery));
+                }
+            } 
+
+            //Sorting the products using Queryable
+            if (string.IsNullOrWhiteSpace(sortBy) == false)
+            {
+                if (sortBy.Equals("Name", StringComparison.OrdinalIgnoreCase))
+                {
+                    //Returns all products in a new order by name. If isAscending is true, they will be by ascending order, else, descending. 
+                    products = isAscending ? products.OrderBy(p => p.Name) : products.OrderByDescending(p => p.Name);
+                }
+                else if (sortBy.Equals("Price", StringComparison.OrdinalIgnoreCase))
+                {   
+                    //Returns all products in a new order by price. If isAscending is true, they will be from highest to lowest, else, opposite.
+                    products = isAscending ? products.OrderByDescending(p => p.Price) : products.OrderBy(p => p.Price);
+                }
+            }
+
+            //Pagination of products using Queryable
+
+            var skipResults = (pageNumber - 1) * pageSize;      //If this results in 0, it will skip it. 
+
+            return await products.Skip(skipResults).Take(pageSize).ToListAsync();
         }
 
         public Task<Product?> GetProductByIdAsync (Guid id) 
