@@ -26,5 +26,16 @@ namespace MiniMarket_Server_dev.Controllers
             }
             return Ok(createdOrder);
         }
+
+        [HttpPut("{orderId}/Update Order")]
+        public async Task<IActionResult> UpdateOrderAsync([FromRoute] Guid orderId, [FromBody] UpdateOrderDto updateOrder)
+        {
+            var updatedOrder = await _saleOrderService.UpdateSaleOrder(orderId, updateOrder);
+            if (updatedOrder == null)
+            {
+                return BadRequest("Couldn't update order");
+            }
+            return Ok(updatedOrder);
+        }
     }
 }

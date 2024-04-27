@@ -87,7 +87,7 @@ namespace MiniMarket_Server_dev.Application.Services.Implementations
             return mapper.Map<UserDto?>(getUser);
         }
 
-        public async Task<UserProfileDto?> GetUserProfileById(Guid id, bool? isActive, string? sortBy, bool? isAscending,
+        public async Task<UserProfileDto?> GetUserProfileById(Guid id, string? sortBy, bool? isAscending,
             int pageNumber, int pageSize)
         {
             var getUser = await _userRepository.GetUserByIdAsync(id);
@@ -98,7 +98,7 @@ namespace MiniMarket_Server_dev.Application.Services.Implementations
             }
             var userProfile = mapper.Map<UserProfileDto?>(getUser);
             
-            var userOrders = await _saleOrderService.GetAllOrdersByUser(id, isActive, sortBy, isAscending ?? true, pageNumber, pageSize);
+            var userOrders = await _saleOrderService.GetAllOrdersByUser(id, sortBy, isAscending ?? true, pageNumber, pageSize);
             if (userOrders == null)
             {
                 return userProfile;

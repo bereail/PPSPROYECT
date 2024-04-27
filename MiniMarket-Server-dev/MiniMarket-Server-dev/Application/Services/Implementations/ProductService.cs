@@ -51,6 +51,7 @@ namespace MiniMarket_Server_dev.Application.Services.Implementations
             {
                 return null;
             }
+
             return _mapper.Map<ProductDto?>(productToDeactivate);
         }
 

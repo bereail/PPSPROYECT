@@ -7,6 +7,7 @@
         public string Description { get; set; }
         public decimal Price { get; set; } = 0;
         public int Stock { get; set; } = 0;
+        public int Discount { get; set; } = 0;
         public bool IsActive { get; set; } = true;
         public DateTime? DeactivationTime { get; set; }
 

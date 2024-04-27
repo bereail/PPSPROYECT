@@ -13,7 +13,7 @@ namespace MiniMarket_Server_dev.Application.Services.Interfaces
         Task<IEnumerable<UserDto>?> GetAllUsers(bool? isActive, string? filterOn, string? filterQuery,
             string? sortBy, bool? isAscending, int pageNumber, int pageSize);
         Task<UserDto?> GetUserById(Guid id);
-        Task<UserProfileDto?> GetUserProfileById(Guid id, bool? isActive, string? sortBy, bool? isAscending,
+        Task<UserProfileDto?> GetUserProfileById(Guid id, string? sortBy, bool? isAscending,
             int pageNumber, int pageSize);
     }
 }

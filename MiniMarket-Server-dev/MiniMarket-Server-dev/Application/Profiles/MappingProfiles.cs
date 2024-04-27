@@ -34,7 +34,13 @@ namespace MiniMarket_Server_dev.Application.Profiles
             CreateMap<CreateOrderDto, SaleOrder>()
                 .ForSourceMember(c => c.NewDetails, opt => opt.DoNotValidate());                    //Prevents mapping the incomplete details from the DTO
 
-            CreateMap<CreateDetailDto, OrderDetails>().ReverseMap();
+            CreateMap<CreateDetailDto, OrderDetails>()
+                .ForSourceMember(c => c.DetailId, opt => opt.DoNotValidate());
+                
+            CreateMap<UpdateOrderDto, SaleOrder>()
+                .ForSourceMember(c => c.UpdateDetails, opt => opt.DoNotValidate());
+
+
 
 
         }

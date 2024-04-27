@@ -9,6 +9,7 @@ namespace MiniMarket_Server_dev.Application.DTOs
         public string Description { get; set; }
         public decimal Price { get; set; }
         public int Stock { get; set; }
+        public int Discount { get; set; }
 
     }
 }

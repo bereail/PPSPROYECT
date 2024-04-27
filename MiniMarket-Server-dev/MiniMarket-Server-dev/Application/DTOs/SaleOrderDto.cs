@@ -1,4 +1,5 @@
 ﻿using MiniMarket_Server_dev.Model.Entities;
+using MiniMarket_Server_dev.Model.Enums;
 
 namespace MiniMarket_Server_dev.Application.DTOs
 {
@@ -7,9 +8,8 @@ namespace MiniMarket_Server_dev.Application.DTOs
         public Guid Id { get; set; }
         public decimal FinalPrice { get; set; }
         public DateTime OrderTime { get; set; }
-        public string PaymentMethod { get; set; }
         public string DeliveryAddress { get; set; }
-        public DateTime? DeactivationTime { get; set; }
+        public OrderStatus Status { get; set; }
         public Guid UserId { get; set; }
     }
 }

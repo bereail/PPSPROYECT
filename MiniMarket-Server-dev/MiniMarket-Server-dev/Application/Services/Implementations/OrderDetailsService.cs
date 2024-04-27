@@ -34,9 +34,36 @@ namespace MiniMarket_Server_dev.Application.Services.Implementations
             return await _orderDetailRepository.CreateOrderDetailAsync(detailToCreate);                                                           
         }
 
-        public async Task<OrderDetails?> DeactivateDetail(Guid id)                          //Same case as the previous one. DTOs won't be needed here as it's exclusive for DeactivateOrder();
+        public async Task<OrderDetails?> UpdateOrderDetail(CreateDetailDto updateDetail)
         {
-            return await _orderDetailRepository.DeactivateDetailAsync(id);
+            var detailToUpdate = await _orderDetailRepository.GetDetailByIdAsync(updateDetail.DetailId.Value);
+
+            if (detailToUpdate == null)
+            {
+                return null;
+            }
+
+            decimal? newDetailPrice = await _priceStockService.UpdateDetailPrice(detailToUpdate.ProductId, detailToUpdate.ProductQuantity, updateDetail.ProductQuantity, detailToUpdate.DetailPrice);
+
+            if (newDetailPrice == null)
+            {
+                return null;
+            }
+
+            var updateValues = mapper.Map<OrderDetails>(updateDetail);
+            updateValues.DetailPrice = newDetailPrice.Value;
+
+            return await _orderDetailRepository.UpdateDetailAsync(detailToUpdate.Id, updateValues);
+        }
+
+        public async Task<Guid?> EraseOrderDetail(Guid id)
+        {
+           var stockToReturn = await _priceStockService.HandleDetailDeletion(id);
+            if (stockToReturn == null)
+            {
+                return null;
+            }
+            return await _orderDetailRepository.EraseDetailAsync(id);
         }
     }
 }

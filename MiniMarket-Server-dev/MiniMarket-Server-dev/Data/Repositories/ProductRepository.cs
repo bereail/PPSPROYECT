@@ -108,6 +108,11 @@ namespace MiniMarket_Server_dev.Data.Repositories
                     //Returns all products in a new order by price. If isAscending is true, they will be from highest to lowest, else, opposite.
                     products = isAscending ? products.OrderByDescending(p => p.Price) : products.OrderBy(p => p.Price);
                 }
+                else if (sortBy.Equals("Discount", StringComparison.OrdinalIgnoreCase))
+                {
+                    //Returns all products in a new order by Discount. If isAscending is true, they will be from highest to lowest, else, opposite.
+                    products = isAscending ? products.OrderByDescending(p => p.Discount) : products.OrderBy(p => p.Discount);
+                }
             }
 
             //Pagination of products using Queryable

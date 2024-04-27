@@ -6,8 +6,6 @@ namespace MiniMarket_Server_dev.Application.DTOs.Requests
     public class CreateOrderDto
     {
         [Required]
-        public string PaymentMethod { get; set; }
-        [Required]
         public string DeliveryAddress { get; set; }
         [Required]
         public Guid UserId { get; set; }

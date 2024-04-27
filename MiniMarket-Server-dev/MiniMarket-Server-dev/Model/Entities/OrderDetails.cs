@@ -12,7 +12,5 @@ namespace MiniMarket_Server_dev.Model.Entities
         public SaleOrder SaleOrder { get; set; }       //Required navigation property
         public decimal DetailPrice { get; set; } 
         public int ProductQuantity { get; set; }
-        public bool isActive {  get; set; } = true;
-
     }
 }

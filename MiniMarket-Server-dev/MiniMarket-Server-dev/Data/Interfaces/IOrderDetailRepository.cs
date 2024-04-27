@@ -6,9 +6,10 @@ namespace MiniMarket_Server_dev.Data.Interfaces
     {
         Task<OrderDetails> CreateOrderDetailAsync(OrderDetails orderDetails);
         Task<OrderDetails?> UpdateDetailAsync(Guid id, OrderDetails orderDetails);
-        Task<OrderDetails?> DeactivateDetailAsync(Guid id);
-        Task<OrderDetails?> EraseDetailAsync(Guid id);
+        //Task<OrderDetails?> DeactivateDetailAsync(Guid id);
+        Task<Guid?> EraseDetailAsync(Guid id);
         Task<IEnumerable<OrderDetails>> GetDetailsByOrderId(Guid orderId);
         Task<OrderDetails?> GetDetailByIdAsync(Guid id);
+        Task<OrderDetails?> GetDetailByOrderProductId(Guid orderId, Guid productId);
     }
 }
