@@ -74,25 +74,20 @@ namespace MiniMarket_API.Data.Repositories
         }
 
         public async Task<IEnumerable<SaleOrder>> GetAllOrders(string? sortBy = null, bool isAscending = true,
-            int pageNumber = 1, int pageSize = 30)
+            int pageNumber = 1, int pageSize = 10)
         {
             var orders = _context.Orders.AsQueryable();
-
-            //if (isActive != null)
-            //{
-            //    orders = isActive.Value ? orders.Where(o => o.IsActive) : orders.Where(o => !o.IsActive);
-            //}
 
             if (string.IsNullOrWhiteSpace(sortBy) == false)
             {
                 if (sortBy.Equals("Date", StringComparison.OrdinalIgnoreCase))
                 {
-                    orders = isAscending ? orders.OrderBy(o => o.OrderTime) : orders.OrderByDescending(o => o.OrderTime);
+                    orders = isAscending ? orders.OrderByDescending(o => o.OrderTime) : orders.OrderBy(o => o.OrderTime);
                 }
 
                 if (sortBy.Equals("FinishDate", StringComparison.OrdinalIgnoreCase))
                 {
-                    orders = isAscending ? orders.OrderBy(o => o.FinishTime) : orders.OrderByDescending(o => o.FinishTime);
+                    orders = isAscending ? orders.OrderByDescending(o => o.FinishTime) : orders.OrderBy(o => o.FinishTime);
                 }
 
                 if (sortBy.Equals("Status", StringComparison.OrdinalIgnoreCase))
@@ -107,7 +102,7 @@ namespace MiniMarket_API.Data.Repositories
         }
 
         public async Task<IEnumerable<SaleOrder>> GetAllOrdersByUserAsync(Guid userId, string? sortBy = null, bool isAscending = true,
-            int pageNumber = 1, int pageSize = 30)
+            int pageNumber = 1, int pageSize = 7)
         {
             var orders = _context.Orders.Where(o => o.UserId == userId).AsQueryable();
 
@@ -115,12 +110,12 @@ namespace MiniMarket_API.Data.Repositories
             {
                 if (sortBy.Equals("Date", StringComparison.OrdinalIgnoreCase))
                 {
-                    orders = isAscending ? orders.OrderBy(o => o.OrderTime) : orders.OrderByDescending(o => o.OrderTime);
+                    orders = isAscending ? orders.OrderByDescending(o => o.OrderTime) : orders.OrderBy(o => o.OrderTime);
                 }
 
                 if (sortBy.Equals("FinishDate", StringComparison.OrdinalIgnoreCase))
                 {
-                    orders = isAscending ? orders.OrderBy(o => o.FinishTime) : orders.OrderByDescending(o => o.FinishTime);
+                    orders = isAscending ? orders.OrderByDescending(o => o.FinishTime) : orders.OrderBy(o => o.FinishTime);
                 }
 
                 if (sortBy.Equals("Status", StringComparison.OrdinalIgnoreCase))
@@ -136,11 +131,9 @@ namespace MiniMarket_API.Data.Repositories
 
         public async Task<IEnumerable<SaleOrder>> GetAllOrdersFromTimeframeAsync(DateTime filterTime,
             string? sortBy = null, bool isAscending = true,
-            int pageNumber = 1, int pageSize = 30)
+            int pageNumber = 1, int pageSize = 10)
         {
             var orders = _context.Orders.AsQueryable();
-
-            //DateTime filterTime = DateTime.Now.AddDays(-filterDays);
 
             orders = orders.Where(o => o.OrderTime >= filterTime);
 
@@ -148,7 +141,17 @@ namespace MiniMarket_API.Data.Repositories
             {
                 if (sortBy.Equals("Date", StringComparison.OrdinalIgnoreCase))
                 {
-                    orders = isAscending ? orders.OrderBy(o => o.OrderTime) : orders.OrderByDescending(o => o.OrderTime);
+                    orders = isAscending ? orders.OrderByDescending(o => o.OrderTime) : orders.OrderBy(o => o.OrderTime);
+                }
+
+                if (sortBy.Equals("FinishDate", StringComparison.OrdinalIgnoreCase))
+                {
+                    orders = isAscending ? orders.OrderByDescending(o => o.FinishTime) : orders.OrderBy(o => o.FinishTime);
+                }
+
+                if (sortBy.Equals("Status", StringComparison.OrdinalIgnoreCase))
+                {
+                    orders = isAscending ? orders.OrderBy(o => o.Status) : orders.OrderByDescending(o => o.Status);
                 }
             }
 
@@ -162,6 +165,14 @@ namespace MiniMarket_API.Data.Repositories
             return _context.Orders
                 .Include(o => o.Details)
                 .FirstOrDefaultAsync(o => o.Id == id);
+        }
+
+        public async Task<Guid> CheckOrderUserIdAsync(Guid orderId) 
+        { 
+            var getOrder = await _context.Orders
+                .FirstOrDefaultAsync(o => o.Id == orderId);
+            if (getOrder == null) { return Guid.Empty; }
+            return getOrder.UserId;
         }
     }
 }

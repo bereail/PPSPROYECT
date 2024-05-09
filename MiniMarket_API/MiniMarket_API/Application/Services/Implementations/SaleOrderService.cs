@@ -4,6 +4,7 @@ using MiniMarket_API.Application.DTOs.Requests;
 using MiniMarket_API.Application.Services.Interfaces;
 using MiniMarket_API.Data.Interfaces;
 using MiniMarket_API.Model.Entities;
+using MiniMarket_API.Model.Enums;
 
 namespace MiniMarket_API.Application.Services.Implementations
 {
@@ -20,9 +21,11 @@ namespace MiniMarket_API.Application.Services.Implementations
             _orderDetailsService = orderDetailsService;
         }
 
-        public async Task<SaleOrderDetailsDto?> CreateSaleOrder(CreateOrderDto createOrderDto)
+        public async Task<SaleOrderDetailsDto?> CreateSaleOrder(CreateOrderDto createOrderDto, Guid userId)
         {
             var orderToCreate = mapper.Map<SaleOrder>(createOrderDto);
+
+            orderToCreate.UserId = userId;
 
             orderToCreate = await _saleOrderRepository.CreateOrderAsync(orderToCreate);
 
@@ -30,6 +33,9 @@ namespace MiniMarket_API.Application.Services.Implementations
 
             //Upon Order creation, the request will include at least 1 Detail. These Details will then be processed here.
             var detailsToCreate = createOrderDto.NewDetails;
+
+            detailsToCreate = GroupDetailsByProductId(detailsToCreate);
+
             foreach (var detail in detailsToCreate)
             {
                 var createdDetails = await _orderDetailsService.CreateOrderDetail(detail, orderToCreate.Id);
@@ -143,6 +149,9 @@ namespace MiniMarket_API.Application.Services.Implementations
         public async Task<IEnumerable<SaleOrderDto>?> GetAllOrders(string? sortBy, bool? isAscending,
             int pageNumber, int pageSize)
         {
+            if (pageNumber < 1) { pageNumber = 1; }
+            if (pageSize < 1) { pageSize = 1; }
+
             var getOrders = await _saleOrderRepository.GetAllOrders(sortBy, isAscending ?? true, pageNumber, pageSize);
             if (!getOrders.Any())
             {
@@ -154,6 +163,9 @@ namespace MiniMarket_API.Application.Services.Implementations
         public async Task<IEnumerable<SaleOrderDto>?> GetAllOrdersByUser(Guid id, string? sortBy, bool? isAscending,
             int pageNumber, int pageSize)
         {
+            if (pageNumber < 1) { pageNumber = 1; }
+            if (pageSize < 1) { pageSize = 1; }
+
             var getOrders = await _saleOrderRepository.GetAllOrdersByUserAsync(id, sortBy, isAscending ?? true, pageNumber, pageSize);
             if (!getOrders.Any())
             {
@@ -166,6 +178,9 @@ namespace MiniMarket_API.Application.Services.Implementations
             string? sortBy, bool? isAscending,
             int pageNumber, int pageSize)
         {
+            if (pageNumber < 1) { pageNumber = 1; }
+            if (pageSize < 1) { pageSize = 1; }
+
             if (filterDays == null || filterDays < 1 || filterDays > 31)
             {
                 var defaultTimeFrame = DateTime.UtcNow.AddDays(-1);
@@ -189,11 +204,7 @@ namespace MiniMarket_API.Application.Services.Implementations
             }
 
             return mapper.Map<IEnumerable<SaleOrderDto>?>(getOrders);
-
-
         }
-
-
 
         public async Task<SaleOrderDetailsDto?> GetOrderById(Guid id)
         {
@@ -203,6 +214,21 @@ namespace MiniMarket_API.Application.Services.Implementations
                 return null;
             }
             return mapper.Map<SaleOrderDetailsDto>(getOrder);
+        }
+
+        public async Task<Guid> CheckOrderUserId(Guid orderId)
+        {
+            return await _saleOrderRepository.CheckOrderUserIdAsync(orderId);
+        }
+
+        private ICollection<CreateDetailDto> GroupDetailsByProductId(ICollection<CreateDetailDto> details)
+        {
+            var groupedDetails = details
+                .GroupBy(d => d.ProductId)
+                .Select(group => new CreateDetailDto { ProductId = group.Key, ProductQuantity = group.Sum(d => d.ProductQuantity) })
+                .ToList();
+
+            return groupedDetails;
         }
     }
 }

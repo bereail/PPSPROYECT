@@ -9,6 +9,5 @@ namespace MiniMarket_API.Application.DTOs
         public DateTime OrderTime { get; set; }
         public string DeliveryAddress { get; set; }
         public OrderStatus Status { get; set; }
-        public Guid UserId { get; set; }
     }
 }

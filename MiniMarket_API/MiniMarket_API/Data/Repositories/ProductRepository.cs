@@ -48,7 +48,7 @@ namespace MiniMarket_API.Data.Repositories
 
         public async Task<Product?> DeactivateProductAsync(Guid id)
         {
-            var getProductToDeactivate = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
+            var getProductToDeactivate = await _context.Products.FirstOrDefaultAsync(x => x.Id == id && x.IsActive);
             if (getProductToDeactivate == null)
             {
                 return null;
@@ -73,7 +73,7 @@ namespace MiniMarket_API.Data.Repositories
         }
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync(bool? isActive, string? filterOn = null, string? filterQuery = null,
-            string? sortBy = null, bool isAscending = true, int pageNumber = 1, int pageSize = 50)
+            string? sortBy = null, bool isAscending = true, int pageNumber = 1, int pageSize = 15)
         {
             //We define products as Queryable
             var products = _context.Products.AsQueryable();
@@ -122,7 +122,53 @@ namespace MiniMarket_API.Data.Repositories
             return await products.Skip(skipResults).Take(pageSize).ToListAsync();
         }
 
+        public async Task<IEnumerable<Product>> GetAllCategoryProductsAsync(Guid categoryId, bool? isActive, string? filterOn = null, string? filterQuery = null,
+            string? sortBy = null, bool isAscending = true, int pageNumber = 1, int pageSize = 15)
+        {
+            var products = _context.Products.Where(p => p.CategoryId == categoryId).AsQueryable();
+
+            if (isActive != null)
+            {
+                products = isActive.Value ? products.Where(x => x.IsActive) : products.Where(x => !x.IsActive);
+            }
+
+            if (string.IsNullOrWhiteSpace(filterOn) == false && string.IsNullOrWhiteSpace(filterQuery) == false)
+            {
+                if (filterOn.Equals("Name", StringComparison.OrdinalIgnoreCase))
+                {
+                    products = products.Where(p => p.Name.Contains(filterQuery));
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(sortBy) == false)
+            {
+                if (sortBy.Equals("Name", StringComparison.OrdinalIgnoreCase))
+                {
+                    products = isAscending ? products.OrderBy(p => p.Name) : products.OrderByDescending(p => p.Name);
+                }
+                else if (sortBy.Equals("Price", StringComparison.OrdinalIgnoreCase))
+                {
+                    products = isAscending ? products.OrderByDescending(p => p.Price) : products.OrderBy(p => p.Price);
+                }
+                else if (sortBy.Equals("Discount", StringComparison.OrdinalIgnoreCase))
+                {
+                    products = isAscending ? products.OrderByDescending(p => p.Discount) : products.OrderBy(p => p.Discount);
+                }
+            }
+
+            var skipResults = (pageNumber - 1) * pageSize;      
+
+            return await products.Skip(skipResults).Take(pageSize).ToListAsync();
+        }
+
         public Task<Product?> GetProductByIdAsync(Guid id)
+        {
+            return _context.Products
+                .FirstOrDefaultAsync(x => x.Id == id && x.IsActive && x.Stock >= 1);
+        }
+
+        //FOR SELLER/ADMIN & RESTRICED METHOD USE ONLY
+        public Task<Product?> UnrestrictedGetByIdAsync(Guid id)
         {
             return _context.Products
                 .FirstOrDefaultAsync(x => x.Id == id);

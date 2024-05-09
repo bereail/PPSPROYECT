@@ -68,6 +68,9 @@ namespace MiniMarket_API.Application.Services.Implementations
         public async Task<IEnumerable<ProductDto>?> GetAllProducts(bool? isActive, string? filterOn, string? filterQuery,
             string? sortBy, bool? isAscending, int pageNumber, int pageSize)
         {
+            if (pageNumber < 1) { pageNumber = 1; }
+            if (pageSize < 1) { pageSize = 1; }
+
             var products = await _productRepository.GetAllProductsAsync(isActive, filterOn, filterQuery, sortBy, isAscending ?? true,
                 pageNumber, pageSize);    //If the bool is null, it's changed to true.
             if (!products.Any())

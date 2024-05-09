@@ -11,14 +11,26 @@ namespace MiniMarket_API.Application.Profiles
         {
             CreateMap<ProductDto, Product>().ReverseMap();                          //Should be replaced with viewmodels down the line.
             CreateMap<CategoryDto, ProductCategory>().ReverseMap();
+            CreateMap<CategoryCollectionDto, ProductCategory>().ReverseMap();
             CreateMap<OrderDetailsDto, OrderDetails>().ReverseMap();
             CreateMap<SaleOrderDto, SaleOrder>().ReverseMap();
             CreateMap<SaleOrderDetailsDto, SaleOrder>().ReverseMap();
             CreateMap<CompanyCodeDto, CompanyCode>().ReverseMap();
+
+            //CreateMap<UserDto, Customer>().ReverseMap();
+            //CreateMap<UserDto, Seller>().ReverseMap();
+            //CreateMap<UserDto, SuperAdmin>().ReverseMap();
+
             CreateMap<UserDto, User>().ReverseMap();
-            CreateMap<UserDto, Seller>().ReverseMap();
-            CreateMap<UserDto, SuperAdmin>().ReverseMap();
-            CreateMap<SellerDto, User>().ReverseMap();                              //
+
+            //CreateMap<UserProfileDto, Customer>().ReverseMap();
+            //CreateMap<UserProfileDto, Seller>().ReverseMap();
+            //CreateMap<UserProfileDto, SuperAdmin>().ReverseMap();
+
+            CreateMap<UserProfileDto, User>().ReverseMap();
+
+            //CreateMap<SellerDto, Seller>().ReverseMap();
+            CreateMap<SellerDto, User>().ReverseMap();                            //
 
 
             CreateMap<AddCategoryDto, ProductCategory>().ReverseMap();

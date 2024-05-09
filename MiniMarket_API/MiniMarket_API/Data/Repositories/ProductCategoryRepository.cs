@@ -81,10 +81,9 @@ namespace MiniMarket_API.Data.Repositories
             return await categories.ToListAsync();
         }
 
-        public Task<ProductCategory?> GetCategoryByIdAsync(Guid id)        //We can tell this to include all it's products here.
+        public Task<ProductCategory?> GetCategoryByIdAsync(Guid id)
         {
             return _context.Categories
-                .Include(c => c.Products)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
     }

@@ -10,11 +10,13 @@ namespace MiniMarket_API.Application.Services.Implementations
     public class ProductCategoryService : IProductCategoryService
     {
         private readonly IProductCategoryRepository _categoryRepository;
+        private readonly IProductRepository productRepository;
         private readonly IMapper mapper;
 
-        public ProductCategoryService(IProductCategoryRepository categoryRepository, IMapper mapper)
+        public ProductCategoryService(IProductCategoryRepository categoryRepository, IProductRepository productRepository, IMapper mapper)
         {
             _categoryRepository = categoryRepository;
+            this.productRepository = productRepository;
             this.mapper = mapper;
         }
 
@@ -67,13 +69,20 @@ namespace MiniMarket_API.Application.Services.Implementations
             return mapper.Map<IEnumerable<CategoryDto>>(categories);
         }
 
-        public async Task<CategoryCollectionDto?> GetCategoryCollection(Guid id)
+        public async Task<CategoryCollectionDto?> GetCategoryCollection(Guid categoryId, bool? isActive, string? filterOn, string? filterQuery,
+            string? sortBy, bool? isAscending, int pageNumber, int pageSize)
         {
-            var getCategory = await _categoryRepository.GetCategoryByIdAsync(id);
+            if (pageNumber < 1) { pageNumber = 1; }
+            if (pageSize < 1) { pageSize = 1; }
+
+            var getCategory = await _categoryRepository.GetCategoryByIdAsync(categoryId);
             if (getCategory == null)
             {
                 return null;
             }
+            var getProducts = await productRepository.GetAllCategoryProductsAsync(categoryId, isActive, filterOn, filterQuery, sortBy, isAscending ?? true,
+                pageNumber, pageSize);
+
             return mapper.Map<CategoryCollectionDto?>(getCategory);
         }
     }

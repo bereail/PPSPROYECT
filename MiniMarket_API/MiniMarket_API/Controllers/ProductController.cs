@@ -5,7 +5,7 @@ using MiniMarket_API.Application.Services.Interfaces;
 
 namespace MiniMarket_API.Controllers
 {
-    [Route("api/categories/{categoryId}/products")]
+    [Route("api/products")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -16,25 +16,12 @@ namespace MiniMarket_API.Controllers
             this.productService = productService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateProductAsync([FromRoute] Guid categoryId, [FromBody] AddProductDto addProduct)
-        {
-            addProduct.CategoryId = categoryId;
-            var createdProduct = await productService.CreateProduct(addProduct);
-            if (createdProduct == null)
-            {
-                return BadRequest("Category doesn't exist");
-            }
-            return Ok(createdProduct);
-        }
-
         [HttpGet]
+        //FOR SELLER/ADMIN ONLY
         public async Task<IActionResult> GetAllProductsAsync([FromQuery] bool? isActive, [FromQuery] string? filterOn, [FromQuery] string? filterQuery,
             [FromQuery] string? sortBy, [FromQuery] bool? isAscending,
-            [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 50)
+            [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 15)
         {
-            //Here, from the claims of the token, we could make it so that, in case of the user being a Customer, isActive is set to true
-            //isActive = true;
             var getProducts = await productService.GetAllProducts(isActive, filterOn, filterQuery, sortBy, isAscending, pageNumber, pageSize);
             if (getProducts == null)
             {

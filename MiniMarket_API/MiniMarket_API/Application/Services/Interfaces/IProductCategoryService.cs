@@ -10,6 +10,7 @@ namespace MiniMarket_API.Application.Services.Interfaces
         Task<CategoryDto?> DeactivateProductCategory(Guid id);
         Task<CategoryDto?> EraseProductCategory(Guid id);
         Task<IEnumerable<CategoryDto>?> GetAllCategories(bool? isActive, string? sortBy, bool? isAscending);
-        Task<CategoryCollectionDto?> GetCategoryCollection(Guid id);
+        Task<CategoryCollectionDto?> GetCategoryCollection(Guid categoryId, bool? isActive, string? filterOn, string? filterQuery,
+            string? sortBy, bool? isAscending, int pageNumber, int pageSize);
     }
 }

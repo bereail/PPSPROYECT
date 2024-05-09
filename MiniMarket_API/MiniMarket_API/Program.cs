@@ -60,7 +60,6 @@ builder.Services.AddScoped<IUserService, UserService>();
 #endregion
 
 
-
 #region Repositories
 builder.Services.AddScoped<ICompanyCodeRepository, CompanyCodeRepository>();
 builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
@@ -68,6 +67,27 @@ builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ISaleOrderRepository, SaleOrderRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+#endregion
+
+#region CORS
+builder.Services.AddCors(options =>
+{
+    //AllowAll should only be used for testing, nothing else.
+
+    options.AddPolicy("UnsafeAllowAll", builder =>
+                     builder.AllowAnyOrigin()
+                     .AllowAnyMethod()
+                     .AllowAnyHeader());
+
+    options.AddPolicy("AllowSpecificOrigins",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost",
+                                "http://localhost:3000")
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+        });
+});
 #endregion
 
 
@@ -103,6 +123,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseCors("AllowSpecificOrigins");
 
 app.MapControllers();
 
