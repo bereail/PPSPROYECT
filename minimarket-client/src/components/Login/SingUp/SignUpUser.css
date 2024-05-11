@@ -5,6 +5,18 @@
    box-sizing: border-box;
  }
  
+ .password-input-containers {
+  display: flex;
+  align-items: center;
+}
+.icon-register{ 
+  position: absolute;
+  top: 50px;
+  right: 28px; 
+  transform: translateY(-50%);
+ 
+}
+
 
  
  .Register {

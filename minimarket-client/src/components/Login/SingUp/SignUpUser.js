@@ -1,134 +1,183 @@
-import React, { useState, useEffect } from "react";
-
-
+import React, { useState } from "react";
 import axios from 'axios';
 import CustomNavbar from "../../Navbar/CustomNavbar";
 import Footer from "../../Footer/footer";
-import './SignUpUser.css'
+import './SignUpUser.css';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
-
+import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
 
 const SignupUser = () => {
-
-  const [Style, SetStyle] = useState(faEyeSlash);
-  const [TypeInput, SetTypeInput] = useState("Password");
+  const [showPassword, setShowPassword] = useState(false);
+  const [ExistingUser, SetExistingUser] = useState(false)
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    phoneNumber: '',
+    address: '',
+    hexadecimalCode: '' 
   });
-  const [Error, SetError] = useState(1);
+  const [errors, setErrors] = useState({
+    name: false,
+    address: false,
+    phoneNumber: false,
+    email: false,
+    password: false,
+    confirmPassword: false, 
+    hexadecimalCode: false
+  });
+  const [Seller, SetSeller] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
       ...prevState,
       [name]: value
     }));
-    
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      [name]: value.trim() === ''
+    }));
   }
 
-  useEffect(() => {
-    SetError(0);
-  }, []);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const { firstName, lastName, email, password, confirmPassword } = formData;
-  
-    //LA VALIDACION VA ANTES QUE CARGUE A LA ABSE DE DATOS NOC DONDE SE HACE
-    switch (true) {
-      case password === '':
-        SetError(1);
-        return;
-      case firstName === '':
-        SetError(1);
-        return;
-      case firstName !== confirmPassword:
-        SetError(1);
-        return;
-      case lastName === '':
-        SetError(1);
-        return;
-      case email === '':
-        SetError(1);
-        return;
-      default:
 
-        break;
+  const handleSubmit = async (e) => {
+   
+    e.preventDefault();
+ 
+    const { name, address, phoneNumber, email, password, confirmPassword, hexadecimalCode  } = formData;
+   
+    if (phoneNumber.trim().length > 10) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        phoneNumber: true
+      }));
+      return;
     }
-    const data = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      password: password
-    };
-    const url = ""; 
-    axios.post(url, data)
-      .then((result) => {
-        alert('Registration successful');
-      })
-      .catch((error) => {
-        alert('Error registering user.');
+
+    if (name.trim() === '' || address.trim() === '' || phoneNumber.trim() === '' || email.trim() === '' || password.trim() === '' || confirmPassword.trim() === '') {
+      setErrors({
+        name: name.trim() === '',
+        address: address.trim() === '',
+        phoneNumber: phoneNumber.trim() === '',
+        email: email.trim() === '',
+        password: password.length < 8,
+        confirmPassword:password !== confirmPassword,
       });
+      return;
+    }
+    if (Seller && hexadecimalCode.trim() === '') {
+      console.log("HexadecimalCode validation error");
+      setErrors(prevErrors => ({
+          ...prevErrors,
+          hexadecimalCode: true
+      }));
+      return;
+  }
+  
+    const data = {
+      name: name,
+      email: email,
+      password: password,
+      phoneNumber: phoneNumber,
+      address: address
+    };
+   
+    if (Seller) {
+       data.hexadecimalCode = formData.hexadecimalCode;
+       console.log(data);
+       try {
+        const response = await axios.post('https://localhost:7191/api/sellers', data);
+        alert('Seller created successfully');
+        SetExistingUser(false);
+        console.log('Usuario:', response.data);
+      } catch (error) {
+        SetExistingUser(true)
+        console.error('Error:', error.message);
+      }
+      
+    }
+    if (!Seller) {
+      try {
+        const response = await axios.post('https://localhost:7191/api/customers', data);
+        alert('User created successfully');
+        SetExistingUser(false);
+        console.log('Usuario:', response.data);
+      } catch (error) {
+        SetExistingUser(true)
+        console.error('Error:', error.message);
+      }
+    }
   }
 
   return (
+
     <div className="signup">
-      <CustomNavbar></CustomNavbar>
-    
+      <CustomNavbar />
       <div className="Register">
-      <div className="Welcome">
-      <h3 >¡Welcome to (MARCA)'s online registration</h3>
-      <p>Sign up now to access our wide selection of fresh, quality products. It's time to simplify your online shopping with (MARCA)!</p>
-      <p>If you already have an account:</p>
-      <Link to="/signin" type="button" >Sing In</Link>      
-      </div>
+        <div className="Welcome">
+          <h3>¡Welcome to Family Market's online registration</h3>
+          <p>Sign up now to access our wide selection of fresh, quality products. It's time to simplify your online shopping with (MARCA)!</p>
+          <p>If you already have an account:</p>
+          <Link to="/signin" type="button">Sign In</Link>
+        </div>
 
-      
-      <div className="form-register">
-      <h2 className="account">Create an account</h2>
-
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="firstName" className="form-label">First Name</label>
-          <input type="text" className="form-control" id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} />
-          {Error === 1 && formData.firstName == '' &&<p className='Error'>Set a firstName</p>}
+        <div className="form-register">
+          <h2 className="account">Create an account</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label htmlFor="name" className="form-label">Name</label>
+              <input type="text" className={`form-control ${errors.name ? 'is-invalid' : ''}`} id="name" name="name" value={formData.name} onChange={handleChange} />
+              {errors.name && <p className='Error'>Set a first name</p>}
+            </div>
+            <div className="mb-3">
+              <label htmlFor="address" className="form-label">Address</label>
+              <input type="text" className={`form-control ${errors.address ? 'is-invalid' : ''}`} id="address" name="address" value={formData.address} onChange={handleChange} />
+              {errors.address && <p className='Error'>Set an address</p>}
+            </div>
+            <div className="mb-3">
+              <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
+              <input type="text" className={`form-control ${errors.phoneNumber ? 'is-invalid' : ''}`} id="phoneNumber" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
+              {errors.phoneNumber && <p className='Error'>Phone number must be less than or equal to 10 digits</p>}
+            </div>
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">Email</label>
+              <input type="email" className={`form-control ${errors.email ? 'is-invalid' : ''}`} id="email" name="email" value={formData.email} onChange={handleChange} />
+              {errors.email && <p className='Error'>Set an email</p>}
+            </div>
+            <div className="mb-3" style={{ position: 'relative' }}>
+              <label htmlFor="password" className="form-label">Password</label>
+              <input type={showPassword ? "text" : "password"} className={`form-control ${errors.password ? 'is-invalid' : ''}`} id="password" name="password" value={formData.password} onChange={handleChange} />
+              <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} className="icon-register" onClick={() => setShowPassword(!showPassword)} />
+              {errors.password && <p className='Error'>Minimum of 8 characters</p>}
+            </div>
+            <div className="mb-3">
+              <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+              <input type={showPassword ? "text" : "password"} className={`form-control ${errors.confirmPassword ? 'is-invalid' : ''}`} id="confirmPassword" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
+              {errors.confirmPassword && <p className='Error'>Passwords do not match</p>}
+            </div>
+            {Seller && (
+              <div>
+                <label htmlFor="hexadecimalCode" className="form-label">Seller code</label>
+                <input type="text" id="hexadecimalCode" name="hexadecimalCode"  className={`form-control ${errors.hexadecimalCode ? 'is-invalid' : ''}`} value={formData.hexadecimalCode} onChange={handleChange} />
+                {errors.hexadecimalCode && <p className='Error'>Set a seller code</p>}
+              </div>
+            )}
+            <div className="mb-3 d-flex align-items-center">
+              <button type="submit" className="btn btn-primary">Sign Up</button>
+              <p style={{ marginLeft: '120px', color: '#6893e2' }} onClick={() => (SetSeller(!Seller))}>
+                {Seller ? 'I want to be a client' : 'I want to be a salesman'}
+              </p>            
+            </div>
+          </form>
+          {ExistingUser && <p className="Error">This user already exists</p>}
         </div>
-        <div className="mb-3">
-          <label htmlFor="lastName" className="form-label">Last Name</label>
-          <input type="text" className="form-control" id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} />
-          {Error ===1 && formData.lastName == '' &&<p className='Error'>Set a LastName</p>}
-        </div>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">Email</label>
-          <input type="email" className="form-control" id="email" name="email" value={formData.email} onChange={handleChange} />
-          {Error === 1 && formData.email =='' &&<p className='Error'>Set a Email</p>}
-       </div>
-        <div className="mb-3"style={{ position: 'relative' }}>
-          <label htmlFor="password" className="form-label">Password</label>
-          <input type={TypeInput} className="form-control" id="password" name="password" value={formData.password} onChange={handleChange} />
-          <FontAwesomeIcon icon={Style} className="icon" onClick={() => (SetTypeInput(
-            Style === faEyeSlash ? "Text" : "Password"),
-          SetStyle(Style === faEyeSlash ? faEye : faEyeSlash))}></FontAwesomeIcon>
-
-          {Error === 1 && formData.password =='' &&<p className='Error'>Set a password</p>}
-          {Error === 1 && formData.password !== formData.confirmPassword && formData.password !== '' &&<p className='Error'>Passwords do not match</p>}
-        </div>
-        <div className="mb-3">
-          <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
-          <input type={TypeInput} className="form-control" id="confirmPassword" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
-        
-        </div>
-        <button type="submit" className="btn btn-primary">Sign Up</button>
-      </form>
       </div>
-      </div>
-      <Footer/>
+      <Footer />
     </div>
+
   );
 }
 

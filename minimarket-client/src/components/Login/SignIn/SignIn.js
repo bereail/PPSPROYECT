@@ -3,7 +3,6 @@ import axios from 'axios';
 import CustomNavbar from "../../Navbar/CustomNavbar";
 import Footer from "../../Footer/footer";
 import "./SignIn.css"
-import usuariosJSON from "../SignIn/login.Test.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
@@ -12,7 +11,9 @@ const Signin = () => {
   const [TypeInput, SetTypeInput] = useState("Password");
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
-  const [Error, SetError] = useState('')
+  const [Error, SetError] = useState('');
+ const [ErrorLogin, SetErrorLogin] = useState(0);
+  const [Token, SetToken] = useState();
 
   useEffect(() => {
     SetError(0);
@@ -27,7 +28,7 @@ const Signin = () => {
     setPass(e.target.value);
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     if(email == ''){
       SetError(1);
@@ -40,30 +41,24 @@ const Signin = () => {
     
     const data = {
       Email: email,
-      Pass: pass,
+      Password: pass,
     };
-
-    const usuario = usuariosJSON.usuarios.find(u => u.correo === email && u.contraseña === pass);
     
-    if (usuario) {
-      alert('Login successful');
-    } else {
-      alert('Login Error');
+    try {
+      const response = await axios.post('https://localhost:7191/api/auth/login', data);
+
+      if (response.status === 200) {
+        //Guardamos el token
+        SetErrorLogin(0);
+        SetToken(response.data)
+        console.log('Token:', response.data);
+      }
+    } catch (error) {
+      SetErrorLogin(1);
+      console.error('Error:', error.message);
     }
-  
 
-    //LA VALIDACION VA ANTES QUE SE MANDE A LA BASE DE DATOS VER DONDE
-   
 
-    //Usar cuando tengamos back
-    // const url = ""; // Add your API endpoint URL for login
-    // axios.post(url, data)
-    //   .then((result) => {
-    //     alert('Login successful');
-    //   })
-    //   .catch((error) => {
-    //     alert('Error logging in.');
-    //   });
   }
 
   return (
@@ -89,10 +84,7 @@ const Signin = () => {
           </div>
           {Error === 1 && pass === '' && <p className='Error'>Set a password</p>}
         </div>
-        <div className="mb-3 form-check">
-          <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-          <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
-        </div>
+           {ErrorLogin === 1 && <p className='Error'>Incorrect user or password</p>}
         <button type="submit" className="btn btn-primary">Submit</button>
       </form>
       </div>
