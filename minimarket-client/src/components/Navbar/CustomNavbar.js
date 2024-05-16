@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Navbar as BootstrapNavbar, Container, Nav } from "react-bootstrap";
-import Search from "../../SearhBar/Search";
+import Search from "../SearhBar/Search";
 import Logo from "./Logo";
 import Login from "../Login/login";
 import { Link, useLocation } from "react-router-dom";
