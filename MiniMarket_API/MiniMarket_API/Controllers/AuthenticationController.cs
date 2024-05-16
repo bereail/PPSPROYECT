@@ -22,11 +22,7 @@ namespace MiniMarket_API.Controllers
         public async Task<IActionResult> Authenticate(LoginRequestDTO loginRequest)
         {
             string? token = await authenticationService.Authenticate(loginRequest);
-            //This should be removed when we implement proper exception handling.
-            if (token == null)
-            {
-                return BadRequest("Failed to authenticate");
-            }
+            
             return Ok(token);
         }
     }

@@ -49,15 +49,33 @@ namespace MiniMarket_API.Data.Repositories
         public async Task<Product?> DeactivateProductAsync(Guid id)
         {
             var getProductToDeactivate = await _context.Products.FirstOrDefaultAsync(x => x.Id == id && x.IsActive);
+
             if (getProductToDeactivate == null)
             {
                 return null;
             }
 
             getProductToDeactivate.IsActive = false;
-            getProductToDeactivate.DeactivationTime = DateTime.Now;
+            getProductToDeactivate.DeactivationTime = DateTime.UtcNow;
             await _context.SaveChangesAsync();
             return getProductToDeactivate;
+        }
+
+        public async Task<Product?> RestoreProductAsync(Guid id)
+        {
+            var getProductToRestore = await _context.Products
+                .Include(x => x.Category)
+                .FirstOrDefaultAsync(x => x.Id == id && !x.IsActive && x.Category.IsActive);
+
+            if (getProductToRestore == null)
+            {
+                return null;
+            }
+
+            getProductToRestore.IsActive = true;
+            getProductToRestore.DeactivationTime = null;
+            await _context.SaveChangesAsync();
+            return getProductToRestore;
         }
 
         public async Task<Product?> EraseProductAsync(Guid id)

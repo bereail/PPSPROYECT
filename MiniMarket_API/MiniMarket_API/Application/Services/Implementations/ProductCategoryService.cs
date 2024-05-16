@@ -39,14 +39,53 @@ namespace MiniMarket_API.Application.Services.Implementations
             return mapper.Map<CategoryDto?>(categoryToUpdate);
         }
 
-        public async Task<CategoryDto?> DeactivateProductCategory(Guid id)
+        public async Task<CategoryCollectionDto?> DeactivateProductCategory(Guid id)
         {
             var categoryToDeactivate = await _categoryRepository.DeactivateProductCategoryAsync(id);
             if (categoryToDeactivate == null)
             {
                 return null;
             }
-            return mapper.Map<CategoryDto?>(categoryToDeactivate);
+
+            ICollection<Product> productsToCascadeDeactivate = categoryToDeactivate.Products;
+
+            foreach (Product product in productsToCascadeDeactivate)
+            {
+                await productRepository.DeactivateProductAsync(product.Id);
+                continue;
+            }
+
+            return mapper.Map<CategoryCollectionDto?>(categoryToDeactivate);
+        }
+
+        public async Task<CategoryDto?> RestoreProductCategory(Guid id)
+        {
+            var categoryToRestore = await _categoryRepository.RestoreProductCategoryAsync(id);
+            if (categoryToRestore == null)
+            {
+                return null;
+            }
+            return mapper.Map<CategoryDto?>(categoryToRestore);
+        }
+
+        //Not fully functional as of now
+        public async Task<CategoryCollectionDto?> CascadeRestoreProductCategory(Guid id)
+        {
+            var categoryToRestore = await _categoryRepository.CascadeRestoreProductCategoryAsync(id);
+            if (categoryToRestore == null)
+            {
+                return null;
+            }
+
+            ICollection<Product> productsToCascadeRestore = categoryToRestore.Products;
+
+            foreach (Product product in productsToCascadeRestore)
+            {
+                await productRepository.RestoreProductAsync(product.Id);
+                continue;
+            }
+
+            return mapper.Map<CategoryCollectionDto>(categoryToRestore);
         }
 
         public async Task<CategoryDto?> EraseProductCategory(Guid id)

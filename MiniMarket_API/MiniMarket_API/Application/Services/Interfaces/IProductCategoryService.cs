@@ -7,7 +7,9 @@ namespace MiniMarket_API.Application.Services.Interfaces
     {
         Task<CategoryDto> CreateProductCategory(AddCategoryDto addCategoryDto);
         Task<CategoryDto?> UpdateProductCategory(Guid id, UpdateCategoryDto updateCategoryDto);
-        Task<CategoryDto?> DeactivateProductCategory(Guid id);
+        Task<CategoryCollectionDto?> DeactivateProductCategory(Guid id);
+        Task<CategoryDto?> RestoreProductCategory(Guid id);
+        Task<CategoryCollectionDto?> CascadeRestoreProductCategory(Guid id);
         Task<CategoryDto?> EraseProductCategory(Guid id);
         Task<IEnumerable<CategoryDto>?> GetAllCategories(bool? isActive, string? sortBy, bool? isAscending);
         Task<CategoryCollectionDto?> GetCategoryCollection(Guid categoryId, bool? isActive, string? filterOn, string? filterQuery,

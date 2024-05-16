@@ -7,6 +7,8 @@ namespace MiniMarket_API.Data.Interfaces
         Task<ProductCategory> CreateProductCategoryAsync(ProductCategory category);
         Task<ProductCategory?> UpdateProductCategoryAsync(Guid id, ProductCategory category);
         Task<ProductCategory?> DeactivateProductCategoryAsync(Guid id);
+        Task<ProductCategory?> RestoreProductCategoryAsync(Guid id);
+        Task<ProductCategory?> CascadeRestoreProductCategoryAsync(Guid id);
         Task<ProductCategory?> EraseProductCategoryAsync(Guid id);
         Task<IEnumerable<ProductCategory>> GetAllProductCategoriesAsync(bool? isActive, string? sortBy = null, bool isAscending = true);
         Task<ProductCategory?> GetCategoryByIdAsync(Guid id);

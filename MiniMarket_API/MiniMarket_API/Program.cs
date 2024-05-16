@@ -8,12 +8,32 @@ using MiniMarket_API.Data.Interfaces;
 using MiniMarket_API.Application.Profiles;
 using MiniMarket_API.Data.Repositories;
 using MiniMarket_API.Application.Services.Implementations;
+using MiniMarket_API.Application.Filters;
+using Serilog;
+using MiniMarket_API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+
+#region Serilog Config
+var logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("Application/Logs/MiniMarket_API_Log.txt", rollingInterval: RollingInterval.Day)
+    .MinimumLevel.Error()
+    .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
+#endregion
+
+
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(new ExceptionFilter());
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
@@ -117,6 +137,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionHandler>();
 
 app.UseHttpsRedirection();
 

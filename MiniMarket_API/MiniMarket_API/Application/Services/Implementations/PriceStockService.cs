@@ -56,37 +56,6 @@ namespace MiniMarket_API.Application.Services.Implementations
             return null;
         }
 
-        public async Task<decimal?> UpdateDetailPrice(Guid productId, int oldOrderQuantity, int newOrderQuantity, decimal oldPrice)
-        {
-            var productDetail = await productRepository.GetProductByIdAsync(productId);
-            if (productDetail == null)
-            {
-                return null;
-            }
-
-            if (oldOrderQuantity == newOrderQuantity)
-            {
-                return oldPrice;
-            }
-
-            int quantityDifference = newOrderQuantity - oldOrderQuantity;
-
-            var productStockDifference = await HandleProductStock(productDetail, quantityDifference);
-            if (productStockDifference == null)
-            {
-                return null;
-            }
-
-            decimal discountAmount = productDetail.Discount / 100m * productDetail.Price;
-            decimal finalPrice = productDetail.Price - discountAmount;
-            finalPrice = finalPrice * newOrderQuantity;
-            if (finalPrice < 0)
-            {
-                return null;
-            }
-            return finalPrice;
-        }
-
         public async Task<int?> HandleDetailDeletion(Guid detailId)
         {
             var getDetail = await orderDetailRepository.GetDetailByIdAsync(detailId);

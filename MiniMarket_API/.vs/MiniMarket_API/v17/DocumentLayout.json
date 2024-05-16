@@ -1,25 +1,25 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\BLCanoe\\source\\repos\\MiniMarket_API_dev\\",
+  "WorkspaceRootPath": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\users\\blcanoe\\source\\repos\\minimarket_api_dev\\minimarket_api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\git stuff\\ppsproyect\\ppsproyect\\minimarket_api\\minimarket_api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|solutionrelative:minimarket_api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\users\\blcanoe\\source\\repos\\minimarket_api_dev\\minimarket_api\\controllers\\saleordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\git stuff\\ppsproyect\\ppsproyect\\minimarket_api\\minimarket_api\\controllers\\saleordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|solutionrelative:minimarket_api\\controllers\\saleordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\users\\blcanoe\\source\\repos\\minimarket_api_dev\\minimarket_api\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\git stuff\\ppsproyect\\ppsproyect\\minimarket_api\\minimarket_api\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|solutionrelative:minimarket_api\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\users\\blcanoe\\source\\repos\\minimarket_api_dev\\minimarket_api\\application\\services\\implementations\\authenticationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\git stuff\\ppsproyect\\ppsproyect\\minimarket_api\\minimarket_api\\application\\services\\implementations\\authenticationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|solutionrelative:minimarket_api\\application\\services\\implementations\\authenticationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\users\\blcanoe\\source\\repos\\minimarket_api_dev\\minimarket_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\git stuff\\ppsproyect\\ppsproyect\\minimarket_api\\minimarket_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|solutionrelative:minimarket_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -60,9 +60,9 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "SaleOrderController.cs",
-              "DocumentMoniker": "C:\\Users\\BLCanoe\\source\\repos\\MiniMarket_API_dev\\MiniMarket_API\\Controllers\\SaleOrderController.cs",
+              "DocumentMoniker": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Controllers\\SaleOrderController.cs",
               "RelativeDocumentMoniker": "MiniMarket_API\\Controllers\\SaleOrderController.cs",
-              "ToolTip": "C:\\Users\\BLCanoe\\source\\repos\\MiniMarket_API_dev\\MiniMarket_API\\Controllers\\SaleOrderController.cs",
+              "ToolTip": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Controllers\\SaleOrderController.cs",
               "RelativeToolTip": "MiniMarket_API\\Controllers\\SaleOrderController.cs",
               "ViewState": "AQIAACYAAAAAAAAAAAAgwDIAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -72,9 +72,9 @@
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "AuthenticationService.cs",
-              "DocumentMoniker": "C:\\Users\\BLCanoe\\source\\repos\\MiniMarket_API_dev\\MiniMarket_API\\Application\\Services\\Implementations\\AuthenticationService.cs",
+              "DocumentMoniker": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Application\\Services\\Implementations\\AuthenticationService.cs",
               "RelativeDocumentMoniker": "MiniMarket_API\\Application\\Services\\Implementations\\AuthenticationService.cs",
-              "ToolTip": "C:\\Users\\BLCanoe\\source\\repos\\MiniMarket_API_dev\\MiniMarket_API\\Application\\Services\\Implementations\\AuthenticationService.cs",
+              "ToolTip": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Application\\Services\\Implementations\\AuthenticationService.cs",
               "RelativeToolTip": "MiniMarket_API\\Application\\Services\\Implementations\\AuthenticationService.cs",
               "ViewState": "AQIAACEAAAAAAAAAAAAYwCUAAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -84,9 +84,9 @@
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "ProductController.cs",
-              "DocumentMoniker": "C:\\Users\\BLCanoe\\source\\repos\\MiniMarket_API_dev\\MiniMarket_API\\Controllers\\ProductController.cs",
+              "DocumentMoniker": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Controllers\\ProductController.cs",
               "RelativeDocumentMoniker": "MiniMarket_API\\Controllers\\ProductController.cs",
-              "ToolTip": "C:\\Users\\BLCanoe\\source\\repos\\MiniMarket_API_dev\\MiniMarket_API\\Controllers\\ProductController.cs",
+              "ToolTip": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Controllers\\ProductController.cs",
               "RelativeToolTip": "MiniMarket_API\\Controllers\\ProductController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAACaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -96,9 +96,9 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\BLCanoe\\source\\repos\\MiniMarket_API_dev\\MiniMarket_API\\Controllers\\UserController.cs",
+              "DocumentMoniker": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "MiniMarket_API\\Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\BLCanoe\\source\\repos\\MiniMarket_API_dev\\MiniMarket_API\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Controllers\\UserController.cs",
               "RelativeToolTip": "MiniMarket_API\\Controllers\\UserController.cs",
               "ViewState": "AQIAAAsAAAAAAAAAAAAAwDEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -109,9 +109,9 @@
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\BLCanoe\\source\\repos\\MiniMarket_API_dev\\MiniMarket_API\\Program.cs",
+              "DocumentMoniker": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Program.cs",
               "RelativeDocumentMoniker": "MiniMarket_API\\Program.cs",
-              "ToolTip": "C:\\Users\\BLCanoe\\source\\repos\\MiniMarket_API_dev\\MiniMarket_API\\Program.cs",
+              "ToolTip": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Program.cs",
               "RelativeToolTip": "MiniMarket_API\\Program.cs",
               "ViewState": "AQIAADIAAAAAAAAAAAAAAGAAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",

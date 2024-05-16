@@ -22,7 +22,7 @@ namespace MiniMarket_API.Controllers
             var createdSeller = await companyService.CreateSeller(createSellerDto);
             if (createdSeller == null)
             {
-                return BadRequest();
+                return Conflict ("Registration Failed: Email Currently in Use!");
             }
             return Ok(createdSeller);
         }

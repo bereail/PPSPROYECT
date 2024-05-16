@@ -4,6 +4,7 @@ using MiniMarket_API.Application.DTOs.Requests;
 using MiniMarket_API.Application.Services.Interfaces;
 using MiniMarket_API.Data.Interfaces;
 using MiniMarket_API.Model.Entities;
+using MiniMarket_API.Model.Exceptions;
 
 namespace MiniMarket_API.Application.Services.Implementations
 {
@@ -52,8 +53,12 @@ namespace MiniMarket_API.Application.Services.Implementations
                 return mapper.Map<CompanyCodeDto?>(codeToDeactivate);
             }
             var deactivatedSeller = await _userService.DeactivateUser(sellerToDeactivate.Id);
-            codeToDeactivate.Seller = mapper.Map<Seller?>(deactivatedSeller);
-            return mapper.Map<CompanyCodeDto?>(codeToDeactivate);
+            
+            var mappedCode = mapper.Map<CompanyCodeDto?>(codeToDeactivate);
+
+            mappedCode.Seller = deactivatedSeller;
+
+            return mappedCode;
         }
 
         public async Task<CompanyCodeDto?> EraseCompanyCode(Guid id)
@@ -87,7 +92,7 @@ namespace MiniMarket_API.Application.Services.Implementations
             Guid? availableCode = await _companyCodeRepository.GetCodeIdByHexAsync(createSellerDto.HexadecimalCode);              //Checks if the employee code received is both real and available.
             if (availableCode == Guid.Empty)
             {
-                return null;
+                throw new ValidationException("Not a valid Company Code!");
             }
             var existingMail = await _userRepository.GetUserIdByEmailAsync(createSellerDto.Email);      //Checks if the mail already exists in the database.
             if (existingMail == Guid.Empty)
@@ -110,15 +115,5 @@ namespace MiniMarket_API.Application.Services.Implementations
 
             return mapper.Map<UserDto?>(newAdmin);
         }
-
-        //public async Task<IEnumerable<SellerDto>?> GetAllSellers()
-        //{
-        //    var sellers = await 
-        //    if (!sellers.Any())
-        //    {
-        //        return null;
-        //    }
-        //    return mapper.Map<IEnumerable<SellerDto>?>(sellers);
-        //}
     }
 }

@@ -5,6 +5,7 @@ using MiniMarket_API.Application.Services.Interfaces;
 using MiniMarket_API.Data.Interfaces;
 using MiniMarket_API.Model.Entities;
 using MiniMarket_API.Model.Enums;
+using MiniMarket_API.Model.Exceptions;
 
 namespace MiniMarket_API.Application.Services.Implementations
 {

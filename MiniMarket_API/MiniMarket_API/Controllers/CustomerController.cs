@@ -28,7 +28,7 @@ namespace MiniMarket_API.Controllers
             var createdCustomer = await _userService.CreateUser(customerToCreate);
             if (createdCustomer == null)
             {
-                return BadRequest("Could Not Create Customer");
+                return Conflict("Registration Failed: Email currently in Use!");
             }
             return Ok(createdCustomer);
         }

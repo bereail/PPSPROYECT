@@ -33,7 +33,7 @@ namespace MiniMarket_API.Controllers
             var createdCode = await companyService.CreateCompanyCode(addCompanyCodeDto);
             if (createdCode == null)
             {
-                return BadRequest();
+                return Conflict("Code Creation Failed: Code Already Exists!");
             }
             return Ok(createdCode);
         }
@@ -44,7 +44,7 @@ namespace MiniMarket_API.Controllers
             var deactivatedCode = await companyService.DeactivateCompanyCode(codeId);
             if (deactivatedCode == null)
             {
-                return BadRequest();
+                return NotFound("Code Deactivation Failed: Code Couldn't be Found!");
             }
             return Ok(deactivatedCode);
         }

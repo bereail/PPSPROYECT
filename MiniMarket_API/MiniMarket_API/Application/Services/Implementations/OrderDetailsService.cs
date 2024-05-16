@@ -34,28 +34,6 @@ namespace MiniMarket_API.Application.Services.Implementations
             return await _orderDetailRepository.CreateOrderDetailAsync(detailToCreate);
         }
 
-        public async Task<OrderDetails?> UpdateOrderDetail(CreateDetailDto updateDetail)
-        {
-            var detailToUpdate = await _orderDetailRepository.GetDetailByIdAsync(updateDetail.DetailId.Value);
-
-            if (detailToUpdate == null)
-            {
-                return null;
-            }
-
-            decimal? newDetailPrice = await _priceStockService.UpdateDetailPrice(detailToUpdate.ProductId, detailToUpdate.ProductQuantity, updateDetail.ProductQuantity, detailToUpdate.DetailPrice);
-
-            if (newDetailPrice == null)
-            {
-                return null;
-            }
-
-            var updateValues = mapper.Map<OrderDetails>(updateDetail);
-            updateValues.DetailPrice = newDetailPrice.Value;
-
-            return await _orderDetailRepository.UpdateDetailAsync(detailToUpdate.Id, updateValues);
-        }
-
         public async Task<Guid?> EraseOrderDetail(Guid id)
         {
             var stockToReturn = await _priceStockService.HandleDetailDeletion(id);

@@ -8,6 +8,7 @@ namespace MiniMarket_API.Data.Interfaces
         Task<Product?> UpdateProductAsync(Guid id, Product product);
         Task<int> HandleProductStockAsync(Guid id, int newStock);
         Task<Product?> DeactivateProductAsync(Guid id);
+        Task<Product?> RestoreProductAsync(Guid id);
         Task<Product?> EraseProductAsync(Guid id);
         Task<IEnumerable<Product>> GetAllProductsAsync(bool? isActive, string? filterOn = null, string? filterQuery = null,
             string? sortBy = null, bool isAscending = true,

@@ -6,7 +6,6 @@ namespace MiniMarket_API.Data.Interfaces
     public interface ISaleOrderRepository
     {
         Task<SaleOrder> CreateOrderAsync(SaleOrder order);
-        Task<SaleOrder?> UpdateOrderAsync(Guid id, SaleOrder order);
         Task SetFinalOrderPriceAsync(Guid id, decimal finalPrice);
         Task<SaleOrder?> SetOrderStatusAsync(Guid id, int newStatus);
         Task<SaleOrder?> EraseOrderAsync(Guid id);

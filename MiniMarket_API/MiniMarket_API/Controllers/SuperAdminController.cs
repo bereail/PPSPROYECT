@@ -27,7 +27,7 @@ namespace MiniMarket_API.Controllers
             var createdAdmin = await _userService.CreateUser(adminToCreate);
             if (createdAdmin == null)
             {
-                return BadRequest("Could Not Create Admin");
+                return Conflict("Registration Failed: Email Currently in Use!");
             }
             return Ok(createdAdmin);
         }

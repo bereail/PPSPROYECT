@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MiniMarket_API.Application.Services.Interfaces;
+using MiniMarket_API.Model.Enums;
 
 namespace MiniMarket_API.Controllers
 {
@@ -25,14 +26,14 @@ namespace MiniMarket_API.Controllers
             var getProfile = await _userService.GetUserById(userId);
             if (getProfile == null)
             {
-                return NotFound("Profile wasn't found");
+                return NotFound("Profile Wasn't Found");
             }
             return Ok(getProfile);
         }
 
         [HttpGet("profile/orders")]
         //Method accessible by any role, but can only be performed by the own user. When ready to activate auth, remove userId from params and uncomment the claim retrieval.
-        public async Task<IActionResult> GetMyOrdersAsync(Guid userId, [FromQuery] string? sortBy, [FromQuery] bool? isAscending, [FromQuery] int pageNumber = 1,
+        public async Task<IActionResult> GetMyOrdersAsync(Guid userId, [FromQuery] OrderStatus status, [FromQuery] string? sortBy, [FromQuery] bool? isAscending, [FromQuery] int pageNumber = 1,
             [FromQuery] int pageSize = 7)
         {
             //var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
@@ -41,7 +42,7 @@ namespace MiniMarket_API.Controllers
 
             if (getOrders == null || !getOrders.Any())
             {
-                return NotFound("You have no registered orders");
+                return NotFound("You Have No Registered Orders");
             }
             return Ok(getOrders);
         }

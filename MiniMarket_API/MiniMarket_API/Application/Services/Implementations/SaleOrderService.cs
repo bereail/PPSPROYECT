@@ -11,19 +11,29 @@ namespace MiniMarket_API.Application.Services.Implementations
     public class SaleOrderService : ISaleOrderService
     {
         private readonly ISaleOrderRepository _saleOrderRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IOrderDetailsService _orderDetailsService;
         private readonly IMapper mapper;
 
-        public SaleOrderService(ISaleOrderRepository saleOrderRepository, IMapper mapper, IOrderDetailsService orderDetailsService)
+        public SaleOrderService(ISaleOrderRepository saleOrderRepository, IMapper mapper, IOrderDetailsService orderDetailsService, IUserRepository userRepository)
         {
             _saleOrderRepository = saleOrderRepository;
             this.mapper = mapper;
             _orderDetailsService = orderDetailsService;
+            _userRepository = userRepository;
         }
 
         public async Task<SaleOrderDetailsDto?> CreateSaleOrder(CreateOrderDto createOrderDto, Guid userId)
         {
             var orderToCreate = mapper.Map<SaleOrder>(createOrderDto);
+
+            //This check should maybe be removed once claims are activated.
+            Guid? userCheck = await _userRepository.CheckIfUserIdExistsAsync(userId);
+
+            if (userCheck == null)
+            {
+                return null;
+            }
 
             orderToCreate.UserId = userId;
 
@@ -50,60 +60,6 @@ namespace MiniMarket_API.Application.Services.Implementations
             orderToCreate.FinalPrice = finalOrderPrice;                                              //This is for the result.
 
             return mapper.Map<SaleOrderDetailsDto>(orderToCreate);
-        }
-
-        public async Task<SaleOrderDetailsDto?> UpdateSaleOrder(Guid orderId, UpdateOrderDto updateOrder)
-        {
-            var orderToUpdate = mapper.Map<SaleOrder>(updateOrder);
-            orderToUpdate = await _saleOrderRepository.UpdateOrderAsync(orderId, orderToUpdate);
-
-            if (orderToUpdate == null)
-            {
-                return null;
-            }
-
-            decimal finalOrderPrice = 0;
-
-            var oldDetails = orderToUpdate.Details;
-
-            var detailsToUpdate = updateOrder.UpdateDetails;
-
-            //Deletes all old details that haven't been sent again in the new update
-            foreach (var oldDetail in oldDetails)
-            {
-                bool remainingDetail = detailsToUpdate.Any(d => d.DetailId == oldDetail.Id);
-                if (remainingDetail) { continue; }
-                await _orderDetailsService.EraseOrderDetail(oldDetail.Id);
-            }
-
-            foreach (var detail in detailsToUpdate)
-            {
-                //If the detail exists both in the previous version and the update request, it will be updated
-                bool existingDetail = oldDetails.Any(d => d.Id == detail.DetailId);
-                if (existingDetail)
-                {
-                    var updatedDetails = await _orderDetailsService.UpdateOrderDetail(detail);
-                    if (updatedDetails != null)
-                    {
-                        finalOrderPrice = finalOrderPrice + updatedDetails.DetailPrice;
-                    }
-                    continue;
-                }
-                //If it doesn't, it will be created instead
-                var createdDetails = await _orderDetailsService.CreateOrderDetail(detail, orderId);
-                if (createdDetails != null)
-                {
-                    finalOrderPrice = finalOrderPrice + createdDetails.DetailPrice;
-                }
-                continue;
-
-            }
-
-            await _saleOrderRepository.SetFinalOrderPriceAsync(orderId, finalOrderPrice);
-            //This is for the result.
-            orderToUpdate.FinalPrice = finalOrderPrice;
-
-            return mapper.Map<SaleOrderDetailsDto>(orderToUpdate);
         }
 
         public async Task<SaleOrderDetailsDto?> CancelOrder(Guid id, int cancelStatus = 2)
@@ -179,7 +135,7 @@ namespace MiniMarket_API.Application.Services.Implementations
             int pageNumber, int pageSize)
         {
             if (pageNumber < 1) { pageNumber = 1; }
-            if (pageSize < 1) { pageSize = 1; }
+            if (pageSize < 1 || pageSize > 15) { pageSize = 7; }
 
             if (filterDays == null || filterDays < 1 || filterDays > 31)
             {

@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MiniMarket_API.Model;
 
-
 #nullable disable
 
 namespace MiniMarket_Server_dev.Migrations
@@ -18,12 +17,12 @@ namespace MiniMarket_Server_dev.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MiniMarket_Server_dev.Model.Entities.CompanyCode", b =>
+            modelBuilder.Entity("MiniMarket_API.Model.Entities.CompanyCode", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -41,7 +40,7 @@ namespace MiniMarket_Server_dev.Migrations
                     b.ToTable("EmployeeCodes");
                 });
 
-            modelBuilder.Entity("MiniMarket_Server_dev.Model.Entities.OrderDetails", b =>
+            modelBuilder.Entity("MiniMarket_API.Model.Entities.OrderDetails", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -68,7 +67,7 @@ namespace MiniMarket_Server_dev.Migrations
                     b.ToTable("Details");
                 });
 
-            modelBuilder.Entity("MiniMarket_Server_dev.Model.Entities.Product", b =>
+            modelBuilder.Entity("MiniMarket_API.Model.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -107,7 +106,7 @@ namespace MiniMarket_Server_dev.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("MiniMarket_Server_dev.Model.Entities.ProductCategory", b =>
+            modelBuilder.Entity("MiniMarket_API.Model.Entities.ProductCategory", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -117,6 +116,9 @@ namespace MiniMarket_Server_dev.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("DeactivationTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -125,7 +127,7 @@ namespace MiniMarket_Server_dev.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("MiniMarket_Server_dev.Model.Entities.SaleOrder", b =>
+            modelBuilder.Entity("MiniMarket_API.Model.Entities.SaleOrder", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -157,7 +159,7 @@ namespace MiniMarket_Server_dev.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("MiniMarket_Server_dev.Model.Entities.User", b =>
+            modelBuilder.Entity("MiniMarket_API.Model.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -202,16 +204,16 @@ namespace MiniMarket_Server_dev.Migrations
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("MiniMarket_Server_dev.Model.Entities.Customer", b =>
+            modelBuilder.Entity("MiniMarket_API.Model.Entities.Customer", b =>
                 {
-                    b.HasBaseType("MiniMarket_Server_dev.Model.Entities.User");
+                    b.HasBaseType("MiniMarket_API.Model.Entities.User");
 
                     b.HasDiscriminator().HasValue("Customer");
                 });
 
-            modelBuilder.Entity("MiniMarket_Server_dev.Model.Entities.Seller", b =>
+            modelBuilder.Entity("MiniMarket_API.Model.Entities.Seller", b =>
                 {
-                    b.HasBaseType("MiniMarket_Server_dev.Model.Entities.User");
+                    b.HasBaseType("MiniMarket_API.Model.Entities.User");
 
                     b.Property<Guid>("CompanyCodeId")
                         .HasColumnType("uniqueidentifier");
@@ -223,22 +225,22 @@ namespace MiniMarket_Server_dev.Migrations
                     b.HasDiscriminator().HasValue("Seller");
                 });
 
-            modelBuilder.Entity("MiniMarket_Server_dev.Model.Entities.SuperAdmin", b =>
+            modelBuilder.Entity("MiniMarket_API.Model.Entities.SuperAdmin", b =>
                 {
-                    b.HasBaseType("MiniMarket_Server_dev.Model.Entities.User");
+                    b.HasBaseType("MiniMarket_API.Model.Entities.User");
 
                     b.HasDiscriminator().HasValue("SuperAdmin");
                 });
 
-            modelBuilder.Entity("MiniMarket_Server_dev.Model.Entities.OrderDetails", b =>
+            modelBuilder.Entity("MiniMarket_API.Model.Entities.OrderDetails", b =>
                 {
-                    b.HasOne("MiniMarket_Server_dev.Model.Entities.SaleOrder", "SaleOrder")
+                    b.HasOne("MiniMarket_API.Model.Entities.SaleOrder", "SaleOrder")
                         .WithMany("Details")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MiniMarket_Server_dev.Model.Entities.Product", "Product")
+                    b.HasOne("MiniMarket_API.Model.Entities.Product", "Product")
                         .WithMany("Details")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -249,9 +251,9 @@ namespace MiniMarket_Server_dev.Migrations
                     b.Navigation("SaleOrder");
                 });
 
-            modelBuilder.Entity("MiniMarket_Server_dev.Model.Entities.Product", b =>
+            modelBuilder.Entity("MiniMarket_API.Model.Entities.Product", b =>
                 {
-                    b.HasOne("MiniMarket_Server_dev.Model.Entities.ProductCategory", "Category")
+                    b.HasOne("MiniMarket_API.Model.Entities.ProductCategory", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -260,9 +262,9 @@ namespace MiniMarket_Server_dev.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("MiniMarket_Server_dev.Model.Entities.SaleOrder", b =>
+            modelBuilder.Entity("MiniMarket_API.Model.Entities.SaleOrder", b =>
                 {
-                    b.HasOne("MiniMarket_Server_dev.Model.Entities.User", "User")
+                    b.HasOne("MiniMarket_API.Model.Entities.User", "User")
                         .WithMany("SaleOrders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -271,38 +273,38 @@ namespace MiniMarket_Server_dev.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MiniMarket_Server_dev.Model.Entities.Seller", b =>
+            modelBuilder.Entity("MiniMarket_API.Model.Entities.Seller", b =>
                 {
-                    b.HasOne("MiniMarket_Server_dev.Model.Entities.CompanyCode", "CompanyCode")
+                    b.HasOne("MiniMarket_API.Model.Entities.CompanyCode", "CompanyCode")
                         .WithOne("Seller")
-                        .HasForeignKey("MiniMarket_Server_dev.Model.Entities.Seller", "CompanyCodeId")
+                        .HasForeignKey("MiniMarket_API.Model.Entities.Seller", "CompanyCodeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("CompanyCode");
                 });
 
-            modelBuilder.Entity("MiniMarket_Server_dev.Model.Entities.CompanyCode", b =>
+            modelBuilder.Entity("MiniMarket_API.Model.Entities.CompanyCode", b =>
                 {
                     b.Navigation("Seller");
                 });
 
-            modelBuilder.Entity("MiniMarket_Server_dev.Model.Entities.Product", b =>
+            modelBuilder.Entity("MiniMarket_API.Model.Entities.Product", b =>
                 {
                     b.Navigation("Details");
                 });
 
-            modelBuilder.Entity("MiniMarket_Server_dev.Model.Entities.ProductCategory", b =>
+            modelBuilder.Entity("MiniMarket_API.Model.Entities.ProductCategory", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("MiniMarket_Server_dev.Model.Entities.SaleOrder", b =>
+            modelBuilder.Entity("MiniMarket_API.Model.Entities.SaleOrder", b =>
                 {
                     b.Navigation("Details");
                 });
 
-            modelBuilder.Entity("MiniMarket_Server_dev.Model.Entities.User", b =>
+            modelBuilder.Entity("MiniMarket_API.Model.Entities.User", b =>
                 {
                     b.Navigation("SaleOrders");
                 });

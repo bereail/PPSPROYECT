@@ -24,20 +24,6 @@ namespace MiniMarket_API.Data.Repositories
             return order;
         }
 
-        public async Task<SaleOrder?> UpdateOrderAsync(Guid id, SaleOrder order)                //Will be properly implemented later.
-        {
-            var getOrder = await _context.Orders
-                .Include(o => o.Details)
-                .FirstOrDefaultAsync(o => o.Id == id);
-            if (getOrder == null)
-            {
-                return null;
-            }
-            getOrder.DeliveryAddress = order.DeliveryAddress;
-            await _context.SaveChangesAsync();
-            return getOrder;
-        }
-
         public async Task SetFinalOrderPriceAsync(Guid id, decimal finalPrice)
         {
             var getOrder = await _context.Orders.FirstOrDefaultAsync(o => o.Id == id);

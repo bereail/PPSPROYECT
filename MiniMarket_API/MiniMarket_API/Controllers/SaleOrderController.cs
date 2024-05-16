@@ -25,28 +25,9 @@ namespace MiniMarket_API.Controllers
             var createdOrder = await _saleOrderService.CreateSaleOrder(createOrder, userId);        //This is to prevent users sending IDs that aren't theirs.
             if (createdOrder == null)
             {
-                return BadRequest();
+                return Unauthorized("Order Creation Failed: User Doesn't Exist!");
             }
             return Ok(createdOrder);
-        }
-
-        [HttpPut("{orderId}")]
-        //Same deal as in the POST method, remove userId from the params and uncomment the claims retrieval
-        public async Task<IActionResult> UpdateOrderAsync([FromRoute] Guid orderId, [FromBody] UpdateOrderDto updateOrder, Guid userId)
-        {
-            //var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
-            var orderUserId = await _saleOrderService.CheckOrderUserId(orderId);
-            if (orderUserId != userId)
-            {
-                //This is in case any user tries to update another user's orders. Not even Admins should be allowed to modify another user's orders.
-                return Forbid("Order is inaccessible");
-            }
-            var updatedOrder = await _saleOrderService.UpdateSaleOrder(orderId, updateOrder);
-            if (updatedOrder == null)
-            {
-                return BadRequest("Couldn't update order");
-            }
-            return Ok(updatedOrder);
         }
     }
 }

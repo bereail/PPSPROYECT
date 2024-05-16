@@ -22,31 +22,6 @@ namespace MiniMarket_API.Data.Repositories
             return orderDetails;
         }
 
-        public async Task<OrderDetails?> UpdateDetailAsync(Guid id, OrderDetails orderDetails)
-        {
-            var getDetails = await _context.Details.FirstOrDefaultAsync(x => x.Id == id);
-            if (getDetails == null)
-            {
-                return null;
-            }
-            getDetails.ProductQuantity = orderDetails.ProductQuantity;
-            getDetails.DetailPrice = orderDetails.DetailPrice;
-
-            await _context.SaveChangesAsync();
-            return getDetails;
-        }
-
-        //public async Task<OrderDetails?> DeactivateDetailAsync(Guid id)          
-        //{
-        //    var getDetailToDeactivate = await _context.Details.FirstOrDefaultAsync(x => x.Id == id);
-        //    if (getDetailToDeactivate == null)
-        //    {
-        //        return null;
-        //    }
-        //    getDetailToDeactivate.isActive = false;
-        //    return getDetailToDeactivate;
-        //}
-
         public async Task<Guid?> EraseDetailAsync(Guid id)
         {
             var getDetailToErase = await _context.Details.FirstOrDefaultAsync(x => x.Id == id);

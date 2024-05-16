@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MiniMarket_API.Application.DTOs.Requests;
 using MiniMarket_API.Application.Services.Interfaces;
+using MiniMarket_API.Model.Entities;
+using System.Security.Claims;
 
 namespace MiniMarket_API.Controllers
 {
@@ -16,6 +17,45 @@ namespace MiniMarket_API.Controllers
             this.productService = productService;
         }
 
+        [HttpDelete("{productId}")]
+        [Authorize]
+        public async Task<IActionResult> DeactivateProductAsync([FromRoute] Guid productId)
+        {
+            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            if (userRole != typeof(Seller).Name || userRole != typeof(SuperAdmin).Name)
+            {
+                return Forbid();
+            }
+
+            var productToDeactivate = await productService.DeactivateProduct(productId);
+            if (productToDeactivate == null) 
+            {
+                return NotFound("Product Deactivation Failed: Product Wasn't Found");
+            }
+            return Ok(productToDeactivate);
+        }
+
+        [HttpPatch("{productId}")]
+        [Authorize]
+        public async Task<IActionResult> RestoreProductAsync([FromRoute] Guid productId)
+        {
+            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            if (userRole != typeof(Seller).Name || userRole != typeof(SuperAdmin).Name)
+            {
+                return Forbid();
+            }
+
+            var productToRestore = await productService.RestoreProduct(productId);
+            if (productToRestore == null)
+            {
+                return BadRequest("Product Deactivation Failed: Product Wasn't Found or is in a Deactivated Category");
+            }
+            return Ok(productToRestore);
+        }
+
+
         [HttpGet]
         //Can be used for the search bar, but it will require role validation for the isActive param.
         //Anything else: FOR SELLER/ADMIN ONLY = It's meant to work with a general inventory management interface, and it disregards category structuring.
@@ -23,11 +63,20 @@ namespace MiniMarket_API.Controllers
             [FromQuery] string? sortBy, [FromQuery] bool? isAscending,
             [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 15)
         {
+            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            if (userRole == null || userRole == typeof(Customer).Name)
+            {
+                filterOn = "Name";
+                isActive = true;
+            }
+
             var getProducts = await productService.GetAllProducts(isActive, filterOn, filterQuery, sortBy, isAscending, pageNumber, pageSize);
             if (getProducts == null)
             {
-                return NotFound("No products found");
+                return NotFound("No Products Found");
             }
+
             return Ok(getProducts);
         }
 
@@ -46,7 +95,7 @@ namespace MiniMarket_API.Controllers
             var getOffers = await productService.GetAllProducts(isActive, filterOn, filterQuery, sortBy, isAscending, pageNumber, pageSize);
             if (getOffers == null)
             {
-                return NotFound("No Offers available");
+                return NotFound("No Offers Available");
             }
             return Ok(getOffers);
         }

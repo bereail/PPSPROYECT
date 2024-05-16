@@ -7,6 +7,7 @@ using MiniMarket_API.Application.Services.Interfaces;
 using MiniMarket_API.Application.DTOs.Requests;
 using MiniMarket_API.Model.Entities;
 using MiniMarket_API.Data.Interfaces;
+using MiniMarket_API.Model.Exceptions;
 
 namespace MiniMarket_API.Application.Services.Implementations
 {
@@ -25,17 +26,16 @@ namespace MiniMarket_API.Application.Services.Implementations
         {
             //We check if the loginRequest is empty
             if (string.IsNullOrEmpty(loginRequest.Email) || string.IsNullOrEmpty(loginRequest.Password))
-                return null;
+                throw new ValidationException("Credentials are Empty!");
 
             //We wait for the GetUserByEmail to find the user
             var user = await _userRepository.GetUserByEmailAsync(loginRequest.Email);
-            if (user == null) return null;
 
             //We check that the user we retrieved matches the data from the request
-            if (user.Password == loginRequest.Password) return user;
+            if (user != null && user.Password == loginRequest.Password) return user;
 
 
-            return null;
+            throw new UnauthenticatedException("Authentication Failed: Credentials aren't valid!");
         }
 
         public async Task<string?> Authenticate(LoginRequestDTO loginRequest)

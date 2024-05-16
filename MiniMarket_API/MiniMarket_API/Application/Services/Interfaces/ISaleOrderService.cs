@@ -7,7 +7,6 @@ namespace MiniMarket_API.Application.Services.Interfaces
     public interface ISaleOrderService
     {
         Task<SaleOrderDetailsDto?> CreateSaleOrder(CreateOrderDto createOrderDto, Guid userId);
-        Task<SaleOrderDetailsDto?> UpdateSaleOrder(Guid orderId, UpdateOrderDto updateOrder);
         Task<SaleOrderDetailsDto?> CancelOrder(Guid id, int cancelStatus = 2);
         Task<SaleOrderDetailsDto?> PayOrder(Guid id, int paymentStatus = 1);
         Task<SaleOrderDto?> EraseOrder(Guid id);

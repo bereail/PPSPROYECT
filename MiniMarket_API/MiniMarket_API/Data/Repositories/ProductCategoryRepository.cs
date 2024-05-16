@@ -36,15 +36,55 @@ namespace MiniMarket_API.Data.Repositories
 
         public async Task<ProductCategory?> DeactivateProductCategoryAsync(Guid id)
         {
-            var getCategoryToDeactivate = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+            var getCategoryToDeactivate = await _context.Categories
+                .Include(c => c.Products.Where(p => p.IsActive))
+                .FirstOrDefaultAsync(c => c.Id == id && c.IsActive);
             if (getCategoryToDeactivate == null)
             {
                 return null;
             }
             getCategoryToDeactivate.IsActive = false;
-            //getCategoryToDeactivate.DeactivationTime = DateTime.UtcNow       Would be placed here, but for the time being, Categories don't have it. Might be added in later for cascade delete.
+            getCategoryToDeactivate.DeactivationTime = DateTime.UtcNow;
             await _context.SaveChangesAsync();
             return getCategoryToDeactivate;
+        }
+
+        // Only restores the deactivated category, without affecting any related products.
+        public async Task<ProductCategory?> RestoreProductCategoryAsync(Guid id)
+        {
+            var getCategoryToRestore = await _context.Categories
+                .FirstOrDefaultAsync(c => c.Id == id && !c.IsActive);
+            if (getCategoryToRestore == null)
+            {
+                return null;
+            }
+            getCategoryToRestore.IsActive = true;
+            getCategoryToRestore.DeactivationTime = null;
+            await _context.SaveChangesAsync();
+            return getCategoryToRestore;
+        }
+
+        // Restores the deactivated category, and returns it, alongside all the products that had been deactivated with it.
+        public async Task<ProductCategory?> CascadeRestoreProductCategoryAsync(Guid id)
+        {
+            var getCategoryToRestore = await _context.Categories
+                .Include(c => c.Products.Where(p => !p.IsActive))       //This doesn't work yet
+                .FirstOrDefaultAsync(c => c.Id == id && !c.IsActive);
+
+            if (getCategoryToRestore == null)
+            {
+                return null;
+            }
+
+            DateTime? filterTime = getCategoryToRestore.DeactivationTime;
+
+            getCategoryToRestore.IsActive = true;
+            getCategoryToRestore.DeactivationTime = null;
+            await _context.SaveChangesAsync();
+     
+            getCategoryToRestore.Products = getCategoryToRestore.Products.Where(p => p.DeactivationTime >= filterTime).ToList();
+
+            return getCategoryToRestore;
         }
 
         public async Task<ProductCategory?> EraseProductCategoryAsync(Guid id)
@@ -84,7 +124,7 @@ namespace MiniMarket_API.Data.Repositories
         public Task<ProductCategory?> GetCategoryByIdAsync(Guid id)
         {
             return _context.Categories
-                .FirstOrDefaultAsync(c => c.Id == id);
+                .FirstOrDefaultAsync(c => c.Id == id && c.IsActive);
         }
     }
 }

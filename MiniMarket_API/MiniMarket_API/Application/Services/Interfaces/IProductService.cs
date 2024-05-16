@@ -8,6 +8,7 @@ namespace MiniMarket_API.Application.Services.Interfaces
         Task<ProductDto?> CreateProduct(AddProductDto addProductDto);
         Task<ProductDto?> UpdateProduct(Guid id, UpdateProductDto updateProductDto);
         Task<ProductDto?> DeactivateProduct(Guid id);
+        Task<ProductDto?> RestoreProduct(Guid id);
         Task<ProductDto?> EraseProduct(Guid id);
         Task<IEnumerable<ProductDto>?> GetAllProducts(bool? isActive, string? filterOn, string? filterQuery, string? sortBy, bool? isAscending,
             int pageNumber, int pageSize);

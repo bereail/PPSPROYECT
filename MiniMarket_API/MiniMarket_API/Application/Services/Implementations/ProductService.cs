@@ -55,6 +55,16 @@ namespace MiniMarket_API.Application.Services.Implementations
             return _mapper.Map<ProductDto?>(productToDeactivate);
         }
 
+        public async Task<ProductDto?> RestoreProduct(Guid id)
+        {
+            var productToRestore = await _productRepository.RestoreProductAsync(id);
+            if (productToRestore == null)
+            {
+                return null;
+            }
+            return _mapper.Map<ProductDto?>(productToRestore);
+        }
+
         public async Task<ProductDto?> EraseProduct(Guid id)
         {
             var productToErase = await _productRepository.EraseProductAsync(id);
