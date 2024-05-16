@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import CustomNavbar from "../../Navbar/CustomNavbar";
 import Footer from "../../Footer/footer";
@@ -6,7 +6,8 @@ import './SignUpUser.css';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
-
+import { Navigate } from "react-router-dom";
+import Api from "../../../Api";
 const SignupUser = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [ExistingUser, SetExistingUser] = useState(false)
@@ -29,7 +30,14 @@ const SignupUser = () => {
     hexadecimalCode: false
   });
   const [Seller, SetSeller] = useState(false);
+  const [LoggedIn, setLoggedIn] = useState(false);
 
+  useEffect(()=>{
+    const logged = window.localStorage.getItem('LoggedUser')
+    if(logged){
+      setLoggedIn(true);
+    }
+  },[])
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
@@ -85,37 +93,57 @@ const SignupUser = () => {
       address: address
     };
    
+    const datalogin = {
+      email: email,
+      password: password
+    }
     if (Seller) {
        data.hexadecimalCode = formData.hexadecimalCode;
        console.log(data);
        try {
-        const response = await axios.post('https://localhost:7191/api/sellers', data);
-        alert('Seller created successfully');
+        const response = await Api.post('/api/sellers', data);
         SetExistingUser(false);
+        setLoggedIn(true);
         console.log('Usuario:', response.data);
+
       } catch (error) {
         SetExistingUser(true)
         console.error('Error:', error.message);
       }
-      
     }
     if (!Seller) {
       try {
-        const response = await axios.post('https://localhost:7191/api/customers', data);
-        alert('User created successfully');
+        const api = Api();
+        const response = await api.post('/api/customers', data);
         SetExistingUser(false);
+        setLoggedIn(true);
         console.log('Usuario:', response.data);
+
       } catch (error) {
         SetExistingUser(true)
         console.error('Error:', error.message);
       }
     }
+    if(LoggedIn){
+      alert('entro')
+      const api = Api();
+      const Login = await api.post('/api/auth/login', datalogin);
+
+       if (Login.status === 200) {
+          window.localStorage.setItem(
+             'LoggedUser', JSON.stringify(Login.data)
+           )   
+       }
+
+    }
+    
   }
 
   return (
 
     <div className="signup">
       <CustomNavbar />
+     {LoggedIn ? <Navigate to="/" /> : null} 
       <div className="Register">
         <div className="Welcome">
           <h3>¡Welcome to Family Market's online registration</h3>
