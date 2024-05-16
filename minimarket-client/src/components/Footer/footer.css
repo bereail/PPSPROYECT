@@ -1,9 +1,67 @@
-footer{
-   background-color: #9d371faf;
-   position: fixed;
+/* Apply a background gradient and styling to the entire footer */
+.footer {
+   background-image: linear-gradient(to right, #a5351ca4, #a5351ca4);
+   padding: 6 rem 3; /* Reduce padding to make the footer space smaller */
+   position: relative;
+   bottom: 0;
    width: 100%;
-   bottom: 0px;
-   
-  
-
-}
+   border-top-left-radius: 15%;
+   border-top-right-radius: 15%;
+   min-height: 20px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+ 
+ /* Styling for the social links */
+ .social-link {
+   color: #000; /* Adjust this if you need to change the link color */
+   text-decoration: none;
+   display: flex;
+   align-items: center;
+   margin-bottom: 0.5rem; /* Add margin between the links */
+ }
+ 
+ /* Specific styling for each social icon */
+ .social-icon.facebook {
+   color: #3b5998; /* Facebook blue */
+ }
+ 
+ .social-icon.twitter {
+   color: #1da1f2; /* Twitter blue */
+ }
+ 
+ .social-icon.instagram {
+   color: #e4405f; /* Instagram gradient color */
+ }
+ 
+ /* Styling for the social icons */
+ .social-icon {
+   margin-right: 10px; /* Adjust spacing if needed */
+ }
+ 
+ /* Styling for the social media names */
+ .social-name {
+   font-size: 1.2rem; /* Adjust font size if needed */
+ }
+ 
+ /* Ensure the footer stays at the bottom */
+ html, body {
+   height: 100%;
+   margin: 0;
+ }
+ 
+ #root {
+   display: flex;
+   flex-direction: column;
+   min-height: 100vh;
+ }
+ 
+ .content {
+   flex: 1;
+ }
+ 
+ .text-muted {
+   color: #020406 !important;
+ }
+ 
