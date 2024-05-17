@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+
 import CustomNavbar from "../../Navbar/CustomNavbar";
 import Footer from "../../Footer/footer";
 import './SignUpUser.css';
@@ -9,6 +10,7 @@ import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
 import { Navigate } from "react-router-dom";
 import Api from "../../../Api";
 const SignupUser = () => {
+ 
   const [showPassword, setShowPassword] = useState(false);
   const [ExistingUser, SetExistingUser] = useState(false)
   const [formData, setFormData] = useState({
