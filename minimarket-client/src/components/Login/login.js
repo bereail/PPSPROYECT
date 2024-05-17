@@ -118,7 +118,7 @@ const Login = () => {
                     to="/User"
                     type="button"
                     className="btn btn-outline-primary">
-                    My Count
+                    My Account
                   </Link>
 
                 </div>
