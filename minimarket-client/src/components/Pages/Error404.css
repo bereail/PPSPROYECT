@@ -3,12 +3,12 @@
     height: 150vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    background-image: url("../Image/404.png");
+    background-image: url("../Image/404.jpg");
     background-size: cover;
     background-position: center;
-    text-align: center;
+    text-align: top;
     color:#00f ; /* Ensure text is visible over the background image */
   }
   
