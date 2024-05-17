@@ -6,6 +6,8 @@ import "./SignIn.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { Navigate } from "react-router-dom";
+import Api from "../../../Api";
 const Signin = () => {
   const [Style, SetStyle] = useState(faEyeSlash);
   const [TypeInput, SetTypeInput] = useState("Password");
@@ -13,11 +15,17 @@ const Signin = () => {
   const [pass, setPass] = useState('');
   const [Error, SetError] = useState('');
  const [ErrorLogin, SetErrorLogin] = useState(0);
-  const [Token, SetToken] = useState();
-
+  const [loggedIn, setLoggedIn] = useState(false);
+  
   useEffect(() => {
     SetError(0);
   }, []);
+  useEffect(()=>{
+    const logged = window.localStorage.getItem('LoggedUser')
+    if(logged){
+      setLoggedIn(true);
+    }
+  },[])
   const handleEmailChange = (e) => {
 
     setEmail(e.target.value);
@@ -45,13 +53,18 @@ const Signin = () => {
     };
     
     try {
-      const response = await axios.post('https://localhost:7191/api/auth/login', data);
+      const api = Api();
+      const response = await api.post('/api/auth/login', data);
 
       if (response.status === 200) {
-        //Guardamos el token
         SetErrorLogin(0);
-        SetToken(response.data)
+        setLoggedIn(true);
+
+        window.localStorage.setItem(
+          'LoggedUser', JSON.stringify(response.data)
+        )
         console.log('Token:', response.data);
+       
       }
     } catch (error) {
       SetErrorLogin(1);
@@ -64,6 +77,7 @@ const Signin = () => {
   return (
     <div className="login" >
       <CustomNavbar/>
+      {loggedIn ? <Navigate to="/" /> : null}
       <div className="Form-Login">
         <h2>Login</h2>
       <form onSubmit={handleSubmit}>
