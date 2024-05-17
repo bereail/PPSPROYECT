@@ -24,13 +24,13 @@ const User = () => {
                     <h3>Welcome {UserName}!</h3>
 
                     <button onClick={() => (SetActiveButton('Profile'))}
-                        className={activeButton === "Profile" && "User-filter-button active"}> Profile</button>
+                        className={activeButton === "Profile" ? "User-filter-button active" : ''}> Profile</button>
                     <button onClick={() => (SetActiveButton('Orders'))}
-                        className={activeButton === "Orders" && "User-filter-button active"}>Orders</button>
+                        className={activeButton === "Orders" ? "User-filter-button active" : ''}>Orders</button>
                     <button onClick={() => (SetActiveButton('Change Password'))} 
-                        className={activeButton === "Change Password" && "User-filter-button active"}>Change Password</button>
+                        className={activeButton === "Change Password" ? "User-filter-button active" : ''}>Change Password</button>
                     <button onClick={() => (SetActiveButton('Delete Account'))} style={{ marginTop: "200px" }}
-                        className={activeButton === "Delete Account" && "User-filter-button active"}>Delete Account</button>
+                        className={activeButton === "Delete Account" ? "User-filter-button active" : ''}>Delete Account</button>
                 </div>
                 {activeButton === 'Profile'&&
                         <ModifyUser></ModifyUser>

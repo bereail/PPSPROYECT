@@ -1,22 +1,19 @@
+//npm install jwt-decode
 
 
-//Descargar jwt-decode
+import React, { useEffect, useState } from 'react'
+import { jwtDecode } from 'jwt-decode';
 
-// import React, { useEffect, useState } from 'react'
-// import { jwtDecode } from 'jwt-decode';
-// export const GetRoleByUser = () => {
+export const GetRoleByUser = () => {
 
-//     const [UserType, SetUserType] = useState();
-   
-//     useEffect(() => {
-//         const token = window.localStorage.getItem('LoggedUser');
-//         if (token) {
-//             const decodedToken = jwtDecode(token).role;
-//             SetUserType(decodedToken);
-//         }
-//     }, []);
+     const token = window.localStorage.getItem('LoggedUser');
+        if (token) {
+            const decodedToken = jwtDecode(token).role;
+            return decodedToken ;
+        }
     
-//     return UserType;
-// }
+    return null;
+}
+
 
 

@@ -58,7 +58,7 @@ const Products = () => {
               <p>{product.description}</p>
               <div className='Container-Button-Products'>
                 <button onClick={() => handleQuantityChange(product.id, Math.max(quantities[product.id] - 1, 1))}>-</button>
-                <input min="1" value={quantities[product.id]} onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value) || 1)} />
+                <input min="1" value={quantities[product.id] || 1} onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value) || 1)} />
                 <button onClick={() => handleQuantityChange(product.id, quantities[product.id] + 1)}>+</button>
               </div>
               <button className='Add-Product' onClick={() => (AddCartHandler(product))}>Add</button>

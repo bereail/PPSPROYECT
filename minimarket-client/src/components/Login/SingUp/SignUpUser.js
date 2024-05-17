@@ -32,6 +32,7 @@ const SignupUser = () => {
   const [Seller, SetSeller] = useState(false);
   const [LoggedIn, setLoggedIn] = useState(false);
 
+
   useEffect(()=>{
     const logged = window.localStorage.getItem('LoggedUser')
     if(logged){
@@ -103,7 +104,6 @@ const SignupUser = () => {
        try {
         const response = await Api.post('/api/sellers', data);
         SetExistingUser(false);
-        setLoggedIn(true);
         console.log('Usuario:', response.data);
 
       } catch (error) {
@@ -111,30 +111,26 @@ const SignupUser = () => {
         console.error('Error:', error.message);
       }
     }
-    if (!Seller) {
-      try {
-        const api = Api();
-        const response = await api.post('/api/customers', data);
-        SetExistingUser(false);
-        setLoggedIn(true);
-        console.log('Usuario:', response.data);
-
-      } catch (error) {
-        SetExistingUser(true)
-        console.error('Error:', error.message);
-      }
-    }
-    if(LoggedIn){
-      alert('entro')
+    try {
       const api = Api();
+      let response;
+      if (Seller) {
+        response = await api.post('/api/sellers', data);
+      } else {
+        response = await api.post('/api/customers', data);
+      }
+      SetExistingUser(false);
+      console.log('Usuario:', response.data);
       const Login = await api.post('/api/auth/login', datalogin);
 
-       if (Login.status === 200) {
-          window.localStorage.setItem(
-             'LoggedUser', JSON.stringify(Login.data)
-           )   
-       }
-
+      if (Login.status === 200) {
+        window.localStorage.setItem('LoggedUser', JSON.stringify(Login.data));
+        setLoggedIn(true);
+      }
+    } catch (error) {
+        SetExistingUser(true);
+        console.error('Error:', error.message);
+      
     }
     
   }
@@ -142,8 +138,7 @@ const SignupUser = () => {
   return (
 
     <div className="signup">
-      <CustomNavbar />
-     {LoggedIn ? <Navigate to="/" /> : null} 
+      <CustomNavbar /> 
       <div className="Register">
         <div className="Welcome">
           <h3>¡Welcome to Family Market's online registration</h3>
@@ -203,6 +198,7 @@ const SignupUser = () => {
           {ExistingUser && <p className="Error">This user already exists</p>}
         </div>
       </div>
+      {LoggedIn ? <Navigate to="/" /> : null}
       <Footer />
     </div>
 

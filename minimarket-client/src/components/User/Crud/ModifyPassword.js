@@ -23,7 +23,7 @@ export default function ModifyPassword() {
                     <h4>NewPassword</h4>
                     <input type='Password'></input>
                    
-                    <button>ave Changes</button>
+                    <button>Save Changes</button>
                     </>
                     }
  
