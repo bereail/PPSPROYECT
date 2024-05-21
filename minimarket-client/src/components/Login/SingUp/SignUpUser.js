@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from 'axios';
 
 import CustomNavbar from "../../Navbar/CustomNavbar";
@@ -9,8 +9,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
 import { Navigate } from "react-router-dom";
 import Api from "../../../Api";
+import { ThemeContext } from "../../Context/ThemeContext";
 const SignupUser = () => {
- 
+  const { theme } = useContext(ThemeContext);
   const [showPassword, setShowPassword] = useState(false);
   const [ExistingUser, SetExistingUser] = useState(false)
   const [formData, setFormData] = useState({
@@ -139,17 +140,17 @@ const SignupUser = () => {
 
   return (
 
-    <div className="signup">
+    <div className="signup" >
       <CustomNavbar /> 
       <div className="Register">
-        <div className="Welcome">
+        <div className="Welcome" style={{ backgroundColor: theme === "light" ? "#b35a1f" : "#a5351ca4" }}>
           <h3>¡Welcome to Family Market's online registration</h3>
           <p>Sign up now to access our wide selection of fresh, quality products. It's time to simplify your online shopping with Family Market!</p>
           <p>If you already have an account:</p>
           <Link to="/signin" type="button">Sign In</Link>
         </div>
 
-        <div className="form-register">
+        <div className="form-register" style={{ backgroundColor: theme === "light" ? "#f1f1f1" : "#333333" }}>
           <h2 className="account">Create an account</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">

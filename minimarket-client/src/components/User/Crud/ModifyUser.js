@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil,faXmark } from "@fortawesome/free-solid-svg-icons";
+import { ThemeContext } from "../../Context/ThemeContext";
 export default function ModifyUser() {
+     const { theme } = useContext(ThemeContext);
     const [avalible, Setavalible] = useState(true);
 
   return (
-      <div className='UserProfile'>
+      <div className='UserProfile' style={{ backgroundColor: theme === "light" ? "" : "#a5351ca4" }}> 
                     {avalible === false &&(<FontAwesomeIcon icon={faXmark}  style={{paddingLeft:'400px'}} onClick={()=>(Setavalible(true))}/>)}
                     <h4>Name</h4>
                     <input type='text' placeholder='Nombre de la cuenta' disabled={avalible}></input>

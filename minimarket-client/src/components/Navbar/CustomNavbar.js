@@ -1,18 +1,19 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Navbar as BootstrapNavbar, Container, Nav } from "react-bootstrap";
+import { Link, useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping, faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 import Search from "../SearhBar/Search";
 import Logo from "./Logo";
 import Login from "../Login/login";
-import { Link, useLocation } from "react-router-dom";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import FilterBar from "../FilterBar/FilterBar";
+import { ThemeContext } from "../Context/ThemeContext";
+import './CustomNavbar.css'
 
 const CustomNavbar = () => {
   const { pathname } = useLocation();
   const [currentPage, SetCurrentPage] = useState("Home");
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   useEffect(() => {
     switch (pathname) {
@@ -41,19 +42,28 @@ const CustomNavbar = () => {
       className="navbar"
       style={{
         backgroundImage: "linear-gradient(to right, #a5351ca4, #a5351ca4)",
-       
         borderBottomRightRadius: "15%",
       }}
     >
       <Container fluid style={{ maxHeight: "50px", padding: "0px" }}>
-
-        <Link to="/" style={{ textDecoration: 'none' }} onclick={() => SetCurrentPage("Home")}>
-          {" "}
-          <Logo />{" "}
-        </Link>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Link to="/" style={{ textDecoration: 'none' }} onclick={() => SetCurrentPage("Home")}>
+            <Logo />
+          </Link>
+          <button
+            className="toggle-theme-button"
+            onClick={toggleTheme}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: theme === "light" ? "black" : "white",
+            }}
+          >
+            <FontAwesomeIcon icon={theme === "light" ? faMoon : faSun} />
+          </button>
+        </div>
 
         <Nav className="flex-grow- d-flex justify-content-center">
-          {" "}
           {/* Utiliza flex-grow-1 para que el Search ocupe todo el espacio disponible */}
           <div style={{ display: "flex", alignItems: "center" }}>
             {currentPage === "Home" && <FilterBar></FilterBar>}
@@ -62,7 +72,7 @@ const CustomNavbar = () => {
         </Nav>
 
         <Login></Login>
-        { (currentPage === "Home" || currentPage === "User")  && (
+        {(currentPage === "Home" || currentPage === "User") && (
           <Link
             to="/cart"
             style={{

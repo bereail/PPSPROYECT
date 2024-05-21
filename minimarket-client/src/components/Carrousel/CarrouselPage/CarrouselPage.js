@@ -1,65 +1,57 @@
 import React from "react";
 import Carousel from "react-bootstrap/Carousel";
-import coca from "./../../Image/coca.jpg";
+import Pepsi from "./../../Image/Pepsi.jpg";
 import ofertas from "./../../Image/ofertas.jpg";
-import ofertas1 from "./../../Image/ofertas2.jpg";
+import ofertas1 from "./../../Image/oferta1.jpg";
+import limpieza from "./../../Image/limpieza.jpg";
 import mp from "./../../Image/mp.jpg";
-import bancario from "./../../Image/bancario.jpg";
-import ofertas4 from "./../../Image/ofertas4.jpg";
-
+import milka from "./../../Image/milka.jpg";
+import './CarrouselPage.css'
 function CarrouselPage() {
   return (
     <div>
  <Carousel>
         <Carousel.Item >
           <img 
-            style={{maxWidth: '100%', maxHeight:'450px'}}
-            className="d-block w-100 img-fluid"
-            src={coca}
+            className="Image-Carrousel"
+            src={Pepsi}
             alt="First slide"
           />
           <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Texto</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
           <img
-            style={{maxWidth: '100%', maxHeight:'450px'}}
-            className="d-block w-100 img-fluid"
+            className="Image-Carrousel"
+            src={limpieza}
+            alt="Second slide"
+          />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="Image-Carrousel"
+            src={milka}
+            alt="Second slide"
+          />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="Image-Carrousel"
+            src={ofertas1}
+            alt="third slide"
+          />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="Image-Carrousel"
             src={ofertas}
             alt="Second slide"
           />
         </Carousel.Item>
         <Carousel.Item>
           <img
-            style={{maxWidth: '100%', maxHeight:'450px'}}
-            className="d-block w-100 img-fluid"
-            src={ofertas1}
-            alt="Second slide"
-          />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            style={{maxWidth: '100%', maxHeight:'450px'}}
-            className="d-block w-100 img-fluid"
+            className="Image-Carrousel"
             src={mp}
-            alt="third slide"
-          />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            style={{maxWidth: '100%', maxHeight:'450px'}} 
-            className="d-block w-100 img-fluid"
-            src={bancario}
-            alt="Second slide"
-          />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            style={{maxWidth: '100%', maxHeight:'450px'}}
-            className="d-block w-100 img-fluid"
-            src={ofertas4}
             alt="quarter slide"
           />
         </Carousel.Item>

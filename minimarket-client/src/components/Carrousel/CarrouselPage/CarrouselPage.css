@@ -1,0 +1,17 @@
+.Image-Carrousel {
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px; 
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3); 
+    width: 100%; 
+    height: 300px;
+    transition: transform 0.5s ease; 
+  }
+  
+  .Image-Carrousel:hover {
+    transform: scale(1.05); 
+  }
+  
+  .carousel-item {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  

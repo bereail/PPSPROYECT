@@ -47,7 +47,7 @@ const Products = () => {
 
   return (
     <div>
-      <h1>Products</h1>
+      <p style={{fontSize: '50px'}}>Products</p>
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         {Products.map(product => (
           <div key={product.id}>

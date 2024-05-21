@@ -44,7 +44,7 @@ const Login = () => {
     <div >
       {currentPage !== "Login" && currentPage !== "Register" && currentPage !== "User" && (
         <div
-          style={{ marginRight: currentPage === "cart" && "130px" }}
+          style={{ marginRight: currentPage === "cart" && "200px" }}
           className="Count-container"
         >
           <button
@@ -111,7 +111,7 @@ const Login = () => {
 
               <Nav className="ml-auto">
                 <div
-                  style={{ marginRight: "5px", width: "100px" }}
+                  style={{ marginRight: "5px", width: "120px" }}
                   onClick={() => SetCurrentPage("User")}>
 
                   <Link

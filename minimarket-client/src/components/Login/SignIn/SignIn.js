@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from 'axios';
 import CustomNavbar from "../../Navbar/CustomNavbar";
 import Footer from "../../Footer/footer";
@@ -8,7 +8,9 @@ import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { Navigate } from "react-router-dom";
 import Api from "../../../Api";
+import { ThemeContext } from "../../Context/ThemeContext";
 const Signin = () => {
+  const { theme } = useContext(ThemeContext);
   const [Style, SetStyle] = useState(faEyeSlash);
   const [TypeInput, SetTypeInput] = useState("Password");
   const [email, setEmail] = useState('');
@@ -78,14 +80,13 @@ const Signin = () => {
     <div className="login" >
       <CustomNavbar/>
       {loggedIn ? <Navigate to="/" /> : null}
-      <div className="Form-Login">
+      <div className="Form-Login" style={{ backgroundColor: theme === "light" ? "#CC713D" : "#a5351ca4" }}>
         <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
           {Error === 1 && email === '' && <p className='Error'>Set a Email</p>}
           <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" onChange={handleEmailChange} />
-          <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
         </div>
         <div className="mb-3"style={{ position: 'relative' }}>
           <label htmlFor="exampleInputPassword1" className="form-label">Password</label>

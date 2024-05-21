@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faXmark } from "@fortawesome/free-solid-svg-icons";
+import { ThemeContext } from '../../Context/ThemeContext';
 
 export default function UserGetOrders() {
-
+    const { theme } = useContext(ThemeContext);
     return (
-        <div className='UserOrder'>
+        <div className='UserOrder' style={{ backgroundColor: theme === "light" ? "" : "#a5351ca4" }}>
            
             <div className='UserOrder-tittle'>
                 <p>Product</p>
