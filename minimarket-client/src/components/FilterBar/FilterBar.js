@@ -3,13 +3,17 @@ import "./FilterBar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faSortDown } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+
 export default function FilterBar() {
   const [activeButton, setActiveButton] = useState(null);
   const [isExpanded, setIsExpanded] = useState(false);
+  const navigate = useNavigate();
 
   const handleFilter = (filter) => {
     setActiveButton(filter);
     setIsExpanded(false);
+    navigate(`/products/${filter}`);
   };
 
   const handleMouseEnter = () => {
@@ -26,8 +30,10 @@ export default function FilterBar() {
         className="icon-category"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onClick={() => handleFilter("all")}
       >
-        <FontAwesomeIcon icon={faBars} /> All<FontAwesomeIcon icon={faSortDown} />
+        <FontAwesomeIcon icon={faBars} /> All
+        <FontAwesomeIcon icon={faSortDown} />
       </button>
       {isExpanded && (
         <div
@@ -36,9 +42,9 @@ export default function FilterBar() {
           onMouseLeave={handleMouseLeave}
         >
           <button
-            onClick={() => handleFilter("Bebidas")}
+            onClick={() => handleFilter("bebidas")}
             className={
-              activeButton === "Bebidas"
+              activeButton === "bebidas"
                 ? "filter-button active"
                 : "filter-button"
             }
@@ -46,7 +52,7 @@ export default function FilterBar() {
             Drinks
           </button>
           <button
-            onClick={() => handleFilter("Limpieza")}
+            onClick={() => handleFilter("limpieza")}
             className={
               activeButton === "Limpieza"
                 ? "filter-button active"
@@ -56,7 +62,7 @@ export default function FilterBar() {
             Cleaning
           </button>
           <button
-            onClick={() => handleFilter("Higiene")}
+            onClick={() => handleFilter("higiene")}
             className={
               activeButton === "Higiene"
                 ? "filter-button active"
@@ -66,7 +72,7 @@ export default function FilterBar() {
             hygiene
           </button>
           <button
-            onClick={() => handleFilter("Tecnología")}
+            onClick={() => handleFilter("tecnologia")}
             className={
               activeButton === "Tecnología"
                 ? "filter-button active"

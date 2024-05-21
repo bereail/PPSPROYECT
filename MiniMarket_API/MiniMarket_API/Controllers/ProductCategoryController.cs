@@ -21,16 +21,16 @@ namespace MiniMarket_API.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+       /* [Authorize]*/
         public async Task<IActionResult> CreateProductCategoryAsync([FromBody] AddCategoryDto addCategory)
         {
-            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+           /* var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 
             if (userRole != typeof(Seller).Name || userRole != typeof(SuperAdmin).Name) 
             {
                 return Forbid();
             }
-
+           */
             var createdCategory = await _productCategoryService.CreateProductCategory(addCategory);
             return Ok(createdCategory);
         }

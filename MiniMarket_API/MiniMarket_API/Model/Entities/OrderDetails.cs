@@ -4,10 +4,10 @@ namespace MiniMarket_API.Model.Entities
 {
     public class OrderDetails
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
-        public Guid ProductId { get; set; }     //Required FK
-        public Guid OrderId { get; set; }       //Required FK
+        public int ProductId { get; set; }     //Required FK
+        public int OrderId { get; set; }       //Required FK
         public Product Product { get; set; }     //Required navigation property
         public SaleOrder SaleOrder { get; set; }       //Required navigation property
         public decimal DetailPrice { get; set; }

@@ -4,7 +4,7 @@ namespace MiniMarket_API.Model.Entities
 {
     public abstract class User
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         [Required]
         [EmailAddress]

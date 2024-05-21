@@ -8,10 +8,11 @@ import SignupUser from "./components/Login/SingUp/SignUpUser";
 import Cart from "./components/Cart/Cart";
 import User from "./components/User/User";
 import Error404 from "./components/Pages/Error404";
-import './App.css';
+import "./App.css";
 import { ThemeContext, ThemeProvider } from "./components/Context/ThemeContext";
 import ProtectedUser from "./components/Pages/ProtectedUser";
 import Spinner from "./components/Context/Spinner"; // Ensure this path is correct
+import ProductPage from "./components/Products/ProductPage";
 
 const router = createBrowserRouter([
   {
@@ -32,7 +33,15 @@ const router = createBrowserRouter([
   },
   {
     path: "user",
-    element: <ProtectedUser><User/></ProtectedUser>
+    element: (
+      <ProtectedUser>
+        <User />
+      </ProtectedUser>
+    ),
+  },
+  {
+    path: "/products/All",
+    element: <ProductPage />,
   },
   {
     path: "*",
@@ -44,7 +53,11 @@ const AppContent = () => {
   const { theme, isLoading, toggleTheme } = useContext(ThemeContext);
 
   return (
-    <div className={`${theme === "dark" && "dark-theme"} ${isLoading && "opacity-80"}`}>
+    <div
+      className={`${theme === "dark" && "dark-theme"} ${
+        isLoading && "opacity-80"
+      }`}
+    >
       {isLoading && <Spinner />}
       <button className="toggle-theme-button" onClick={toggleTheme}>
         <FontAwesomeIcon icon={theme === "light" ? faMoon : faSun} />
@@ -61,6 +74,3 @@ const App = () => (
 );
 
 export default App;
-
-
-

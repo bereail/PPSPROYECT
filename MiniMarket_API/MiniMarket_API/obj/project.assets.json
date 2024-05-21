@@ -5057,19 +5057,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\BLCanoe\\.nuget\\packages\\": {}
+    "C:\\Users\\bsolohaga\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\BLCanoe\\source\\repos\\MiniMarket_API_dev\\MiniMarket_API\\MiniMarket_API.csproj",
+      "projectUniqueName": "C:\\Users\\bsolohaga\\Desktop\\bere\\UTN\\LAB4\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\MiniMarket_API.csproj",
       "projectName": "MiniMarket_API",
-      "projectPath": "C:\\Users\\BLCanoe\\source\\repos\\MiniMarket_API_dev\\MiniMarket_API\\MiniMarket_API.csproj",
-      "packagesPath": "C:\\Users\\BLCanoe\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\BLCanoe\\source\\repos\\MiniMarket_API_dev\\MiniMarket_API\\obj\\",
+      "projectPath": "C:\\Users\\bsolohaga\\Desktop\\bere\\UTN\\LAB4\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\MiniMarket_API.csproj",
+      "packagesPath": "C:\\Users\\bsolohaga\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\bsolohaga\\Desktop\\bere\\UTN\\LAB4\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\BLCanoe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\bsolohaga\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5166,7 +5171,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.203/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
