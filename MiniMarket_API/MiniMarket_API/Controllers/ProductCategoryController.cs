@@ -21,18 +21,19 @@ namespace MiniMarket_API.Controllers
         }
 
         [HttpPost]
-       /* [Authorize]*/
+        [Authorize]
         public async Task<IActionResult> CreateProductCategoryAsync([FromBody] AddCategoryDto addCategory)
         {
-           /* var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 
-            if (userRole != typeof(Seller).Name || userRole != typeof(SuperAdmin).Name) 
+            if (userRole == typeof(Seller).Name || userRole == typeof(SuperAdmin).Name)
             {
-                return Forbid();
+                var createdCategory = await _productCategoryService.CreateProductCategory(addCategory);
+                return Ok(createdCategory);
             }
-           */
-            var createdCategory = await _productCategoryService.CreateProductCategory(addCategory);
-            return Ok(createdCategory);
+
+            return Forbid();
+            
         }
 
         [HttpDelete("{categoryId}")]
@@ -40,17 +41,17 @@ namespace MiniMarket_API.Controllers
         {
             var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 
-            if (userRole != typeof(Seller).Name || userRole != typeof(SuperAdmin).Name)
+            if (userRole == typeof(Seller).Name || userRole == typeof(SuperAdmin).Name)
             {
-                return Forbid();
+                var categoryToDeactivate = await _productCategoryService.DeactivateProductCategory(categoryId);
+                if (categoryToDeactivate == null)
+                {
+                    return NotFound("Category Deactivation Failed: Category Wasn't Found");
+                }
+                return Ok(categoryToDeactivate);
             }
 
-            var categoryToDeactivate = await _productCategoryService.DeactivateProductCategory(categoryId);
-            if (categoryToDeactivate == null) 
-            {
-                return NotFound("Category Deactivation Failed: Category Wasn't Found");
-            }
-            return Ok(categoryToDeactivate);
+            return Forbid();
         }
 
         [HttpPatch("{categoryId}")]
@@ -59,17 +60,17 @@ namespace MiniMarket_API.Controllers
         {
             var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 
-            if (userRole != typeof(Seller).Name || userRole != typeof(SuperAdmin).Name)
+            if (userRole == typeof(Seller).Name || userRole == typeof(SuperAdmin).Name)
             {
-                return Forbid();
+                var categoryToRestore = await _productCategoryService.RestoreProductCategory(categoryId);
+                if (categoryToRestore == null)
+                {
+                    return NotFound("Category Restoration Failed: Category Wasn't Found");
+                }
+                return Ok(categoryToRestore);
             }
 
-            var categoryToRestore = await _productCategoryService.RestoreProductCategory(categoryId);
-            if (categoryToRestore == null)
-            {
-                return NotFound("Category Restoration Failed: Category Wasn't Found");
-            }
-            return Ok(categoryToRestore);
+            return Forbid();
         }
 
         [HttpPatch("{categoryId}/products")]
@@ -78,17 +79,17 @@ namespace MiniMarket_API.Controllers
         {
             var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 
-            if (userRole != typeof(Seller).Name || userRole != typeof(SuperAdmin).Name)
+            if (userRole == typeof(Seller).Name || userRole == typeof(SuperAdmin).Name)
             {
-                return Forbid();
+                var categoryToCascadeRestore = await _productCategoryService.CascadeRestoreProductCategory(categoryId);
+                if (categoryToCascadeRestore == null)
+                {
+                    return NotFound("Category Restoration Failed: Category Wasn't Found");
+                }
+                return Ok(categoryToCascadeRestore);
             }
 
-            var categoryToCascadeRestore = await _productCategoryService.CascadeRestoreProductCategory(categoryId);
-            if(categoryToCascadeRestore == null)
-            {
-                return NotFound("Category Restoration Failed: Category Wasn't Found");
-            }
-            return Ok(categoryToCascadeRestore);
+            return Forbid();
         }
 
 
@@ -99,18 +100,18 @@ namespace MiniMarket_API.Controllers
         {
             var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 
-            if (userRole != typeof(Seller).Name || userRole != typeof(SuperAdmin).Name)
+            if (userRole == typeof(Seller).Name || userRole == typeof(SuperAdmin).Name)
             {
-                return Forbid();
+                addProduct.CategoryId = categoryId;
+                var createdProduct = await _productService.CreateProduct(addProduct);
+                if (createdProduct == null)
+                {
+                    return BadRequest("Product Creation Failed: Category Wasn't Found or is Currently Inactive");
+                }
+                return Ok(createdProduct);
             }
 
-            addProduct.CategoryId = categoryId;
-            var createdProduct = await _productService.CreateProduct(addProduct);
-            if (createdProduct == null)
-            {
-                return BadRequest("Product Creation Failed: Category Wasn't Found or is Currently Inactive");
-            }
-            return Ok(createdProduct);
+            return Forbid();
         }
 
 

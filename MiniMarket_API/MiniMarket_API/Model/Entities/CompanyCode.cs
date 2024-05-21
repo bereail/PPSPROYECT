@@ -5,7 +5,7 @@ namespace MiniMarket_API.Model.Entities
 {
     public class CompanyCode
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [Required]
         [MinLength(16)]
         public string EmployeeCode { get; set; }

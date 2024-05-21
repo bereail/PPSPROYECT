@@ -32,20 +32,6 @@ namespace MiniMarket_API.Model
                 .HasMany(p => p.Details)
                 .WithOne(d => d.Product)
                 .HasForeignKey(d => d.ProductId);
-
-
-            // Configuración de las propiedades decimales
-            modelBuilder.Entity<OrderDetails>()
-                .Property(od => od.DetailPrice)
-                .HasColumnType("decimal(18,2)");
-
-            modelBuilder.Entity<Product>()
-                .Property(p => p.Price)
-                .HasColumnType("decimal(18,2)");
-
-            modelBuilder.Entity<SaleOrder>()
-                .Property(so => so.FinalPrice)
-                .HasColumnType("decimal(18,2)");
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class ProductCategory
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string CategoryName { get; set; }
         public bool IsActive { get; set; } = true;
         public DateTime? DeactivationTime { get; set; }

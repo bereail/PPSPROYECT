@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MiniMarket_API.Application.Services.Interfaces;
 using MiniMarket_API.Model.Entities;
+using System.Diagnostics;
 using System.Security.Claims;
 
 namespace MiniMarket_API.Controllers
@@ -23,17 +24,19 @@ namespace MiniMarket_API.Controllers
         {
             var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 
-            if (userRole != typeof(Seller).Name || userRole != typeof(SuperAdmin).Name)
+            Trace.WriteLine(userRole);
+
+            if (userRole == typeof(Seller).Name || userRole == typeof(SuperAdmin).Name)
             {
-                return Forbid();
+                var productToDeactivate = await productService.DeactivateProduct(productId);
+                if (productToDeactivate == null)
+                {
+                    return NotFound("Product Deactivation Failed: Product Wasn't Found");
+                }
+                return Ok(productToDeactivate);
             }
 
-            var productToDeactivate = await productService.DeactivateProduct(productId);
-            if (productToDeactivate == null) 
-            {
-                return NotFound("Product Deactivation Failed: Product Wasn't Found");
-            }
-            return Ok(productToDeactivate);
+            return Forbid();
         }
 
         [HttpPatch("{productId}")]
@@ -42,19 +45,18 @@ namespace MiniMarket_API.Controllers
         {
             var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 
-            if (userRole != typeof(Seller).Name || userRole != typeof(SuperAdmin).Name)
+            if (userRole == typeof(Seller).Name || userRole == typeof(SuperAdmin).Name)
             {
-                return Forbid();
+                var productToRestore = await productService.RestoreProduct(productId);
+                if (productToRestore == null)
+                {
+                    return BadRequest("Product Deactivation Failed: Product Wasn't Found or is in a Deactivated Category");
+                }
+                return Ok(productToRestore);
             }
 
-            var productToRestore = await productService.RestoreProduct(productId);
-            if (productToRestore == null)
-            {
-                return BadRequest("Product Deactivation Failed: Product Wasn't Found or is in a Deactivated Category");
-            }
-            return Ok(productToRestore);
+            return Forbid();
         }
-
 
         [HttpGet]
         //Can be used for the search bar, but it will require role validation for the isActive param.
