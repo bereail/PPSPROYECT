@@ -2,13 +2,21 @@
 .Container-Products{
     background-color: #D9D9D9;
     border-radius: 10%;
-    padding-top: 20px;
+    padding: 10px;
     margin-left: 80px;
-    
+    margin-bottom: 10px;
+    max-width: 250px;
+    max-height: 200px;
     
 }
 .Product-Price{
     color:  red;
+    font-size: 15px;
+    margin: 0px;
+}
+.Product-Offer{
+    margin: 0px;
+    font-size: 20px;
 }
 .Container-Button-Products{
     display: inline;
@@ -38,6 +46,8 @@
 .Container-Products:hover {
     transform: scale(1.5);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-height: 100%;
+    background-color: #D9D9D9;
 }
 
 .Add-Product:hover {
@@ -61,4 +71,16 @@
     font-size: 20px;
     margin-top: 10px;
     margin-left: 20px;
+   
+    
+}
+.Container-Add-Category input{
+    border: none;
+    padding: 1px;
+}
+.Container-Add-Category button{
+    padding: 1px;
+    border-style: none;
+    border-bottom-right-radius: 10%;
+    background-color: #1192EF;
 }

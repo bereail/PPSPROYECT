@@ -2,7 +2,8 @@
   position: relative;
   display: inline-block;
 }
-.icon-category{
+
+.icon-category {
   border: none;
   padding: 5px;
   padding-top: 10px;
@@ -17,27 +18,26 @@
   position: absolute;
   left: 0;
   display: flex;
-  flex-direction: column;
-  z-index: 999; 
+  flex-direction: column; 
+  z-index: 999;
 }
-  .filter-button {
-    max-width: 100%;
-    padding: 3px 8px;
-    border: none;
-    background-color: #f0f0f0;
-    color: #333;
-    cursor: pointer;
-    transition: background-color 0.3s ease;    
-    font-size: 14px;
-    position: relative; 
-  }
-  
-  .filter-button:hover {
-    background-color: #e0e0e0;
-  }
-  
-  .filter-button.active {
-    background-color: #8c451f;
-    color: #fff;
-  }
-  
+
+.filter-button {
+  max-width: 100%;
+  padding: 3px 8px;
+  border: none;
+  background-color: #f0f0f0;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+}
+
+.filter-button:hover {
+  background-color: #e0e0e0;
+}
+
+.filter-button.active {
+  background-color: #8c451f;
+  color: #fff;
+}
