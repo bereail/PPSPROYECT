@@ -1,27 +1,21 @@
 import React from "react";
-import CustomNavbar from "../Navbar/CustomNavbar";
-import CarrouselPage from "../Carrousel/CarrouselPage/CarrouselPage";
-import Footer from "../Footer/footer";
 import Header from "../Header/header";
-import "./Home.css";
-import Products from "../Products/Products";
+import Layout from "../Layout/Layout";
+import CarrouselPage from "../Carrousel/CarrouselPage/CarrouselPage";
+import ProductsOffers from "../Products/ProductsOffers";
+import "./Home.css"; 
+
 const Home = () => {
+  const headerContent = <Header />; 
+  
   return (
-    <div className="Home">
-
-      <CustomNavbar />
-
+    <Layout headerContent={headerContent} >
       <CarrouselPage />
-      
       <div className="content">
-
-        <Header />
-        <Products/>
+        <ProductsOffers />
       </div>
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 
 export default Home;
-

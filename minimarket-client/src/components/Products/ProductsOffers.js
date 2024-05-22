@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import './Products.css';
+import './ProductsOffers.css';
 import GetProductsOffers from './GetProductsOffers';
+import { useNavigate } from 'react-router-dom';
 
-const Products = () => {
+const ProductsOffers= () => {
   const [Products, setProducts] = useState([]);
   const [quantities, setQuantities] = useState({});
 
@@ -19,7 +20,11 @@ const Products = () => {
     fetchProducts();
   }, []);
   
+const navigate = useNavigate();
 
+const handleClick = () => {
+  navigate('/products/all');
+}
 
   useEffect(() => {
     // Inicializar las cantidades solo cuando Products cambie
@@ -47,7 +52,7 @@ const Products = () => {
 
   return (
     <div>
-      <p style={{fontSize: '50px'}}>Products</p>
+      <h1 onClick={handleClick}>Products</h1>
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         {Products.map(product => (
           <div key={product.id}>
@@ -58,7 +63,7 @@ const Products = () => {
               <p>{product.description}</p>
               <div className='Container-Button-Products'>
                 <button onClick={() => handleQuantityChange(product.id, Math.max(quantities[product.id] - 1, 1))}>-</button>
-                <input min="1" value={quantities[product.id] || 1} onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value) || 1)} />
+                <input min="1" value={quantities[product.id]} onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value) || 1)} />
                 <button onClick={() => handleQuantityChange(product.id, quantities[product.id] + 1)}>+</button>
               </div>
               <button className='Add-Product' onClick={() => (AddCartHandler(product))}>Add</button>
@@ -70,4 +75,4 @@ const Products = () => {
   )
 }
 
-export default Products
+export default ProductsOffers

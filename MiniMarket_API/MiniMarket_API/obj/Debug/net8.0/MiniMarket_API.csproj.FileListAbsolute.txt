@@ -461,3 +461,14 @@ C:\Users\bsolohaga\Desktop\bere\UTN\LAB4\PPSPROYECT\MiniMarket_API\MiniMarket_AP
 C:\Users\bsolohaga\Desktop\bere\UTN\LAB4\PPSPROYECT\MiniMarket_API\MiniMarket_API\obj\Debug\net8.0\MiniMarket_API.pdb
 C:\Users\bsolohaga\Desktop\bere\UTN\LAB4\PPSPROYECT\MiniMarket_API\MiniMarket_API\obj\Debug\net8.0\MiniMarket_API.genruntimeconfig.cache
 C:\Users\bsolohaga\Desktop\bere\UTN\LAB4\PPSPROYECT\MiniMarket_API\MiniMarket_API\obj\Debug\net8.0\ref\MiniMarket_API.dll
+C:\Users\Administrador\Desktop\Bere\utn\PPS4\PPSPROYECT\MiniMarket_API\MiniMarket_API\obj\Debug\net8.0\MiniMarket_API.csproj.AssemblyReference.cache
+C:\Users\Administrador\Desktop\Bere\utn\PPS4\PPSPROYECT\MiniMarket_API\MiniMarket_API\obj\Debug\net8.0\MiniMarket_API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Administrador\Desktop\Bere\utn\PPS4\PPSPROYECT\MiniMarket_API\MiniMarket_API\obj\Debug\net8.0\MiniMarket_API.AssemblyInfoInputs.cache
+C:\Users\Administrador\Desktop\Bere\utn\PPS4\PPSPROYECT\MiniMarket_API\MiniMarket_API\obj\Debug\net8.0\MiniMarket_API.AssemblyInfo.cs
+C:\Users\Administrador\Desktop\Bere\utn\PPS4\PPSPROYECT\MiniMarket_API\MiniMarket_API\obj\Debug\net8.0\MiniMarket_API.csproj.CoreCompileInputs.cache
+C:\Users\Administrador\Desktop\Bere\utn\PPS4\PPSPROYECT\MiniMarket_API\MiniMarket_API\obj\Debug\net8.0\MiniMarket_API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Administrador\Desktop\Bere\utn\PPS4\PPSPROYECT\MiniMarket_API\MiniMarket_API\obj\Debug\net8.0\MiniMarket_API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Administrador\Desktop\Bere\utn\PPS4\PPSPROYECT\MiniMarket_API\MiniMarket_API\obj\Debug\net8.0\MiniMarket_API.sourcelink.json
+C:\Users\Administrador\Desktop\Bere\utn\PPS4\PPSPROYECT\MiniMarket_API\MiniMarket_API\obj\Debug\net8.0\MiniMarket_API.dll
+C:\Users\Administrador\Desktop\Bere\utn\PPS4\PPSPROYECT\MiniMarket_API\MiniMarket_API\obj\Debug\net8.0\refint\MiniMarket_API.dll
+C:\Users\Administrador\Desktop\Bere\utn\PPS4\PPSPROYECT\MiniMarket_API\MiniMarket_API\obj\Debug\net8.0\MiniMarket_API.pdb
