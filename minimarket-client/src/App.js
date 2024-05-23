@@ -11,6 +11,7 @@ import { ThemeContext, ThemeProvider } from "./components/Context/ThemeContext";
 import ProtectedUser from "./components/Pages/ProtectedUser";
 import Spinner from "./components/Context/Spinner"; // Asegúrate de que esta ruta sea correcta
 import ProductPage from "./components/Products/ProductPage";
+import CustomChatbot from "./components/ChatBot/ChatBot";
 import { CategoryProvider } from "./components/Context/CategoryContext";
 
 const router = createBrowserRouter([
@@ -64,6 +65,8 @@ const App = () => (
   <ThemeProvider>
     <CategoryProvider>
     <AppContent />
+      
+    <CustomChatbot/>
     </CategoryProvider>
   </ThemeProvider>
   
