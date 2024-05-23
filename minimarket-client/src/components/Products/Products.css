@@ -61,10 +61,20 @@
     font-size: 30px;
     margin-top: 50px;
     margin-left: 20px;
+    max-width: 220px;
 }
-
+.Button-Add-Product{
+    background-color: #1192EF;
+    border-style: none;
+    border-radius: 10%;
+    font-size: 30px;
+    margin-top: 50px;
+    margin-left: 20px;
+    max-width: 300px;
+    
+}
 .Container-Add-Category{
-    display: flex; /* Utilizamos flexbox */
+    display: flex; 
     flex-direction: column; 
     border-style: none;
     max-width: 300px;
@@ -74,7 +84,34 @@
    
     
 }
-.Container-Add-Category input{
+.Container-Add-Product{
+    border-style: none;
+    max-width: 200px;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-left: 20px;
+  }
+.Container-Add-Product input{
+    border: none;
+    padding: 1px;
+}
+.Container-Add-Product button{
+    padding: 1px;
+    margin: 5px;
+    border-style: none;
+    border-bottom-right-radius: 10%;
+    background-color: #1192EF;
+}
+
+.Button-Desactive-Product{
+    margin-left: 50px;
+    margin-bottom: 5px;
+    border-style: none;
+    padding: 5px;
+    border-radius: 15px;
+    background-color: #D9D9D9;
+}
+.Container-Add-Category  input{
     border: none;
     padding: 1px;
 }
@@ -83,4 +120,9 @@
     border-style: none;
     border-bottom-right-radius: 10%;
     background-color: #1192EF;
+}
+.Products-Seller{
+    display: flex;
+    flex-direction: column;
+ 
 }
