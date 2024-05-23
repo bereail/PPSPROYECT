@@ -2,31 +2,38 @@ import React, { useContext, useEffect, useState } from 'react';
 import './Products.css';
 import { GetRoleByUser } from '../../GetRoleByUser';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faPencil, faTrashCan, faTrashCanArrowUp } from "@fortawesome/free-solid-svg-icons";
 import Api from '../../Api';
 import { CategoryContext } from '../Context/CategoryContext';
 import CreateCategory from './Crud/CreateCategory';
 import CreaateProduct from './Crud/CreaateProduct';
+import DisabelProduct from './Crud/DisabelProduct';
+import RestoreProducts from './Crud/RestoreProducts';
 
 const Products = () => {
   const [Products, setProducts] = useState([]);
   const [quantities, setQuantities] = useState({});
   const [RoleUser, SetRolUser] = useState('');
   const [hoveredProduct, setHoveredProduct] = useState(null);
-  const [isActive, SetisActive] = useState(false);
-  const { CategoryId } = useContext(CategoryContext)
+  const [isActive, SetisActive] = useState(true);
+  const [ModifyProducts, SetModifyProducts] = useState(false);
+  const [editedProduct, setEditedProduct] = useState(null); // Estado para el producto en edición
+  const [editedProductName, setEditedProductName] = useState(''); // Estado para el nombre del producto en edición
+  const [editedProductDescription, setEditedProductDescription] = useState(''); // Estado para la descripción del producto en edición
+  const [editedProductPrice, setEditedProductPrice] = useState(0); // Estado para el precio del producto en edición
+
+  const { CategoryId } = useContext(CategoryContext);
   
-  
-  const fetchProductsCategory = async (isActive) => {
-    SetisActive(isActive)
+  const fetchProductsCategory = async (isactive) => {
+    if(isactive != null){
+      SetisActive(isactive)
+    }
     if (CategoryId != null) {
       try {
         const api = Api();
         const response = await api.get(`/api/categories/${CategoryId}/products`, {
-          params: { isActive }  
+          params: { isActive: isactive }
         });
-        
-        
         setProducts(response.data.products)
       } catch (error) {
         console.error('Error fetching products category:', error);
@@ -34,13 +41,9 @@ const Products = () => {
     };
   }
 
-  
   useEffect(() => {
-  
-    fetchProductsCategory();
-
+    fetchProductsCategory();   
   }, [CategoryId]);
-
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -60,7 +63,6 @@ const Products = () => {
     SetRolUser(role);
   }, [])
 
-
   useEffect(() => {
     // Inicializar las cantidades solo cuando Products cambie
     const initialQuantities = {};
@@ -77,39 +79,43 @@ const Products = () => {
       [productId]: value
     }));
   };
-  const DisabelProductsHandler = async(product) =>{
-    try{
-      const api = Api()
-      await api.delete(`/api/products/${product}`)
-      window.location.reload();
-    }catch(error){
-      console.log('Error disabel products:', error)
-    }
-  }
 
-  //IMPLEMENTAR LOGICA DE CARRITO
+  const handleEditProduct = (product) => {
+    setEditedProduct(product);
+    setEditedProductName(product.name);
+    setEditedProductDescription(product.description);
+    setEditedProductPrice(product.price);
+    SetModifyProducts(true);
+  };
+
+  const handleUpdateProduct = () => {
+    // Aquí debes enviar los valores editados al servidor o realizar las acciones necesarias
+    console.log('Producto actualizado:', editedProduct);
+    // Luego de la actualización, puedes volver a desactivar la edición
+    SetModifyProducts(false);
+  };
+
   const AddCartHandler = (product) => {
     alert(`Se añadieron ${quantities[product.id]} unidades de ${product.name}`);
-
-  }
-
+  };
 
   return (
     <div>
       <div style={{ alignItems: 'center'}}>
-      <p style={{ fontSize: '50px', marginLeft: '50px' }}>Products</p>
-      {RoleUser === 'Seller' && CategoryId !== null && <button  className='Button-Desactive-Product'  onClick={()=>{fetchProductsCategory(!isActive)}}>Diabel Products</button>}
+        <p style={{ fontSize: '50px', marginLeft: '50px' }}>Products</p>
+        {RoleUser === 'Seller' && CategoryId !== null && <button className='Button-Desactive-Product' onClick={()=>{fetchProductsCategory(!isActive)}}>Diabel Products</button>}
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         {Products.map(product => (
           <div key={product.id} onMouseEnter={() => setHoveredProduct(product.id)} onMouseLeave={() => { setHoveredProduct(null) }}>
-            <div className='Container-Products'>
+            <div className={product.isActive  === false ? 'Container-Products-Disabel': 'Container-Products'}>
               <div style={{ display: 'flex', position: 'flex 1' }}>
-                {RoleUser === 'Seller' && <FontAwesomeIcon icon={faPencil} style={{ marginLeft: '15px' }} />}
+                {RoleUser === 'Seller' && <FontAwesomeIcon icon={faPencil} style={{ marginLeft: '15px' }} onClick={() => handleEditProduct(product)} />}
                 <h5 style={{ textAlign: 'center', flex: 1 }}>
                   {hoveredProduct === product.id ? product.name : `${product.name.slice(0, 20)}${product.name.length > 20 ? '...' : ''}`}
                 </h5>
-                {RoleUser === 'Seller' && <FontAwesomeIcon icon={faTrashCan} style={{ marginLeft: '10px' }} onClick={()=>(DisabelProductsHandler(product.id))} />}
+                {RoleUser === 'Seller'&&  product.isActive && <FontAwesomeIcon icon={faTrashCan} style={{ marginLeft: '10px' }} onClick={()=>(DisabelProduct(product.id))} />}
+                {RoleUser === 'Seller'&&  !product.isActive && <FontAwesomeIcon icon={faTrashCanArrowUp} style={{ marginLeft: '10px' }} onClick={()=>(RestoreProducts(product.id))} />}
               </div>
               {hoveredProduct === product.id && <p>{product.description}</p>}
               <p className='Product-Price'>${product.price}</p>
@@ -119,20 +125,17 @@ const Products = () => {
                 <input min="1" value={quantities[product.id] || 1} onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value) || 1)} />
                 <button onClick={() => handleQuantityChange(product.id, quantities[product.id] + 1)}>+</button>
               </div>
-              <button className='Add-Product' onClick={() => (AddCartHandler(product))}>Add</button>
+              <button className='Add-Product' onClick={() => AddCartHandler(product)}>Add</button>
             </div>
           </div>
         ))}
       </div>
       {RoleUser === 'Seller' && <div className='Products-Seller'>
         {CategoryId !== null &&<CreaateProduct></CreaateProduct>}
-     
         <CreateCategory></CreateCategory>
-      </div>
-      }
-
+      </div>}
     </div>
-  )
-}
+  );
+};
 
-export default Products
+export default Products;

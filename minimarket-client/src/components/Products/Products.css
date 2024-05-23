@@ -9,6 +9,18 @@
     max-height: 200px;
     
 }
+
+.Container-Products-Disabel{
+    background-color: #999797;
+    border-radius: 10%;
+    padding: 10px;
+    margin-left: 80px;
+    margin-bottom: 10px;
+    max-width: 250px;
+    max-height: 200px;
+}
+
+
 .Product-Price{
     color:  red;
     font-size: 15px;
@@ -48,6 +60,12 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     max-height: 100%;
     background-color: #D9D9D9;
+}
+.Container-Products-Disabel:hover {
+    transform: scale(1.5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-height: 100%;
+    background-color: #999797;
 }
 
 .Add-Product:hover {
@@ -102,6 +120,7 @@
     border-bottom-right-radius: 10%;
     background-color: #1192EF;
 }
+
 
 .Button-Desactive-Product{
     margin-left: 50px;
