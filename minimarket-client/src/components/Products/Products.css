@@ -161,3 +161,23 @@
     flex-direction: column;
  
 }
+.Error-Products{
+    font-size: 50px;
+    margin-left: 10px;
+    color: rgb(0, 0, 0);
+}
+
+.Select-order{
+    display: flex;
+    align-items: center; 
+}
+.Select-order p{
+    margin-right: 500px;
+}
+.Select-order select{
+    padding: 5px;
+    background-color: #D9D9D9;
+    border-style: none;
+    border-radius: 5px;
+    margin: 5px;
+}

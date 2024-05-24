@@ -10,21 +10,26 @@ import CreaateProduct from './Crud/CreaateProduct';
 import DisabelProduct from './Crud/DisabelProduct';
 import RestoreProducts from './Crud/RestoreProducts';
 import GetProductsByCategory from './Crud/GetProducstByCategory';
-
+import iconerror from '../Image/Icon-product-error.png'
 const Products = () => {
   const [Products, setProducts] = useState([]);
   const [quantities, setQuantities] = useState({});
   const [RoleUser, SetRolUser] = useState('');
   const [hoveredProduct, setHoveredProduct] = useState(null);
-  const [isActive, SetisActive] = useState(true);
-  
-
+  const [isActive, SetisActive] = useState();
+  const [error, setError] = useState(null);
+  const [SortbydOption, SetSortbydOption] = useState('');
+  const [isAscendingOption, SetisAscendingOption] = useState();
   const { CategoryId } = useContext(CategoryContext);
-  
+
   useEffect(() => {
-    GetProductsByCategory(CategoryId, isActive, setProducts); // Utiliza el nuevo componente
- 
-  }, [CategoryId, isActive]);
+    GetProductsByCategory(CategoryId, isActive, setProducts, setError, isAscendingOption,SortbydOption ); // Utiliza el nuevo componente
+
+  }, [CategoryId, isActive, isAscendingOption ]);
+
+  useEffect(() => {
+    SetisAscendingOption('');
+  }, [SortbydOption]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -32,6 +37,7 @@ const Products = () => {
         const api = Api();
         const response = await api.get("/api/products/offers");;
         setProducts(response.data);
+        setError(null)
       } catch (error) {
         console.error('Error fetching products:', error);
       }
@@ -60,9 +66,7 @@ const Products = () => {
       [productId]: value
     }));
   };
-
-
-
+  
 
   const AddCartHandler = (product) => {
     alert(`Se añadieron ${quantities[product.id]} unidades de ${product.name}`);
@@ -70,24 +74,43 @@ const Products = () => {
 
   return (
     <div>
-      <div style={{ alignItems: 'center'}}>
+      <div className='Select-order'>
         <p style={{ fontSize: '50px', marginLeft: '50px' }}>Products</p>
-        {RoleUser === 'Seller' && CategoryId !== null && <button className='Button-Desactive-Product' onClick={()=>{SetisActive(!isActive)}}>Diabel Products</button>}
+        {CategoryId !== null && <>
+        <select id="opciones" name="opciones" value={SortbydOption} onChange={(e)=>{SetSortbydOption(e.target.value)}}>
+          <option value='' disabled selected>Sort by:</option>
+          <option value="Name">Name</option>
+          <option value="Price">Price</option>
+          <option value="Discount">Discount</option>
+        </select>
+        {SortbydOption && 
+        <select id="opciones" name="opciones"  value={isAscendingOption} onChange={(e)=>{SetisAscendingOption(e.target.value)}}>
+          <option value='' disabled selected>Sort order</option>
+          <option value={true}>Ascending</option>
+          <option value={false}>descending</option>
+        </select>
+        }
+        </>}
+        
       </div>
+      
+      {RoleUser === 'Seller' && CategoryId !== null && <button className='Button-Desactive-Product' onClick={() => { SetisActive(!isActive) }}>Diabel Products</button>}
+
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        {Products.map(product => (
+
+        {!error && Products.map(product => (
           <div key={product.id} onMouseEnter={() => setHoveredProduct(product.id)} onMouseLeave={() => { setHoveredProduct(null) }}>
-            <div className={product.isActive  === false ? 'Container-Products-Disabel': 'Container-Products'}>
+            <div className={product.isActive === false ? 'Container-Products-Disabel' : 'Container-Products'}>
               <div style={{ display: 'flex', position: 'flex 1' }}>
-                {RoleUser === 'Seller' && <FontAwesomeIcon icon={faPencil} style={{ marginLeft: '15px' }}  />}
+                {RoleUser === 'Seller' && <FontAwesomeIcon icon={faPencil} style={{ marginLeft: '15px' }} />}
                 <h5 style={{ textAlign: 'center', flex: 1 }}>
                   {hoveredProduct === product.id ? product.name : `${product.name.slice(0, 20)}${product.name.length > 20 ? '...' : ''}`}
                 </h5>
-                {RoleUser === 'Seller'&&  product.isActive && <FontAwesomeIcon icon={faTrashCan} style={{ marginLeft: '10px' }} onClick={()=>(DisabelProduct(product.id))} />}
-                {RoleUser === 'Seller'&&  !product.isActive && <FontAwesomeIcon icon={faTrashCanArrowUp} style={{ marginLeft: '10px' }} onClick={()=>(RestoreProducts(product.id))} />}
+                {RoleUser === 'Seller' && product.isActive && <FontAwesomeIcon icon={faTrashCan} style={{ marginLeft: '10px' }} onClick={() => (DisabelProduct(product.id))} />}
+                {RoleUser === 'Seller' && !product.isActive && <FontAwesomeIcon icon={faTrashCanArrowUp} style={{ marginLeft: '10px' }} onClick={() => (RestoreProducts(product.id))} />}
               </div>
               {hoveredProduct === product.id && <p>{product.description}</p>}
-              <p className='Product-Price'>${product.price}</p>
+              <p className='Product-Price'>US$ {product.price}</p>
               <p className='Product-Offer'>  {product.discount !== 0 && `With discount: ${product.price * (1 - product.discount / 100).toFixed(2)}`}</p>
               <div className='Container-Button-Products'>
                 <button onClick={() => handleQuantityChange(product.id, Math.max(quantities[product.id] - 1, 1))}>-</button>
@@ -98,9 +121,15 @@ const Products = () => {
             </div>
           </div>
         ))}
+
       </div>
+      {error && <div>
+        <p className='Error-Products'>There are no products in this category.</p>
+        <img style={{ width: '350px' }} src={iconerror}></img>
+      </div>}
+
       {RoleUser === 'Seller' && <div className='Products-Seller'>
-        {CategoryId !== null &&<CreaateProduct></CreaateProduct>}
+        {CategoryId !== null && <CreaateProduct></CreaateProduct>}
         <CreateCategory></CreateCategory>
       </div>}
     </div>
