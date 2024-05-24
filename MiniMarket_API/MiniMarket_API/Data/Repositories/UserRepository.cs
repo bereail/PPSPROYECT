@@ -130,7 +130,7 @@ namespace MiniMarket_API.Data.Repositories
         public async Task<Guid?> GetUserIdByEmailAsync(string email)
         {
             var userId = await _context.Users
-                .Where(u => u.Email == email)
+                .Where(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase))
                 .Select(u => u.Id)
                 .FirstOrDefaultAsync();
             return userId;                                              //Checks if the User's Email already exists in the db. If it does, it will return the User's ID, else it will be null.
@@ -139,17 +139,9 @@ namespace MiniMarket_API.Data.Repositories
         public async Task<User?> GetUserByEmailAsync(string email)
         {
             var user = await _context.Users
-                .Where(u => u.Email == email)
+                .Where(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase))
                 .FirstOrDefaultAsync();
-            return user;                                              //Checks if the User's Email already exists in the db. If it does, it will return the User's ID, else it will be null.
+            return user;                                              
         }
-
-
-        //public Task<User?> GetProfileByIdAsync(Guid id)
-        //{
-        //    return _context.Users
-        //        .Include(x => x.SaleOrders)
-        //        .FirstOrDefaultAsync(x => x.Id == id);
-        //}
     }
 }

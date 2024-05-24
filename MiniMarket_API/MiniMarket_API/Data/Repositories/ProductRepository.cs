@@ -179,10 +179,30 @@ namespace MiniMarket_API.Data.Repositories
             return await products.Skip(skipResults).Take(pageSize).ToListAsync();
         }
 
+        public async Task<ICollection<Guid>> CascadeProductIds (Guid categoryId, DateTime filterTime)
+        {
+            var getProducts = await _context.Products
+                .Where(p => p.CategoryId == categoryId && !p.IsActive && p.DeactivationTime >= filterTime)
+                .Select(p => p.Id)
+                .ToListAsync();
+
+            return getProducts;
+        }
+
         public Task<Product?> GetProductByIdAsync(Guid id)
         {
             return _context.Products
                 .FirstOrDefaultAsync(x => x.Id == id && x.IsActive && x.Stock >= 1);
+        }
+
+        public async Task<Guid?> CheckIfProductExistsAsync(string productName)
+        {
+            var productId = await _context.Products
+                .Where(p => p.Name.Equals(productName, StringComparison.OrdinalIgnoreCase))
+                .Select(p => p.Id)
+                .FirstOrDefaultAsync();
+
+            return productId;
         }
 
         //FOR SELLER/ADMIN & RESTRICED METHOD USE ONLY

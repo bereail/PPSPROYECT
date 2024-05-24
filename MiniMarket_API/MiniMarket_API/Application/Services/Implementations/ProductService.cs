@@ -25,8 +25,14 @@ namespace MiniMarket_API.Application.Services.Implementations
             var checkCategory = await _productCategoryRepository.GetCategoryByIdAsync(addProductDto.CategoryId);
             if (checkCategory == null)
             {
+                throw new BadHttpRequestException("Product Creation Failed: Category Wasn't Found or is Currently Inactive");
+            }
+            var checkProductName = await _productRepository.CheckIfProductExistsAsync(addProductDto.Name);
+            if (checkProductName != null)
+            {
                 return null;
             }
+
             var productToCreate = _mapper.Map<Product>(addProductDto);
             await _productRepository.CreateProductAsync(productToCreate);
             return _mapper.Map<ProductDto>(productToCreate);

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MiniMarket_API.Application.DTOs.Requests;
 using MiniMarket_API.Application.Services.Interfaces;
 using MiniMarket_API.Model.Entities;
-using System.Diagnostics;
 using System.Security.Claims;
 
 namespace MiniMarket_API.Controllers
@@ -18,13 +18,30 @@ namespace MiniMarket_API.Controllers
             this.productService = productService;
         }
 
+        [HttpPut("{productId}")]
+        [Authorize]
+        public async Task<IActionResult> UpdateProductAsync([FromRoute] Guid productId, UpdateProductDto updateProduct)
+        {
+            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            if (userRole == typeof(Seller).Name || userRole == typeof(SuperAdmin).Name)
+            {
+                var productToUpdate = await productService.UpdateProduct(productId, updateProduct);
+                if (productToUpdate == null) 
+                {
+                    return NotFound("Product Update Failed: Product Wasn't Found");
+                }
+                return Ok(productToUpdate);
+            }
+
+            return Forbid();
+        }
+
         [HttpDelete("{productId}")]
         [Authorize]
         public async Task<IActionResult> DeactivateProductAsync([FromRoute] Guid productId)
         {
             var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
-
-            Trace.WriteLine(userRole);
 
             if (userRole == typeof(Seller).Name || userRole == typeof(SuperAdmin).Name)
             {
@@ -83,7 +100,7 @@ namespace MiniMarket_API.Controllers
         }
 
         [HttpGet("offers")]
-        //Homepage offers endpoint. Returns a collection of the 7 most discounted products currently available.
+        //Homepage offers endpoint. Returns a collection of the 9 most discounted products currently available.
         public async Task<IActionResult> GetProductOffersForHomeAsync()
         {
             bool? isActive = true;
@@ -92,7 +109,7 @@ namespace MiniMarket_API.Controllers
             string? sortBy = "discount";
             bool? isAscending = true;
             int pageNumber = 1;
-            int pageSize = 7;
+            int pageSize = 9;
 
             var getOffers = await productService.GetAllProducts(isActive, filterOn, filterQuery, sortBy, isAscending, pageNumber, pageSize);
             if (getOffers == null)

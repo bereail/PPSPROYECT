@@ -68,24 +68,30 @@ namespace MiniMarket_API.Application.Services.Implementations
             return mapper.Map<CategoryDto?>(categoryToRestore);
         }
 
-        //Not fully functional as of now
         public async Task<CategoryCollectionDto?> CascadeRestoreProductCategory(Guid id)
         {
-            var categoryToRestore = await _categoryRepository.CascadeRestoreProductCategoryAsync(id);
-            if (categoryToRestore == null)
+            //Upon restoring the category, we will get it's former deletion time, so we can use it as a filter
+            var newFilterTime = await _categoryRepository.CascadeRestoreProductCategoryAsync(id);
+            if (newFilterTime == null)
             {
                 return null;
             }
 
-            ICollection<Product> productsToCascadeRestore = categoryToRestore.Products;
+            //We pass the filterTime alongside the categoryId, to bring back all productIds deactivated with the category
+            var productsToRestore = await productRepository.CascadeProductIds(id, newFilterTime.Value);
 
-            foreach (Product product in productsToCascadeRestore)
+            //This is to have the category for the return statement
+            var restoredCategory = await _categoryRepository.GetCategoryByIdAsync(id);
+
+            //We run a loop to restore each product previously filtered, and add it to the restored category for the return statement
+            foreach (Guid productId in productsToRestore)
             {
-                await productRepository.RestoreProductAsync(product.Id);
-                continue;
+                var restoredProduct = await productRepository.RestoreProductAsync(productId);
+                if (restoredProduct == null) { continue; }
+                restoredCategory.Products.Add(restoredProduct);
             }
 
-            return mapper.Map<CategoryCollectionDto>(categoryToRestore);
+            return mapper.Map<CategoryCollectionDto>(restoredCategory);
         }
 
         public async Task<CategoryDto?> EraseProductCategory(Guid id)

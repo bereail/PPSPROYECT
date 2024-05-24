@@ -106,7 +106,7 @@ namespace MiniMarket_API.Controllers
                 var createdProduct = await _productService.CreateProduct(addProduct);
                 if (createdProduct == null)
                 {
-                    return BadRequest("Product Creation Failed: Category Wasn't Found or is Currently Inactive");
+                    return Conflict("Product Creation Failed: Product Already Exists");
                 }
                 return Ok(createdProduct);
             }
