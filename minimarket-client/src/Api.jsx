@@ -5,15 +5,14 @@ const getToken = () => {
 };
 
 const Api = () => {
-    const token = getToken('');
-
+    const token = getToken();
     const api = axios.create({
         baseURL: 'https://localhost:7191',
         headers: {
             'Authorization': `Bearer ${token}`
         }
     });
-
+    
     return api;
 };
 

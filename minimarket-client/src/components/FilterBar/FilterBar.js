@@ -1,19 +1,59 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./FilterBar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { faSortDown } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { faTrashCan, faTrashCanArrowUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
+
+import Api from "../../Api";
+import { CategoryContext } from "../Context/CategoryContext";
+
+
 
 export default function FilterBar() {
-  const [activeButton, setActiveButton] = useState(null);
+  const { CategoryId, SetCategoryId } = useContext(CategoryContext);
   const [isExpanded, setIsExpanded] = useState(false);
-  const navigate = useNavigate();
+  const [Category, SetCategory] = useState([]);
+  const [isActive, SetisActive] = useState(false)
+
+  const fetchCategories = async (isactive) => {
+    try {
+      if (isActive !== '') {
+        SetisActive(!isActive)
+      }
+      const api = Api();
+      const response = await api.get("/api/categories", {
+        params: { isActive: isactive }
+      });
+      SetCategory(response.data);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  };
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+  const handleDisabelCategory = async () => {
+    try {
+      const api = Api()
+      await api.delete(`/api/categories/${CategoryId}`)
+      fetchCategories()
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  }
+  const handleActiveCategory = async ()=>{
+    try {
+      alert(CategoryId)
+      const api = Api();
+      await api.patch(`/api/categories/${CategoryId}`);
+      fetchCategories()
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  };
 
   const handleFilter = (filter) => {
-    setActiveButton(filter);
-    setIsExpanded(false);
-    navigate(`/products/${filter}`);
+    SetCategoryId(filter);
   };
 
   const handleMouseEnter = () => {
@@ -23,66 +63,41 @@ export default function FilterBar() {
   const handleMouseLeave = () => {
     setIsExpanded(false);
   };
-
   return (
     <div className="filter-bar-container">
-      <button
-        className="icon-category"
+      <div
         onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onClick={() => handleFilter("all")}
-      >
-        <FontAwesomeIcon icon={faBars} /> All
-        <FontAwesomeIcon icon={faSortDown} />
-      </button>
-      {isExpanded && (
-        <div
-          className="filter-bar"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
+        onMouseLeave={handleMouseLeave}>
+        <button
+          className="icon-category"
+          onClick={() => handleFilter("all")}
         >
-          <button
-            onClick={() => handleFilter("bebidas")}
-            className={
-              activeButton === "bebidas"
-                ? "filter-button active"
-                : "filter-button"
-            }
-          >
-            Drinks
-          </button>
-          <button
-            onClick={() => handleFilter("limpieza")}
-            className={
-              activeButton === "Limpieza"
-                ? "filter-button active"
-                : "filter-button"
-            }
-          >
-            Cleaning
-          </button>
-          <button
-            onClick={() => handleFilter("higiene")}
-            className={
-              activeButton === "Higiene"
-                ? "filter-button active"
-                : "filter-button"
-            }
-          >
-            hygiene
-          </button>
-          <button
-            onClick={() => handleFilter("tecnologia")}
-            className={
-              activeButton === "Tecnología"
-                ? "filter-button active"
-                : "filter-button"
-            }
-          >
-            Technology
-          </button>
-        </div>
-      )}
+          <FontAwesomeIcon icon={faBars} /> All
+          <FontAwesomeIcon icon={faSortDown} />
+        </button>
+        {isExpanded && (
+          <div className="filter-bar">
+            {Category.map((category) => (<>
+              <div
+                key={category.id}
+                className={`${CategoryId === category.id ? "filter-button active" : "filter-button"} ${!category.isActive ? "Category-disabled" : ""}`}
+                onClick={() => handleFilter(category.id)}
+              >
+
+                {category.categoryName}
+                {CategoryId == category.id && category.isActive &&
+                  <FontAwesomeIcon icon={faTrashCan} style={{ marginLeft: '10px' }} onClick={() => { handleDisabelCategory() }} />
+                }
+                {CategoryId == category.id && !category.isActive &&
+                  <FontAwesomeIcon icon={faTrashCanArrowUp} style={{ marginLeft: '10px' }} onClick={() => { handleActiveCategory() }} />
+                }
+              </div>
+            </>
+            ))}
+            <button className="Buton-Disabel-Category" onClick={() => { fetchCategories(!isActive) }}>GetCategoryDisabel</button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

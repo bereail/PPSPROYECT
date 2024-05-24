@@ -47,7 +47,7 @@ const CustomNavbar = () => {
     >
       <Container fluid style={{ maxHeight: "50px", padding: "0px" }}>
         <div style={{ display: "flex", alignItems: "center" }}>
-          <Link to="/" style={{ textDecoration: 'none' }} onclick={() => SetCurrentPage("Home")}>
+          <Link to="/" style={{ textDecoration: 'none' }} onClick={() => SetCurrentPage("Home")}>
             <Logo />
           </Link>
           <button

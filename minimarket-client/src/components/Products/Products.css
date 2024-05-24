@@ -1,13 +1,34 @@
+
 .Container-Products{
     background-color: #D9D9D9;
     border-radius: 10%;
-    padding: 3%;
-    margin: 2%;
-    max-width: 200px;
+    padding: 10px;
+    margin-left: 80px;
+    margin-bottom: 10px;
+    max-width: 250px;
+    max-height: 200px;
+    
 }
+
+.Container-Products-Disabel{
+    background-color: #999797;
+    border-radius: 10%;
+    padding: 10px;
+    margin-left: 80px;
+    margin-bottom: 10px;
+    max-width: 250px;
+    max-height: 200px;
+}
+
 
 .Product-Price{
     color:  red;
+    font-size: 15px;
+    margin: 0px;
+}
+.Product-Offer{
+    margin: 0px;
+    font-size: 20px;
 }
 .Container-Button-Products{
     display: inline;
@@ -32,4 +53,131 @@
     padding: 2%;
     background-color: #CC713D;
     border-radius: 40%;
+}
+
+.Container-Products:hover {
+    transform: scale(1.5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-height: 100%;
+    background-color: #D9D9D9;
+}
+.Container-Products-Disabel:hover {
+    transform: scale(1.5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-height: 100%;
+    background-color: #999797;
+}
+
+.Add-Product:hover {
+    background-color: #b5602d;
+}
+
+.Button-Add-Category{
+    background-color: #1192EF;
+    border-style: none;
+    border-radius: 10%;
+    font-size: 30px;
+    margin-top: 50px;
+    margin-left: 20px;
+    max-width: 220px;
+}
+.Button-Add-Product{
+    background-color: #1192EF;
+    border-style: none;
+    border-radius: 10%;
+    font-size: 30px;
+    margin-top: 50px;
+    margin-left: 20px;
+    max-width: 300px;
+    
+}
+.Container-Add-Category {
+    display: flex; 
+    flex-direction: column; 
+    border-style: none;
+    max-width: 300px;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-left: 20px;
+    opacity: 0; 
+    transition: opacity 1s ease; 
+    pointer-events: none; 
+  }
+  
+  .Container-Add-Category.active {
+    opacity: 1; 
+    pointer-events: all; 
+
+  }
+.Container-Add-Product{
+    border-style: none;
+    max-width: 200px;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-left: 20px;
+    opacity: 0;
+    max-height: 0; 
+    overflow: hidden; 
+    transition: opacity 1s ease, max-height 1s ease;
+  }
+.Container-Add-Product.active {
+    opacity: 1; 
+    max-height: 500px; 
+}
+  
+.Container-Add-Product input{
+    border: none;
+    padding: 1px;
+}
+.Container-Add-Product button{
+    padding: 1px;
+    margin-top: 10px;
+    border-style: none;
+    border-bottom-right-radius: 10%;
+    background-color: #1192EF;
+}
+
+
+.Button-Desactive-Product{
+    margin-left: 50px;
+    margin-bottom: 5px;
+    border-style: none;
+    padding: 5px;
+    border-radius: 15px;
+    background-color: #D9D9D9;
+}
+.Container-Add-Category  input{
+    border: none;
+    padding: 1px;
+}
+.Container-Add-Category button{
+    padding: 1px;
+    border-style: none;
+    border-bottom-right-radius: 10%;
+    background-color: #1192EF;
+}
+.Products-Seller{
+    display: flex;
+    flex-direction: column;
+ 
+}
+.Error-Products{
+    font-size: 50px;
+    margin-left: 10px;
+    color: rgb(0, 0, 0);
+}
+
+.Select-order{
+    display: flex;
+    align-items: center; 
+}
+.Select-order p{
+    margin-right: 500px;
+}
+.Select-order select{
+    padding: 5px;
+    background-color: #D9D9D9;
+    border-style: none;
+    border-radius: 5px;
+    margin: 5px;
 }
