@@ -5,40 +5,86 @@ import './ChatBot.css';
 
 const theme = {
     background: '#f5f8fb',
-    headerBgColor: '#915036',
+    headerBgColor: '#eb3449',
     headerFontColor: '#fff',
     headerFontSize: '20px',
-    botBubbleColor: '#915036',
-    botFontColor: '#000', // Texto del bot en negro
-    userBubbleColor: '#99776a',
-    userFontColor: '#000', // Texto del usuario en negro
+    botBubbleColor: '#eb3449',
+    botFontColor: '#000',
+    userBubbleColor: '#0cb3c9',
+    userFontColor: '#000',
+};
+
+const validateEmail = (value) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(value);
 };
 
 const CustomChatbot = () => {
-    const steps = [
-        { id: "1", message: "Hey welcome to Family Market", trigger: "2" },
-        { id: "2", user: true, trigger: "3" },
-        { id: "3", message: "¡{previousValue}! How can I help you today?", end: true }
-    ];
-
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleChatbot = () => {
         setIsOpen(!isOpen);
     };
 
+    const steps = [
+        {
+            id: '1',
+            message: "Hey, welcome to Family Market. What's your name?",
+            trigger: 'get_name',
+        },
+        {
+            id: 'get_name',
+            user: true,
+            trigger: ({ value }) => {
+                return 'greet_user';
+            },
+        },
+        {
+            id: 'greet_user',
+            message: ({ previousValue }) => `Nice to meet you, ${previousValue}! Can I have your email address for further assistance?`,
+            trigger: 'get_email',
+        },
+        {
+            id: 'get_email',
+            user: true,
+            validator: (value) => {
+                if (validateEmail(value)) {
+                    return true;
+                } else {
+                    return 'Please enter a valid email address.';
+                }
+            },
+            trigger: 'ask_help',
+        },
+        {
+            id: 'ask_help',
+            message: 'How can I help you today?',
+            trigger: 'get_help',
+        },
+        {
+            id: 'get_help',
+            user: true,
+            trigger: 'end_chat',
+        },
+        {
+            id: 'end_chat',
+            message: 'Thank you for contacting us. We learn every day to offer you a better service! Thank you for your trust in Family Market.',
+            end: true,
+        },
+    ];
+
     return (
         <div className='chatbot-container'>
-            <a className={`chatbot-toggle-button ${isOpen ? 'open' : ''}`} onClick={toggleChatbot}>
+            <button className={`chatbot-toggle-button ${isOpen ? 'open' : ''}`} onClick={toggleChatbot}>
                 <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"></path>
                     <path d="M0 0h24v24H0z" fill="none"></path>
                 </svg>
-            </a>
+            </button>
             {isOpen && (
                 <ThemeProvider theme={theme}>
                     <ChatBot
-                        headerTitle="ChatBot"
+                        headerTitle="Let's Chat"
                         recognitionEnable={true}
                         recognitionThreshold={0.5}
                         steps={steps}
@@ -51,3 +97,5 @@ const CustomChatbot = () => {
 };
 
 export default CustomChatbot;
+
+
