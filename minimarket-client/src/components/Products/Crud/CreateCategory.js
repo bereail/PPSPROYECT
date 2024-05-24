@@ -34,7 +34,7 @@ const CreateCategory = () => {
         <div>
           <button className='Button-Add-Category' onClick={() => SetButtonCategory(!ButtonCategory)}>Add Category</button>
           <div className={`Container-Add-Category ${ButtonCategory ? 'active' : ''}`}>
-            <div> {/* Contenedor adicional para controlar la visibilidad */}
+            <div> 
               <form onSubmit={HandleSubmitCategory}>
                 <label htmlFor="name-category">Name category</label>
                 <input type="text" id="name-category" placeholder='New Category' name="name-category" onChange={(e) => SetValueCategory(e.target.value)}></input>

@@ -1,7 +1,6 @@
 //npm install jwt-decode
 
 
-import React, { useEffect, useState } from 'react'
 import { jwtDecode } from 'jwt-decode';
 
 export const GetRoleByUser = () => {

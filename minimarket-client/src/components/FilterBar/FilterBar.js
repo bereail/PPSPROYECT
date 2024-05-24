@@ -7,6 +7,7 @@ import { faTrashCan, faTrashCanArrowUp, faSortDown } from "@fortawesome/free-sol
 
 import { CategoryContext } from "../Context/CategoryContext";
 import api from "../../api";
+import { GetRoleByUser } from "../../GetRoleByUser";
 
 
 
@@ -15,6 +16,8 @@ export default function FilterBar() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [Category, SetCategory] = useState([]);
   const [isActive, SetisActive] = useState(false)
+
+  const role = GetRoleByUser()
 
   const fetchCategories = async (isactive) => {
     try {
@@ -86,16 +89,16 @@ export default function FilterBar() {
               >
 
                 {category.categoryName}
-                {CategoryId == category.id && category.isActive &&
+                {CategoryId == category.id && role === 'Seller' && category.isActive &&
                   <FontAwesomeIcon icon={faTrashCan} style={{ marginLeft: '10px' }} onClick={() => { handleDisabelCategory() }} />
                 }
-                {CategoryId == category.id && !category.isActive &&
+                {CategoryId == category.id && role === 'Seller' && !category.isActive &&
                   <FontAwesomeIcon icon={faTrashCanArrowUp} style={{ marginLeft: '10px' }} onClick={() => { handleActiveCategory() }} />
                 }
               </div>
             </>
             ))}
-            <button className="Buton-Disabel-Category" onClick={() => { fetchCategories(!isActive) }}>GetCategoryDisabel</button>
+            {role === 'Seller' && <button className="Buton-Disabel-Category" onClick={() => { fetchCategories(!isActive) }}>GetCategoryDisabel</button>}
           </div>
         )}
       </div>
