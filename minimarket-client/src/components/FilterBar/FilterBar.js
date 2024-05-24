@@ -4,8 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan, faTrashCanArrowUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
 
-import Api from "../../Api";
+
 import { CategoryContext } from "../Context/CategoryContext";
+import api from "../../api";
 
 
 
@@ -20,7 +21,7 @@ export default function FilterBar() {
       if (isActive !== '') {
         SetisActive(!isActive)
       }
-      const api = Api();
+        
       const response = await api.get("/api/categories", {
         params: { isActive: isactive }
       });
@@ -34,7 +35,6 @@ export default function FilterBar() {
   }, []);
   const handleDisabelCategory = async () => {
     try {
-      const api = Api()
       await api.delete(`/api/categories/${CategoryId}`)
       fetchCategories()
     } catch (error) {
@@ -44,7 +44,7 @@ export default function FilterBar() {
   const handleActiveCategory = async ()=>{
     try {
       alert(CategoryId)
-      const api = Api();
+        
       await api.patch(`/api/categories/${CategoryId}`);
       fetchCategories()
     } catch (error) {
@@ -78,6 +78,7 @@ export default function FilterBar() {
         {isExpanded && (
           <div className="filter-bar">
             {Category.map((category) => (<>
+           
               <div
                 key={category.id}
                 className={`${CategoryId === category.id ? "filter-button active" : "filter-button"} ${!category.isActive ? "Category-disabled" : ""}`}

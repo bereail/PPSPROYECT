@@ -1,11 +1,10 @@
 import React from 'react'
-import Api from '../../../Api';
+import api from '../../../api';
 
 const RestoreProducts = async(productId) => {
     alert('productId')
     alert(productId)
     try{
-        const api = Api()
         await api.patch(`/api/products/${productId}`);
         window.location.reload();
     }catch(error){

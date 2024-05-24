@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState } from 'react';
 import '../../Products/Products.css';
 import { CategoryContext } from '../../Context/CategoryContext';
-import Api from '../../../Api';
+import api from '../../../api';
 import GetProductsByCategory from './GetProducstByCategory';
 
 
@@ -26,7 +26,6 @@ const CreaateProduct = () => {
             categoryId: CategoryId
         }
         try {    
-            const api = Api()
             await api.post(`/api/categories/${CategoryId}/products`, data);
             window.location.reload();
         } catch (error) {

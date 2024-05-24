@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
 import { Navigate } from "react-router-dom";
-import Api from "../../../Api";
+import api from "../../../api";
 import { ThemeContext } from "../../Context/ThemeContext";
 const SignupUser = () => {
   const { theme } = useContext(ThemeContext);
@@ -105,7 +105,7 @@ const SignupUser = () => {
        data.hexadecimalCode = formData.hexadecimalCode;
        console.log(data);
        try {
-        const response = await Api.post('/api/sellers', data);
+        const response = await api.post('/api/sellers', data);
         SetExistingUser(false);
         console.log('Usuario:', response.data);
 
@@ -115,7 +115,6 @@ const SignupUser = () => {
       }
     }
     try {
-      const api = Api();
       let response;
       if (Seller) {
         response = await api.post('/api/sellers', data);

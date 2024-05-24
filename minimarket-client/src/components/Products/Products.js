@@ -3,7 +3,7 @@ import './Products.css';
 import { GetRoleByUser } from '../../GetRoleByUser';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faTrashCan, faTrashCanArrowUp } from "@fortawesome/free-solid-svg-icons";
-import Api from '../../Api';
+import api from '../../api';
 import { CategoryContext } from '../Context/CategoryContext';
 import CreateCategory from './Crud/CreateCategory';
 import CreaateProduct from './Crud/CreaateProduct';
@@ -22,19 +22,10 @@ const Products = () => {
   const [isAscendingOption, SetisAscendingOption] = useState();
   const { CategoryId } = useContext(CategoryContext);
 
-  useEffect(() => {
-    GetProductsByCategory(CategoryId, isActive, setProducts, setError, isAscendingOption,SortbydOption ); // Utiliza el nuevo componente
-
-  }, [CategoryId, isActive, isAscendingOption ]);
-
-  useEffect(() => {
-    SetisAscendingOption('');
-  }, [SortbydOption]);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const api = Api();
         const response = await api.get("/api/products/offers");;
         setProducts(response.data);
         setError(null)
@@ -44,6 +35,18 @@ const Products = () => {
     };
     fetchProducts();
   }, []);
+  
+  useEffect(() => {
+    if(CategoryId !== null){
+    GetProductsByCategory(CategoryId, isActive, setProducts, setError, isAscendingOption,SortbydOption ); // Utiliza el nuevo componente
+    }
+  }, [CategoryId, isActive, isAscendingOption]);
+ 
+  useEffect(() => {
+    SetisAscendingOption('');
+  }, [SortbydOption]);
+
+
 
   useEffect(() => {
     const role = GetRoleByUser()

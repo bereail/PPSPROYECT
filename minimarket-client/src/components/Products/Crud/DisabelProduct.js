@@ -1,9 +1,8 @@
 import React from 'react'
-import Api from '../../../Api';
+import api from '../../../api';
 
 const DisabelProduct = async(product) => {
     try{
-      const api = Api()
       await api.delete(`/api/products/${product}`)
       window.location.reload();
     }catch(error){

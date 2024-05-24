@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { Navigate } from "react-router-dom";
-import Api from "../../../Api";
+import api from "../../../api";
 import { ThemeContext } from "../../Context/ThemeContext";
 const Signin = () => {
   const { theme } = useContext(ThemeContext);
@@ -55,7 +55,6 @@ const Signin = () => {
     };
     
     try {
-      const api = Api();
       const response = await api.post('/api/auth/login', data);
 
       if (response.status === 200) {
@@ -63,7 +62,7 @@ const Signin = () => {
         setLoggedIn(true);
 
         window.localStorage.setItem(
-          'LoggedUser', JSON.stringify(response.data)
+          'LoggedUser', response.data
         )
         console.log('Token:', response.data);
        

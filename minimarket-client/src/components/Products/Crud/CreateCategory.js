@@ -1,7 +1,7 @@
 import React, {useState } from 'react';
 import '../../Products/Products.css';
 
-import Api from '../../../Api';
+import api from '../../../api';
 
 
 const CreateCategory = () => {
@@ -18,7 +18,6 @@ const CreateCategory = () => {
             const data = {
               categoryName: ValueCategory
             }
-            const api = Api()
             console.log("Cabecera de la solicitud:", api.defaults.headers);
             const response = await api.post("/api/categories", data);
             SetCategoryError(false)

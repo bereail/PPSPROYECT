@@ -1,12 +1,11 @@
 
-import Api from "../../../Api";
+import api from "../../../api";
 
 
 
 const GetProductsByCategory = async (CategoryId, isactive, setProducts, setError, isAscendingOption, SortbydOption) => {
     
   try {
-    const api = Api();
     const response = await api.get(`/api/categories/${CategoryId}/products`, {
         params: { 
             isActive: isactive,
