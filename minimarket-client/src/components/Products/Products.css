@@ -91,7 +91,7 @@
     max-width: 300px;
     
 }
-.Container-Add-Category{
+.Container-Add-Category {
     display: flex; 
     flex-direction: column; 
     border-style: none;
@@ -99,23 +99,39 @@
     font-size: 20px;
     margin-top: 10px;
     margin-left: 20px;
-   
-    
-}
+    opacity: 0; 
+    transition: opacity 1s ease; 
+    pointer-events: none; 
+  }
+  
+  .Container-Add-Category.active {
+    opacity: 1; 
+    pointer-events: all; 
+
+  }
 .Container-Add-Product{
     border-style: none;
     max-width: 200px;
     font-size: 20px;
     margin-top: 10px;
     margin-left: 20px;
+    opacity: 0;
+    max-height: 0; 
+    overflow: hidden; 
+    transition: opacity 1s ease, max-height 1s ease;
   }
+.Container-Add-Product.active {
+    opacity: 1; 
+    max-height: 500px; 
+}
+  
 .Container-Add-Product input{
     border: none;
     padding: 1px;
 }
 .Container-Add-Product button{
     padding: 1px;
-    margin: 5px;
+    margin-top: 10px;
     border-style: none;
     border-bottom-right-radius: 10%;
     background-color: #1192EF;

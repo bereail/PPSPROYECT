@@ -41,3 +41,15 @@
   background-color: #8c451f;
   color: #fff;
 }
+
+.Category-disabled{
+   background-color: #a09f9f;
+}
+
+.Buton-Disabel-Category{
+  background-color: #1192EF;
+  border-style: none;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  padding: 5px;
+}

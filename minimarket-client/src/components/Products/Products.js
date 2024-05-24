@@ -9,6 +9,7 @@ import CreateCategory from './Crud/CreateCategory';
 import CreaateProduct from './Crud/CreaateProduct';
 import DisabelProduct from './Crud/DisabelProduct';
 import RestoreProducts from './Crud/RestoreProducts';
+import GetProductsByCategory from './Crud/GetProducstByCategory';
 
 const Products = () => {
   const [Products, setProducts] = useState([]);
@@ -16,34 +17,14 @@ const Products = () => {
   const [RoleUser, SetRolUser] = useState('');
   const [hoveredProduct, setHoveredProduct] = useState(null);
   const [isActive, SetisActive] = useState(true);
-  const [ModifyProducts, SetModifyProducts] = useState(false);
-  const [editedProduct, setEditedProduct] = useState(null); // Estado para el producto en edición
-  const [editedProductName, setEditedProductName] = useState(''); // Estado para el nombre del producto en edición
-  const [editedProductDescription, setEditedProductDescription] = useState(''); // Estado para la descripción del producto en edición
-  const [editedProductPrice, setEditedProductPrice] = useState(0); // Estado para el precio del producto en edición
+  
 
   const { CategoryId } = useContext(CategoryContext);
   
-  const fetchProductsCategory = async (isactive) => {
-    if(isactive != null){
-      SetisActive(isactive)
-    }
-    if (CategoryId != null) {
-      try {
-        const api = Api();
-        const response = await api.get(`/api/categories/${CategoryId}/products`, {
-          params: { isActive: isactive }
-        });
-        setProducts(response.data.products)
-      } catch (error) {
-        console.error('Error fetching products category:', error);
-      }
-    };
-  }
-
   useEffect(() => {
-    fetchProductsCategory();   
-  }, [CategoryId]);
+    GetProductsByCategory(CategoryId, isActive, setProducts); // Utiliza el nuevo componente
+ 
+  }, [CategoryId, isActive]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -80,20 +61,8 @@ const Products = () => {
     }));
   };
 
-  const handleEditProduct = (product) => {
-    setEditedProduct(product);
-    setEditedProductName(product.name);
-    setEditedProductDescription(product.description);
-    setEditedProductPrice(product.price);
-    SetModifyProducts(true);
-  };
 
-  const handleUpdateProduct = () => {
-    // Aquí debes enviar los valores editados al servidor o realizar las acciones necesarias
-    console.log('Producto actualizado:', editedProduct);
-    // Luego de la actualización, puedes volver a desactivar la edición
-    SetModifyProducts(false);
-  };
+
 
   const AddCartHandler = (product) => {
     alert(`Se añadieron ${quantities[product.id]} unidades de ${product.name}`);
@@ -103,14 +72,14 @@ const Products = () => {
     <div>
       <div style={{ alignItems: 'center'}}>
         <p style={{ fontSize: '50px', marginLeft: '50px' }}>Products</p>
-        {RoleUser === 'Seller' && CategoryId !== null && <button className='Button-Desactive-Product' onClick={()=>{fetchProductsCategory(!isActive)}}>Diabel Products</button>}
+        {RoleUser === 'Seller' && CategoryId !== null && <button className='Button-Desactive-Product' onClick={()=>{SetisActive(!isActive)}}>Diabel Products</button>}
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         {Products.map(product => (
           <div key={product.id} onMouseEnter={() => setHoveredProduct(product.id)} onMouseLeave={() => { setHoveredProduct(null) }}>
             <div className={product.isActive  === false ? 'Container-Products-Disabel': 'Container-Products'}>
               <div style={{ display: 'flex', position: 'flex 1' }}>
-                {RoleUser === 'Seller' && <FontAwesomeIcon icon={faPencil} style={{ marginLeft: '15px' }} onClick={() => handleEditProduct(product)} />}
+                {RoleUser === 'Seller' && <FontAwesomeIcon icon={faPencil} style={{ marginLeft: '15px' }}  />}
                 <h5 style={{ textAlign: 'center', flex: 1 }}>
                   {hoveredProduct === product.id ? product.name : `${product.name.slice(0, 20)}${product.name.length > 20 ? '...' : ''}`}
                 </h5>
