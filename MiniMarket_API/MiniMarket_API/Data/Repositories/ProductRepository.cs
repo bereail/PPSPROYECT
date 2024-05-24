@@ -198,7 +198,7 @@ namespace MiniMarket_API.Data.Repositories
         public async Task<Guid?> CheckIfProductExistsAsync(string productName)
         {
             var productId = await _context.Products
-                .Where(p => p.Name.Equals(productName, StringComparison.OrdinalIgnoreCase))
+                .Where(p => p.Name == productName)
                 .Select(p => p.Id)
                 .FirstOrDefaultAsync();
 
