@@ -1,6 +1,6 @@
-﻿namespace MiniMarket_API.Application.DTOs
+﻿namespace MiniMarket_API.Application.ViewModels
 {
-    public class UserDto
+    public class UserViewProfile
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -8,5 +8,6 @@
         public int PhoneNumber { get; set; }
         public string Address { get; set; }
         public string UserType { get; set; }
+        public ICollection<SaleOrderView>? SaleOrders { get; set; }
     }
 }

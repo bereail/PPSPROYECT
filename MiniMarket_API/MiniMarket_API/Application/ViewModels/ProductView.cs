@@ -1,6 +1,6 @@
-﻿namespace MiniMarket_API.Application.DTOs
+﻿namespace MiniMarket_API.Application.ViewModels
 {
-    public class ProductDto
+    public class ProductView
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

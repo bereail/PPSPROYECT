@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using MiniMarket_API.Application.DTOs;
 using MiniMarket_API.Application.DTOs.Requests;
 using MiniMarket_API.Application.Services.Interfaces;
+using MiniMarket_API.Application.ViewModels;
 using MiniMarket_API.Data.Interfaces;
 using MiniMarket_API.Model.Entities;
 
@@ -20,7 +20,7 @@ namespace MiniMarket_API.Application.Services.Implementations
             _productCategoryRepository = productCategoryRepository;
         }
 
-        public async Task<ProductDto?> CreateProduct(AddProductDto addProductDto)
+        public async Task<ProductView?> CreateProduct(AddProductDto addProductDto)
         {
             var checkCategory = await _productCategoryRepository.GetCategoryByIdAsync(addProductDto.CategoryId);
             if (checkCategory == null)
@@ -35,10 +35,10 @@ namespace MiniMarket_API.Application.Services.Implementations
 
             var productToCreate = _mapper.Map<Product>(addProductDto);
             await _productRepository.CreateProductAsync(productToCreate);
-            return _mapper.Map<ProductDto>(productToCreate);
+            return _mapper.Map<ProductView>(productToCreate);
         }
 
-        public async Task<ProductDto?> UpdateProduct(Guid id, UpdateProductDto updateProductDto)
+        public async Task<ProductView?> UpdateProduct(Guid id, UpdateProductDto updateProductDto)
         {
             var productToUpdate = _mapper.Map<Product>(updateProductDto);
             productToUpdate = await _productRepository.UpdateProductAsync(id, productToUpdate);
@@ -47,10 +47,10 @@ namespace MiniMarket_API.Application.Services.Implementations
             {
                 return null;
             }
-            return _mapper.Map<ProductDto?>(productToUpdate);
+            return _mapper.Map<ProductView?>(productToUpdate);
         }
 
-        public async Task<ProductDto?> DeactivateProduct(Guid id)
+        public async Task<ProductView?> DeactivateProduct(Guid id)
         {
             var productToDeactivate = await _productRepository.DeactivateProductAsync(id);
             if (productToDeactivate == null)
@@ -58,34 +58,34 @@ namespace MiniMarket_API.Application.Services.Implementations
                 return null;
             }
 
-            return _mapper.Map<ProductDto?>(productToDeactivate);
+            return _mapper.Map<ProductView?>(productToDeactivate);
         }
 
-        public async Task<ProductDto?> RestoreProduct(Guid id)
+        public async Task<ProductView?> RestoreProduct(Guid id)
         {
             var productToRestore = await _productRepository.RestoreProductAsync(id);
             if (productToRestore == null)
             {
                 return null;
             }
-            return _mapper.Map<ProductDto?>(productToRestore);
+            return _mapper.Map<ProductView?>(productToRestore);
         }
 
-        public async Task<ProductDto?> EraseProduct(Guid id)
+        public async Task<ProductView?> EraseProduct(Guid id)
         {
             var productToErase = await _productRepository.EraseProductAsync(id);
             if (productToErase == null)
             {
                 return null;
             }
-            return _mapper.Map<ProductDto?>(productToErase);
+            return _mapper.Map<ProductView?>(productToErase);
         }
 
-        public async Task<IEnumerable<ProductDto>?> GetAllProducts(bool? isActive, string? filterOn, string? filterQuery,
+        public async Task<IEnumerable<ProductView>?> GetAllProducts(bool? isActive, string? filterOn, string? filterQuery,
             string? sortBy, bool? isAscending, int pageNumber, int pageSize)
         {
             if (pageNumber < 1) { pageNumber = 1; }
-            if (pageSize < 1) { pageSize = 1; }
+            if (pageSize < 1 || pageSize > 30) { pageSize = 15; }
 
             var products = await _productRepository.GetAllProductsAsync(isActive, filterOn, filterQuery, sortBy, isAscending ?? true,
                 pageNumber, pageSize);    //If the bool is null, it's changed to true.
@@ -93,17 +93,17 @@ namespace MiniMarket_API.Application.Services.Implementations
             {
                 return null;
             }
-            return _mapper.Map<IEnumerable<ProductDto>>(products);
+            return _mapper.Map<IEnumerable<ProductView>>(products);
         }
 
-        public async Task<ProductDto?> GetProductById(Guid id)
+        public async Task<ProductView?> GetProductById(Guid id)
         {
             var getProduct = await _productRepository.GetProductByIdAsync(id);
             if (getProduct == null)
             {
                 return null;
             }
-            return _mapper.Map<ProductDto?>(getProduct);
+            return _mapper.Map<ProductView?>(getProduct);
         }
     }
 }

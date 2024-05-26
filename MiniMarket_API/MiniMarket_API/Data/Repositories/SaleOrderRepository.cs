@@ -59,11 +59,16 @@ namespace MiniMarket_API.Data.Repositories
             return getOrder;
         }
 
-        public async Task<IEnumerable<SaleOrder>> GetAllOrders(string? sortBy = null, bool isAscending = true,
+        public async Task<IEnumerable<SaleOrder>> GetAllOrders(OrderStatus? status, string? sortBy = null, bool isAscending = true,
             int pageNumber = 1, int pageSize = 10)
         {
             var orders = _context.Orders.AsQueryable();
 
+            if (status.HasValue && Enum.IsDefined(typeof(OrderStatus), status))
+            {
+                orders = orders.Where(o => o.Status == status);
+            }
+
             if (string.IsNullOrWhiteSpace(sortBy) == false)
             {
                 if (sortBy.Equals("Date", StringComparison.OrdinalIgnoreCase))
@@ -87,11 +92,16 @@ namespace MiniMarket_API.Data.Repositories
             return await orders.Skip(skipResults).Take(pageSize).ToListAsync();
         }
 
-        public async Task<IEnumerable<SaleOrder>> GetAllOrdersByUserAsync(Guid userId, string? sortBy = null, bool isAscending = true,
+        public async Task<IEnumerable<SaleOrder>> GetAllOrdersByUserAsync(Guid userId, OrderStatus? status, string? sortBy = null, bool isAscending = true,
             int pageNumber = 1, int pageSize = 7)
         {
             var orders = _context.Orders.Where(o => o.UserId == userId).AsQueryable();
 
+            if (status.HasValue && Enum.IsDefined(typeof(OrderStatus), status))
+            {
+                orders = orders.Where(o => o.Status == status);
+            }
+
             if (string.IsNullOrWhiteSpace(sortBy) == false)
             {
                 if (sortBy.Equals("Date", StringComparison.OrdinalIgnoreCase))
@@ -115,13 +125,18 @@ namespace MiniMarket_API.Data.Repositories
             return await orders.Skip(skipResults).Take(pageSize).ToListAsync();
         }
 
-        public async Task<IEnumerable<SaleOrder>> GetAllOrdersFromTimeframeAsync(DateTime filterTime,
+        public async Task<IEnumerable<SaleOrder>> GetAllOrdersFromTimeframeAsync(DateTime filterTime, OrderStatus? status,
             string? sortBy = null, bool isAscending = true,
             int pageNumber = 1, int pageSize = 10)
         {
             var orders = _context.Orders.AsQueryable();
 
             orders = orders.Where(o => o.OrderTime >= filterTime);
+
+            if (status.HasValue && Enum.IsDefined(typeof(OrderStatus), status))
+            {
+                orders = orders.Where(o => o.Status == status);
+            }
 
             if (string.IsNullOrWhiteSpace(sortBy) == false)
             {

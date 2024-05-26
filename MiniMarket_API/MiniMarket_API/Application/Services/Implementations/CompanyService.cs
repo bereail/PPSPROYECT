@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using MiniMarket_API.Application.DTOs;
 using MiniMarket_API.Application.DTOs.Requests;
 using MiniMarket_API.Application.Services.Interfaces;
+using MiniMarket_API.Application.ViewModels;
 using MiniMarket_API.Data.Interfaces;
 using MiniMarket_API.Model.Entities;
 using MiniMarket_API.Model.Exceptions;
@@ -24,7 +24,7 @@ namespace MiniMarket_API.Application.Services.Implementations
         }
 
 
-        public async Task<CompanyCodeDto?> CreateCompanyCode(AddCompanyCodeDto companyCodeDto)
+        public async Task<CompanyCodeView?> CreateCompanyCode(AddCompanyCodeDto companyCodeDto)
         {
             var existingCode = await _companyCodeRepository.GetCodeIdByHexAsync(companyCodeDto.EmployeeCode);
             if (existingCode == Guid.Empty)
@@ -33,13 +33,13 @@ namespace MiniMarket_API.Application.Services.Implementations
 
                 await _companyCodeRepository.CreateCompanyCodeAsync(newCode);
 
-                return mapper.Map<CompanyCodeDto>(newCode);
+                return mapper.Map<CompanyCodeView>(newCode);
             }
             return null;
 
         }
 
-        public async Task<CompanyCodeDto?> DeactivateCompanyCode(Guid id)
+        public async Task<CompanyCodeView?> DeactivateCompanyCode(Guid id)
         {
             var codeToDeactivate = await _companyCodeRepository.DeactivateCompanyCodeAsync(id);
             if (codeToDeactivate == null)
@@ -50,44 +50,44 @@ namespace MiniMarket_API.Application.Services.Implementations
 
             if (sellerToDeactivate == null)
             {
-                return mapper.Map<CompanyCodeDto?>(codeToDeactivate);
+                return mapper.Map<CompanyCodeView?>(codeToDeactivate);
             }
             var deactivatedSeller = await _userService.DeactivateUser(sellerToDeactivate.Id);
             
-            var mappedCode = mapper.Map<CompanyCodeDto?>(codeToDeactivate);
+            var mappedCode = mapper.Map<CompanyCodeView?>(codeToDeactivate);
 
             mappedCode.Seller = deactivatedSeller;
 
             return mappedCode;
         }
 
-        public async Task<CompanyCodeDto?> EraseCompanyCode(Guid id)
+        public async Task<CompanyCodeView?> EraseCompanyCode(Guid id)
         {
             var codeToErase = await _companyCodeRepository.EraseCompanyCodeAsync(id);
-            return mapper.Map<CompanyCodeDto?>(codeToErase);
+            return mapper.Map<CompanyCodeView?>(codeToErase);
         }
 
-        public async Task<IEnumerable<CompanyCodeDto>?> GetAllCompanyCodes()
+        public async Task<IEnumerable<CompanyCodeView>?> GetAllCompanyCodes()
         {
             var getCodes = await _companyCodeRepository.GetAllCodesAsync();
             if (!getCodes.Any())
             {
                 return null;
             }
-            return mapper.Map<IEnumerable<CompanyCodeDto>>(getCodes);
+            return mapper.Map<IEnumerable<CompanyCodeView>>(getCodes);
         }
 
-        public async Task<CompanyCodeDto?> GetCodeById(Guid id)
+        public async Task<CompanyCodeView?> GetCodeById(Guid id)
         {
             var getCode = await _companyCodeRepository.GetCodeByIdAsync(id);
             if (getCode == null)
             {
                 return null;
             }
-            return mapper?.Map<CompanyCodeDto?>(getCode);
+            return mapper?.Map<CompanyCodeView?>(getCode);
         }
 
-        public async Task<SellerDto?> CreateSeller(CreateSellerDto createSellerDto)
+        public async Task<SellerView?> CreateSeller(CreateSellerDto createSellerDto)
         {
             Guid? availableCode = await _companyCodeRepository.GetCodeIdByHexAsync(createSellerDto.HexadecimalCode);              //Checks if the employee code received is both real and available.
             if (availableCode == Guid.Empty)
@@ -102,18 +102,18 @@ namespace MiniMarket_API.Application.Services.Implementations
 
                 await _userRepository.CreateUserAsync(sellerToCreate);
 
-                return mapper.Map<SellerDto>(sellerToCreate);
+                return mapper.Map<SellerView>(sellerToCreate);
             }
             return null;
         }
 
-        public async Task<UserDto?> CreateSuperAdmin(CreateUserDto createSuperAdmin)
+        public async Task<UserView?> CreateSuperAdmin(CreateUserDto createSuperAdmin)
         {
             var adminToCreate = mapper.Map<SuperAdmin>(createSuperAdmin);
 
             var newAdmin = await _userService.CreateUser(adminToCreate);
 
-            return mapper.Map<UserDto?>(newAdmin);
+            return mapper.Map<UserView?>(newAdmin);
         }
     }
 }

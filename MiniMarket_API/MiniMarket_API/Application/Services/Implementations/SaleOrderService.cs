@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using MiniMarket_API.Application.DTOs;
 using MiniMarket_API.Application.DTOs.Requests;
 using MiniMarket_API.Application.Services.Interfaces;
+using MiniMarket_API.Application.ViewModels;
 using MiniMarket_API.Data.Interfaces;
 using MiniMarket_API.Model.Entities;
 using MiniMarket_API.Model.Enums;
@@ -23,7 +23,7 @@ namespace MiniMarket_API.Application.Services.Implementations
             _userRepository = userRepository;
         }
 
-        public async Task<SaleOrderDetailsDto?> CreateSaleOrder(CreateOrderDto createOrderDto, Guid userId)
+        public async Task<SaleOrderViewDetails?> CreateSaleOrder(CreateOrderDto createOrderDto, Guid userId)
         {
             var orderToCreate = mapper.Map<SaleOrder>(createOrderDto);
 
@@ -59,11 +59,12 @@ namespace MiniMarket_API.Application.Services.Implementations
             await _saleOrderRepository.SetFinalOrderPriceAsync(orderToCreate.Id, finalOrderPrice);
             orderToCreate.FinalPrice = finalOrderPrice;                                              //This is for the result.
 
-            return mapper.Map<SaleOrderDetailsDto>(orderToCreate);
+            return mapper.Map<SaleOrderViewDetails>(orderToCreate);
         }
 
-        public async Task<SaleOrderDetailsDto?> CancelOrder(Guid id, int cancelStatus = 2)
+        public async Task<SaleOrderViewDetails?> CancelOrder(Guid id)
         {
+            int cancelStatus = 2;
             var orderToCancel = await _saleOrderRepository.SetOrderStatusAsync(id, cancelStatus);
             if (orderToCancel == null)
             {
@@ -73,11 +74,12 @@ namespace MiniMarket_API.Application.Services.Implementations
             {
                 await _orderDetailsService.EraseOrderDetail(detail.Id);
             }
-            return mapper.Map<SaleOrderDetailsDto?>(orderToCancel);
+            return mapper.Map<SaleOrderViewDetails?>(orderToCancel);
         }
 
-        public async Task<SaleOrderDetailsDto?> PayOrder(Guid id, int paymentStatus = 1)
+        public async Task<SaleOrderViewDetails?> PayOrder(Guid id)
         {
+            int paymentStatus = 1;
             var orderToPay = await _saleOrderRepository.GetOrderByIdAsync(id);
             if (orderToPay == null || orderToPay.Details.Count == 0)
             {
@@ -87,50 +89,51 @@ namespace MiniMarket_API.Application.Services.Implementations
             //MP Service Logic goes here.
 
             //When successful, the SetOrderStatus method will go through
+
             orderToPay = await _saleOrderRepository.SetOrderStatusAsync(id, paymentStatus);
 
-            return mapper.Map<SaleOrderDetailsDto>(orderToPay);
+            return mapper.Map<SaleOrderViewDetails>(orderToPay);
         }
 
-        public async Task<SaleOrderDto?> EraseOrder(Guid id)
+        public async Task<SaleOrderView?> EraseOrder(Guid id)
         {
             var orderToErase = await _saleOrderRepository.EraseOrderAsync(id);
             if (orderToErase == null)
             {
                 return null;
             }
-            return mapper.Map<SaleOrderDto?>(orderToErase);
+            return mapper.Map<SaleOrderView?>(orderToErase);
         }
 
-        public async Task<IEnumerable<SaleOrderDto>?> GetAllOrders(string? sortBy, bool? isAscending,
+        public async Task<IEnumerable<SaleOrderView>?> GetAllOrders(OrderStatus? status, string? sortBy, bool? isAscending,
             int pageNumber, int pageSize)
         {
             if (pageNumber < 1) { pageNumber = 1; }
-            if (pageSize < 1) { pageSize = 1; }
+            if (pageSize < 1 || pageSize > 15) { pageSize = 7; }
 
-            var getOrders = await _saleOrderRepository.GetAllOrders(sortBy, isAscending ?? true, pageNumber, pageSize);
+            var getOrders = await _saleOrderRepository.GetAllOrders(status, sortBy, isAscending ?? true, pageNumber, pageSize);
             if (!getOrders.Any())
             {
                 return null;
             }
-            return mapper.Map<IEnumerable<SaleOrderDto>>(getOrders);
+            return mapper.Map<IEnumerable<SaleOrderView>>(getOrders);
         }
 
-        public async Task<IEnumerable<SaleOrderDto>?> GetAllOrdersByUser(Guid id, string? sortBy, bool? isAscending,
+        public async Task<IEnumerable<SaleOrderView>?> GetAllOrdersByUser(Guid id, OrderStatus? status, string? sortBy, bool? isAscending,
             int pageNumber, int pageSize)
         {
             if (pageNumber < 1) { pageNumber = 1; }
-            if (pageSize < 1) { pageSize = 1; }
+            if (pageSize < 1 || pageSize > 15) { pageSize = 7; }
 
-            var getOrders = await _saleOrderRepository.GetAllOrdersByUserAsync(id, sortBy, isAscending ?? true, pageNumber, pageSize);
+            var getOrders = await _saleOrderRepository.GetAllOrdersByUserAsync(id, status, sortBy, isAscending ?? true, pageNumber, pageSize);
             if (!getOrders.Any())
             {
                 return null;
             }
-            return mapper.Map<IEnumerable<SaleOrderDto>>(getOrders);
+            return mapper.Map<IEnumerable<SaleOrderView>>(getOrders);
         }
 
-        public async Task<IEnumerable<SaleOrderDto>?> GetAllOrdersByTimeframe(int? filterDays,
+        public async Task<IEnumerable<SaleOrderView>?> GetAllOrdersByTimeframe(int? filterDays, OrderStatus? status,
             string? sortBy, bool? isAscending,
             int pageNumber, int pageSize)
         {
@@ -141,35 +144,35 @@ namespace MiniMarket_API.Application.Services.Implementations
             {
                 var defaultTimeFrame = DateTime.UtcNow.AddDays(-1);
 
-                var getOrdersDefault = await _saleOrderRepository.GetAllOrdersFromTimeframeAsync(defaultTimeFrame, sortBy, isAscending ?? true, pageNumber, pageSize);
+                var getOrdersDefault = await _saleOrderRepository.GetAllOrdersFromTimeframeAsync(defaultTimeFrame, status, sortBy, isAscending ?? true, pageNumber, pageSize);
 
                 if (!getOrdersDefault.Any())
                 {
                     return null;
                 }
-                return mapper.Map<IEnumerable<SaleOrderDto>?>(getOrdersDefault);
+                return mapper.Map<IEnumerable<SaleOrderView>?>(getOrdersDefault);
             }
 
             var timeFrame = DateTime.UtcNow.AddDays(-filterDays.Value);
 
-            var getOrders = await _saleOrderRepository.GetAllOrdersFromTimeframeAsync(timeFrame, sortBy, isAscending ?? true, pageNumber, pageSize);
+            var getOrders = await _saleOrderRepository.GetAllOrdersFromTimeframeAsync(timeFrame, status, sortBy, isAscending ?? true, pageNumber, pageSize);
 
             if (!getOrders.Any())
             {
                 return null;
             }
 
-            return mapper.Map<IEnumerable<SaleOrderDto>?>(getOrders);
+            return mapper.Map<IEnumerable<SaleOrderView>?>(getOrders);
         }
 
-        public async Task<SaleOrderDetailsDto?> GetOrderById(Guid id)
+        public async Task<SaleOrderViewDetails?> GetOrderById(Guid id)
         {
             var getOrder = await _saleOrderRepository.GetOrderByIdAsync(id);
             if (getOrder == null)
             {
                 return null;
             }
-            return mapper.Map<SaleOrderDetailsDto>(getOrder);
+            return mapper.Map<SaleOrderViewDetails>(getOrder);
         }
 
         public async Task<Guid> CheckOrderUserId(Guid orderId)

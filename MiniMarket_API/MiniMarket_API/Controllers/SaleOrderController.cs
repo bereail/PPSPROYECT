@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MiniMarket_API.Application.DTOs.Requests;
 using MiniMarket_API.Application.Services.Interfaces;
+using MiniMarket_API.Model.Enums;
 using System.Security.Claims;
 
 namespace MiniMarket_API.Controllers
@@ -28,6 +29,35 @@ namespace MiniMarket_API.Controllers
                 return Unauthorized("Order Creation Failed: User Doesn't Exist!");
             }
             return Ok(createdOrder);
+        }
+
+        [HttpGet]
+        //FOR ADMIN ONLY. This is a test endpoint for enum functionality.
+        public async Task<IActionResult> GetAllOrdersAsync([FromQuery] OrderStatus? status, [FromQuery] string? sortBy, [FromQuery] bool? isAscending,
+            [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 7)
+        {
+            var getOrders = await _saleOrderService.GetAllOrders(status, sortBy, isAscending, pageNumber, pageSize);
+
+            if (getOrders == null || !getOrders.Any()) 
+            {
+                return NotFound("No Orders Found");
+            }
+            return Ok(getOrders);
+        }
+
+        [HttpGet("timeframe")]
+        //FOR ADMIN ONLY. Currently not functional.
+        public async Task<IActionResult> GetAllOrdersByTimeframeAsync([FromQuery] int filterDays, [FromQuery] OrderStatus? status, 
+            [FromQuery] string? sortBy, [FromQuery] bool? isAscending,
+            [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 7)
+        {
+            var getOrders = await _saleOrderService.GetAllOrdersByTimeframe(filterDays, status, sortBy, isAscending, pageNumber, pageSize);
+
+            if (getOrders == null || !getOrders.Any())
+            {
+                return NotFound("No Orders Found");
+            }
+            return Ok(getOrders);
         }
     }
 }

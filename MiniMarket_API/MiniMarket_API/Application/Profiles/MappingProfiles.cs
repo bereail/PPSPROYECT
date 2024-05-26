@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using MiniMarket_API.Application.DTOs;
 using MiniMarket_API.Application.DTOs.Requests;
+using MiniMarket_API.Application.ViewModels;
 using MiniMarket_API.Model.Entities;
 
 namespace MiniMarket_API.Application.Profiles
@@ -9,38 +9,48 @@ namespace MiniMarket_API.Application.Profiles
     {
         public MappingProfiles()
         {
-            CreateMap<ProductDto, Product>().ReverseMap();                          //Should be replaced with viewmodels down the line.
-            CreateMap<CategoryDto, ProductCategory>().ReverseMap();
-            CreateMap<CategoryCollectionDto, ProductCategory>().ReverseMap();
-            CreateMap<OrderDetailsDto, OrderDetails>().ReverseMap();
-            CreateMap<SaleOrderDto, SaleOrder>().ReverseMap();
-            CreateMap<SaleOrderDetailsDto, SaleOrder>().ReverseMap();
-            CreateMap<CompanyCodeDto, CompanyCode>().ReverseMap();
 
-            //CreateMap<UserDto, Customer>().ReverseMap();
-            //CreateMap<UserDto, Seller>().ReverseMap();
-            //CreateMap<UserDto, SuperAdmin>().ReverseMap();
+            #region ViewModels
+            CreateMap<ProductView, Product>().ReverseMap();
+            CreateMap<ProductBasicView, Product>().ReverseMap();
 
-            CreateMap<UserDto, User>().ReverseMap();
+            CreateMap<CategoryView, ProductCategory>().ReverseMap();
+            CreateMap<CategoryViewProducts, ProductCategory>().ReverseMap();
 
-            //CreateMap<UserProfileDto, Customer>().ReverseMap();
-            //CreateMap<UserProfileDto, Seller>().ReverseMap();
-            //CreateMap<UserProfileDto, SuperAdmin>().ReverseMap();
+            CreateMap<OrderDetailsView, OrderDetails>().ReverseMap();
 
-            CreateMap<UserProfileDto, User>().ReverseMap();
+            CreateMap<SaleOrder, SaleOrderView>()
+                .ForMember(d => d.Status,
+                opt => opt.MapFrom(src => src.Status.ToString()));
 
-            //CreateMap<SellerDto, Seller>().ReverseMap();
-            CreateMap<SellerDto, User>().ReverseMap();                            //
+            CreateMap<SaleOrder, SaleOrderViewDetails>()
+                .ForMember(d => d.Status,
+                opt => opt.MapFrom(src => src.Status.ToString()));
 
+            CreateMap<CompanyCodeView, CompanyCode>().ReverseMap();
 
+            CreateMap<UserView, User>().ReverseMap();
+
+            CreateMap<UserViewProfile, User>().ReverseMap();
+
+            CreateMap<SellerView, User>().ReverseMap();
+            #endregion
+
+            #region Request DTOs
             CreateMap<AddCategoryDto, ProductCategory>().ReverseMap();
+
             CreateMap<AddProductDto, Product>().ReverseMap();
+
             CreateMap<AddCompanyCodeDto, CompanyCode>().ReverseMap();
+
             CreateMap<UpdateCategoryDto, ProductCategory>().ReverseMap();
+
             CreateMap<UpdateProductDto, Product>().ReverseMap();
 
             CreateMap<CreateSellerDto, Seller>().ReverseMap();
+
             CreateMap<CreateUserDto, Customer>().ReverseMap();
+
             CreateMap<CreateUserDto, SuperAdmin>().ReverseMap();
 
             CreateMap<CreateOrderDto, SaleOrder>()
@@ -48,12 +58,7 @@ namespace MiniMarket_API.Application.Profiles
 
             CreateMap<CreateDetailDto, OrderDetails>()
                 .ForSourceMember(c => c.DetailId, opt => opt.DoNotValidate());
-
-            CreateMap<UpdateOrderDto, SaleOrder>()
-                .ForSourceMember(c => c.UpdateDetails, opt => opt.DoNotValidate());
-
-
-
+            #endregion
 
         }
 

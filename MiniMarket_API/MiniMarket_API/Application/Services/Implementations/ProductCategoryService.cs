@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using MiniMarket_API.Application.DTOs;
 using MiniMarket_API.Application.DTOs.Requests;
 using MiniMarket_API.Application.Services.Interfaces;
+using MiniMarket_API.Application.ViewModels;
 using MiniMarket_API.Data.Interfaces;
 using MiniMarket_API.Model.Entities;
 
@@ -20,15 +20,15 @@ namespace MiniMarket_API.Application.Services.Implementations
             this.mapper = mapper;
         }
 
-        public async Task<CategoryDto> CreateProductCategory(AddCategoryDto addCategoryDto)
+        public async Task<CategoryView> CreateProductCategory(AddCategoryDto addCategoryDto)
         {
             var categoryToCreate = mapper.Map<ProductCategory>(addCategoryDto);
             await _categoryRepository.CreateProductCategoryAsync(categoryToCreate);
 
-            return mapper.Map<CategoryDto>(categoryToCreate);
+            return mapper.Map<CategoryView>(categoryToCreate);
         }
 
-        public async Task<CategoryDto?> UpdateProductCategory(Guid id, UpdateCategoryDto updateCategoryDto)
+        public async Task<CategoryView?> UpdateProductCategory(Guid id, UpdateCategoryDto updateCategoryDto)
         {
             var categoryToUpdate = mapper.Map<ProductCategory>(updateCategoryDto);
             categoryToUpdate = await _categoryRepository.UpdateProductCategoryAsync(id, categoryToUpdate);
@@ -36,10 +36,10 @@ namespace MiniMarket_API.Application.Services.Implementations
             {
                 return null;
             }
-            return mapper.Map<CategoryDto?>(categoryToUpdate);
+            return mapper.Map<CategoryView?>(categoryToUpdate);
         }
 
-        public async Task<CategoryCollectionDto?> DeactivateProductCategory(Guid id)
+        public async Task<CategoryViewProducts?> DeactivateProductCategory(Guid id)
         {
             var categoryToDeactivate = await _categoryRepository.DeactivateProductCategoryAsync(id);
             if (categoryToDeactivate == null)
@@ -55,20 +55,20 @@ namespace MiniMarket_API.Application.Services.Implementations
                 continue;
             }
 
-            return mapper.Map<CategoryCollectionDto?>(categoryToDeactivate);
+            return mapper.Map<CategoryViewProducts?>(categoryToDeactivate);
         }
 
-        public async Task<CategoryDto?> RestoreProductCategory(Guid id)
+        public async Task<CategoryView?> RestoreProductCategory(Guid id)
         {
             var categoryToRestore = await _categoryRepository.RestoreProductCategoryAsync(id);
             if (categoryToRestore == null)
             {
                 return null;
             }
-            return mapper.Map<CategoryDto?>(categoryToRestore);
+            return mapper.Map<CategoryView?>(categoryToRestore);
         }
 
-        public async Task<CategoryCollectionDto?> CascadeRestoreProductCategory(Guid id)
+        public async Task<CategoryViewProducts?> CascadeRestoreProductCategory(Guid id)
         {
             //Upon restoring the category, we will get it's former deletion time, so we can use it as a filter
             var newFilterTime = await _categoryRepository.CascadeRestoreProductCategoryAsync(id);
@@ -91,34 +91,34 @@ namespace MiniMarket_API.Application.Services.Implementations
                 restoredCategory.Products.Add(restoredProduct);
             }
 
-            return mapper.Map<CategoryCollectionDto>(restoredCategory);
+            return mapper.Map<CategoryViewProducts>(restoredCategory);
         }
 
-        public async Task<CategoryDto?> EraseProductCategory(Guid id)
+        public async Task<CategoryView?> EraseProductCategory(Guid id)
         {
             var categoryToErase = await _categoryRepository.EraseProductCategoryAsync(id);
             if (categoryToErase == null)
             {
                 return null;
             }
-            return mapper.Map<CategoryDto?>(categoryToErase);
+            return mapper.Map<CategoryView?>(categoryToErase);
         }
 
-        public async Task<IEnumerable<CategoryDto>?> GetAllCategories(bool? isActive, string? sortBy, bool? isAscending)
+        public async Task<IEnumerable<CategoryView>?> GetAllCategories(bool? isActive, string? sortBy, bool? isAscending)
         {
             var categories = await _categoryRepository.GetAllProductCategoriesAsync(isActive, sortBy, isAscending ?? true);
             if (!categories.Any())
             {
                 return null;
             }
-            return mapper.Map<IEnumerable<CategoryDto>>(categories);
+            return mapper.Map<IEnumerable<CategoryView>>(categories);
         }
 
-        public async Task<CategoryCollectionDto?> GetCategoryCollection(Guid categoryId, bool? isActive, string? filterOn, string? filterQuery,
+        public async Task<CategoryViewProducts?> GetCategoryCollection(Guid categoryId, bool? isActive, string? filterOn, string? filterQuery,
             string? sortBy, bool? isAscending, int pageNumber, int pageSize)
         {
             if (pageNumber < 1) { pageNumber = 1; }
-            if (pageSize < 1) { pageSize = 1; }
+            if (pageSize < 1 || pageSize > 25) { pageSize = 15; }
 
             var getCategory = await _categoryRepository.GetCategoryByIdAsync(categoryId);
             if (getCategory == null)
@@ -128,7 +128,7 @@ namespace MiniMarket_API.Application.Services.Implementations
             var getProducts = await productRepository.GetAllCategoryProductsAsync(categoryId, isActive, filterOn, filterQuery, sortBy, isAscending ?? true,
                 pageNumber, pageSize);
 
-            return mapper.Map<CategoryCollectionDto?>(getCategory);
+            return mapper.Map<CategoryViewProducts?>(getCategory);
         }
     }
 }
