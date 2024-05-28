@@ -9,6 +9,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { Navigate } from "react-router-dom";
 import api from "../../../api";
 import { ThemeContext } from "../../Context/ThemeContext";
+import { AuthContext } from "../../Context/AuthContext";
 const Signin = () => {
   const { theme } = useContext(ThemeContext);
   const [Style, SetStyle] = useState(faEyeSlash);
@@ -17,19 +18,15 @@ const Signin = () => {
   const [pass, setPass] = useState('');
   const [Error, SetError] = useState('');
  const [ErrorLogin, SetErrorLogin] = useState(0);
-  const [loggedIn, setLoggedIn] = useState(false);
+
+  const {user,login} = useContext(AuthContext);
+
   
   useEffect(() => {
     SetError(0);
   }, []);
-  useEffect(()=>{
-    const logged = window.localStorage.getItem('LoggedUser')
-    if(logged){
-      setLoggedIn(true);
-    }
-  },[])
-  const handleEmailChange = (e) => {
 
+  const handleEmailChange = (e) => {
     setEmail(e.target.value);
   }
 
@@ -58,14 +55,8 @@ const Signin = () => {
       const response = await api.post('/api/auth/login', data);
 
       if (response.status === 200) {
-        SetErrorLogin(0);
-        setLoggedIn(true);
-
-        window.localStorage.setItem(
-          'LoggedUser', response.data
-        )
-        console.log('Token:', response.data);
-       
+        SetErrorLogin(0);     
+        login(response.data) 
       }
     } catch (error) {
       SetErrorLogin(1);
@@ -78,7 +69,7 @@ const Signin = () => {
   return (
     <div className="login" >
       <CustomNavbar/>
-      {loggedIn ? <Navigate to="/" /> : null}
+      {user ? <Navigate to="/" /> : null}
       <div className="Form-Login" style={{ backgroundColor: theme === "light" ? "#CC713D" : "#a5351ca4" }}>
         <h2>Login</h2>
       <form onSubmit={handleSubmit}>
@@ -98,7 +89,7 @@ const Signin = () => {
           </div>
           {Error === 1 && pass === '' && <p className='Error'>Set a password</p>}
         </div>
-           {ErrorLogin === 1 && <p className='Error'>Incorrect user or password</p>}
+           {ErrorLogin === 1 && <p className='Error-Login'>Incorrect user or password</p>}
         <button type="submit" className="btn btn-primary">Submit</button>
       </form>
       </div>

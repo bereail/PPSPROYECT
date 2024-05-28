@@ -17,9 +17,7 @@
  
 }
 
-
- 
- .Register {
+.Register {
    display: flex;
    max-width: 780px;
    margin-top: 2%;
@@ -71,4 +69,14 @@
  
 .Error{
    color: red;
+}
+
+.Error-Login{
+  color: red;
+  background-color: rgb(255, 255, 255);
+  border-style: solid;
+  border-radius: 45%;
+  text-align: center;
+  max-width: 300px;
+  padding: 4px;
 }

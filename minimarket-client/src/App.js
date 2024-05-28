@@ -10,9 +10,9 @@ import "./App.css";
 import { ThemeContext, ThemeProvider } from "./components/Context/ThemeContext";
 import ProtectedUser from "./components/Pages/ProtectedUser";
 import Spinner from "./components/Context/Spinner"; // Asegúrate de que esta ruta sea correcta
-import ProductPage from "./components/Products/ProductPage";
 import CustomChatbot from "./components/ChatBot/ChatBot";
 import { CategoryProvider } from "./components/Context/CategoryContext";
+import { AuthProvider } from "./components/Context/AuthContext";
 
 const router = createBrowserRouter([
   {
@@ -40,10 +40,6 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/products/All",
-    element: <ProductPage />,
-  },
-  {
     path: "*",
     element: <Error404 />,
   },
@@ -63,11 +59,12 @@ const AppContent = () => {
 const App = () => (
   
   <ThemeProvider>
+    <AuthProvider>
     <CategoryProvider>
-    <AppContent />
-      
+    <AppContent />    
     <CustomChatbot/>
     </CategoryProvider>
+    </AuthProvider>
   </ThemeProvider>
   
 );

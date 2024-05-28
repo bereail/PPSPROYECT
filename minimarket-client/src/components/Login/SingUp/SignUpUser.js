@@ -10,6 +10,7 @@ import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
 import { Navigate } from "react-router-dom";
 import api from "../../../api";
 import { ThemeContext } from "../../Context/ThemeContext";
+import { AuthContext } from "../../Context/AuthContext";
 const SignupUser = () => {
   const { theme } = useContext(ThemeContext);
   const [showPassword, setShowPassword] = useState(false);
@@ -33,13 +34,12 @@ const SignupUser = () => {
     hexadecimalCode: false
   });
   const [Seller, SetSeller] = useState(false);
-  const [LoggedIn, setLoggedIn] = useState(false);
-
+  const {user, logout, login} = useContext(AuthContext);
+  const [ErrorLogin, SetErrorLogin] = useState(false);
 
   useEffect(()=>{
     const logged = window.localStorage.getItem('LoggedUser')
     if(logged){
-      setLoggedIn(true);
     }
   },[])
   const handleChange = (e) => {
@@ -69,7 +69,7 @@ const SignupUser = () => {
       return;
     }
 
-    if (name.trim() === '' || address.trim() === '' || phoneNumber.trim() === '' || email.trim() === '' || password.trim() === '' || confirmPassword.trim() === '') {
+    if (name.trim() === '' || address.trim() === '' || phoneNumber.trim() === '' || email.trim() === '' || password.trim() === '' || confirmPassword !== password) {
       setErrors({
         name: name.trim() === '',
         address: address.trim() === '',
@@ -101,37 +101,30 @@ const SignupUser = () => {
       email: email,
       password: password
     }
-    if (Seller) {
-       data.hexadecimalCode = formData.hexadecimalCode;
-       console.log(data);
-       try {
-        const response = await api.post('/api/sellers', data);
-        SetExistingUser(false);
-        console.log('Usuario:', response.data);
-
-      } catch (error) {
-        SetExistingUser(true)
-        console.error('Error:', error.message);
-      }
-    }
     try {
+
       let response;
       if (Seller) {
         response = await api.post('/api/sellers', data);
+        SetExistingUser(false);
       } else {
+        SetErrorLogin(false)
+        SetExistingUser(false);
         response = await api.post('/api/customers', data);
       }
-      SetExistingUser(false);
-      console.log('Usuario:', response.data);
       const Login = await api.post('/api/auth/login', datalogin);
-
+      
       if (Login.status === 200) {
-        window.localStorage.setItem('LoggedUser', JSON.stringify(Login.data));
-        setLoggedIn(true);
+        login(Login.data)
       }
+
     } catch (error) {
+      if (error.response && error.response.status === 409) {
         SetExistingUser(true);
+      } else {
+        SetErrorLogin(true)
         console.error('Error:', error.message);
+      }
       
     }
     
@@ -190,17 +183,18 @@ const SignupUser = () => {
                 {errors.hexadecimalCode && <p className='Error'>Set a seller code</p>}
               </div>
             )}
+            {ExistingUser && <p className="Error-Login">This user already exists</p>}
+            {ErrorLogin && <p className="Error-Login">error when logging in </p>}
             <div className="mb-3 d-flex align-items-center">
-              <button type="submit" className="btn btn-primary">Sign Up</button>
-              <p style={{ marginLeft: '120px', color: '#6893e2' }} onClick={() => (SetSeller(!Seller))}>
+              <button type="button" onClick={handleSubmit} className="btn btn-primary">Sign Up</button>
+              <button type="button" style={{ marginLeft: '120px', color: '#6893e2', borderStyle: 'none' }} onClick={() => (SetSeller(!Seller))}>
                 {Seller ? 'I want to be a client' : 'I want to be a salesman'}
-              </p>            
+              </button>            
             </div>
           </form>
-          {ExistingUser && <p className="Error">This user already exists</p>}
         </div>
       </div>
-      {LoggedIn ? <Navigate to="/" /> : null}
+      {user ? <Navigate to="/" /> : null}
       <Footer />
     </div>
 

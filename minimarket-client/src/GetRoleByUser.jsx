@@ -3,6 +3,7 @@
 
 import { jwtDecode } from 'jwt-decode';
 
+
 export const GetRoleByUser = () => {
 
      const token = window.localStorage.getItem('LoggedUser');
