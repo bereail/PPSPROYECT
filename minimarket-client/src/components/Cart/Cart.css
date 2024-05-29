@@ -17,3 +17,46 @@
     align-items: center;
     max-width: 80%;
 }
+
+.Cart-Products {
+    background-color: #D6BF94;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .product-item {
+    background-color: white;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .product-item h3 {
+    margin-top: 0;
+  }
+  
+  .product-item p {
+    margin: 5px 0;
+  }
+  
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .Cart-Products button {
+    background-color: #D6BF94;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 30px;
+  }
+  
+  .Cart-Products button:hover {
+    background-color: #8F7E5F; 
+  }

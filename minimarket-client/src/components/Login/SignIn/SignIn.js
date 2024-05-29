@@ -56,7 +56,7 @@ const Signin = () => {
 
       if (response.status === 200) {
         SetErrorLogin(0);     
-        login(response.data) 
+        login(response.data, email) 
       }
     } catch (error) {
       SetErrorLogin(1);

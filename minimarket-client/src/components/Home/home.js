@@ -25,7 +25,7 @@ const Home = () => {
     <div className="Home">
 
       <CustomNavbar />
-
+      <div className="hh">
       <CarrouselPage />
 
       <div className={`Time-window ${showPopup ? 'show' : ''}`}>
@@ -36,6 +36,7 @@ const Home = () => {
 
         <Header />
         <Products/>
+      </div>
       </div>
       <Footer />
     </div>

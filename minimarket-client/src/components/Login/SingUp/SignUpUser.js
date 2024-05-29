@@ -131,11 +131,11 @@ const SignupUser = () => {
   }
 
   return (
-
-    <div className="signup" >
+      <>
       <CustomNavbar /> 
+      <div className="signup" >
       <div className="Register">
-        <div className="Welcome" style={{ backgroundColor: theme === "light" ? "#b35a1f" : "#a5351ca4" }}>
+        <div className="Welcome" style={{ backgroundColor: theme === "light" ? "" : "#a5351ca4" }}>
           <h3>¡Welcome to Family Market's online registration</h3>
           <p>Sign up now to access our wide selection of fresh, quality products. It's time to simplify your online shopping with Family Market!</p>
           <p>If you already have an account:</p>
@@ -186,8 +186,8 @@ const SignupUser = () => {
             {ExistingUser && <p className="Error-Login">This user already exists</p>}
             {ErrorLogin && <p className="Error-Login">error when logging in </p>}
             <div className="mb-3 d-flex align-items-center">
-              <button type="button" onClick={handleSubmit} className="btn btn-primary">Sign Up</button>
-              <button type="button" style={{ marginLeft: '120px', color: '#6893e2', borderStyle: 'none' }} onClick={() => (SetSeller(!Seller))}>
+              <button type="button" onClick={handleSubmit} className="Button-SignUp">Sign Up</button>
+              <button type="button"  className="Buttom-Seller" onClick={() => (SetSeller(!Seller))}>
                 {Seller ? 'I want to be a client' : 'I want to be a salesman'}
               </button>            
             </div>
@@ -195,9 +195,9 @@ const SignupUser = () => {
         </div>
       </div>
       {user ? <Navigate to="/" /> : null}
+      </div>
       <Footer />
-    </div>
-
+    </>
   );
 }
 

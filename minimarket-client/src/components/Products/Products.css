@@ -1,6 +1,6 @@
 
 .Container-Products{
-    background-color: #D9D9D9;
+    background-color: white;
     border-radius: 10%;
     padding: 10px;
     margin-left: 80px;
@@ -51,7 +51,7 @@
 .Add-Product{
     border-style: none;
     padding: 2%;
-    background-color: #CC713D;
+    background-color: #f19058;
     border-radius: 40%;
 }
 
@@ -59,7 +59,7 @@
     transform: scale(1.5);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     max-height: 100%;
-    background-color: #D9D9D9;
+    background-color: white;
 }
 .Container-Products-Disabel:hover {
     transform: scale(1.5);

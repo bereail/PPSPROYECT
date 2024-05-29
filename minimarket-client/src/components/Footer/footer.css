@@ -1,13 +1,12 @@
 /* Apply a background gradient and styling to the entire footer */
 .footer {
+ 
    background-image: linear-gradient(to right, #a5351ca4, #a5351ca4);
    padding: 6 rem 3; /* Reduce padding to make the footer space smaller */
    position: relative;
    bottom: 0;
    width: 100%;
-   top: 70px;
-   border-top-left-radius: 15%;
-   border-top-right-radius: 15%;
+
    min-height: 20px;
    display: flex;
    justify-content: center;

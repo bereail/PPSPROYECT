@@ -11,6 +11,7 @@ import DisabelProduct from './Crud/DisabelProduct';
 import RestoreProducts from './Crud/RestoreProducts';
 import GetProductsByCategory from './Crud/GetProducstByCategory';
 import iconerror from '../Image/Icon-product-error.png'
+import { AuthContext } from '../Context/AuthContext';
 const Products = () => {
   const [Products, setProducts] = useState([]);
   const [quantities, setQuantities] = useState({});
@@ -21,6 +22,7 @@ const Products = () => {
   const [SortbydOption, SetSortbydOption] = useState('');
   const [isAscendingOption, SetisAscendingOption] = useState();
   const { CategoryId } = useContext(CategoryContext);
+  const {user, userEmail} = useContext(AuthContext);
 
 
   useEffect(() => {
@@ -40,6 +42,7 @@ const Products = () => {
     if(CategoryId !== null){
     GetProductsByCategory(CategoryId, isActive, setProducts, setError, isAscendingOption,SortbydOption ); // Utiliza el nuevo componente
     }
+    
   }, [CategoryId, isActive, isAscendingOption]);
  
   useEffect(() => {
@@ -70,11 +73,42 @@ const Products = () => {
     }));
   };
   
-
-  const AddCartHandler = (product) => {
-    alert(`Se añadieron ${quantities[product.id]} unidades de ${product.name}`);
+  const AddCartHandler = (product) => {  
+    let cart;
+    if (userEmail !== null) {
+      try {
+        cart = JSON.parse(window.localStorage.getItem(`Cart_${userEmail}`)) || {};
+      } catch (e) {
+        cart = {};
+      }
+      if (!Array.isArray(cart.products)) {
+        cart.products = [];
+      }
+      let productIndex = cart.products.findIndex(item => item.id === product.id);
+      //Actualiza el prodcuto en el carrito
+      if (productIndex !== -1) {
+          cart.products[productIndex].quantity += quantities[product.id];
+          cart.products[productIndex].price += product.price * quantities[product.id];
+          cart.products[productIndex].discount += product.price * (1 - product.discount / 100).toFixed(2) * quantities[product.id];
+      } else {
+        //Crea agrega el prodcuto al carrito
+          cart.products.push({
+              id: product.id,
+              name: product.name,
+              description: product.description,
+              price: product.price * quantities[product.id],
+              discount: product.price * (1 - product.discount / 100).toFixed(2) * quantities[product.id],
+              quantity: quantities[product.id]
+          });
+      }
+    
+        window.localStorage.setItem(`Cart_${userEmail}`, JSON.stringify(cart));
+      } else {
+      alert('Usuario no logeado');
+    }
   };
 
+  
   return (
     <div>
       <div className='Select-order'>

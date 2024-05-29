@@ -4,10 +4,12 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [userEmail, setUserEmail] = useState(null);
 
-
-  const login = (token) =>{
+  const login = (token, Email) =>{
     window.localStorage.setItem('LoggedUser', token); 
+    window.localStorage.setItem('Email', Email);
+    setUserEmail(Email);
     setUser(token);
   }
   const logout = () => {
@@ -17,9 +19,11 @@ export const AuthProvider = ({ children }) => {
   };
   useEffect(() => {
     const token = window.localStorage.getItem('LoggedUser')
+    const Email = window.localStorage.getItem('Email')
     const isExpired = isTokenExpired(token);
     if (token) {
       setUser(token)
+      setUserEmail(Email);
     }
     if(isExpired){
       logout()
@@ -40,7 +44,7 @@ export const AuthProvider = ({ children }) => {
     return currentTime > tokenExpirationTime; 
   }
   return (
-    <AuthContext.Provider value={{ user, logout,login}}>
+    <AuthContext.Provider value={{ user, logout,login, userEmail}}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import api from '../../../api';
+import removeProducstFromCarts from '../removeProducstFromCarts';
+import GetProductsByCategory from './GetProducstByCategory';
 
 const DisabelProduct = async(product) => {
+
     try{
       await api.delete(`/api/products/${product}`)
-      window.location.reload();
+      removeProducstFromCarts(product)
     }catch(error){
       console.log('Error disabel products:', error)
     }

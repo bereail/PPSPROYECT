@@ -42,7 +42,6 @@ const CustomNavbar = () => {
       className="navbar"
       style={{
         backgroundImage: "linear-gradient(to right, #a5351ca4, #a5351ca4)",
-        borderBottomRightRadius: "15%",
       }}
     >
       <Container fluid style={{ maxHeight: "50px", padding: "0px" }}>
