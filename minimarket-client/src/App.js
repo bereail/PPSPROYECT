@@ -13,6 +13,7 @@ import Spinner from "./components/Context/Spinner"; // Asegúrate de que esta ru
 import CustomChatbot from "./components/ChatBot/ChatBot";
 import { CategoryProvider } from "./components/Context/CategoryContext";
 import { AuthProvider } from "./components/Context/AuthContext";
+import Favorite from "./components/Favorite/Favorite";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "cart",
     element: <Cart />,
+  },
+  {
+    path: "Favorite",
+    element:  <ProtectedUser><Favorite/></ProtectedUser>,
   },
   {
     path: "user",

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import './Products.css';
 import { GetRoleByUser } from '../../GetRoleByUser';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil, faTrashCan, faTrashCanArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { faPencil, faTrashCan, faTrashCanArrowUp, faHeart } from "@fortawesome/free-solid-svg-icons";
 import api from '../../api';
 import { CategoryContext } from '../Context/CategoryContext';
 import CreateCategory from './Crud/CreateCategory';
@@ -12,6 +12,8 @@ import RestoreProducts from './Crud/RestoreProducts';
 import GetProductsByCategory from './Crud/GetProducstByCategory';
 import iconerror from '../Image/Icon-product-error.png'
 import { AuthContext } from '../Context/AuthContext';
+import StoreProducts from './StoreProducts';
+import GetProductsFavorite from '../Favorite/GetProductsFavorite';
 const Products = () => {
   const [Products, setProducts] = useState([]);
   const [quantities, setQuantities] = useState({});
@@ -23,9 +25,8 @@ const Products = () => {
   const [isAscendingOption, SetisAscendingOption] = useState();
   const { CategoryId } = useContext(CategoryContext);
   const {user, userEmail} = useContext(AuthContext);
-
-
-  useEffect(() => {
+  const [showCartUpdate, setShowCartUpdate] = useState(false);
+    useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await api.get("/api/products/offers");;
@@ -37,7 +38,6 @@ const Products = () => {
     };
     fetchProducts();
   }, []);
-  
   useEffect(() => {
     if(CategoryId !== null){
     GetProductsByCategory(CategoryId, isActive, setProducts, setError, isAscendingOption,SortbydOption ); // Utiliza el nuevo componente
@@ -72,45 +72,24 @@ const Products = () => {
       [productId]: value
     }));
   };
-  
+  const favoriteHandler = (product) => {
+    StoreProducts('Favorite', product, quantities, userEmail);
+}
   const AddCartHandler = (product) => {  
-    let cart;
-    if (userEmail !== null) {
-      try {
-        cart = JSON.parse(window.localStorage.getItem(`Cart_${userEmail}`)) || {};
-      } catch (e) {
-        cart = {};
-      }
-      if (!Array.isArray(cart.products)) {
-        cart.products = [];
-      }
-      let productIndex = cart.products.findIndex(item => item.id === product.id);
-      //Actualiza el prodcuto en el carrito
-      if (productIndex !== -1) {
-          cart.products[productIndex].quantity += quantities[product.id];
-          cart.products[productIndex].price += product.price * quantities[product.id];
-          cart.products[productIndex].discount += product.price * (1 - product.discount / 100).toFixed(2) * quantities[product.id];
-      } else {
-        //Crea agrega el prodcuto al carrito
-          cart.products.push({
-              id: product.id,
-              name: product.name,
-              description: product.description,
-              price: product.price * quantities[product.id],
-              discount: product.price * (1 - product.discount / 100).toFixed(2) * quantities[product.id],
-              quantity: quantities[product.id]
-          });
-      }
-    
-        window.localStorage.setItem(`Cart_${userEmail}`, JSON.stringify(cart));
-      } else {
-      alert('Usuario no logeado');
-    }
+    const success = StoreProducts('Cart', product, quantities, userEmail);
+    if (success) {
+      setShowCartUpdate(true);
+      setTimeout(() => {
+        setShowCartUpdate(false);
+      }, 2000); 
+    } 
   };
 
   
   return (
     <div>
+        {showCartUpdate && <div className="cart-update-notification">Cart updated successfully!</div>} 
+
       <div className='Select-order'>
         <p style={{ fontSize: '50px', marginLeft: '50px' }}>Products</p>
         {CategoryId !== null && <>
@@ -143,6 +122,7 @@ const Products = () => {
                 <h5 style={{ textAlign: 'center', flex: 1 }}>
                   {hoveredProduct === product.id ? product.name : `${product.name.slice(0, 20)}${product.name.length > 20 ? '...' : ''}`}
                 </h5>
+                {RoleUser === 'Customer' && <GetProductsFavorite product={product} userEmail={userEmail} favoriteHandler={favoriteHandler} />}                
                 {RoleUser === 'Seller' && product.isActive && <FontAwesomeIcon icon={faTrashCan} style={{ marginLeft: '10px' }} onClick={() => (DisabelProduct(product.id))} />}
                 {RoleUser === 'Seller' && !product.isActive && <FontAwesomeIcon icon={faTrashCanArrowUp} style={{ marginLeft: '10px' }} onClick={() => (RestoreProducts(product.id))} />}
               </div>

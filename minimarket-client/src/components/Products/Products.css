@@ -181,3 +181,20 @@
     border-radius: 5px;
     margin: 5px;
 }
+.icon-heart{
+    color: #c40303;
+}
+.icon-favorite{
+    color: #850303;
+}
+
+.cart-update-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000;
+  }

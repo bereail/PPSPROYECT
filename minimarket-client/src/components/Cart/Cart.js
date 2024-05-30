@@ -34,7 +34,7 @@ const HandleCleanCart  = () =>{
   return (
     <div style={{ paddingBottom: '500px' }}>
       <CustomNavbar />
-      {!cart && (
+      {cart.products.length === 0 && (
         <div className="Cart">
           <img src={image} alt="bolsa" className="bolsa-image" />
           <h2>¡Comienza un carrito de compras!</h2>
