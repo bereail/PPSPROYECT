@@ -53,7 +53,7 @@ const Login = () => {
             onMouseEnter={() => setIsExpanded(true)}
             onMouseLeave={() => setIsExpanded(false)}
           >
-          <div style={{marginRight: "180px"}}>
+          <div>
             <p style={{ margin: '0px' }}>My Account</p>
             <FontAwesomeIcon icon={faUser} />
           </div>

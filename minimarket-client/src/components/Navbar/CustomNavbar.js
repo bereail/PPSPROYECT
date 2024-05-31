@@ -78,7 +78,7 @@ const CustomNavbar = () => {
         </Nav>
 
         <Login></Login>
-        {(currentPage === "Home" || currentPage === "User") || RoleUser === 'Customer'  && (
+        {(currentPage === "Home" || currentPage === "User" || RoleUser === 'Customer' || RoleUser)  && (
           <Link
             to="/cart"
             style={{
