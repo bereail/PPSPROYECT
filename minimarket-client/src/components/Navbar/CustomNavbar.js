@@ -9,12 +9,19 @@ import Login from "../Login/login";
 import FilterBar from "../FilterBar/FilterBar";
 import { ThemeContext } from "../Context/ThemeContext";
 import './CustomNavbar.css'
+import { GetRoleByUser } from "../../GetRoleByUser";
+
 
 const CustomNavbar = () => {
   const { pathname } = useLocation();
   const [currentPage, SetCurrentPage] = useState("Home");
   const { theme, toggleTheme } = useContext(ThemeContext);
+  const [RoleUser, SetRolUser] = useState('');
 
+  useEffect(() => {
+    const role = GetRoleByUser()
+    SetRolUser(role);
+  }, [])
   useEffect(() => {
     switch (pathname) {
       case "/":
@@ -71,7 +78,7 @@ const CustomNavbar = () => {
         </Nav>
 
         <Login></Login>
-        {(currentPage === "Home" || currentPage === "User") && (
+        {(currentPage === "Home" || currentPage === "User") || RoleUser === 'Customer'  && (
           <Link
             to="/cart"
             style={{

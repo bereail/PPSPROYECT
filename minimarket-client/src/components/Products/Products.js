@@ -119,7 +119,7 @@ const Products = () => {
             <div className={product.isActive === false ? 'Container-Products-Disabel' : 'Container-Products'}>
               <div style={{ display: 'flex', position: 'flex 1' }}>
                 {RoleUser === 'Seller' && <FontAwesomeIcon icon={faPencil} style={{ marginLeft: '15px' }} />}
-                <h5 style={{ textAlign: 'center', flex: 1 }}>
+                <h5 className="Product-Name"  style={{ textAlign: 'center', flex: 1 }}>
                   {hoveredProduct === product.id ? product.name : `${product.name.slice(0, 20)}${product.name.length > 20 ? '...' : ''}`}
                 </h5>
                 {RoleUser === 'Customer' && <GetProductsFavorite product={product} userEmail={userEmail} favoriteHandler={favoriteHandler} />}                
@@ -127,14 +127,16 @@ const Products = () => {
                 {RoleUser === 'Seller' && !product.isActive && <FontAwesomeIcon icon={faTrashCanArrowUp} style={{ marginLeft: '10px' }} onClick={() => (RestoreProducts(product.id))} />}
               </div>
               {hoveredProduct === product.id && <p>{product.description}</p>}
-              <p className='Product-Price'>US$ {product.price}</p>
-              <p className='Product-Offer'>  {product.discount !== 0 && `With discount: ${product.price * (1 - product.discount / 100).toFixed(2)}`}</p>
+              <p className='Product-Price'>US${product.price}</p>
+              <p className='Product-Offer'>{product.discount !== 0 && `You take it for US$${product.price * (1 - product.discount / 100).toFixed(2)}`}</p>
+              {RoleUser === 'Customer' && <>
               <div className='Container-Button-Products'>
                 <button onClick={() => handleQuantityChange(product.id, Math.max(quantities[product.id] - 1, 1))}>-</button>
                 <input min="1" value={quantities[product.id] || 1} onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value) || 1)} />
                 <button onClick={() => handleQuantityChange(product.id, quantities[product.id] + 1)}>+</button>
               </div>
-              <button className='Add-Product' onClick={() => AddCartHandler(product)}>Add</button>
+             <button className='Add-Product' onClick={() => AddCartHandler(product)}>Add</button>
+             </>}
             </div>
           </div>
         ))}
