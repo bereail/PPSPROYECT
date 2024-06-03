@@ -56,8 +56,7 @@ namespace MiniMarket_API.Application.Profiles
             CreateMap<CreateOrderDto, SaleOrder>()
                 .ForSourceMember(c => c.NewDetails, opt => opt.DoNotValidate());                    //Prevents mapping the incomplete details from the DTO
 
-            CreateMap<CreateDetailDto, OrderDetails>()
-                .ForSourceMember(c => c.DetailId, opt => opt.DoNotValidate());
+            CreateMap<CreateDetailDto, OrderDetails>();
             #endregion
 
         }

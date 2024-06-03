@@ -4,11 +4,11 @@ namespace MiniMarket_API.Application.DTOs.Requests
 {
     public class LoginRequestDTO
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Email is Required.")]
+        [EmailAddress(ErrorMessage = "Email must be in a valid format.")]
         public string? Email { get; set; }
-        [Required]
-        [MinLength(8)]
+        [Required(ErrorMessage = "Password is Required.")]
+        [MinLength(8, ErrorMessage = "Password provided must be at least 8 characters.")]
         public string? Password { get; set; }
     }
 }

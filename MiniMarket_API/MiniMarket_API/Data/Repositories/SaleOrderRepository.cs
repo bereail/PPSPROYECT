@@ -129,9 +129,7 @@ namespace MiniMarket_API.Data.Repositories
             string? sortBy = null, bool isAscending = true,
             int pageNumber = 1, int pageSize = 10)
         {
-            var orders = _context.Orders.AsQueryable();
-
-            orders = orders.Where(o => o.OrderTime >= filterTime);
+            var orders = _context.Orders.Where(o => o.OrderTime >= filterTime).AsQueryable();
 
             if (status.HasValue && Enum.IsDefined(typeof(OrderStatus), status))
             {

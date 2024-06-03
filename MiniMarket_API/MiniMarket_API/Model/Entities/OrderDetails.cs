@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MiniMarket_API.Model.Entities
 {
@@ -10,6 +11,7 @@ namespace MiniMarket_API.Model.Entities
         public Guid OrderId { get; set; }       //Required FK
         public Product Product { get; set; }     //Required navigation property
         public SaleOrder SaleOrder { get; set; }       //Required navigation property
+        [Precision(18, 2)]
         public decimal DetailPrice { get; set; }
         public int ProductQuantity { get; set; }
     }

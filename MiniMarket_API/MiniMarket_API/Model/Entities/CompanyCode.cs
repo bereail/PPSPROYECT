@@ -6,8 +6,8 @@ namespace MiniMarket_API.Model.Entities
     public class CompanyCode
     {
         public Guid Id { get; set; }
-        [Required]
-        [MinLength(16)]
+
+        [Column(TypeName = "nvarchar(25)")]
         public string EmployeeCode { get; set; }
         public bool IsActive { get; set; } = true;
 

@@ -87,12 +87,12 @@ namespace MiniMarket_API.Application.Services.Implementations
             return mapper?.Map<CompanyCodeView?>(getCode);
         }
 
-        public async Task<SellerView?> CreateSeller(CreateSellerDto createSellerDto)
+        public async Task<UserView?> CreateSeller(CreateSellerDto createSellerDto)
         {
             Guid? availableCode = await _companyCodeRepository.GetCodeIdByHexAsync(createSellerDto.HexadecimalCode);              //Checks if the employee code received is both real and available.
             if (availableCode == Guid.Empty)
             {
-                throw new ValidationException("Not a valid Company Code!");
+                throw new ValidationException("Seller Creation Failed: Not a valid Company Code!");
             }
             var existingMail = await _userRepository.GetUserIdByEmailAsync(createSellerDto.Email);      //Checks if the mail already exists in the database.
             if (existingMail == Guid.Empty)
@@ -102,7 +102,7 @@ namespace MiniMarket_API.Application.Services.Implementations
 
                 await _userRepository.CreateUserAsync(sellerToCreate);
 
-                return mapper.Map<SellerView>(sellerToCreate);
+                return mapper.Map<UserView>(sellerToCreate);
             }
             return null;
         }

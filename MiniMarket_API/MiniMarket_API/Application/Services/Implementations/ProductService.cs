@@ -20,15 +20,16 @@ namespace MiniMarket_API.Application.Services.Implementations
             _productCategoryRepository = productCategoryRepository;
         }
 
-        public async Task<ProductView?> CreateProduct(AddProductDto addProductDto)
+        public async Task<ProductView?> CreateProduct(Guid categoryId, AddProductDto addProductDto)
         {
-            var checkCategory = await _productCategoryRepository.GetCategoryByIdAsync(addProductDto.CategoryId);
+            var checkCategory = await _productCategoryRepository.GetCategoryByIdAsync(categoryId);
             if (checkCategory == null)
             {
                 throw new BadHttpRequestException("Product Creation Failed: Category Wasn't Found or is Currently Inactive");
             }
             var checkProductName = await _productRepository.CheckIfProductExistsAsync(addProductDto.Name);
-            if (checkProductName != null)
+
+            if (checkProductName != Guid.Empty)
             {
                 return null;
             }

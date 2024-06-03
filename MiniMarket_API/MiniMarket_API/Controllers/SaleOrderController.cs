@@ -20,6 +20,7 @@ namespace MiniMarket_API.Controllers
 
         [HttpPost]
         //Once authorization requirements are enforced, remove the Guid 'userId' param from the IActionResult method, and uncomment the claims retrieval.
+        //Make the validation so that only Customers can purchase
         public async Task<IActionResult> CreateOrderAsync([FromBody] CreateOrderDto createOrder, Guid userId)
         {
             //var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
