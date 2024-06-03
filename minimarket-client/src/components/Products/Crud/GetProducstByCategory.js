@@ -14,6 +14,7 @@ const GetProductsByCategory = async (CategoryId, isactive, setProducts, setError
           }
     });
     setProducts(response.data.products);
+   
     setError(null);
   } catch (error) {
     console.error('Error fetching products category:', error);

@@ -9,12 +9,19 @@ import Login from "../Login/login";
 import FilterBar from "../FilterBar/FilterBar";
 import { ThemeContext } from "../Context/ThemeContext";
 import './CustomNavbar.css'
+import { GetRoleByUser } from "../../GetRoleByUser";
+
 
 const CustomNavbar = () => {
   const { pathname } = useLocation();
   const [currentPage, SetCurrentPage] = useState("Home");
   const { theme, toggleTheme } = useContext(ThemeContext);
+  const [RoleUser, SetRolUser] = useState('');
 
+  useEffect(() => {
+    const role = GetRoleByUser()
+    SetRolUser(role);
+  }, [])
   useEffect(() => {
     switch (pathname) {
       case "/":
@@ -42,7 +49,6 @@ const CustomNavbar = () => {
       className="navbar"
       style={{
         backgroundImage: "linear-gradient(to right, #a5351ca4, #a5351ca4)",
-        borderBottomRightRadius: "15%",
       }}
     >
       <Container fluid style={{ maxHeight: "50px", padding: "0px" }}>
@@ -72,7 +78,7 @@ const CustomNavbar = () => {
         </Nav>
 
         <Login></Login>
-        {(currentPage === "Home" || currentPage === "User") && (
+        {(currentPage === "Home" || currentPage === "User" || RoleUser === 'Customer' || RoleUser)  && (
           <Link
             to="/cart"
             style={{

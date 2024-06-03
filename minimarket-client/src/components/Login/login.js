@@ -1,23 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import './Login.css'
 import { Button, Navbar as Nav } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons"
+import { AuthContext } from "../Context/AuthContext";
 
 const Login = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { pathname } = useLocation();
   const [currentPage, SetCurrentPage] = useState("Home");
-  const [LoggedIn, setLoggedIn] = useState(false);
+  const {user, logout} = useContext(AuthContext);
 
-  useEffect(() => {
-    const logged = window.localStorage.getItem('LoggedUser')
-    if (logged) {
-      setLoggedIn(true);
-    }
-  }, [])
+
   useEffect(() => {
     switch (pathname) {
       case "/":
@@ -40,6 +36,11 @@ const Login = () => {
     }
   }, [pathname]);
 
+  const handleLogout = () => {
+    logout();
+  };
+
+
   return (
     <div >
       {currentPage !== "Login" && currentPage !== "Register" && currentPage !== "User" && (
@@ -52,12 +53,12 @@ const Login = () => {
             onMouseEnter={() => setIsExpanded(true)}
             onMouseLeave={() => setIsExpanded(false)}
           >
-          <div style={{marginRight: "-40px"}}>
+          <div>
             <p style={{ margin: '0px' }}>My Account</p>
             <FontAwesomeIcon icon={faUser} />
           </div>
           </button>
-          {isExpanded && !LoggedIn && (
+          {isExpanded && !user && (
             <div
               className="Count-expanded"
               onMouseEnter={() => setIsExpanded(true)}
@@ -97,7 +98,7 @@ const Login = () => {
             </div>
           )}
 
-          {isExpanded && LoggedIn && (
+          {isExpanded && user && (
             <div
               className="Count-expanded"
               onMouseEnter={() => setIsExpanded(true)}
@@ -124,7 +125,7 @@ const Login = () => {
                 </div>
                 <button
                   style={{ width: "80px" }}
-                  onClick={() =>{window.localStorage.removeItem('LoggedUser'); window.location.reload();}}
+                  onClick={handleLogout}
                   className="btn btn-outline-primary">
                   Exit
                 </button>

@@ -1,6 +1,5 @@
 // Header.js
 import React from 'react';
-import HeaderCard from './headerCard';
 
 const Header = () => {
   return (

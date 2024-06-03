@@ -10,9 +10,10 @@ import "./App.css";
 import { ThemeContext, ThemeProvider } from "./components/Context/ThemeContext";
 import ProtectedUser from "./components/Pages/ProtectedUser";
 import Spinner from "./components/Context/Spinner"; // Asegúrate de que esta ruta sea correcta
-import ProductPage from "./components/Products/ProductPage";
 import CustomChatbot from "./components/ChatBot/ChatBot";
 import { CategoryProvider } from "./components/Context/CategoryContext";
+import { AuthProvider } from "./components/Context/AuthContext";
+import Favorite from "./components/Favorite/Favorite";
 
 const router = createBrowserRouter([
   {
@@ -32,16 +33,16 @@ const router = createBrowserRouter([
     element: <Cart />,
   },
   {
+    path: "Favorite",
+    element:  <ProtectedUser><Favorite/></ProtectedUser>,
+  },
+  {
     path: "user",
     element: (
       <ProtectedUser>
         <User />
       </ProtectedUser>
     ),
-  },
-  {
-    path: "/products/All",
-    element: <ProductPage />,
   },
   {
     path: "*",
@@ -63,11 +64,12 @@ const AppContent = () => {
 const App = () => (
   
   <ThemeProvider>
+    <AuthProvider>
     <CategoryProvider>
-    <AppContent />
-      
+    <AppContent />    
     <CustomChatbot/>
     </CategoryProvider>
+    </AuthProvider>
   </ThemeProvider>
   
 );
