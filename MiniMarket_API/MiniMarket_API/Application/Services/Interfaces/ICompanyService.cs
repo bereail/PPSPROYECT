@@ -10,7 +10,7 @@ namespace MiniMarket_API.Application.Services.Interfaces
         Task<CompanyCodeView?> EraseCompanyCode(Guid id);
         Task<IEnumerable<CompanyCodeView>?> GetAllCompanyCodes();
         Task<CompanyCodeView?> GetCodeById(Guid id);
-        Task<SellerView?> CreateSeller(CreateSellerDto createSellerDto);
+        Task<UserView?> CreateSeller(CreateSellerDto createSellerDto);
         Task<UserView?> CreateSuperAdmin(CreateUserDto createSuperAdmin);
         //Task<IEnumerable<SellerDto>?> GetAllSellers();
     }
