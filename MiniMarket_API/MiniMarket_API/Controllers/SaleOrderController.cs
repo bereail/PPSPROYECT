@@ -24,6 +24,7 @@ namespace MiniMarket_API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateOrderAsync([FromBody] CreateOrderDto createOrder)
         {
+            //We retrieve the user's ID from the claims directly.
             var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
 
             var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
@@ -33,7 +34,7 @@ namespace MiniMarket_API.Controllers
                 return Forbid();
             }
 
-            var createdOrder = await _saleOrderService.CreateSaleOrder(createOrder, userId);        //This is to prevent users sending IDs that aren't theirs.
+            var createdOrder = await _saleOrderService.CreateSaleOrder(createOrder, userId);        .
             if (createdOrder == null)
             {
                 return Unauthorized("Order Creation Failed: User Doesn't Exist!");
