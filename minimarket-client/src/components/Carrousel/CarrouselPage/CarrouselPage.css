@@ -15,3 +15,15 @@
     background-color: rgba(0, 0, 0, 0.1);
   }
   
+  .Carousel-Container{
+    top: 63px;
+    margin-bottom: 100px;
+  }
+
+  @media (max-width: 350px) {
+    .Carousel-Container{
+      top: 130px;
+      margin-bottom: 100px;
+      width: 350px;
+    }
+}

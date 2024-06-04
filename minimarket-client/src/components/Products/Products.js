@@ -129,7 +129,7 @@ const Products = () => {
               {hoveredProduct === product.id && <p>{product.description}</p>}
               <p className='Product-Price'>US${product.price}</p>
               <p className='Product-Offer'>{product.discount !== 0 && `You take it for US$${product.price * (1 - product.discount / 100).toFixed(2)}`}</p>
-              {RoleUser === 'Customer' && <>
+              {(RoleUser === 'Customer' || !RoleUser) && <>
               <div className='Container-Button-Products'>
                 <button onClick={() => handleQuantityChange(product.id, Math.max(quantities[product.id] - 1, 1))}>-</button>
                 <input min="1" value={quantities[product.id] || 1} onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value) || 1)} />

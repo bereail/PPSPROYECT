@@ -1,0 +1,72 @@
+.Navbar-Container{
+    background-image: linear-gradient(to right,  #812c17a4, #a5351ca4);
+    display: flex;
+    max-height: 80px;
+}
+.Navbar-Logo{
+   text-align: center;
+   align-content: center;
+   
+}
+.toggle-theme-button{
+    top: 10px;
+    margin: 10px;
+    border: none;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+}  
+
+.NavFilter-Contaier{
+    display: flex;
+    align-items: center;
+    margin-left: 50px;
+    
+}
+
+.NavFilter-Contaier {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* Allow this item to grow and take available space */
+    justify-content: center; /* Center it within its available space */
+}
+
+.NavLogin-Container{
+    padding: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+}
+.NavCart-Container{
+    margin-top: 30px;
+}
+.NavRightItems {
+    position: relative; 
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-grow: 1;
+}
+@media (max-width: 700px) {
+    .NavFilter-Contaier {
+      position: absolute;
+      top: 80px;
+      left: -40px;
+    }
+
+
+    .NavRightItems{
+        padding: 10px;
+        margin-left: 0px;
+        margin-right: 0px;
+       
+    }
+  }
+  @media (max-width: 300px) {
+
+    .Navbar-Container{
+        position: absolute;
+        top: 0px;
+      }
+
+  }

@@ -6,6 +6,7 @@ import Header from "../Header/header";
 import "./Home.css";
 import Products from "../Products/Products";
 import { AuthContext } from "../Context/AuthContext";
+import Navbar from "../Navbar/Navbar";
 const Home = () => {
   const [showPopup, setShowPopup] = useState(false);
   const {user} = useContext(AuthContext);
@@ -24,7 +25,7 @@ const Home = () => {
   return (
     <div className="Home">
 
-      <CustomNavbar />
+      <Navbar/>
       <div className="hh">
       <CarrouselPage />
 

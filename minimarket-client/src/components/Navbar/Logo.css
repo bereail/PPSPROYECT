@@ -23,3 +23,13 @@
     text-decoration: none;
   }
   
+
+  @media (max-width: 700px) {
+    .Container-logo p{
+      font-size: 18px;
+    }
+    .logo-image{
+      width: 50px
+    }
+    
+}

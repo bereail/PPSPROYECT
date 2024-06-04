@@ -5,7 +5,7 @@ const StoreProducts = (key, product, quantities, userEmail) => {
 
     
     let cart;
-    if (userEmail !== null) {
+    //if (userEmail !== null) {
       try {
         cart = JSON.parse(window.localStorage.getItem(`${key}_${userEmail}`)) || {};
       } catch (e) {
@@ -35,10 +35,10 @@ const StoreProducts = (key, product, quantities, userEmail) => {
         window.localStorage.setItem(`${key}_${userEmail}`, JSON.stringify(cart));
         return true;
 
-      } else {
-      alert('Usuario no logeado');
-      return false;
-    }
+      //} else {
+     // alert('Usuario no logeado');
+      //return false;
+    //}
     
 }
 

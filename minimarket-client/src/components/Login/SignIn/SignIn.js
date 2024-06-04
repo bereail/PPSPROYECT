@@ -10,6 +10,7 @@ import { Navigate } from "react-router-dom";
 import api from "../../../api";
 import { ThemeContext } from "../../Context/ThemeContext";
 import { AuthContext } from "../../Context/AuthContext";
+import Navbar from "../../Navbar/Navbar";
 const Signin = () => {
   const { theme } = useContext(ThemeContext);
   const [Style, SetStyle] = useState(faEyeSlash);
@@ -67,16 +68,17 @@ const Signin = () => {
   }
 
   return (
-    <div className="login" >
-      <CustomNavbar/>
+    <div  >
+      <Navbar/>
+      <div className="Singin-Container">
       {user ? <Navigate to="/" /> : null}
       <div className="Form-Login" style={{ backgroundColor: theme === "light" ? "#CC713D" : "#a5351ca4" }}>
-        <h2>Login</h2>
+        <h2>Sing In</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-          {Error === 1 && email === '' && <p className='Error'>Set a Email</p>}
           <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" onChange={handleEmailChange} />
+          {Error === 1 && email === '' && <p className='Error-SingIn'>Set a Email</p>}
         </div>
         <div className="mb-3"style={{ position: 'relative' }}>
           <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
@@ -87,11 +89,12 @@ const Signin = () => {
           SetStyle(Style === faEyeSlash ? faEye : faEyeSlash))}></FontAwesomeIcon>
                       
           </div>
-          {Error === 1 && pass === '' && <p className='Error'>Set a password</p>}
+          {Error === 1 && pass === '' && <p className='Error-SingIn'>Set a password</p>}
         </div>
            {ErrorLogin === 1 && <p className='Error-Login'>Incorrect user or password</p>}
-        <button type="submit" className="btn btn-primary">Submit</button>
+        <button type="submit" className="botton-Singin">Submit</button>
       </form>
+      </div>
       </div>
       <Footer/>
     </div>

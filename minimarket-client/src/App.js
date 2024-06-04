@@ -14,6 +14,7 @@ import CustomChatbot from "./components/ChatBot/ChatBot";
 import { CategoryProvider } from "./components/Context/CategoryContext";
 import { AuthProvider } from "./components/Context/AuthContext";
 import Favorite from "./components/Favorite/Favorite";
+import Navbar from "./components/Navbar/Navbar";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: "cart",
     element: <Cart />,
+  },
+  {
+    path: "navbar",
+    element: <Navbar/>,
   },
   {
     path: "Favorite",
@@ -66,6 +71,7 @@ const App = () => (
   <ThemeProvider>
     <AuthProvider>
     <CategoryProvider>
+      
     <AppContent />    
     <CustomChatbot/>
     </CategoryProvider>

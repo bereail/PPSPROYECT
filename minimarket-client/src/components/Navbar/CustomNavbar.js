@@ -3,9 +3,9 @@ import { Navbar as BootstrapNavbar, Container, Nav } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
-import Search from "../SearhBar/Search";
+import Search from "../SearhBar/Search1";
 import Logo from "./Logo";
-import Login from "../Login/login";
+import Login from "../Login/login1";
 import FilterBar from "../FilterBar/FilterBar";
 import { ThemeContext } from "../Context/ThemeContext";
 import './CustomNavbar.css'

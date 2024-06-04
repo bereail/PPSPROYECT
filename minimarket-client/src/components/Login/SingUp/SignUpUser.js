@@ -11,6 +11,7 @@ import { Navigate } from "react-router-dom";
 import api from "../../../api";
 import { ThemeContext } from "../../Context/ThemeContext";
 import { AuthContext } from "../../Context/AuthContext";
+import Navbar from "../../Navbar/Navbar";
 const SignupUser = () => {
   const { theme } = useContext(ThemeContext);
   const [showPassword, setShowPassword] = useState(false);
@@ -132,7 +133,7 @@ const SignupUser = () => {
 
   return (
       <>
-      <CustomNavbar /> 
+      <Navbar/> 
       <div className="signup" >
       <div className="Register">
         <div className="Welcome" style={{ backgroundColor: theme === "light" ? "" : "#a5351ca4" }}>

@@ -1,0 +1,20 @@
+.Search-Input-Container{
+    width: 300px;
+    height: 50px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-style: none;
+    padding-left: 10px;
+}
+.Search-icon-Container{
+    position: absolute;
+    margin-left: -30px;
+    height: 50px;
+    background-color: transparent;
+    border-style: none;
+}
+@media (max-width: 780px) {
+    .Search-Input-Container{
+        width: 200px
+    }
+}

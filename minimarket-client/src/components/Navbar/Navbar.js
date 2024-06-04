@@ -1,0 +1,84 @@
+import React, { useContext, useEffect, useState } from 'react'
+import './Navbar.css'
+import Logo from './Logo'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping, faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
+import { ThemeContext } from '../Context/ThemeContext';
+import FilterBar from '../FilterBar/FilterBar';
+import { Link, useLocation } from 'react-router-dom';
+import Login from '../Login/login';
+import Search1 from '../SearhBar/Search';
+import { GetRoleByUser } from '../../GetRoleByUser';
+const Navbar = () => {
+    const { theme, toggleTheme } = useContext(ThemeContext);
+    const { pathname } = useLocation();
+    const [RoleUser, SetRolUser] = useState('');
+    const [currentPage, SetCurrentPage] = useState("Home");
+    useEffect(() => {
+        const role = GetRoleByUser()
+        SetRolUser(role);
+      }, [])
+
+      useEffect(() => {
+        switch (pathname) {
+          case "/":
+            SetCurrentPage("Home");
+            break;
+          case "/signupUser":
+            SetCurrentPage("Register");
+            break;
+          case "/signin":
+            SetCurrentPage("Login");
+            break;
+          case "/cart":
+            SetCurrentPage("cart");
+            break;
+          case "/user":
+            SetCurrentPage("User");
+            break;
+          default:
+            SetCurrentPage("");
+        }
+      }, [pathname]);
+    return (
+        <div className='Navbar-Container'>
+            <div  className="Navbar-Logo" >
+            <Link  to="/">
+            <Logo/>
+            </Link>
+            </div>
+            <button
+                className="toggle-theme-button"
+                onClick={toggleTheme}
+                style={{ color: theme === "light" ? "black" : "white", }}
+            >
+                <FontAwesomeIcon icon={theme === "light" ? faMoon : faSun} />
+            </button>
+            {currentPage === "Home" && 
+            <div className='NavFilter-Contaier'>
+                <FilterBar />
+                <Search1/>
+            </div>
+            }
+            <div className='NavRightItems'>
+            {(currentPage === "Home" || currentPage === "User" || RoleUser === 'Customer' || RoleUser)  &&
+            <div className='NavCart-Container'>
+                <Link to="/cart">
+                    <FontAwesomeIcon
+                        icon={faCartShopping}
+                        style={{ fontSize: "30px", marginLeft: "5px" }}
+                    />
+                    <p>Cart</p>
+                </Link>
+            </div>
+            }
+            <div className='NavLogin-Container'>
+                <Login/>
+            </div>
+            </div>
+           
+        </div>
+    )
+}
+
+export default Navbar

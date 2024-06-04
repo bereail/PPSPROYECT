@@ -10,7 +10,7 @@ import './CarrouselPage.css'
 function CarrouselPage() {
   return (
     <div>
- <Carousel>
+ <Carousel className="Carousel-Container">
         <Carousel.Item >
           <img 
             className="Image-Carrousel"

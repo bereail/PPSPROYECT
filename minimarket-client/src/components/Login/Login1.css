@@ -1,0 +1,39 @@
+.Count-container {
+  position: relative;
+  display: inline-block;
+  margin-right: 0px;
+}
+  
+  .Count {
+    border-style: none;
+
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 16px;
+    color: #000000;
+  }
+    .Count-expanded {
+  
+      position: absolute;
+      left: 1;
+      display: flex;
+      flex-direction: column;
+      z-index: 999;
+    }
+
+  .btn-outline-primary {
+    color: #a5351ca4;
+    border-color: #220a05a4;
+  }
+  
+  .btn-outline-primary:hover {
+    color: #a5351ca4;
+    background-color: #a5351ca4;
+    border-color: #a5351ca4;
+  }
+  
+  .btn-outline-primary:focus,
+  .btn-outline-primary.focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+  }
+  

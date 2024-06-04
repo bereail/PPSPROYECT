@@ -7,6 +7,7 @@ import image from '../Image/Bolsa.png';
 import { AuthContext } from '../Context/AuthContext';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import Navbar from '../Navbar/Navbar';
 
 export default function Cart() {
   const { userEmail } = useContext(AuthContext);
@@ -50,7 +51,7 @@ export default function Cart() {
   }
   return (
     <div style={{ paddingBottom: '500px' }}>
-      <CustomNavbar />
+      <Navbar/>
       {(!cart || cart.products.length === 0) && (
         <div className="Cart">
           <img src={image} alt="bolsa" className="bolsa-image" />
