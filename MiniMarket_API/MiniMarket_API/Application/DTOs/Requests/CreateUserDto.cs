@@ -16,8 +16,8 @@ namespace MiniMarket_API.Application.DTOs.Requests
         [StringLength(50, MinimumLength = 8, ErrorMessage = "User Password must be at least 8 characters, or shorter than 50 characters.")]
         public string Password { get; set; }
 
-        [StringLength(50, ErrorMessage = "User Phone Number mustn't be longer than 75 characters.")]
-        [RegularExpression(@"^(?([0-9]{3}))?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Invalid Phone Number format.")]
+        [StringLength(50, ErrorMessage = "User Phone Number mustn't be longer than 50 characters.")]
+        [RegularExpression(@"^\+?[1-9][0-9]{7,14}$", ErrorMessage = "Invalid Phone Number format.")]
         public string PhoneNumber { get; set; }
 
         [StringLength(200, ErrorMessage = "User Address mustn't be longer than 200 characters.")]

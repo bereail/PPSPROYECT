@@ -48,7 +48,8 @@ namespace MiniMarket_API.Application.Services.Implementations
 
             var credentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
-            var claimsForToken = new List<Claim>();                                                           //We form the Claims.    
+            //We form the claim.
+            var claimsForToken = new List<Claim>();                                                             
             claimsForToken.Add(new Claim("sub", user.Id.ToString()));
             claimsForToken.Add(new Claim("name", user.Name));
             claimsForToken.Add(new Claim("role", user.UserType));

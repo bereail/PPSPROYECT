@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MiniMarket_API.Application.DTOs.Requests;
 using MiniMarket_API.Application.Services.Interfaces;
+using MiniMarket_API.Model.Entities;
 using MiniMarket_API.Model.Enums;
 using System.Security.Claims;
 
@@ -9,6 +11,7 @@ namespace MiniMarket_API.Controllers
 {
     [Route("api/orders")]
     [ApiController]
+    [Authorize]
     public class SaleOrderController : ControllerBase
     {
         private readonly ISaleOrderService _saleOrderService;
@@ -19,11 +22,17 @@ namespace MiniMarket_API.Controllers
         }
 
         [HttpPost]
-        //Once authorization requirements are enforced, remove the Guid 'userId' param from the IActionResult method, and uncomment the claims retrieval.
-        //Make the validation so that only Customers can purchase
-        public async Task<IActionResult> CreateOrderAsync([FromBody] CreateOrderDto createOrder, Guid userId)
+        public async Task<IActionResult> CreateOrderAsync([FromBody] CreateOrderDto createOrder)
         {
-            //var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
+            var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
+
+            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            if (userRole != typeof(Customer).Name)
+            {
+                return Forbid();
+            }
+
             var createdOrder = await _saleOrderService.CreateSaleOrder(createOrder, userId);        //This is to prevent users sending IDs that aren't theirs.
             if (createdOrder == null)
             {
