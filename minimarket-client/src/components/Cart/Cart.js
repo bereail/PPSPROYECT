@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import CustomNavbar from '../Navbar/CustomNavbar';
 import Footer from '../Footer/footer';
 import { Link, useAsyncError } from "react-router-dom";
 import "./Cart.css";

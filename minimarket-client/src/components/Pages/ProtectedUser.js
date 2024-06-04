@@ -1,12 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Navigate } from "react-router";
-import { GetRoleByUser } from "../../GetRoleByUser";
+import { AuthContext } from "../Context/AuthContext";
 
 const ProtectedUser = ({ children }) => {
-
-  const userType = GetRoleByUser();
-  console.log(GetRoleByUser());
-  if (userType === null ) {
+  const {role} = useContext(AuthContext)
+  if (!role) {
     return <Navigate to="/" />;
   } else {
     return <>{children}</>;

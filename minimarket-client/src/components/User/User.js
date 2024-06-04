@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react'
-import CustomNavbar from '../Navbar/CustomNavbar'
 import Footer from '../Footer/footer'
 import imageuser from '../Image/User.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,6 +9,7 @@ import DeleteCustomer from './Crud/DeleteCustomer';
 import ModifyUser from './Crud/ModifyUser';
 import ModifyPassword from './Crud/ModifyPassword';
 import { ThemeContext } from '../Context/ThemeContext';
+import Navbar from '../Navbar/Navbar';
 const User = () => {
 
     const { theme } = useContext(ThemeContext);
@@ -20,7 +20,7 @@ const User = () => {
     };
     return (
         <div>
-            <CustomNavbar></CustomNavbar>
+            <Navbar></Navbar>
             <div className='User' >
                 <div className='Userdetails'style={{ backgroundColor: theme === "light" ? "" : "#a5351ca4" }}>
                     <img src={imageuser} alt="User" className="user-image" />

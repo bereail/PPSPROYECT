@@ -8,16 +8,12 @@ import FilterBar from '../FilterBar/FilterBar';
 import { Link, useLocation } from 'react-router-dom';
 import Login from '../Login/login';
 import Search1 from '../SearhBar/Search';
-import { GetRoleByUser } from '../../GetRoleByUser';
+import { AuthContext } from '../Context/AuthContext';
 const Navbar = () => {
     const { theme, toggleTheme } = useContext(ThemeContext);
     const { pathname } = useLocation();
-    const [RoleUser, SetRolUser] = useState('');
     const [currentPage, SetCurrentPage] = useState("Home");
-    useEffect(() => {
-        const role = GetRoleByUser()
-        SetRolUser(role);
-      }, [])
+    const {role} = useContext(AuthContext)
 
       useEffect(() => {
         switch (pathname) {
@@ -61,7 +57,7 @@ const Navbar = () => {
             </div>
             }
             <div className='NavRightItems'>
-            {(currentPage === "Home" || currentPage === "User" || RoleUser === 'Customer' || RoleUser)  &&
+            {((currentPage === "Home" || currentPage === "User") &&(role === 'Customer' || !role))  &&
             <div className='NavCart-Container'>
                 <Link to="/cart">
                     <FontAwesomeIcon

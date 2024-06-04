@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './Products.css';
-import { GetRoleByUser } from '../../GetRoleByUser';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faTrashCan, faTrashCanArrowUp, faHeart } from "@fortawesome/free-solid-svg-icons";
 import api from '../../api';
@@ -17,14 +16,13 @@ import GetProductsFavorite from '../Favorite/GetProductsFavorite';
 const Products = () => {
   const [Products, setProducts] = useState([]);
   const [quantities, setQuantities] = useState({});
-  const [RoleUser, SetRolUser] = useState('');
   const [hoveredProduct, setHoveredProduct] = useState(null);
   const [isActive, SetisActive] = useState();
   const [error, setError] = useState(null);
   const [SortbydOption, SetSortbydOption] = useState('');
   const [isAscendingOption, SetisAscendingOption] = useState();
   const { CategoryId } = useContext(CategoryContext);
-  const {user, userEmail} = useContext(AuthContext);
+  const {user, userEmail, role} = useContext(AuthContext);
   const [showCartUpdate, setShowCartUpdate] = useState(false);
     useEffect(() => {
     const fetchProducts = async () => {
@@ -49,12 +47,6 @@ const Products = () => {
     SetisAscendingOption('');
   }, [SortbydOption]);
 
-
-
-  useEffect(() => {
-    const role = GetRoleByUser()
-    SetRolUser(role);
-  }, [])
 
   useEffect(() => {
     // Inicializar las cantidades solo cuando Products cambie
@@ -109,8 +101,7 @@ const Products = () => {
         </>}
         
       </div>
-      
-      {RoleUser === 'Seller' && CategoryId !== null && <button className='Button-Desactive-Product' onClick={() => { SetisActive(!isActive) }}>Diabel Products</button>}
+      {role === 'Seller' && CategoryId !== null && <button className='Button-Desactive-Product' onClick={() => { SetisActive(!isActive) }}>Diabel Products</button>}
 
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
 
@@ -118,18 +109,18 @@ const Products = () => {
           <div key={product.id} onMouseEnter={() => setHoveredProduct(product.id)} onMouseLeave={() => { setHoveredProduct(null) }}>
             <div className={product.isActive === false ? 'Container-Products-Disabel' : 'Container-Products'}>
               <div style={{ display: 'flex', position: 'flex 1' }}>
-                {RoleUser === 'Seller' && <FontAwesomeIcon icon={faPencil} style={{ marginLeft: '15px' }} />}
+                {role === 'Seller' && <FontAwesomeIcon icon={faPencil} style={{ marginLeft: '15px' }} />}
                 <h5 className="Product-Name"  style={{ textAlign: 'center', flex: 1 }}>
                   {hoveredProduct === product.id ? product.name : `${product.name.slice(0, 20)}${product.name.length > 20 ? '...' : ''}`}
                 </h5>
-                {RoleUser === 'Customer' && <GetProductsFavorite product={product} userEmail={userEmail} favoriteHandler={favoriteHandler} />}                
-                {RoleUser === 'Seller' && product.isActive && <FontAwesomeIcon icon={faTrashCan} style={{ marginLeft: '10px' }} onClick={() => (DisabelProduct(product.id))} />}
-                {RoleUser === 'Seller' && !product.isActive && <FontAwesomeIcon icon={faTrashCanArrowUp} style={{ marginLeft: '10px' }} onClick={() => (RestoreProducts(product.id))} />}
+                {role === 'Customer' && <GetProductsFavorite product={product} userEmail={userEmail} favoriteHandler={favoriteHandler} />}                
+                {role === 'Seller' && product.isActive && <FontAwesomeIcon icon={faTrashCan} style={{ marginLeft: '10px' }} onClick={() => (DisabelProduct(product.id))} />}
+                {role === 'Seller' && !product.isActive && <FontAwesomeIcon icon={faTrashCanArrowUp} style={{ marginLeft: '10px' }} onClick={() => (RestoreProducts(product.id))} />}
               </div>
               {hoveredProduct === product.id && <p>{product.description}</p>}
               <p className='Product-Price'>US${product.price}</p>
               <p className='Product-Offer'>{product.discount !== 0 && `You take it for US$${product.price * (1 - product.discount / 100).toFixed(2)}`}</p>
-              {(RoleUser === 'Customer' || !RoleUser) && <>
+              {(role === 'Customer' || !role) && <>
               <div className='Container-Button-Products'>
                 <button onClick={() => handleQuantityChange(product.id, Math.max(quantities[product.id] - 1, 1))}>-</button>
                 <input min="1" value={quantities[product.id] || 1} onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value) || 1)} />
@@ -147,7 +138,7 @@ const Products = () => {
         <img style={{ width: '350px' }} src={iconerror}></img>
       </div>}
 
-      {RoleUser === 'Seller' && <div className='Products-Seller'>
+      {role === 'Seller' && <div className='Products-Seller'>
         {CategoryId !== null && <CreaateProduct></CreaateProduct>}
         <CreateCategory></CreateCategory>
       </div>}

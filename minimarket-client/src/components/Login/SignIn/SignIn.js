@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from 'axios';
-import CustomNavbar from "../../Navbar/CustomNavbar";
 import Footer from "../../Footer/footer";
 import "./SignIn.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

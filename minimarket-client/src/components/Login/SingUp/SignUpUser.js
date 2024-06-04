@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from 'axios';
 
-import CustomNavbar from "../../Navbar/CustomNavbar";
 import Footer from "../../Footer/footer";
 import './SignUpUser.css';
 import { Link } from "react-router-dom";
