@@ -5,7 +5,9 @@ import "./Cart.css";
 import image from '../Image/Bolsa.png';
 import { AuthContext } from '../Context/AuthContext';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan} from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+
 import Navbar from '../Navbar/Navbar';
 
 export default function Cart() {
@@ -13,6 +15,7 @@ export default function Cart() {
   const [cart, setCart] = useState(null);
   const [CartPriceDiscount, SetCartPriceDiscount] = useState();
   const [CartDiscount, SetCartDiscount] = useState();
+  const [PayCart, SetPayCart] = useState(false);
   useEffect(() => {
     const cartData = JSON.parse(window.localStorage.getItem(`Cart_${userEmail}`));
     setCart(cartData);
@@ -48,9 +51,33 @@ export default function Cart() {
     window.localStorage.removeItem(`Cart_${userEmail}`);
     setCart(null);
   }
+  const HandleCreateOrder = async() =>{
+    try{
+      const newDetails = cart.products.map(item=>({
+        
+        productId: item.id,
+        productQuantity: item.quantity
+      }))
+      const orderDetails = {
+        deliveryAddress: "A Definir",
+        newDetails: newDetails
+      };
+      //await api.post("/api/orders", orderDetails)
+      SetPayCart(true)
+    }catch(error){
+      console.error('Error Create Order', error);
+    }
+
+  }
   return (
     <div style={{ paddingBottom: '500px' }}>
       <Navbar/>
+      {PayCart && (
+      <div className="purchase-process-message">
+        <FontAwesomeIcon className="Icon-Paycart" icon={faXmark}  onClick={()=>(SetPayCart(false))}/>
+        <h1>Proceso de compra</h1>
+      </div>
+    )}
       {(!cart || cart.products.length === 0) && (
         <div className="Cart">
           <img src={image} alt="bolsa" className="bolsa-image" />
@@ -90,7 +117,7 @@ export default function Cart() {
               <p>Total Price:</p>
               <p> ${CartPriceDiscount}</p>
               </div> 
-              <button className= "Button-Cart">Continue shopping</button>
+              <button className= "Button-Cart" onClick={HandleCreateOrder}>Continue shopping</button>
             </div>
           </div>
           <button className='Button-Products' onClick={HandleCleanCart}>Clean Cart</button>
