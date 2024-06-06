@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons"
-import "./login.css"
+import "./Login.css"
 import { Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthContext';
 const Login = () => {

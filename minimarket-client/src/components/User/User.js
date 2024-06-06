@@ -7,14 +7,14 @@ import './User.css';
 import UserGetOrders from './Crud/UserGetOrders';
 import DeleteCustomer from './Crud/DeleteCustomer';
 import ModifyUser from './Crud/ModifyUser';
-import ModifyPassword from './Crud/ModifyPassword';
 import { ThemeContext } from '../Context/ThemeContext';
 import Navbar from '../Navbar/Navbar';
+import GetUserbyid from './Crud/GetUserbyid';
 const User = () => {
 
     const { theme } = useContext(ThemeContext);
-    const [UserName, SetUsername] = useState('(NOMBRE)')
     const [activeButton, SetActiveButton] = useState('');
+    const user = GetUserbyid();
     const handleExit = () => {
         SetActiveButton('');
     };
@@ -24,14 +24,12 @@ const User = () => {
             <div className='User' >
                 <div className='Userdetails'style={{ backgroundColor: theme === "light" ? "" : "#a5351ca4" }}>
                     <img src={imageuser} alt="User" className="user-image" />
-                    <h3>Welcome {UserName}!</h3>
+                    <h3>Welcome {user && user.name}!</h3>
 
                     <button onClick={() => (SetActiveButton('Profile'))}
                         className={activeButton === "Profile" ? "User-filter-button active" : ''}> Profile</button>
                     <button onClick={() => (SetActiveButton('Orders'))}
                         className={activeButton === "Orders" ? "User-filter-button active" : ''}>Orders</button>
-                    <button onClick={() => (SetActiveButton('Change Password'))} 
-                        className={activeButton === "Change Password" ? "User-filter-button active" : ''}>Change Password</button>
                     <button onClick={() => (SetActiveButton('Delete Account'))} style={{ marginTop: "200px" }}
                         className={activeButton === "Delete Account" ? "User-filter-button active" : ''}>Delete Account</button>
                 </div>
@@ -40,14 +38,11 @@ const User = () => {
                 }
                 
                 {activeButton === 'Orders' &&  <UserGetOrders/>}
-                {activeButton === 'Change Password' &&  <ModifyPassword handleExit={handleExit} />}
                 {activeButton === 'Delete Account' &&  <DeleteCustomer handleExit={handleExit} />}
                 
                
-            </div>
-           
-            <Footer></Footer>
-       
+            </div>        
+            <Footer></Footer>      
         </div>
     )
 }

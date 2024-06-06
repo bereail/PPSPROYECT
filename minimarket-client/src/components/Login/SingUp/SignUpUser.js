@@ -61,7 +61,7 @@ const SignupUser = () => {
  
     const { name, address, phoneNumber, email, password, confirmPassword, hexadecimalCode  } = formData;
    
-    if (phoneNumber.trim().length > 10) {
+    if (phoneNumber.trim().length > 13) {
       setErrors(prevErrors => ({
         ...prevErrors,
         phoneNumber: true
