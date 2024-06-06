@@ -35,15 +35,17 @@ namespace MiniMarket_API.Application.Services.Implementations
 
         public async Task<UserView?> UpdateUser(Guid id, UpdateUserDto updateUserDto)
         {
-            var userToUpdate = mapper.Map<User>(updateUserDto);
+            //It looks sus, but I'm only using this Customer instance to pass the data to the UserRepository.
+            //AutoMapper cannot create an instance of an abstract (in this case, User) class, so I decided to simply pass the data through a children class (Customer).
+            var userToUpdate = mapper.Map<Customer>(updateUserDto);
 
-            userToUpdate = await _userRepository.UpdateUserAsync(id, userToUpdate);
+            var updatedUser = await _userRepository.UpdateUserAsync(id, userToUpdate);
 
-            if (userToUpdate == null)
+            if (updatedUser == null)
             {
                 return null;
             }
-            return mapper.Map<UserView>(userToUpdate);
+            return mapper.Map<UserView>(updatedUser);
         }
 
         public async Task<UserView?> DeactivateUser(Guid id)

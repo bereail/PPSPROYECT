@@ -31,7 +31,6 @@ namespace MiniMarket_API.Data.Repositories
             }
 
             getUser.Name = user.Name;
-            getUser.Email = user.Email;
             getUser.PhoneNumber = user.PhoneNumber;
             getUser.Address = user.Address;
 

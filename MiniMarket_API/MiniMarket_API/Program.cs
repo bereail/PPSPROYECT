@@ -67,7 +67,6 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("MarketConnection
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
 #endregion
 
-
 #region Services
 builder.Services.AddScoped<ICustomAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
@@ -78,7 +77,6 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ISaleOrderService, SaleOrderService>();
 builder.Services.AddScoped<IUserService, UserService>();
 #endregion
-
 
 #region Repositories
 builder.Services.AddScoped<ICompanyCodeRepository, CompanyCodeRepository>();
@@ -109,7 +107,6 @@ builder.Services.AddCors(options =>
         });
 });
 #endregion
-
 
 #region Authentication
 builder.Services.AddAuthentication("Bearer")

@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MiniMarket_API.Application.DTOs.Requests;
 using MiniMarket_API.Application.Services.Interfaces;
 using MiniMarket_API.Model.Enums;
+using System.Security.Claims;
 
 namespace MiniMarket_API.Controllers
 {
     [Route("api/users")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -19,10 +22,9 @@ namespace MiniMarket_API.Controllers
         }
 
         [HttpGet("profile")]
-        //Method accessible by any role, but can only be performed by the own user. When ready to activate auth, remove userId from params and uncomment the claim retrieval.
-        public async Task<IActionResult> GetMyProfileAsync(Guid userId)
+        public async Task<IActionResult> GetMyProfileAsync()
         {
-            //var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
+            var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
 
             var getProfile = await _userService.GetUserById(userId);
             if (getProfile == null)
@@ -33,11 +35,10 @@ namespace MiniMarket_API.Controllers
         }
 
         [HttpGet("profile/orders")]
-        //Method accessible by any role, but can only be performed by the own user. When ready to activate auth, remove userId from params and uncomment the claim retrieval.
-        public async Task<IActionResult> GetMyOrdersAsync(Guid userId, [FromQuery] OrderStatus? status, [FromQuery] string? sortBy, [FromQuery] bool? isAscending, [FromQuery] int pageNumber = 1,
+        public async Task<IActionResult> GetMyOrdersAsync([FromQuery] OrderStatus? status, [FromQuery] string? sortBy, [FromQuery] bool? isAscending, [FromQuery] int pageNumber = 1,
             [FromQuery] int pageSize = 7)
         {
-            //var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
+            var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
 
             var getOrders = await _saleOrderService.GetAllOrdersByUser(userId, status, sortBy, isAscending, pageNumber, pageSize);
 
@@ -63,14 +64,15 @@ namespace MiniMarket_API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateMyProfileAsync(Guid userId, [FromBody] UpdateUserDto updateUser)
+        public async Task<IActionResult> UpdateMyProfileAsync([FromBody] UpdateUserDto updateUser)
         {
-            //var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
+            var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
+
             var updatedUser = await _userService.UpdateUser(userId, updateUser);
 
             if (updatedUser == null)
             {
-                return NotFound("User Profile Failed: User Couldn't be Found");
+                return NotFound("User Update Failed: User Couldn't be Found");
             }
             return Ok(updatedUser);
         }

@@ -53,6 +53,8 @@ namespace MiniMarket_API.Application.Profiles
 
             CreateMap<CreateUserDto, SuperAdmin>().ReverseMap();
 
+            CreateMap<UpdateUserDto, Customer>().ReverseMap();
+
             CreateMap<CreateOrderDto, SaleOrder>()
                 .ForSourceMember(c => c.NewDetails, opt => opt.DoNotValidate());                    //Prevents mapping the incomplete details from the DTO
 
@@ -60,6 +62,5 @@ namespace MiniMarket_API.Application.Profiles
             #endregion
 
         }
-
     }
 }

@@ -34,7 +34,7 @@ namespace MiniMarket_API.Controllers
                 return Forbid();
             }
 
-            var createdOrder = await _saleOrderService.CreateSaleOrder(createOrder, userId);        .
+            var createdOrder = await _saleOrderService.CreateSaleOrder(createOrder, userId);        
             if (createdOrder == null)
             {
                 return Unauthorized("Order Creation Failed: User Doesn't Exist!");
