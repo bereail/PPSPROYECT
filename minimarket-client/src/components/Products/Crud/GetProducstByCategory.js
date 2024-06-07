@@ -13,6 +13,7 @@ const GetProductsByCategory = async (CategoryId, isactive, setProducts, setError
             sortBy: SortbydOption
           }
     });
+    console.log(response.data)
     setProducts(response.data.products);
    
     setError(null);

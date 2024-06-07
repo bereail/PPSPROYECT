@@ -15,6 +15,8 @@ import { CategoryProvider } from "./components/Context/CategoryContext";
 import { AuthProvider } from "./components/Context/AuthContext";
 import Favorite from "./components/Favorite/Favorite";
 import Navbar from "./components/Navbar/Navbar";
+import { SearchProvider } from "./components/Context/SearchContext";
+
 
 const router = createBrowserRouter([
   {
@@ -52,7 +54,7 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <Error404 />,
-  },
+  }
 ]);
 
 const AppContent = () => {
@@ -71,8 +73,9 @@ const App = () => (
   <ThemeProvider>
     <AuthProvider>
     <CategoryProvider>
-      
-    <AppContent />    
+    <SearchProvider>     
+    <AppContent />  
+    </SearchProvider>  
     <CustomChatbot/>
     </CategoryProvider>
     </AuthProvider>

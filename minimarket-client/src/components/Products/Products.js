@@ -13,6 +13,9 @@ import iconerror from '../Image/Icon-product-error.png'
 import { AuthContext } from '../Context/AuthContext';
 import StoreProducts from './StoreProducts';
 import GetProductsFavorite from '../Favorite/GetProductsFavorite';
+import GetProductsByOffers from './Crud/GetProductsByOffers';
+import { SearchContext } from '../Context/SearchContext';
+import GetProductBySearch from './Crud/GetProductBySearch';
 const Products = () => {
   const [Products, setProducts] = useState([]);
   const [quantities, setQuantities] = useState({});
@@ -24,18 +27,12 @@ const Products = () => {
   const { CategoryId } = useContext(CategoryContext);
   const {user, userEmail, role} = useContext(AuthContext);
   const [showCartUpdate, setShowCartUpdate] = useState(false);
-    useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await api.get("/api/products/offers");;
-        setProducts(response.data);
-        setError(null)
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-    fetchProducts();
+  const {SearchValue} = useContext(SearchContext)
+  useEffect(() => {
+    GetProductsByOffers(setProducts, setError)
   }, []);
+
+  
   useEffect(() => {
     if(CategoryId !== null){
     GetProductsByCategory(CategoryId, isActive, setProducts, setError, isAscendingOption,SortbydOption ); // Utiliza el nuevo componente
@@ -43,6 +40,12 @@ const Products = () => {
     
   }, [CategoryId, isActive, isAscendingOption]);
  
+  useEffect(()=>{
+    if(SearchValue){
+      GetProductBySearch(setProducts,setError,SearchValue )
+    }
+  },[SearchValue])
+
   useEffect(() => {
     SetisAscendingOption('');
   }, [SortbydOption]);
@@ -57,6 +60,8 @@ const Products = () => {
     setQuantities(initialQuantities);
   }, [Products]);
 
+
+
   // Actualiza la cantidad solo para un Producto
   const handleQuantityChange = (productId, value) => {
     setQuantities(prevQuantities => ({
@@ -64,6 +69,8 @@ const Products = () => {
       [productId]: value
     }));
   };
+
+
   const favoriteHandler = (product) => {
     StoreProducts('Favorite', product, quantities, userEmail);
 }

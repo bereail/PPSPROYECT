@@ -43,9 +43,7 @@ export default function FilterBar() {
     }
   }
   const handleActiveCategory = async ()=>{
-    try {
-      alert(CategoryId)
-        
+    try {      
       await api.patch(`/api/categories/${CategoryId}`);
       fetchCategories()
     } catch (error) {
@@ -69,13 +67,9 @@ export default function FilterBar() {
       <div
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}>
-        <button
-          className="icon-category"
-          onClick={() => handleFilter("all")}
-        >
-          <FontAwesomeIcon icon={faBars} /> All
-          <FontAwesomeIcon icon={faSortDown} />
-        </button>
+        <div className="icon-category">
+          <FontAwesomeIcon icon={faBars} /> Categories
+        </div>
         {isExpanded && (
           <div className="filter-bar">
             {Category.map((category) => (<>
