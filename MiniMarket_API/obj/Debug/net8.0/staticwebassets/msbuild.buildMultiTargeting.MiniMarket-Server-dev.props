@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\MiniMarket-Server-dev.props" />
+</Project>
