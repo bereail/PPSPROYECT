@@ -9,9 +9,8 @@
     margin-left: 80px;
     margin-bottom: 10px;
     max-width: 250px;
-    max-height: 200px;
+    max-height: 100%;
     box-shadow: 5px 5px 3px rgba(0,0,0,0.5);
-    
 }
 
 .Container-Products-Disabel{
@@ -25,8 +24,8 @@
 }
 
 .Product-Name {
-    font-size: 22px; /* Tamaño de fuente más grande */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Sombra sutil */
+    font-size: 22px; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); 
 }
 
 .Product-Price{
@@ -207,3 +206,11 @@
     border-radius: 5px;
     z-index: 1000;
   }
+
+  .Product-Image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
