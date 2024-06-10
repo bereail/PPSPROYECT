@@ -46,7 +46,7 @@ const Products = () => {
 
   useEffect(() => {
     if (CategoryId !== null) {
-      GetProductsByCategory(CategoryId, isActive, setProducts, setError, isAscendingOption, SortbydOption); // Utiliza el nuevo componente
+      GetProductsByCategory(CategoryId, isActive, setProducts, setError, isAscendingOption, SortbydOption); 
     }
 
   }, [CategoryId, isActive, isAscendingOption]);
@@ -115,7 +115,7 @@ const Products = () => {
       <div className='Select-order'>
         <p style={{ fontSize: '50px', marginLeft: '50px' }}>Products</p>
         {CategoryId !== null && <>
-          <select id="opciones" name="opciones" value={SortbydOption} onChange={(e) => { }}>
+          <select id="opciones" name="opciones" value={SortbydOption} onChange={(e) => {SetSortbydOption(e.target.value)}}>
             <option value='' disabled selected>Sort by:</option>
             <option value="Name">Name</option>
             <option value="Price">Price</option>
