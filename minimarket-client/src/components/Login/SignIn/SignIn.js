@@ -41,7 +41,7 @@ const Signin = () => {
       SetError(1);
       return;
     }
-    if(pass === ''){
+    if(pass === '' || pass.length < 8  ){
       SetError(1);
       return;
     }
@@ -58,9 +58,16 @@ const Signin = () => {
         SetErrorLogin(0);     
         login(response.data, email) 
       }
+      
+      if(response.status === 401){
+        SetErrorLogin(1);
+      }
     } catch (error) {
-      SetErrorLogin(1);
-      console.error('Error:', error.message);
+      if (error.response && error.response.status === 401) {
+        SetErrorLogin(1); 
+      } else {
+        console.error('Error:', error.message); 
+      }
     }
 
 
@@ -88,7 +95,7 @@ const Signin = () => {
           SetStyle(Style === faEyeSlash ? faEye : faEyeSlash))}></FontAwesomeIcon>
                       
           </div>
-          {Error === 1 && pass === '' && <p className='Error-SingIn'>Set a password</p>}
+          {Error === 1 && (pass === '' || pass.length < 8)&& <p className='Error-SingIn'>Set a correct password</p>}
         </div>
            {ErrorLogin === 1 && <p className='Error-Login'>Incorrect user or password</p>}
         <button type="submit" className="botton-Singin">Submit</button>

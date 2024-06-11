@@ -3,7 +3,8 @@ import '../../Products/Products.css';
 import { CategoryContext } from '../../Context/CategoryContext';
 import api from '../../../api';
 import GetProductsByCategory from './GetProducstByCategory';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 
 const CreaateProduct = () => {
@@ -36,7 +37,9 @@ const CreaateProduct = () => {
 
       return (
         <div>
-          <button className='Button-Add-Product' onClick={() => SetButtonAddProduct(!ButtonAddProduct)}>Create New Product</button>
+          <button className='Button-Add-Product' onClick={() => SetButtonAddProduct(!ButtonAddProduct)}> 
+            {<FontAwesomeIcon icon={faPlus} style={{color: "#da4d10",}} />}
+          </button>
           <div className={`Container-Add-Product ${ButtonAddProduct ? 'active' : ''}`}>
             <form onSubmit={CreateProductHandler}>
               <label htmlFor='name-Product'>Name Product</label>

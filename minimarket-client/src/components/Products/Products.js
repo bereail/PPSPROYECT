@@ -177,10 +177,12 @@ const Products = () => {
                 </div>
                 <button className='Add-Product' onClick={() => AddCartHandler(product)}>Add</button>
               </>}
+              
             </div>
+            
           </div>
         ))}
-
+         {role === 'Seller' &&<> {CategoryId !== null && <CreaateProduct></CreaateProduct>}</>}
       </div>
       {error && <div>
         <p className='Error-Products'>There are no products in this category.</p>
@@ -188,7 +190,6 @@ const Products = () => {
       </div>}
 
       {role === 'Seller' && <div className='Products-Seller'>
-        {CategoryId !== null && <CreaateProduct></CreaateProduct>}
         <CreateCategory></CreateCategory>
       </div>}
     </div>

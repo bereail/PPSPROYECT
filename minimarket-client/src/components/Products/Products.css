@@ -90,11 +90,11 @@
     max-width: 220px;
 }
 .Button-Add-Product{
-    background-color: #1192EF;
+    background-color: #ffffff;
     border-style: none;
-    border-radius: 10%;
+    border-radius: 20px;
+    padding: 20px;
     font-size: 30px;
-    margin-top: 50px;
     margin-left: 20px;
     max-width: 300px;
     
@@ -138,11 +138,11 @@
     padding: 1px;
 }
 .Container-Add-Product button{
-    padding: 1px;
+    padding: 5px;
     margin-top: 10px;
     border-style: none;
     border-bottom-right-radius: 10%;
-    background-color: #1192EF;
+    background-color: #c56f28;
 }
 
 
