@@ -12,6 +12,7 @@ using MiniMarket_API.Application.Filters;
 using Serilog;
 using MiniMarket_API.Middlewares;
 using Microsoft.Extensions.FileProviders;
+using MercadoPago.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,9 @@ var logger = new LoggerConfiguration()
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 #endregion
+
+//Configuracion MercadoPAgo
+MercadoPagoConfig.AccessToken = "TEST-6479854343719013-060419-c1c2b950e7575701a9b4335d947570b4-515245712";
 
 
 builder.Services.AddControllers(options =>
@@ -86,7 +90,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICompanyCodeRepository, CompanyCodeRepository>();
 builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
 builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductRepository, PreferenceProductRepository>();
 builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
 builder.Services.AddScoped<ISaleOrderRepository, SaleOrderRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();

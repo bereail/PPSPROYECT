@@ -5,11 +5,11 @@ using MiniMarket_API.Model.Entities;
 
 namespace MiniMarket_API.Data.Repositories
 {
-    public class ProductRepository : IProductRepository
+    public class PreferenceProductRepository : IProductRepository
     {
         private readonly MarketDbContext _context;
 
-        public ProductRepository(MarketDbContext context)
+        public PreferenceProductRepository(MarketDbContext context)
         {
             _context = context;
         }

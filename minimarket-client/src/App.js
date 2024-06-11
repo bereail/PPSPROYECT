@@ -16,6 +16,7 @@ import { AuthProvider } from "./components/Context/AuthContext";
 import Favorite from "./components/Favorite/Favorite";
 import Navbar from "./components/Navbar/Navbar";
 import { SearchProvider } from "./components/Context/SearchContext";
+import ProductMP from "./components/ProductMP/ProductMP";
 
 
 const router = createBrowserRouter([
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <Error404 />,
+  },
+  {
+    path: "/productMP",
+    element: <ProductMP />
   }
 ]);
 

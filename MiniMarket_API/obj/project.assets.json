@@ -75,6 +75,23 @@
           }
         }
       },
+      "mercadopago-sdk/2.3.8": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1",
+          "System.Configuration.ConfigurationManager": "5.0.0"
+        },
+        "compile": {
+          "lib/net5.0/MercadoPago.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net5.0/MercadoPago.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -1050,7 +1067,7 @@
       "Microsoft.Win32.SystemEvents/6.0.0": {
         "type": "package",
         "compile": {
-          "lib/net6.0/_._": {
+          "lib/net6.0/Microsoft.Win32.SystemEvents.dll": {
             "related": ".xml"
           }
         },
@@ -1079,6 +1096,19 @@
         },
         "runtime": {
           "lib/netstandard2.0/Mono.TextTemplating.dll": {}
+        }
+      },
+      "Newtonsoft.Json/13.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Serilog/3.1.1": {
@@ -1445,7 +1475,7 @@
           "System.Security.Permissions": "6.0.0"
         },
         "compile": {
-          "lib/net6.0/_._": {
+          "lib/net6.0/System.Configuration.ConfigurationManager.dll": {
             "related": ".xml"
           }
         },
@@ -1480,7 +1510,7 @@
           "Microsoft.Win32.SystemEvents": "6.0.0"
         },
         "compile": {
-          "lib/net6.0/_._": {
+          "lib/net6.0/System.Drawing.Common.dll": {
             "related": ".xml"
           }
         },
@@ -1740,7 +1770,7 @@
           "System.Windows.Extensions": "6.0.0"
         },
         "compile": {
-          "lib/net6.0/_._": {
+          "lib/net6.0/System.Security.Permissions.dll": {
             "related": ".xml"
           }
         },
@@ -1873,7 +1903,7 @@
           "System.Drawing.Common": "6.0.0"
         },
         "compile": {
-          "lib/net6.0/_._": {
+          "lib/net6.0/System.Windows.Extensions.dll": {
             "related": ".xml"
           }
         },
@@ -1965,6 +1995,26 @@
         "lib/netstandard2.0/Humanizer.dll",
         "lib/netstandard2.0/Humanizer.xml",
         "logo.png"
+      ]
+    },
+    "mercadopago-sdk/2.3.8": {
+      "sha512": "W41OcPd5ha0H0dwfYQHWTDM/445Uoac4LMpOzc2i9eZx0BoycTAqSFOvxWk90dYix2ZaVifcAPUCpESGXJDrqQ==",
+      "type": "package",
+      "path": "mercadopago-sdk/2.3.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net461/MercadoPago.dll",
+        "lib/net461/MercadoPago.pdb",
+        "lib/net461/MercadoPago.xml",
+        "lib/net5.0/MercadoPago.dll",
+        "lib/net5.0/MercadoPago.pdb",
+        "lib/net5.0/MercadoPago.xml",
+        "lib/netstandard2.0/MercadoPago.dll",
+        "lib/netstandard2.0/MercadoPago.pdb",
+        "lib/netstandard2.0/MercadoPago.xml",
+        "mercadopago-sdk.2.3.8.nupkg.sha512",
+        "mercadopago-sdk.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.4": {
@@ -3711,6 +3761,33 @@
         "mono.texttemplating.nuspec"
       ]
     },
+    "Newtonsoft.Json/13.0.1": {
+      "sha512": "ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
+      "type": "package",
+      "path": "newtonsoft.json/13.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "newtonsoft.json.13.0.1.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
+      ]
+    },
     "Serilog/3.1.1": {
       "sha512": "P6G4/4Kt9bT635bhuwdXlJ2SCqqn2nhh4gqFqQueCOr9bK/e7W9ll/IoX1Ter948cV2Z/5+5v8pAfJYUISY03A==",
       "type": "package",
@@ -5053,23 +5130,29 @@
       "Serilog.Sinks.Console >= 5.0.1",
       "Serilog.Sinks.File >= 5.0.0",
       "Swashbuckle.AspNetCore >= 6.5.0",
-      "System.IdentityModel.Tokens.Jwt >= 7.5.1"
+      "System.IdentityModel.Tokens.Jwt >= 7.5.1",
+      "mercadopago-sdk >= 2.3.8"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\BLCanoe\\.nuget\\packages\\": {}
+    "C:\\Users\\Administrador\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\BLCanoe\\source\\repos\\MiniMarket_API_dev\\MiniMarket_API\\MiniMarket_API.csproj",
+      "projectUniqueName": "C:\\Users\\Administrador\\Desktop\\Bere\\utn\\PPS4\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API.csproj",
       "projectName": "MiniMarket_API",
-      "projectPath": "C:\\Users\\BLCanoe\\source\\repos\\MiniMarket_API_dev\\MiniMarket_API\\MiniMarket_API.csproj",
-      "packagesPath": "C:\\Users\\BLCanoe\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\BLCanoe\\source\\repos\\MiniMarket_API_dev\\MiniMarket_API\\obj\\",
+      "projectPath": "C:\\Users\\Administrador\\Desktop\\Bere\\utn\\PPS4\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API.csproj",
+      "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Administrador\\Desktop\\Bere\\utn\\PPS4\\PPSPROYECT\\MiniMarket_API\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\BLCanoe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Administrador\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5145,6 +5228,10 @@
           "System.IdentityModel.Tokens.Jwt": {
             "target": "Package",
             "version": "[7.5.1, )"
+          },
+          "mercadopago-sdk": {
+            "target": "Package",
+            "version": "[2.3.8, )"
           }
         },
         "imports": [
@@ -5166,7 +5253,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.203/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.206/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
