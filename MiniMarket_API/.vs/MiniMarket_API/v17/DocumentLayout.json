@@ -1,0 +1,82 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\sebas\\Desktop\\PPSPROYECT\\MiniMarket_API\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\users\\sebas\\desktop\\ppsproyect\\minimarket_api\\minimarket_api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|solutionrelative:minimarket_api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\users\\sebas\\desktop\\ppsproyect\\minimarket_api\\minimarket_api\\minimarket_api.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|solutionrelative:minimarket_api\\minimarket_api.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:3:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:4:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:6:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:7:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:5:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:986420969:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MiniMarket_API.http",
+              "DocumentMoniker": "C:\\Users\\sebas\\Desktop\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\MiniMarket_API.http",
+              "RelativeDocumentMoniker": "MiniMarket_API\\MiniMarket_API.http",
+              "ToolTip": "C:\\Users\\sebas\\Desktop\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\MiniMarket_API.http",
+              "RelativeToolTip": "MiniMarket_API\\MiniMarket_API.http",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2024-06-13T03:46:50.355Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\sebas\\Desktop\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\appsettings.json",
+              "RelativeDocumentMoniker": "MiniMarket_API\\appsettings.json",
+              "ToolTip": "C:\\Users\\sebas\\Desktop\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\appsettings.json*",
+              "RelativeToolTip": "MiniMarket_API\\appsettings.json*",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAA1AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-06-13T03:46:37.918Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
