@@ -9,7 +9,7 @@ namespace MiniMarket_API.Application.DTOs.Requests
         public string Name { get; set; }
 
         [Required(ErrorMessage = "User Email is Required.")]
-        [EmailAddress(ErrorMessage = "User Email must be in a valid Email format.")]
+        [EmailAddress(ErrorMessage = "User Email must be a valid Email format.")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "User Password is Required.")]

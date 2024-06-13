@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MiniMarket_API.Application.DTOs.Requests
+namespace MiniMarket_API.Application.DTOs.Requests.Credentials
 {
     public class LoginRequestDTO
     {

@@ -12,6 +12,7 @@ using MiniMarket_API.Application.Filters;
 using Serilog;
 using MiniMarket_API.Middlewares;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -74,6 +75,7 @@ builder.Services.AddAutoMapper(typeof(MappingProfiles));
 builder.Services.AddScoped<ICustomAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<IDeliveryAddressService, DeliveryAddressService>();
+builder.Services.AddScoped<IEmailSenderService, EmailSenderService>();
 builder.Services.AddScoped<IMpOrderService, MpOrderService>();
 builder.Services.AddScoped<IOrderDetailsService, OrderDetailsService>();
 builder.Services.AddScoped<IPriceStockService, PriceStockService>();
@@ -117,7 +119,7 @@ builder.Services.AddCors(options =>
 #endregion
 
 #region Authentication
-builder.Services.AddAuthentication("Bearer")
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new()
@@ -130,8 +132,20 @@ builder.Services.AddAuthentication("Bearer")
             IssuerSigningKey = new SymmetricSecurityKey(
             Encoding.ASCII.GetBytes(builder.Configuration["Authentication:SecretForKey"]))
         };
-    }
-);
+    })
+    .AddJwtBearer("PasswordRecovery", options =>
+    {
+        options.TokenValidationParameters = new()
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Recovery:Issuer"],
+            ValidAudience = builder.Configuration["Recovery:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+            Encoding.ASCII.GetBytes(builder.Configuration["Recovery:SecretForKey"]))
+        };
+    });
 #endregion
 
 var app = builder.Build();
