@@ -21,12 +21,10 @@ const SignupUser = () => {
     password: '',
     confirmPassword: '',
     phoneNumber: '',
-    address: '',
     hexadecimalCode: '' 
   });
   const [errors, setErrors] = useState({
     name: false,
-    address: false,
     phoneNumber: false,
     email: false,
     password: false,
@@ -59,7 +57,7 @@ const SignupUser = () => {
    
     e.preventDefault();
  
-    const { name, address, phoneNumber, email, password, confirmPassword, hexadecimalCode  } = formData;
+    const { name, phoneNumber, email, password, confirmPassword, hexadecimalCode  } = formData;
    
     if (phoneNumber.trim().length > 13) {
       setErrors(prevErrors => ({
@@ -69,10 +67,9 @@ const SignupUser = () => {
       return;
     }
 
-    if (name.trim() === '' || address.trim() === '' || phoneNumber.trim() === '' || email.trim() === '' || password.trim() === '' || confirmPassword !== password) {
+    if (name.trim() === '' === '' || phoneNumber.trim() === '' || email.trim() === '' || password.trim() === '' || confirmPassword !== password) {
       setErrors({
         name: name.trim() === '',
-        address: address.trim() === '',
         phoneNumber: phoneNumber.trim() === '',
         email: email.trim() === '',
         password: password.length < 8,
@@ -94,7 +91,6 @@ const SignupUser = () => {
       email: email,
       password: password,
       phoneNumber: phoneNumber,
-      address: address
     };
    
     const datalogin = {
@@ -149,11 +145,6 @@ const SignupUser = () => {
               <label htmlFor="name" className="form-label">Name</label>
               <input type="text" className={`form-control ${errors.name ? 'is-invalid' : ''}`} id="name" name="name" value={formData.name} onChange={handleChange} />
               {errors.name && <p className='Error'>Set a first name</p>}
-            </div>
-            <div className="mb-3">
-              <label htmlFor="address" className="form-label">Address</label>
-              <input type="text" className={`form-control ${errors.address ? 'is-invalid' : ''}`} id="address" name="address" value={formData.address} onChange={handleChange} />
-              {errors.address && <p className='Error'>Set an address</p>}
             </div>
             <div className="mb-3">
               <label htmlFor="phoneNumber" className="form-label">Phone Number</label>

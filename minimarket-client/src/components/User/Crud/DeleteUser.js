@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil,faXmark } from "@fortawesome/free-solid-svg-icons";
 import { ThemeContext } from '../../Context/ThemeContext';
 
-export default function DeleteCustomer( { handleExit }) {
+export default function DeleteUser( { handleExit }) {
   const { theme } = useContext(ThemeContext);
     const [Showbottom, SetShowbottom] = useState(true);
   return (

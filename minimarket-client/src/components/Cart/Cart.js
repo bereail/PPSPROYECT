@@ -9,13 +9,13 @@ import { faTrashCan} from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 import Navbar from '../Navbar/Navbar';
+import api from '../../api';
 
 export default function Cart() {
   const { userEmail } = useContext(AuthContext);
   const [cart, setCart] = useState(null);
   const [CartPriceDiscount, SetCartPriceDiscount] = useState();
   const [CartDiscount, SetCartDiscount] = useState();
-  const [PayCart, SetPayCart] = useState(false);
   useEffect(() => {
     const cartData = JSON.parse(window.localStorage.getItem(`Cart_${userEmail}`));
     setCart(cartData);
@@ -58,12 +58,13 @@ export default function Cart() {
         productId: item.id,
         productQuantity: item.quantity
       }))
-      const orderDetails = {
-        deliveryAddress: "A Definir",
-        newDetails: newDetails
-      };
-      //await api.post("/api/orders", orderDetails)
-      SetPayCart(true)
+      // const orderDetails = {
+      //   deliveryAddress: "A Definir",
+      //   newDetails: newDetails
+      // };
+      console.log(newDetails)
+      const response = await api.post("/api/orders", newDetails)
+      console.log(response.data)
     }catch(error){
       console.error('Error Create Order', error);
     }
@@ -72,18 +73,12 @@ export default function Cart() {
   return (
     <div style={{ paddingBottom: '500px' }}>
       <Navbar/>
-      {PayCart && (
-      <div className="purchase-process-message">
-        <FontAwesomeIcon className="Icon-Paycart" icon={faXmark}  onClick={()=>(SetPayCart(false))}/>
-        <h1>Proceso de compra</h1>
-      </div>
-    )}
       {(!cart || cart.products.length === 0) && (
         <div className="Cart">
           <img src={image} alt="bolsa" className="bolsa-image" />
-          <h2>¡Comienza un carrito de compras!</h2>
+          <h2>Start a shopping cart!</h2>
           <Link to="/">
-            <button className='Buttom-Cart'>descubre productos</button>
+            <button className='Buttom-Cart'>discover products</button>
           </Link>
         </div>
       )}

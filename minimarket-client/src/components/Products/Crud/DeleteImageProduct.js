@@ -6,6 +6,8 @@ const DeleteImageProduct = ({productId}) => {
     const HandleDeleteImage = async() =>{
         try{
             await api.delete(`/api/products/${productId}/images`)
+            window.location.reload();
+
         }catch(error){
             console.log("Errro delete prodcuts", error)
         }
