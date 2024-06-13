@@ -1,21 +1,56 @@
-import React from 'react'
+import React, { useState } from 'react';
 import api from '../../../api';
 
-const CreateImageProduct = async() => {
-    const data= {
+const CreateImageProduct = ({productId}) => {
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [nameImage, setNameImage] = useState('');
+  const [Expanded , SetExpanded] = useState(false)
 
+  const handleUpload = async () => {
+    if (!selectedFile) {
+
+
+      return;
     }
-    try {    
-        await api.post(`/api/products/${prodcutid}/images`, data);
-        window.location.reload();
+
+    const formData = new FormData();
+    formData.append('productd', productId);
+    formData.append('ImageFile', selectedFile);
+    formData.append('ImageName', nameImage);
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      };
+      console.log(nameImage)
+      console.log(selectedFile)
+      console.log(productId)
+      await api.post(`/api/products/${productId}/images`, formData, config);
+      alert('FUNCIONA')
+      window.location.reload();
     } catch (error) {
-      console.error('Error add Image:', error);
+      console.error('Error add image', error);
     }
+  };
+
   return (
     <div>
-      
+      <button onClick={()=>{SetExpanded(!Expanded)}} className='Add-Image'>Add Image</button>
+      {Expanded && <>
+      <input
+        type='text'
+        placeholder='Name Image'
+        className='ImageName-Input'
+        value={nameImage}
+        onChange={(e) => setNameImage(e.target.value)}
+      />
+      <input type="file" className='Image-Input' onChange={(e) => setSelectedFile(e.target.files[0])}/>
+      <button onClick={handleUpload} className="Upload-Image" >Upload Image</button>
+      </>}
     </div>
-  )
-}
+  );
+};
 
-export default CreateImageProduct
+export default CreateImageProduct;

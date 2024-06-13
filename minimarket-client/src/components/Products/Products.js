@@ -3,6 +3,7 @@ import './Products.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faTrashCan, faTrashCanArrowUp, faHeart } from "@fortawesome/free-solid-svg-icons";
 import api from '../../api';
+import FotoMensaje from '../Image/FotoMensaje.png'
 import { CategoryContext } from '../Context/CategoryContext';
 import CreateCategory from './Crud/CreateCategory';
 import CreaateProduct from './Crud/CreaateProduct';
@@ -17,6 +18,8 @@ import GetProductsByOffers from './Crud/GetProductsByOffers';
 import { SearchContext } from '../Context/SearchContext';
 import GetProductBySearch from './Crud/GetProductBySearch';
 import ModifyProducts from './Crud/ModifyProducts';
+import CreateImageProduct from './Crud/CreateImageProduct';
+import DeleteImageProduct from './Crud/DeleteImageProduct';
 const Products = () => {
   const [Products, setProducts] = useState([]);
   const [quantities, setQuantities] = useState({});
@@ -113,7 +116,7 @@ const Products = () => {
       {showCartUpdate && <div className="cart-update-notification">Cart updated successfully!</div>}
 
       <div className='Select-order'>
-        <p style={{ fontSize: '50px', marginLeft: '50px' }}>Products</p>
+        <img src={FotoMensaje} className='Image-MensageProducts'></img>
         {CategoryId !== null && <>
           <select id="opciones" name="opciones" value={SortbydOption} onChange={(e) => {SetSortbydOption(e.target.value)}}>
             <option value='' disabled selected>Sort by:</option>
@@ -149,7 +152,7 @@ const Products = () => {
                   {role === 'Seller' && !product.isActive && <FontAwesomeIcon icon={faTrashCanArrowUp} style={{ marginLeft: '10px' }} onClick={() => (RestoreProducts(product.id))} />}
                 </div>
                 : <div>
-                  <input type='text' name='name' placeholder={product.name} onChange={handleInputChange}></input>
+                  <input type='text' className="Product-Edit" name='name' placeholder={product.name} onChange={handleInputChange}></input>
                 </div>
               }
 
@@ -162,11 +165,12 @@ const Products = () => {
                   <p className='Product-Offer'>{product.discount !== 0 && `You take it for US$${product.price * (1 - product.discount / 100).toFixed(2)}`}</p>
                 </>
               ) : (<>
-                <input type="text" name='description' placeholder={product.description} onChange={handleInputChange}/>
-                <input type="number" name='price' placeholder={product.price} onChange={handleInputChange}/>
-                <input type="number" name='discount' placeholder={product.discount} onChange={handleInputChange}/>
-                <input type="number" name='stock' placeholder="Stock" onChange={handleInputChange}/>
-                <button onClick={()=>{handleModifyProduct(product.id)}}>Enviar</button>
+                <input type="text" className='Product-Edit' name='description' placeholder={product.description} onChange={handleInputChange}/>
+                <input type="number" className='Product-Edit' name='price' placeholder={product.price} onChange={handleInputChange}/>
+                <input type="number"  className='Product-Edit' name='discount' placeholder={product.discount} onChange={handleInputChange}/>
+                <input type="number"  className='Product-Edit'name='stock' placeholder="Stock" onChange={handleInputChange}/>
+                <button className='Product-Edit-button' onClick={()=>{handleModifyProduct(product.id)}}>Enviar</button>
+                {!product.image ? <CreateImageProduct productId={product.id} />: <DeleteImageProduct productId={product.id} ></DeleteImageProduct>}
                 </>)}
               
               {(role === 'Customer' || !role) && <>

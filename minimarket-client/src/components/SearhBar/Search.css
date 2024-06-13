@@ -13,7 +13,7 @@
     background-color: transparent;
     border-style: none;
 }
-@media (max-width: 780px) {
+@media (max-width: 860px) {
     .Search-Input-Container{
         width: 200px
     }

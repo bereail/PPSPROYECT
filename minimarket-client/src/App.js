@@ -17,6 +17,7 @@ import Favorite from "./components/Favorite/Favorite";
 import Navbar from "./components/Navbar/Navbar";
 import { SearchProvider } from "./components/Context/SearchContext";
 import ProductMP from "./components/ProductMP/ProductMP";
+import CreateImageProduct from "./components/Products/Crud/CreateImageProduct";
 
 
 const router = createBrowserRouter([
@@ -59,6 +60,9 @@ const router = createBrowserRouter([
   {
     path: "/productMP",
     element: <ProductMP />
+  },{
+    path: "/AddImage",
+    element: <CreateImageProduct/>
   }
 ]);
 
