@@ -20,12 +20,14 @@ const User = () => {
     
     const user = GetUserbyid();
 
+    
+
+
+
     const handleExit = () => {
         setActiveButton('');
     };
-    
-    const isAdmin = user && user.role === 'admin'; // Verifica si el usuario es administrador
-    const isSeller = user && user.role === 'seller'; // Verifica si el usuario es vendedor
+  
 
     return (
         <div>
@@ -41,15 +43,12 @@ const User = () => {
                         className={activeButton === "Orders" ? "User-filter-button active" : ''}>Orders</button>
                     <button onClick={() => setActiveButton('Add Adress')}>Adress</button>
                     
-                    {isAdmin && (
+                    {role ==='SuperAdmin'  && (
                         <button onClick={() => setActiveButton('AdminProperties')} style={{ marginTop: "200px" }}
                             className={activeButton === "AdminProperties" ? "User-filter-button active" : ''}>Admin Properties</button>
                     )}
                     
-                    {role === 'Seller' && (
-                        <button onClick={() => setActiveButton('SellerProperties')} style={{ marginTop: "200px" }}
-                            className={activeButton === "SellerProperties" ? "User-filter-button active" : ''}>Seller Properties</button>
-                    )}
+                    
                     <button onClick={() => setActiveButton('Delete Account')} style={{ marginTop: "200px" }}
                         className={activeButton === "Delete Account" ? "User-filter-button active" : ''}>Delete Account</button>
                 </div>
@@ -63,13 +62,13 @@ const User = () => {
                 }
                 {activeButton === 'Add Adress'  &&<AddAdressUser></AddAdressUser> }
                 
-                {activeButton === 'AdminProperties' && isAdmin && (
-                    <div className="admin-properties">
-                        {/* Aquí puedes mostrar las propiedades del administrador */}
-                        <h2>Admin Properties</h2>
-                        <p>Administrative settings and options go here.</p>
-                    </div>
-                )}
+                {activeButton === 'AdminProperties' && 'SuperAdmin' && (
+                        <div className="admin-properties">
+                            <h2>Admin Properties</h2>
+                            <p>Administrative settings and options go here.</p>
+                        </div>
+                    )}
+
 
 
                 {activeButton === 'Delete Account' &&
