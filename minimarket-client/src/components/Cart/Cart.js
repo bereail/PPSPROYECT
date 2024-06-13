@@ -1,14 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Footer from '../Footer/footer';
-import { Link, Navigate, useAsyncError} from "react-router-dom";
+import { Link, Navigate, useAsyncError } from "react-router-dom";
 import "./Cart.css";
 import image from '../Image/Bolsa.png';
 import { AuthContext } from '../Context/AuthContext';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan} from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Navbar from '../Navbar/Navbar';
 import api from '../../api';
+import CreateOrder from '../../Orders/CreateOrder';
 
 
 export default function Cart() {
@@ -28,9 +29,9 @@ export default function Cart() {
         return acc + product.discount * product.quantity;
       }, 0);
 
-      const discount= cart.products.reduce((acc, product) => {
+      const discount = cart.products.reduce((acc, product) => {
         // Sumamos el precio de cada producto considerando el pr\ecio con descuento y la cantidad
-        return acc + (product.price  - product.discount) * product.quantity;
+        return acc + (product.price - product.discount) * product.quantity;
       }, 0);
       SetCartDiscount(discount)
       SetCartPriceDiscount(totaldiscount); // Actualizamos el estado con el precio total calculado
@@ -51,29 +52,21 @@ export default function Cart() {
     window.localStorage.removeItem(`Cart_${userEmail}`);
     setCart(null);
   }
-  const HandleCreateOrder = async() =>{
-    try{
-      const newDetails = cart.products.map(item=>({
-        
-        productId: item.id,
-        productQuantity: item.quantity
-      }))
-      const orderDetails = { newDetails };
+  
+  const HandleCreateOrder = () => {
 
-      console.log(orderDetails)
-      const response = await api.post("/api/orders", orderDetails)
-      console.log(response.status )
-      if (response.status === 200) {
-        window.location.href = '/productMP';
-      }
-    }catch(error){
-      console.error('Error Create Order', error);
-    }
+    const newDetails = cart.products.map(item => ({
 
+      productId: item.id,
+      productQuantity: item.quantity
+    }))
+    const orderDetails = { newDetails };
+
+    CreateOrder(orderDetails)
   }
   return (
     <div style={{ paddingBottom: '500px' }}>
-      <Navbar/>
+      <Navbar />
       {(!cart || cart.products.length === 0) && (
         <div className="Cart">
           <img src={image} alt="bolsa" className="bolsa-image" />
@@ -105,15 +98,15 @@ export default function Cart() {
             </div>
             <div className="summary-section">
               <h3>Shopping Summary</h3>
-              <div className="Total-Price" style={{marginTop: '40px'}}>   
-              <p>Discount:</p>  
-              <p>${CartDiscount}</p>
-              </div> 
-              <div className="Total-Price">         
-              <p>Total Price:</p>
-              <p> ${CartPriceDiscount}</p>
-              </div> 
-              <button className= "Button-Cart" onClick={HandleCreateOrder}>Continue shopping</button>
+              <div className="Total-Price" style={{ marginTop: '40px' }}>
+                <p>Discount:</p>
+                <p>${CartDiscount}</p>
+              </div>
+              <div className="Total-Price">
+                <p>Total Price:</p>
+                <p> ${CartPriceDiscount}</p>
+              </div>
+              <button className="Button-Cart" onClick={HandleCreateOrder}>Continue shopping</button>
             </div>
           </div>
           <button className='Button-Products' onClick={HandleCleanCart}>Clean Cart</button>
