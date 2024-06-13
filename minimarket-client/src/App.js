@@ -60,9 +60,6 @@ const router = createBrowserRouter([
   {
     path: "/productMP",
     element: <ProductMP />
-  },{
-    path: "/AddImage",
-    element: <CreateImageProduct/>
   }
 ]);
 

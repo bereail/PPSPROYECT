@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Footer from '../Footer/footer';
-import { Link, useAsyncError } from "react-router-dom";
+import { Link, Navigate, useAsyncError} from "react-router-dom";
 import "./Cart.css";
 import image from '../Image/Bolsa.png';
 import { AuthContext } from '../Context/AuthContext';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan} from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-
 import Navbar from '../Navbar/Navbar';
 import api from '../../api';
+
 
 export default function Cart() {
   const { userEmail } = useContext(AuthContext);
@@ -58,13 +58,14 @@ export default function Cart() {
         productId: item.id,
         productQuantity: item.quantity
       }))
-      // const orderDetails = {
-      //   deliveryAddress: "A Definir",
-      //   newDetails: newDetails
-      // };
-      console.log(newDetails)
-      const response = await api.post("/api/orders", newDetails)
-      console.log(response.data)
+      const orderDetails = { newDetails };
+
+      console.log(orderDetails)
+      const response = await api.post("/api/orders", orderDetails)
+      console.log(response.status )
+      if (response.status === 200) {
+        window.location.href = '/productMP';
+      }
     }catch(error){
       console.error('Error Create Order', error);
     }
