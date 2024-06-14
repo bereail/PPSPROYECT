@@ -65,13 +65,13 @@
    color: #020406 !important;
  }
  .faqs-button .faqs-link {
-  color: #000; /* Ajusta este color si necesitas cambiar el color del enlace */
+  color: #000; 
   text-decoration: none;
   display: flex;
   align-items: center;
-  margin-bottom: 0.5rem; /* Agrega margen entre los enlaces */
-  font-size: 1.8rem; /* Ajusta el tamaño de la fuente según tu preferencia */
-}
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem; 
+ }
 .newsletter button {
   padding: 10px 20px;
   border: none;
