@@ -18,6 +18,7 @@ import Navbar from "./components/Navbar/Navbar";
 import { SearchProvider } from "./components/Context/SearchContext";
 import ProductMP from "./components/ProductMP/ProductMP";
 import CreateImageProduct from "./components/Products/Crud/CreateImageProduct";
+import FaQs from "./components/Footer/FaQs";
 
 
 const router = createBrowserRouter([
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
         <User />
       </ProtectedUser>
     ),
+  },
+  {
+  path: "FaQs",
+  element: <FaQs/>
   },
   {
     path: "*",

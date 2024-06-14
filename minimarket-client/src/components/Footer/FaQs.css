@@ -1,0 +1,31 @@
+/* FAQs.css */
+
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: #171515;
+  }
+  
+  .faq-container h1 {
+    text-align: center;
+    color: #0073e6;
+    margin-bottom: 20px;
+  }
+  
+  .faq-section p {
+    font-size: 1em;
+    margin-top: 10px;
+    line-height: 1.5;
+    display: none;
+  }
+  
+  .faq-section.open p {
+    display: block;
+  }
+  
+  .faq-section:hover h2 {
+    color: #003366;
+  }
+  

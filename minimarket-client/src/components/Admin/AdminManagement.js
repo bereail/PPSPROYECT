@@ -1,37 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import './AdminManagement.css'; 
+
 
 const AdminManagement = () => {
-  // Estado para almacenar la lista de administradores
-  const [admins, setAdmins] = useState([]);
-
-  // Estado para manejar el formulario de creación/modificación
+  const [admin, setAdmin] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [orders, setOrders] = useState([]);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    role: 'admin', // Por defecto, el rol es admin para los nuevos registros
+    role: 'SuperAdmin',
   });
-
-  // Estado para controlar si se está editando un administrador o no
   const [editMode, setEditMode] = useState(false);
-  const [editAdminId, setEditAdminId] = useState(null);
+  const [editId, setEditId] = useState(null);
 
-  // Función para obtener la lista de administradores
-  const fetchAdmins = async () => {
+  useEffect(() => {
+    fetchAdmin();
+    fetchProducts();
+    fetchOrders();
+  }, []);
+
+  const fetchAdmin = async () => {
     try {
-      // Aquí realizar la llamada a API para obtener la lista de administradores
-      // Supongamos que la API devuelve una lista de objetos con propiedades id, name, email, role, etc.
-      const response = await fetch('/api/admins');
+      const response = await fetch('/api/admin');
       const data = await response.json();
-      setAdmins(data); // Actualizar el estado con la lista de administradores
+      setAdmin(data);
     } catch (error) {
       console.error('Error fetching admins:', error);
-      // Aquí manejarías el error de acuerdo a tu lógica de manejo de errores
     }
   };
 
-  // Función para manejar cambios en los campos del formulario
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch('/api/products');
+      const data = await response.json();
+      setProducts(data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+
+  const fetchOrders = async () => {
+    try {
+      const response = await fetch('/api/orders');
+      const data = await response.json();
+      setOrders(data);
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+    }
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -40,88 +60,102 @@ const AdminManagement = () => {
     });
   };
 
-  // Función para enviar el formulario de creación/modificación
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (editMode) {
-        // Modo de edición: enviar solicitud PUT para actualizar el administrador existente
-        const response = await fetch(`/api/admins/${editAdminId}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        });
-        const updatedAdmin = await response.json();
-        // Actualizar la lista de administradores después de la modificación
-        setAdmins(admins.map(admin => (admin.id === updatedAdmin.id ? updatedAdmin : admin)));
-      } else {
-        // Modo de creación: enviar solicitud POST para crear un nuevo administrador
-        const response = await fetch('/api/admins', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        });
-        const newAdmin = await response.json();
-        // Agregar el nuevo administrador a la lista actual
-        setAdmins([...admins, newAdmin]);
-      }
-      // Limpiar el formulario después de la operación exitosa
-      setFormData({
-        name: '',
-        email: '',
-        role: 'admin',
+      const endpoint = editMode
+        ? `/api/${getEndpoint(editId)}/${editId}`
+        : `/api/${getEndpoint(editId)}`;
+      const method = editMode ? 'PUT' : 'POST';
+      const response = await fetch(endpoint, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-      // Salir del modo de edición
+
+      const updatedData = await response.json();
+      const updateFunction = getUpdateFunction(editId);
+
+      if (editMode) {
+        updateFunction(data => data.map(item => (item.id === updatedData.id ? updatedData : item)));
+      } else {
+        updateFunction(data => [...data, updatedData]);
+      }
+
+      setFormData({ name: '', email: '', role: 'SuperAdmin' });
       setEditMode(false);
-      setEditAdminId(null);
+      setEditId(null);
     } catch (error) {
       console.error('Error submitting form:', error);
-      // Aquí manejar el error de acuerdo a lógica de manejo de errores
     }
   };
 
-  // Función para eliminar un administrador
-  const handleDelete = async (adminId) => {
-    if (window.confirm('¿Estás seguro de que quieres eliminar este administrador?')) {
+  const handleDelete = async (id) => {
+    if (window.confirm('Are you sure you want to delete this item?')) {
       try {
-        // Aquí realizar la llamada a tu API para eliminar el administrador
-        await fetch(`/api/admins/${adminId}`, {
-          method: 'DELETE',
-        });
-        // Actualizar la lista de administradores después de la eliminación
-        setAdmins(admins.filter(admin => admin.id !== adminId));
+        const endpoint = `/api/${getEndpoint(id)}/${id}`;
+        await fetch(endpoint, { method: 'DELETE' });
+
+        const deleteFunction = getDeleteFunction(id);
+        deleteFunction(data => data.filter(item => item.id !== id));
       } catch (error) {
-        console.error('Error deleting admin:', error);
-        // Aquí manejar el error de acuerdo a lógica de manejo de errores
+        console.error('Error deleting item:', error);
       }
     }
   };
 
-  // Función para editar un administrador
-  const handleEdit = (admin) => {
-    // Establecer los valores actuales del administrador en el formulario de edición
+  const handleEdit = (item) => {
     setFormData({
-      name: admin.name,
-      email: admin.email,
-      role: admin.role,
+      name: item.name,
+      email: item.email,
+      role: item.role || '',
+      description: item.description || '',
+      price: item.price || '',
+      quantity: item.quantity || '',
+      status: item.status || '',
     });
     setEditMode(true);
-    setEditAdminId(admin.id);
+    setEditId(item.id);
   };
 
-  // Efecto para cargar la lista de administradores al cargar el componente
-  useEffect(() => {
-    fetchAdmins();
-  }, []);
+  const getEndpoint = (id) => {
+    if (admin.some(admin => admin.id === id)) {
+      return 'SuperAdmin';
+    } else if (products.some(product => product.id === id)) {
+      return 'products';
+    } else if (orders.some(order => order.id === id)) {
+      return 'orders';
+    }
+    return '';
+  };
+
+  const getUpdateFunction = (id) => {
+    if (admin.some(admin => admin.id === id)) {
+      return setAdmin;
+    } else if (products.some(product => product.id === id)) {
+      return setProducts;
+    } else if (orders.some(order => order.id === id)) {
+      return setOrders;
+    }
+    return () => {};
+  };
+
+  const getDeleteFunction = (id) => {
+    if (admin.some(admin => admin.id === id)) {
+      return setAdmin;
+    } else if (products.some(product => product.id === id)) {
+      return setProducts;
+    } else if (orders.some(order => order.id === id)) {
+      return setOrders;
+    }
+    return () => {};
+  };
 
   return (
-    <div>
-      <h1>Admin Management</h1>
-
+    <div className="admin-management">
+      <h1>Other Admin and Seller </h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -139,33 +173,76 @@ const AdminManagement = () => {
           onChange={handleInputChange}
           required
         />
-        {editMode ? (
-          <button type="submit">Update Admin</button>
-        ) : (
-          <button type="submit">Add Admin</button>
-        )}
+        <input
+          type="text"
+          name="role"
+          placeholder="Role"
+          value={formData.role}
+          onChange={handleInputChange}
+        />
+       
+        <button type="submit">{editMode ? 'Update' : 'Add'}</button>
       </form>
 
+
+      <h2>Products</h2>
       <table>
         <thead>
           <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
+            <th>Description</th>
+            <th>Price</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {admins.map(admin => (
-            <tr key={admin.id}>
-              <td>{admin.id}</td>
-              <td>{admin.name}</td>
-              <td>{admin.email}</td>
-              <td>{admin.role}</td>
+          {products.map(product => (
+            <tr key={product.id}>
+              <td>{product.id}</td>
+              <td>{product.name}</td>
+              <td>{product.description}</td>
+              <td>{product.price}</td>
               <td>
-                <button onClick={() => handleEdit(admin)}><FontAwesomeIcon icon={faEdit} /></button>
-                <button onClick={() => handleDelete(admin.id)}><FontAwesomeIcon icon={faTrash} /></button>
+                <button onClick={() => handleEdit(product)}>
+                  <FontAwesomeIcon icon={faEdit} />
+                </button>
+                <button onClick={() => handleDelete(product.id)}>
+                  <FontAwesomeIcon icon={faTrash} />
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <h2>Orders</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Product</th>
+            <th>User</th>
+            <th>Quantity</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map(order => (
+            <tr key={order.id}>
+              <td>{order.id}</td>
+              <td>{order.product}</td>
+              <td>{order.user}</td>
+              <td>{order.quantity}</td>
+              <td>{order.status}</td>
+              <td>
+                <button onClick={() => handleEdit(order)}>
+                  <FontAwesomeIcon icon={faEdit} />
+                </button>
+                <button onClick={() => handleDelete(order.id)}>
+                  <FontAwesomeIcon icon={faTrash} />
+                </button>
               </td>
             </tr>
           ))}
@@ -176,3 +253,5 @@ const AdminManagement = () => {
 };
 
 export default AdminManagement;
+
+

@@ -1,0 +1,77 @@
+.admin-management {
+    padding: 20px;
+  }
+  
+  .admin-management h1,
+  .admin-management h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .admin-management form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .admin-management form input {
+    margin: 10px;
+    padding: 10px;
+    width: 300px;
+  }
+  
+  .admin-management form button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .admin-management form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .admin-management table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .admin-management th,
+  .admin-management td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .admin-management th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+  
+  .admin-management tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .admin-management td button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .admin-management td button:hover {
+    color: red;
+  }
+  
+  .admin-management .faEdit {
+    color: #007bff;
+  }
+  
+  .admin-management .faTrash {
+    color: red;
+  }
+  

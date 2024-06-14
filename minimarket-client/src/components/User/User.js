@@ -12,6 +12,7 @@ import GetUserbyid from './Crud/GetUserbyid';
 import DeleteUser from './Crud/DeleteUser';
 import { AuthContext } from '../Context/AuthContext';
 import AddAdressUser from './Crud/AddAdressUser';
+import AdminManagement from '../Admin/AdminManagement';
 
 const User = () => {
     const { theme } = useContext(ThemeContext);
@@ -64,8 +65,9 @@ const User = () => {
                 
                 {activeButton === 'AdminProperties' && 'SuperAdmin' && (
                         <div className="admin-properties">
-                            <h2>Admin Properties</h2>
+                            
                             <p>Administrative settings and options go here.</p>
+                            <AdminManagement></AdminManagement>
                         </div>
                     )}
 

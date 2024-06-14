@@ -5,9 +5,17 @@ import {
   faTwitter,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import "./footer.css";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
+  const handleFAQsClick = () => {
+    navigate('/faqs');
+  };
+
   return (
     <footer className="footer mt-auto py-3">
       <div className="container">
@@ -41,6 +49,19 @@ const Footer = () => {
               </a>
             </div>
           </div>
+       
+          <div className="faqs-button">
+          <Link to="/faqs" className="faqs-link">FAQs</Link>
+        </div>
+        <div className="newsletter">
+          <h3>Subscribe to our newsletter</h3>
+          <form>
+            <input type="email" placeholder="Enter your email" required />
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+
+
           <div className="col-md-6 d-flex flex-column justify-content-center align-items-center">
             <div className="w-100">
               <span className="d-block mb-2">Maps:</span>

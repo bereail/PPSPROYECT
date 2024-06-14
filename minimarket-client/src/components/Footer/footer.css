@@ -64,4 +64,30 @@
  .text-muted {
    color: #020406 !important;
  }
- 
+ .faqs-button .faqs-link {
+  color: #000; /* Ajusta este color si necesitas cambiar el color del enlace */
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem; /* Agrega margen entre los enlaces */
+  font-size: 1.8rem; /* Ajusta el tamaño de la fuente según tu preferencia */
+}
+.newsletter button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #000; /* Color de fondo negro */
+  color: #fff; /* Color del texto blanco */
+  cursor: pointer;
+}
+
+.newsletter button:hover {
+  background-color: #333; /* Color de fondo más oscuro al pasar el cursor */
+}
+
+
+
+
+
+
+
