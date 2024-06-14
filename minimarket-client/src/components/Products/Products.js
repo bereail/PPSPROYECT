@@ -40,7 +40,7 @@ const Products = () => {
     stock: 100,
     discount: null
   });
-
+  const [pageNumber, SetpageNumer] = useState(1)
   useEffect(() => {
     GetProductsByOffers(setProducts, setError)
 
@@ -49,10 +49,10 @@ const Products = () => {
 
   useEffect(() => {
     if (CategoryId !== null) {
-      GetProductsByCategory(CategoryId, isActive, setProducts, setError, isAscendingOption, SortbydOption); 
+      GetProductsByCategory(CategoryId, isActive, setProducts, setError, isAscendingOption, SortbydOption, pageNumber); 
     }
 
-  }, [CategoryId, isActive, isAscendingOption]);
+  }, [CategoryId, isActive, isAscendingOption, pageNumber]);
 
   useEffect(() => {
     if (SearchValue) {
@@ -186,6 +186,8 @@ const Products = () => {
             
           </div>
         ))}
+        {CategoryId !== null && <button onClick={()=>{SetpageNumer(pageNumber - 1)}}>Volver pagina</button>}
+        {CategoryId !== null && <button onClick={()=>{SetpageNumer(pageNumber + 1)}}>Pasar pagina</button>}
          {role === 'Seller' &&<> {CategoryId !== null && <CreaateProduct></CreaateProduct>}</>}
       </div>
       {error && <div>

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Footer from '../Footer/footer';
-import { Link, Navigate, useAsyncError } from "react-router-dom";
+import { Link, Navigate, useAsyncError, useNavigate } from "react-router-dom";
 import "./Cart.css";
 import image from '../Image/Bolsa.png';
 import { AuthContext } from '../Context/AuthContext';
@@ -10,13 +10,19 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Navbar from '../Navbar/Navbar';
 import api from '../../api';
 import CreateOrder from '../../Orders/CreateOrder';
+import PayWhitMP from '../PayWhitMP/PayWhitMP';
+import { OrderContext } from '../Context/OrderContext';
 
 
 export default function Cart() {
   const { userEmail } = useContext(AuthContext);
+  const { setOrderId } = useContext(OrderContext);
   const [cart, setCart] = useState(null);
   const [CartPriceDiscount, SetCartPriceDiscount] = useState();
   const [CartDiscount, SetCartDiscount] = useState();
+  const [ButtonMp, SetButtonMp] = useState(false)
+  //const [orderId, setOrderId] = useState(null);
+
   useEffect(() => {
     const cartData = JSON.parse(window.localStorage.getItem(`Cart_${userEmail}`));
     setCart(cartData);
@@ -33,7 +39,7 @@ export default function Cart() {
         // Sumamos el precio de cada producto considerando el pr\ecio con descuento y la cantidad
         return acc + (product.price - product.discount) * product.quantity;
       }, 0);
-      SetCartDiscount(discount)
+      SetCartDiscount(parseFloat(discount.toFixed(2)));
       SetCartPriceDiscount(totaldiscount); // Actualizamos el estado con el precio total calculado
     }
   }, [cart]);
@@ -53,7 +59,7 @@ export default function Cart() {
     setCart(null);
   }
   
-  const HandleCreateOrder = () => {
+  const HandleCreateOrder = async() => {
 
     const newDetails = cart.products.map(item => ({
 
@@ -62,7 +68,11 @@ export default function Cart() {
     }))
     const orderDetails = { newDetails };
 
-    CreateOrder(orderDetails)
+    const orderId = await CreateOrder(orderDetails);
+    if (orderId) {
+      SetButtonMp(true)
+      setOrderId(orderId);
+    }
   }
   return (
     <div style={{ paddingBottom: '500px' }}>
@@ -106,7 +116,8 @@ export default function Cart() {
                 <p>Total Price:</p>
                 <p> ${CartPriceDiscount}</p>
               </div>
-              <button className="Button-Cart" onClick={HandleCreateOrder}>Continue shopping</button>
+              <button className="Button-Cart" onClick={HandleCreateOrder}>Make an order</button>
+              {ButtonMp && <PayWhitMP/>}
             </div>
           </div>
           <button className='Button-Products' onClick={HandleCleanCart}>Clean Cart</button>

@@ -16,9 +16,9 @@ import { AuthProvider } from "./components/Context/AuthContext";
 import Favorite from "./components/Favorite/Favorite";
 import Navbar from "./components/Navbar/Navbar";
 import { SearchProvider } from "./components/Context/SearchContext";
-import ProductMP from "./components/ProductMP/ProductMP";
-import CreateImageProduct from "./components/Products/Crud/CreateImageProduct";
 import FaQs from "./components/Footer/FaQs";
+import {OrderProvider } from "./components/Context/OrderContext";
+import PaySuccess from "./components/PayWhitMP/PaySuccess";
 
 
 const router = createBrowserRouter([
@@ -40,11 +40,11 @@ const router = createBrowserRouter([
   },
   {
     path: "navbar",
-    element: <Navbar/>,
+    element: <Navbar />,
   },
   {
-    path: "Favorite",
-    element:  <ProtectedUser><Favorite/></ProtectedUser>,
+    path: "/Favorite",
+    element: <Favorite />,
   },
   {
     path: "user",
@@ -55,16 +55,16 @@ const router = createBrowserRouter([
     ),
   },
   {
-  path: "FaQs",
-  element: <FaQs/>
+    path: "FaQs",
+    element: <FaQs />
   },
   {
     path: "*",
     element: <Error404 />,
   },
   {
-    path: "/productMP",
-    element: <ProductMP />
+    path: "/PaySucess",
+    element: <PaySuccess />,
   }
 ]);
 
@@ -80,18 +80,20 @@ const AppContent = () => {
 };
 
 const App = () => (
-  
+
   <ThemeProvider>
     <AuthProvider>
-    <CategoryProvider>
-    <SearchProvider>     
-    <AppContent />  
-    </SearchProvider>  
-    <CustomChatbot/>
-    </CategoryProvider>
+      <OrderProvider>
+        <CategoryProvider>
+          <SearchProvider>
+            <AppContent />
+          </SearchProvider>
+          <CustomChatbot />
+        </CategoryProvider>
+      </OrderProvider>
     </AuthProvider>
   </ThemeProvider>
-  
+
 );
 
 export default App;

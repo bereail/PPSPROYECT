@@ -4,6 +4,7 @@ import { AuthContext } from "../Context/AuthContext";
 
 const ProtectedUser = ({ children }) => {
   const {role} = useContext(AuthContext)
+
   if (!role) {
     return <Navigate to="/" />;
   } else {

@@ -18,11 +18,8 @@ const User = () => {
     const { theme } = useContext(ThemeContext);
     const {role} = useContext(AuthContext)
     const [activeButton, setActiveButton] = useState('');
-    
+
     const user = GetUserbyid();
-
-    
-
 
 
     const handleExit = () => {
