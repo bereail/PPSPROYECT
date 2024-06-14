@@ -194,6 +194,22 @@
 }
 
 }
+.email-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .email-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .email-list li {
+    margin: 0;
+    padding: 0;
+  }
 
 @media (max-width: 360px) {
     
@@ -207,3 +223,20 @@
         font-size: 12px;
     }
     }
+    .email-section {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      
+      .email-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .email-list li {
+        margin: 0;
+        padding: 0;
+      }
+      

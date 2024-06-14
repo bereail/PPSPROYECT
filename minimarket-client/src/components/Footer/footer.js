@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebook,
@@ -11,9 +12,24 @@ import "./footer.css";
 
 const Footer = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [subscribedEmails, setSubscribedEmails] = useState(
+    JSON.parse(localStorage.getItem('subscribedEmails')) || []
+  );
 
   const handleFAQsClick = () => {
     navigate('/faqs');
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (email) {
+      const updatedEmails = [...subscribedEmails, email];
+      setSubscribedEmails(updatedEmails);
+      localStorage.setItem('subscribedEmails', JSON.stringify(updatedEmails));
+      alert('Email registrado');
+      setEmail('');
+    }
   };
 
   return (
@@ -49,18 +65,23 @@ const Footer = () => {
               </a>
             </div>
           </div>
-       
-          <div className="faqs-button">
-          <Link to="/faqs" className="faqs-link">FAQs</Link>
-        </div>
-        <div className="newsletter">
-          <h3>Subscribe to our newsletter</h3>
-          <form>
-            <input type="email" placeholder="Enter your email" required />
-            <button type="submit">Subscribe</button>
-          </form>
-        </div>
 
+          <div className="faqs-button">
+            <Link to="/faqs" className="faqs-link">FAQs</Link>
+          </div>
+          <div className="newsletter">
+            <h3>Subscribe to our newsletter</h3>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <button type="submit">Subscribe</button>
+            </form>
+          </div>
 
           <div className="col-md-6 d-flex flex-column justify-content-center align-items-center">
             <div className="w-100">
@@ -90,4 +111,5 @@ const Footer = () => {
 };
 
 export default Footer;
+
 

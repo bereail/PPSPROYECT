@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-import './AdminManagement.css'; 
 
+
+import './AdminManagement.css';
 
 const AdminManagement = () => {
   const [admin, setAdmin] = useState([]);
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [emails, setEmails] = useState([]);
+  const [chathistory, setChatHistory] = useState([]);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     role: 'SuperAdmin',
   });
+
   const [editMode, setEditMode] = useState(false);
   const [editId, setEditId] = useState(null);
 
@@ -20,6 +25,11 @@ const AdminManagement = () => {
     fetchAdmin();
     fetchProducts();
     fetchOrders();
+    const storedEmails = JSON.parse(localStorage.getItem('subscribedEmails')) || [];
+    setEmails(storedEmails);
+    const storedChatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    setChatHistory(storedChatHistory);
+
   }, []);
 
   const fetchAdmin = async () => {
@@ -155,7 +165,7 @@ const AdminManagement = () => {
 
   return (
     <div className="admin-management">
-      <h1>Other Admin and Seller </h1>
+      <h1>Admin Management</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -180,10 +190,30 @@ const AdminManagement = () => {
           value={formData.role}
           onChange={handleInputChange}
         />
-       
         <button type="submit">{editMode ? 'Update' : 'Add'}</button>
       </form>
+       
+      <h2>Chat History</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Date/Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {chathistory.map((chat, index) => (
+            <tr key={index}>
+              <td>{chat.name}</td>
+              <td>{chat.email}</td>
+              <td>{chat.timestamp}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
+    
 
       <h2>Products</h2>
       <table>
@@ -253,5 +283,6 @@ const AdminManagement = () => {
 };
 
 export default AdminManagement;
+
 
 
