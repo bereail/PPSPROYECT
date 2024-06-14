@@ -75,17 +75,10 @@ namespace MiniMarket_API.Application.Services.Implementations
             return _mapper.Map<ProductView?>(productToRestore);
         }
 
-        public async Task<ProductView?> EraseProduct(Guid id)
+        public async Task EraseProduct(Guid id)
         {
-            var productToErase = await _productRepository.UnrestrictedGetByIdAsync(id);
-            if (productToErase == null || productToErase.IsActive)
-            {
-                return null;
-            }
-            productToErase = await _productRepository.EraseProductAsync(id);
             await _productImageService.HandleImageDeletion(id);
-
-            return _mapper.Map<ProductView?>(productToErase);
+            await _productRepository.EraseProductAsync(id);
         }
 
         public async Task<IEnumerable<ProductView>?> GetAllProducts(bool? isActive, string? filterOn, string? filterQuery,

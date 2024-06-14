@@ -2,6 +2,7 @@
 using MercadoPago.Config;
 using MiniMarket_API.Application.Services.Interfaces;
 using MiniMarket_API.Model.Entities;
+using System.Diagnostics;
 
 namespace MiniMarket_API.Application.Services.Implementations
 {
@@ -17,10 +18,10 @@ namespace MiniMarket_API.Application.Services.Implementations
             {
                 var preferenceDetail = new PreferenceItemRequest
                 {
-                    Title = detail.Product.Name,
+                    Title = $"{detail.ProductName}" + " X " + $"{detail.ProductQuantity}",
                     UnitPrice = detail.DetailPrice,
                     //Might want to change this to a set amount of 1
-                    Quantity = detail.ProductQuantity,
+                    Quantity = 1,
                     CurrencyId = "ARS",
                 };
                 preferenceItems.Add(preferenceDetail);
@@ -40,6 +41,7 @@ namespace MiniMarket_API.Application.Services.Implementations
                 },
                 AutoReturn = "approved"
             };
+            Trace.WriteLine(requestPreference);
 
             var client = new PreferenceClient();
             var preference = await client.CreateAsync(requestPreference);

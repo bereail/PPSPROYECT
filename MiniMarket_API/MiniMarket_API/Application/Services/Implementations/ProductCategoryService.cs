@@ -96,14 +96,9 @@ namespace MiniMarket_API.Application.Services.Implementations
             return mapper.Map<CategoryViewProducts>(restoredCategory);
         }
 
-        public async Task<CategoryView?> EraseProductCategory(Guid id)
+        public async Task EraseProductCategory(Guid id)
         {
-            var categoryToErase = await _categoryRepository.EraseProductCategoryAsync(id);
-            if (categoryToErase == null)
-            {
-                return null;
-            }
-            return mapper.Map<CategoryView?>(categoryToErase);
+            await _categoryRepository.EraseProductCategoryAsync(id);
         }
 
         public async Task<IEnumerable<CategoryView>?> GetAllCategories(bool? isActive, string? sortBy, bool? isAscending)

@@ -12,13 +12,13 @@ namespace MiniMarket_API.Model.Entities
         [Column(TypeName = "nvarchar(75)")]
         public string Email { get; set; }
 
-        [Column(TypeName = "nvarchar(150)")]
+        [Column(TypeName = "nvarchar(300)")]
         public string Password { get; set; }
 
         [Column(TypeName = "nvarchar(75)")]
         public string PhoneNumber { get; set; }
 
-        [Column(TypeName = "nvarchar(25)")]
+        [Column("Role", TypeName = "nvarchar(25)")]
         public string UserType { get; set; }
         public bool IsActive { get; set; } = true;
 

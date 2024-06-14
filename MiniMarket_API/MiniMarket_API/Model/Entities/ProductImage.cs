@@ -11,15 +11,16 @@ namespace MiniMarket_API.Model.Entities
         [NotMapped]
         public IFormFile ImageFile { get; set; }
 
-        [Column(TypeName = "nvarchar(35)")]
+        [Column("Name", TypeName = "nvarchar(35)")]
         public string ImageName { get; set; }
 
-        [Column(TypeName = "nvarchar(10)")]
+        [Column("Extension", TypeName = "nvarchar(10)")]
         public string ImageExtension { get; set; }
 
+        [Column("Size")]
         public long ImageSize { get; set; }
 
-        [Column(TypeName = "nvarchar(150)")]
+        [Column("URL", TypeName = "nvarchar(150)")]
         public string ImageUrl { get; set; }
 
         // Navigation Property

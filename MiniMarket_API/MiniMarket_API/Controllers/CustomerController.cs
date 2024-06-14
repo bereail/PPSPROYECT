@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MiniMarket_API.Application.DTOs.Requests;
 using MiniMarket_API.Application.Services.Interfaces;

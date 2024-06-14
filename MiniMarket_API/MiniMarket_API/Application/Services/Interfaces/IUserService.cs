@@ -2,6 +2,7 @@
 using MiniMarket_API.Application.DTOs.Requests;
 using MiniMarket_API.Model.Enums;
 using MiniMarket_API.Application.ViewModels;
+using MiniMarket_API.Application.DTOs.Requests.Credentials;
 
 namespace MiniMarket_API.Application.Services.Interfaces
 {
@@ -10,7 +11,8 @@ namespace MiniMarket_API.Application.Services.Interfaces
         Task<UserView?> CreateUser(User user);
         Task<UserView?> UpdateUser(Guid id, UpdateUserDto updateUserDto);
         Task<UserView?> DeactivateUser(Guid id);
-        Task<UserView?> EraseUser(Guid id);
+        Task SetNewUserPassword(Guid id, NewPasswordRequestDto newPasswordRequest);
+        Task EraseUser(Guid id);
         Task<IEnumerable<UserView>?> GetAllUsers(bool? isActive, string? filterOn, string? filterQuery,
             string? sortBy, bool? isAscending, int pageNumber, int pageSize);
         Task<UserView?> GetUserById(Guid id);

@@ -49,13 +49,9 @@ namespace MiniMarket_API.Controllers
 
             if (userRole == typeof(Seller).Name || userRole == typeof(SuperAdmin).Name)
             {
-                var deletedImage = await productImageService.HandleImageDeletion(productId);
-                if (deletedImage == null)
-                {
-                    return BadRequest("Image Deletion Failed: Image Couldn't be Found.");
-                }
-
-                return Ok(deletedImage);
+                await productImageService.HandleImageDeletion(productId);
+                
+                return Ok();
             }
 
             return Forbid();

@@ -1,4 +1,5 @@
-﻿using MiniMarket_API.Application.Services.Interfaces;
+﻿using MiniMarket_API.Application.DTOs.DetailData;
+using MiniMarket_API.Application.Services.Interfaces;
 using MiniMarket_API.Data.Interfaces;
 using MiniMarket_API.Model.Entities;
 using System.Diagnostics;
@@ -16,7 +17,7 @@ namespace MiniMarket_API.Application.Services.Implementations
             this.orderDetailRepository = orderDetailRepository;
         }
 
-        public async Task<decimal?> SetDetailPrice(Guid productId, int orderQuantity)
+        public async Task<NewDetailResultsDto?> FormDetailData(Guid productId, int orderQuantity)
         {
             var productDetail = await productRepository.GetProductByIdAsync(productId);
             if (productDetail == null)
@@ -42,7 +43,15 @@ namespace MiniMarket_API.Application.Services.Implementations
             {
                 return null;
             }
-            return finalPrice;
+
+            var detailResult = new NewDetailResultsDto
+            {
+                ProductName = productDetail.Name,
+                DetailPrice = finalPrice,
+                FinalQuantity = orderQuantity,
+            };
+
+            return detailResult;
         }
 
         private async Task<int?> HandleProductStock(Product productDetail, int orderQuantity)

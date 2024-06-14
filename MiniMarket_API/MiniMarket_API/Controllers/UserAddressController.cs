@@ -22,14 +22,21 @@ namespace MiniMarket_API.Controllers
         {
             var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
 
-            var newAddress = await _deliveryAddressService.AddDeliveryAddress(userId, addDeliveryAddress);
+            AddressValidation(addDeliveryAddress);
 
-            if (newAddress != null)
+            if (ModelState.IsValid)
             {
-                return Ok(newAddress);
+                var newAddress = await _deliveryAddressService.AddDeliveryAddress(userId, addDeliveryAddress);
+
+                if (newAddress != null)
+                {
+                    return Ok(newAddress);
+                }
+
+                return Forbid();
             }
 
-            return Forbid();
+            return BadRequest(ModelState);
         }
 
         [HttpDelete]
@@ -37,13 +44,9 @@ namespace MiniMarket_API.Controllers
         {
             var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
 
-            var deletedAddress = await _deliveryAddressService.DeleteDeliveryAddress(userId);
+            await _deliveryAddressService.DeleteDeliveryAddress(userId);
 
-            if (deletedAddress != null)
-            {
-                return Ok(deletedAddress);
-            }
-            return NotFound("Address Deletion Failed: You have no current Address.");
+            return NoContent();
         }
 
         [HttpGet]
@@ -59,6 +62,19 @@ namespace MiniMarket_API.Controllers
             }
 
             return NotFound("You have no current Address.");
+        }
+
+        private void AddressValidation (AddDeliveryAddressDto addDeliveryAddress)
+        {
+            var validProvinces = new string[] { "Buenos Aires", "Ciudad Autónoma De Buenos Aires", "Catamarca", "Chaco", "Chubut",
+                "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza, Misiones",
+            "Neuquén", "Rio Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero",
+            "Tierra del Fuego, Antártida e Islas del Atlántico Sur", "Tucumán"};
+
+            if (!validProvinces.Contains(addDeliveryAddress.Province)) 
+            {
+                ModelState.AddModelError("province", "Address Generation Failed: Please provice a valid Province.");
+            }
         }
     }
 }

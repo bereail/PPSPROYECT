@@ -22,26 +22,29 @@ namespace MiniMarket_API.Application.Services.Implementations
         public async Task<OrderDetails?> CreateOrderDetail(CreateDetailDto createDetail, Guid orderId)             //Won't operate with DTOs directly as mappings are taken care of by SaleOrderService.
         {
 
-            var detailPrice = await _priceStockService.SetDetailPrice(createDetail.ProductId, createDetail.ProductQuantity);
-            if (detailPrice == null)
+            var detailData = await _priceStockService.FormDetailData(createDetail.ProductId, createDetail.ProductQuantity);
+            if (detailData == null)
             {
                 return null;
             }
             var detailToCreate = mapper.Map<OrderDetails>(createDetail);
+
             detailToCreate.OrderId = orderId;
-            detailToCreate.DetailPrice = detailPrice.Value;
+            detailToCreate.DetailPrice = detailData.DetailPrice;
+            detailToCreate.ProductQuantity = detailData.FinalQuantity;
+            detailToCreate.ProductName = detailData.ProductName;
 
             return await _orderDetailRepository.CreateOrderDetailAsync(detailToCreate);
         }
 
-        public async Task<Guid?> EraseOrderDetail(Guid id)
+        public async Task EraseOrderDetail(Guid id)
         {
             var stockToReturn = await _priceStockService.HandleDetailDeletion(id);
             if (stockToReturn == null)
             {
-                return null;
+                return;
             }
-            return await _orderDetailRepository.EraseDetailAsync(id);
+            await _orderDetailRepository.EraseDetailAsync(id);
         }
     }
 }

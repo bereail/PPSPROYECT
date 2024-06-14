@@ -98,8 +98,8 @@ namespace MiniMarket_API.Application.Services.Implementations
 
             //We form the claim.
             var claimsForToken = new List<Claim>();
+            claimsForToken.Add(new Claim("sub", userToRecover.Id.ToString()));
             claimsForToken.Add(new Claim("name", userToRecover.Name));
-            claimsForToken.Add(new Claim("email", userToRecover.Email));
 
             //We create the token and provide it with all the data retrieved previously
             var jwtSecurityToken = new JwtSecurityToken(
@@ -123,14 +123,13 @@ namespace MiniMarket_API.Application.Services.Implementations
 
             if (recoveryToken == null) return;
 
-            string param = "token=" + recoveryToken;
+            string param = "?token=" + recoveryToken;
 
-            string url = @"http://www.mywebsite.com/Recovery?" + param;
-
+            string url = @"http://www.mywebsite.com/Recovery" + param;
 
             var receivingEmail = email;
             var subject = "Password Recovery Request";
-            var message = $"Hello! It seems that you have requested to recover your account's password." +
+            var message = $"Hello! It seems that you have requested to recover your account's password. " +
                 $"If that's the case, then follow the link provided below: " +
                 $"{url}" +
                 $" " +

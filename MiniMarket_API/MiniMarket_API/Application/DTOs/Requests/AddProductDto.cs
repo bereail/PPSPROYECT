@@ -16,6 +16,7 @@ namespace MiniMarket_API.Application.DTOs.Requests
         [Range(0, 9999999999999999.99, ErrorMessage = "Product Price mustn't exceed 18 digits.")]
         public decimal Price { get; set; }
 
+        [Required(ErrorMessage = "Product Stock is Required.")]
         [Range(0, 125, MinimumIsExclusive = true, MaximumIsExclusive = false, ErrorMessage = "Product Stock mustn't be below 1, or above 125 units.")]
         public int Stock { get; set; }
 

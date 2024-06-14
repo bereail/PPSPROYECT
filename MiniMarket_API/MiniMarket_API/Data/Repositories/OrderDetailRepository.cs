@@ -22,16 +22,15 @@ namespace MiniMarket_API.Data.Repositories
             return orderDetails;
         }
 
-        public async Task<Guid?> EraseDetailAsync(Guid id)
+        public async Task EraseDetailAsync(Guid id)
         {
             var getDetailToErase = await _context.Details.FirstOrDefaultAsync(x => x.Id == id);
             if (getDetailToErase == null)
             {
-                return null;
+                return;
             }
             _context.Details.Remove(getDetailToErase);
             await _context.SaveChangesAsync();
-            return getDetailToErase.Id;
         }
 
         public async Task<IEnumerable<OrderDetails>> GetDetailsByOrderId(Guid orderId)      //Could theoretically be swapped for a .Include(); in SaleOrderRepository

@@ -2,7 +2,7 @@
 {
     public class OrderDetailsView
     {
-        public ProductBasicView Product { get; set; }
+        public string ProductName { get; set; }
         public int ProductQuantity { get; set; }
         public decimal DetailPrice { get; set; }
     }

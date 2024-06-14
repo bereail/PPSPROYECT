@@ -61,10 +61,9 @@ namespace MiniMarket_API.Application.Services.Implementations
             return mappedCode;
         }
 
-        public async Task<CompanyCodeView?> EraseCompanyCode(Guid id)
+        public async Task EraseCompanyCode(Guid id)
         {
-            var codeToErase = await _companyCodeRepository.EraseCompanyCodeAsync(id);
-            return mapper.Map<CompanyCodeView?>(codeToErase);
+            await _companyCodeRepository.EraseCompanyCodeAsync(id);
         }
 
         public async Task<IEnumerable<CompanyCodeView>?> GetAllCompanyCodes()

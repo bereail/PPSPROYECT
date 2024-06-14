@@ -56,12 +56,12 @@ namespace MiniMarket_API.Data.Repositories
             return getImage;
         }
 
-        public async Task<ProductImage?> DeleteImagebyProductIdAsync(Guid productId)
+        public async Task DeleteImagebyProductIdAsync(Guid productId)
         {
             var getImage = await _context.ProductImages.FirstOrDefaultAsync(x => x.ProductId == productId);
             if (getImage == null)
             {
-                return null;
+                return;
             }
             var localFilePath = Path.Combine(_environment.ContentRootPath, "Images",
                 $"{getImage.ImageName}{getImage.ImageExtension}");
@@ -70,7 +70,6 @@ namespace MiniMarket_API.Data.Repositories
 
             _context.ProductImages.Remove(getImage);
             await _context.SaveChangesAsync();
-            return getImage;
         }
     }
 }

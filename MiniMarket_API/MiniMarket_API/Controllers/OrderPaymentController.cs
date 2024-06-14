@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MiniMarket_API.Application.DTOs.Preferences;
 using MiniMarket_API.Application.Services.Interfaces;

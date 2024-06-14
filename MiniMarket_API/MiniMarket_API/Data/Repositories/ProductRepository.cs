@@ -78,16 +78,15 @@ namespace MiniMarket_API.Data.Repositories
             return getProductToRestore;
         }
 
-        public async Task<Product?> EraseProductAsync(Guid id)
+        public async Task EraseProductAsync(Guid id)
         {
             var getProductToErase = await _context.Products.FirstOrDefaultAsync(x => x.Id == id && !x.IsActive);
             if (getProductToErase == null)
             {
-                return null;
+                return;
             }
             _context.Products.Remove(getProductToErase);
             await _context.SaveChangesAsync();
-            return getProductToErase;
         }
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync(bool? isActive, string? filterOn = null, string? filterQuery = null,

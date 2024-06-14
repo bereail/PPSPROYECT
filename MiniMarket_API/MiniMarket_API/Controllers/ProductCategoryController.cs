@@ -54,6 +54,21 @@ namespace MiniMarket_API.Controllers
             return Forbid();
         }
 
+        [HttpDelete("{categoryId}/erase")]
+        public async Task<IActionResult> EraseProductCategoryAsync([FromRoute] Guid categoryId)
+        {
+            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            if (userRole == typeof(SuperAdmin).Name)
+            {
+                await _productCategoryService.DeactivateProductCategory(categoryId);
+               
+                return NoContent();
+            }
+
+            return Forbid();
+        }
+
         [HttpPatch("{categoryId}")]
         [Authorize]
         public async Task<IActionResult> RestoreProductCategoryAsync([FromRoute] Guid categoryId)

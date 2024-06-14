@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MiniMarket_API.Application.DTOs.Requests;
 using MiniMarket_API.Application.Services.Interfaces;
@@ -56,8 +55,21 @@ namespace MiniMarket_API.Controllers
             return Ok(getOrders);
         }
 
+        [HttpGet("{orderId}")]
+        public async Task<IActionResult> GetOrderByIdAsync([FromRoute] Guid orderId)
+        {
+            var getOrder = await _saleOrderService.GetOrderById(orderId);
+
+            if (getOrder == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(getOrder);
+        }
+
         [HttpGet("timeframe")]
-        //FOR ADMIN ONLY. Currently not functional.
+        //FOR ADMIN ONLY.
         public async Task<IActionResult> GetAllOrdersByTimeframeAsync([FromQuery] int filterDays, [FromQuery] OrderStatus? status, 
             [FromQuery] string? sortBy, [FromQuery] bool? isAscending,
             [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 7)

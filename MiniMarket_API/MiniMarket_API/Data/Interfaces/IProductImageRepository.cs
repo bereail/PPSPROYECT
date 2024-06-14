@@ -6,6 +6,6 @@ namespace MiniMarket_API.Data.Interfaces
     {
         Task<ProductImage?> UploadImageAsync(ProductImage image);
         Task<ProductImage?> GetImageByProductAsync(Guid productId);
-        Task<ProductImage?> DeleteImagebyProductIdAsync(Guid productId);
+        Task DeleteImagebyProductIdAsync(Guid productId);
     }
 }

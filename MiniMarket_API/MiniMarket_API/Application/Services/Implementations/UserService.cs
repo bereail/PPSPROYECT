@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MiniMarket_API.Application.DTOs.Requests;
+using MiniMarket_API.Application.DTOs.Requests.Credentials;
 using MiniMarket_API.Application.Services.Interfaces;
 using MiniMarket_API.Application.ViewModels;
 using MiniMarket_API.Data.Interfaces;
@@ -71,14 +72,16 @@ namespace MiniMarket_API.Application.Services.Implementations
             return mapper.Map<UserView?>(userToDeactivate);
         }
 
-        public async Task<UserView?> EraseUser(Guid id)
+        public async Task SetNewUserPassword(Guid id, NewPasswordRequestDto newPasswordRequest)
         {
-            var userToErase = await _userRepository.EraseUserAsync(id);
-            if (userToErase == null)
-            {
-                return null;
-            }
-            return mapper.Map<UserView?>(userToErase);
+            string validPassword = newPasswordRequest.Password;
+
+            await _userRepository.SetNewUserPasswordAsync(id, validPassword);
+        }
+
+        public async Task EraseUser(Guid id)
+        {
+            await _userRepository.EraseUserAsync(id);
         }
 
         public async Task<IEnumerable<UserView>?> GetAllUsers(bool? isActive, string? filterOn, string? filterQuery,

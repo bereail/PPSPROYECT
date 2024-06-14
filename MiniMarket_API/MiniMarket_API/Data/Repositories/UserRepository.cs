@@ -38,6 +38,19 @@ namespace MiniMarket_API.Data.Repositories
             return getUser;
         }
 
+        public async Task SetNewUserPasswordAsync(Guid id, string password)
+        {
+            var getUser = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if (getUser == null)
+            {
+                return;
+            }
+
+            getUser.Password = password;
+
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<User?> DeactivateUserAsync(Guid id)
         {
             var getUserToDeactivate = await _context.Users.FirstOrDefaultAsync(x => x.Id == id && x.IsActive);
@@ -51,17 +64,31 @@ namespace MiniMarket_API.Data.Repositories
             return getUserToDeactivate;
         }
 
+        public async Task<User?> RestoreUserAsync(Guid id)
+        {
+            var getUserToRestore = await _context.Users.FirstOrDefaultAsync(x =>x.Id == id && !x.IsActive);
 
-        public async Task<User?> EraseUserAsync(Guid id)
+            if (getUserToRestore == null)
+            {
+                return null;
+            }
+
+            getUserToRestore.IsActive = true;
+            getUserToRestore.DeactivationTime = null;
+            await _context.SaveChangesAsync();
+            return getUserToRestore;
+        }
+
+
+        public async Task EraseUserAsync(Guid id)
         {
             var getUserToErase = await _context.Users.FirstOrDefaultAsync(x => x.Id == id && !x.IsActive);
             if (getUserToErase == null)
             {
-                return null;
+                return;
             }
             _context.Users.Remove(getUserToErase);
             await _context.SaveChangesAsync();
-            return getUserToErase;
         }
 
         public async Task<IEnumerable<User>> GetAllUsersAsync(bool? isActive, string? filterOn = null, string? filterQuery = null,

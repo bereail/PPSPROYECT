@@ -45,7 +45,7 @@ namespace MiniMarket_API.Application.Services.Implementations
         }
 
 
-        public async Task<DeliveryAddressView?> DeleteDeliveryAddress(Guid userId)
+        public async Task DeleteDeliveryAddress(Guid userId)
         {
             var checkExistingAddress = await deliveryAddressRepository.GetAddressIdByUserId(userId);
 
@@ -59,12 +59,10 @@ namespace MiniMarket_API.Application.Services.Implementations
                     continue;
                 }
 
-                var deletedAddress = await deliveryAddressRepository.DeleteDeliveryAddressAsync(checkExistingAddress);
-
-                return mapper.Map<DeliveryAddressView>(deletedAddress);
+                await deliveryAddressRepository.DeleteDeliveryAddressAsync(checkExistingAddress);
             }
 
-            return null;
+            return;
         }
 
         public async Task<DeliveryAddressView?> GetDeliveryAddressByUserId(Guid userId)

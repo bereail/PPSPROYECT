@@ -7,7 +7,7 @@ namespace MiniMarket_API.Model.Entities
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
 
-        [Column(TypeName = "nvarchar(45)")]
+        [Column(TypeName = "nvarchar(55)")]
         public string Province { get; set; }
 
         [Column(TypeName = "nvarchar(45)")]

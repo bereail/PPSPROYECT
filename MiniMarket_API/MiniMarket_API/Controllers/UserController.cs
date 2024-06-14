@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MiniMarket_API.Application.DTOs.Requests;
+using MiniMarket_API.Application.DTOs.Requests.Credentials;
 using MiniMarket_API.Application.Services.Interfaces;
 using MiniMarket_API.Model.Enums;
 using System.Security.Claims;
@@ -63,7 +64,7 @@ namespace MiniMarket_API.Controllers
             return Ok(getUsers);
         }
 
-        [HttpPut]
+        [HttpPut("profile")]
         public async Task<IActionResult> UpdateMyProfileAsync([FromBody] UpdateUserDto updateUser)
         {
             var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
@@ -75,6 +76,18 @@ namespace MiniMarket_API.Controllers
                 return NotFound("User Update Failed: User Couldn't be Found");
             }
             return Ok(updatedUser);
+        }
+
+        [HttpPut("profile/password")]
+        [Authorize(AuthenticationSchemes = "PasswordRecovery, Bearer")]
+        public async Task<IActionResult> SetNewUserPassword([FromBody] NewPasswordRequestDto newPasswordRequest)
+        {
+            var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
+
+            await _userService.SetNewUserPassword(userId, newPasswordRequest);
+
+            //The return will be an empty Ok or a NoContent.
+            return Ok();
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MiniMarket_API.Application.DTOs.Requests.Credentials;
 using MiniMarket_API.Application.Services.Interfaces;
 
@@ -38,17 +37,5 @@ namespace MiniMarket_API.Controllers
             return NoContent();
         }
 
-        [HttpPut("recovery")]
-        [Authorize(AuthenticationSchemes = "PasswordRecovery")]
-        public async Task<IActionResult> SetNewUserPassword([FromBody] NewPasswordRequestDto newPasswordRequest)
-        {
-            string newPassword = newPasswordRequest.Password;
-
-            //This will be replaced with the actual password update logic down the line.
-            string yourPassword = $"Your new password is {newPassword}";
-
-            //The return will be an empty Ok or a NoContent.
-            return Ok(yourPassword);
-        }
     }
 }

@@ -42,12 +42,9 @@ namespace MiniMarket_API.Application.Services.Implementations
             return mapper.Map<ProductImageView>(savedImage);
         }
 
-        public async Task<ProductImageBasicView?> HandleImageDeletion(Guid productId)
+        public async Task HandleImageDeletion(Guid productId)
         {
-            var deletedImage = await productImageRepository.DeleteImagebyProductIdAsync(productId);
-            if (deletedImage == null) { return null;}
-
-            return mapper.Map<ProductImageBasicView>(deletedImage);
+            await productImageRepository.DeleteImagebyProductIdAsync(productId);
         }
 
         public async Task<ProductImageBasicView?> GetProductImage(Guid productId)

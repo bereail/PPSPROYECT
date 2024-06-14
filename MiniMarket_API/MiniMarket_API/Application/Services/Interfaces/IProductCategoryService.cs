@@ -10,7 +10,7 @@ namespace MiniMarket_API.Application.Services.Interfaces
         Task<CategoryViewProducts?> DeactivateProductCategory(Guid id);
         Task<CategoryView?> RestoreProductCategory(Guid id);
         Task<CategoryViewProducts?> CascadeRestoreProductCategory(Guid id);
-        Task<CategoryView?> EraseProductCategory(Guid id);
+        Task EraseProductCategory(Guid id);
         Task<IEnumerable<CategoryView>?> GetAllCategories(bool? isActive, string? sortBy, bool? isAscending);
         Task<CategoryViewProducts?> GetCategoryCollection(Guid categoryId, bool? isActive, string? filterOn, string? filterQuery,
             string? sortBy, bool? isAscending, int pageNumber, int pageSize);

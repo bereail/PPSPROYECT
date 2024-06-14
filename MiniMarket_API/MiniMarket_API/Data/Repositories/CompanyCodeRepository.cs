@@ -37,16 +37,15 @@ namespace MiniMarket_API.Data.Repositories
             return getCodeToDeactivate;
         }
 
-        public async Task<CompanyCode?> EraseCompanyCodeAsync(Guid id)
+        public async Task EraseCompanyCodeAsync(Guid id)
         {
             var getCodeToErase = await _context.EmployeeCodes.FirstOrDefaultAsync(e => e.Id == id && !e.IsActive);
             if (getCodeToErase == null)
             {
-                return null;
+                return;
             }
             _context.EmployeeCodes.Remove(getCodeToErase);
             await _context.SaveChangesAsync();
-            return getCodeToErase;
         }
 
         public async Task<IEnumerable<CompanyCode>> GetAllCodesAsync()
