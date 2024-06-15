@@ -16,12 +16,12 @@ import { OrderContext } from '../Context/OrderContext';
 
 export default function Cart() {
   const { userEmail } = useContext(AuthContext);
-  const { setOrderId } = useContext(OrderContext);
+  const { setOrderId} = useContext(OrderContext);
   const [cart, setCart] = useState(null);
   const [CartPriceDiscount, SetCartPriceDiscount] = useState();
   const [CartDiscount, SetCartDiscount] = useState();
   const [ButtonMp, SetButtonMp] = useState(false)
-  //const [orderId, setOrderId] = useState(null);
+  
 
   useEffect(() => {
     const cartData = JSON.parse(window.localStorage.getItem(`Cart_${userEmail}`));
@@ -32,7 +32,7 @@ export default function Cart() {
     if (cart) {
       const totaldiscount = cart.products.reduce((acc, product) => {
         // Sumamos el precio de cada producto considerando el precio con descuento y la cantidad
-        return acc + product.discount * product.quantity;
+        return acc + product.discount ;
       }, 0);
 
       const discount = cart.products.reduce((acc, product) => {
@@ -72,6 +72,7 @@ export default function Cart() {
     if (orderId) {
       SetButtonMp(true)
       setOrderId(orderId);
+      window.localStorage.setItem('OrderId', orderId); 
     }
   }
   return (
@@ -89,18 +90,18 @@ export default function Cart() {
 
       {cart && (
         <div>
-          <h2>Tu Carrito</h2>
+          <h2>My Cart</h2>
           <div className="Cart-Products">
             <div className="product-list">
 
               {cart.products.map((product, index) => (
                 <div key={index} className="product-item">
                   <div>
-                    <h3>{product.name}</h3>
-                    <p>Description: {product.description}</p>
-                    <p>Price: {product.price}</p>
-                    <p>With discount: {product.discount}</p>
-                    <p>quantity: {product.quantity}</p>
+                    <h1>{product.name}</h1>
+                    <p><strong>Description:</strong>{product.description}</p>
+                    <p><strong>Price: </strong>{product.price}</p>
+                    <p><strong>With discount: </strong>{product.discount}</p>
+                    <p><strong>quantity: </strong>{product.quantity}</p>
                   </div>
                   <FontAwesomeIcon icon={faTrashCan} style={{ marginLeft: '90%' }} onClick={() => { HandleDeleteProductcart(product.id) }} />
                 </div>
@@ -117,7 +118,7 @@ export default function Cart() {
                 <p> ${CartPriceDiscount}</p>
               </div>
               <button className="Button-Cart" onClick={HandleCreateOrder}>Make an order</button>
-              {ButtonMp && <PayWhitMP/>}
+              {ButtonMp && <> <PayWhitMP/> </>}
             </div>
           </div>
           <button className='Button-Products' onClick={HandleCleanCart}>Clean Cart</button>

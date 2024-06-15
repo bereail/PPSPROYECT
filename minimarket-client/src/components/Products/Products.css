@@ -263,3 +263,19 @@
     margin: 5px;
     padding: 5px;
 }
+
+
+.Page-button{
+    border-style: none;
+    background-color: #c56f28;
+    margin-left: 50px;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 10px;
+}
+@media (max-width: 500px) {
+    .Image-MensageProducts{
+        margin-top: 30px;
+        width: 300px;
+    }
+}

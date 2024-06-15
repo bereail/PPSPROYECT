@@ -66,7 +66,7 @@
 }
 
 .Button-Products {
-  background-color: #D6BF94;
+  background-color: #8F7E5F;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -79,7 +79,7 @@
 }
 
 .Button-Products:hover {
-  background-color: #8F7E5F; 
+  background-color: #584c33; 
 }
 
 .Total-Price {

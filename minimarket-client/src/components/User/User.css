@@ -150,17 +150,17 @@
     max-width: 470px;
     flex-direction: column;
     text-align: justify;
-    padding-right: 30px;
-    padding-left: 25px;
+    padding-right: 40px;
+    padding-left: 20px;
     padding-bottom: 15px;
     padding-top: 25px;
     background-color: #D9D9D9;
     border-radius: 13%;
  }
-
 .Get-address p{
-    margin: 2px;
+    margin: 5px;
     font-size: 20px;
+    
 }
 
 .form-Address{

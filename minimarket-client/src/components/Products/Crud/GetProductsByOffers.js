@@ -8,6 +8,7 @@ const GetProductsByOffers = async (setProducts, setError) => {
         const response = await api.get("/api/products/offers");;
         setProducts(response.data);
         setError(null)
+        
     } catch (error) {
         console.error('Error fetching products:', error);
     }

@@ -4,11 +4,13 @@ import { faUser } from "@fortawesome/free-solid-svg-icons"
 import "./Login.css"
 import { Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthContext';
+import GetUserbyid from '../User/Crud/GetUserbyid';
 const Login = () => {
     const [isExpanded, setIsExpanded] = useState(false);
     const { pathname } = useLocation();
     const [currentPage, SetCurrentPage] = useState("Home");
     const { user, logout } = useContext(AuthContext);
+    const userData = GetUserbyid(); // Obtener el usuario usando el hook GetUserbyid
 
 
     useEffect(() => {
@@ -32,18 +34,22 @@ const Login = () => {
                 SetCurrentPage("");
         }
     }, [pathname]);
-
+    
     const handleLogout = () => {
         logout();
     };
+
     return (
         <div>
             {currentPage !== "Login" && currentPage !== "Register" && currentPage !== "User" && <>
 
                 <button className='MyCount-Container' onMouseEnter={() => setIsExpanded(true)} >
-                    <p style={{ marginBottom: ' 0px' }}> My Account</p>
+                    <p style={{ marginBottom: ' 0px', fontSize: '20px' }}>
+                            {userData ? userData.name : 'My Account'}
+                    </p>
                     <FontAwesomeIcon icon={faUser} className='iconcount-container' />
                 </button>
+              
                 {isExpanded && !user && (
                     <div
                         onMouseLeave={() => setIsExpanded(false)}

@@ -33,13 +33,16 @@ const Products = () => {
   const [showCartUpdate, setShowCartUpdate] = useState(false);
   const { SearchValue } = useContext(SearchContext)
   const [editingProductId, setEditingProductId] = useState(null);
+  const [CompleteInput, SetCompleteInput] = useState(false)
   const [InputValue, setInputValue] = useState({
     name: '',
     description: '',
     price: null,
-    stock: 100,
+    stock: null,
     discount: null
   });
+
+
   const [pageNumber, SetpageNumer] = useState(1)
   useEffect(() => {
     GetProductsByOffers(setProducts, setError)
@@ -107,8 +110,14 @@ const Products = () => {
     }));
   }
 
-  const handleModifyProduct = (productId) =>{   
+  const handleModifyProduct = (productId) =>{  
+    if (InputValue.name === '' || InputValue.description === '' || InputValue.price === null || InputValue.stock === null || InputValue.discount === null) {    
+      SetCompleteInput(true)
+      
+    }else{
       ModifyProducts(InputValue, productId);
+    }
+      
   }
 
   return (
@@ -152,7 +161,7 @@ const Products = () => {
                   {role === 'Seller' && !product.isActive && <FontAwesomeIcon icon={faTrashCanArrowUp} style={{ marginLeft: '10px' }} onClick={() => (RestoreProducts(product.id))} />}
                 </div>
                 : <div>
-                  <input type='text' className="Product-Edit" name='name' placeholder={product.name} onChange={handleInputChange}></input>
+                  <input type='text' className="Product-Edit" name='name' placeholder= "Product Name" onChange={handleInputChange}></input>
                 </div>
               }
 
@@ -165,12 +174,13 @@ const Products = () => {
                   <p className='Product-Offer'>{product.discount !== 0 && `You take it for US$${product.price * (1 - product.discount / 100).toFixed(2)}`}</p>
                 </>
               ) : (<>
-                <input type="text" className='Product-Edit' name='description' placeholder={product.description} onChange={handleInputChange}/>
-                <input type="number" className='Product-Edit' name='price' placeholder={product.price} onChange={handleInputChange}/>
-                <input type="number"  className='Product-Edit' name='discount' placeholder={product.discount} onChange={handleInputChange}/>
+                <input type="text" className='Product-Edit' name='description' placeholder='Product Description' onChange={handleInputChange}/>
+                <input type="number" className='Product-Edit' name='price' placeholder="Product Price" onChange={handleInputChange}/>
+                <input type="number"  className='Product-Edit' name='discount' placeholder= "Product Discount" onChange={handleInputChange}/>
                 <input type="number"  className='Product-Edit'name='stock' placeholder="Stock" onChange={handleInputChange}/>
-                <button className='Product-Edit-button' onClick={()=>{handleModifyProduct(product.id)}}>Enviar</button>
+                <button className='Product-Edit-button' onClick={()=>{handleModifyProduct(product.id)}}>Send</button>
                 {!product.image ? <CreateImageProduct productId={product.id} />: <DeleteImageProduct productId={product.id} ></DeleteImageProduct>}
+                {CompleteInput && <p className='Error'>Complete Data</p>}
                 </>)}
               
               {(role === 'Customer' || !role) && <>
@@ -186,15 +196,15 @@ const Products = () => {
             
           </div>
         ))}
-        {CategoryId !== null && <button onClick={()=>{SetpageNumer(pageNumber - 1)}}>Volver pagina</button>}
-        {CategoryId !== null && <button onClick={()=>{SetpageNumer(pageNumber + 1)}}>Pasar pagina</button>}
          {role === 'Seller' &&<> {CategoryId !== null && <CreaateProduct></CreaateProduct>}</>}
       </div>
       {error && <div>
         <p className='Error-Products'>There are no products in this category.</p>
         <img style={{ width: '350px' }} src={iconerror}></img>
       </div>}
-
+        
+      {CategoryId !== null && pageNumber != 1 && <button className='Page-button' onClick={()=>{SetpageNumer(pageNumber - 1)}}>previous page</button>}
+      {CategoryId !== null  && !error && <button className='Page-button' onClick={()=>{SetpageNumer(pageNumber + 1)}}>Next page</button>}
       {role === 'Seller' && <div className='Products-Seller'>
         <CreateCategory></CreateCategory>
       </div>}

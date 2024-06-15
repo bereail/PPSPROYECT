@@ -8,6 +8,7 @@ const DisabelProduct = async(product) => {
     try{
       await api.delete(`/api/products/${product}`)
       removeProducstFromCarts(product)
+      window.location.reload();
     }catch(error){
       console.log('Error disabel products:', error)
     }

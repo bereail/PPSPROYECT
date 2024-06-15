@@ -80,19 +80,19 @@ const AppContent = () => {
 };
 
 const App = () => (
-
+  <OrderProvider>
   <ThemeProvider>
     <AuthProvider>
-      <OrderProvider>
+      
         <CategoryProvider>
           <SearchProvider>
             <AppContent />
           </SearchProvider>
           <CustomChatbot />
         </CategoryProvider>
-      </OrderProvider>
     </AuthProvider>
   </ThemeProvider>
+  </OrderProvider>
 
 );
 
