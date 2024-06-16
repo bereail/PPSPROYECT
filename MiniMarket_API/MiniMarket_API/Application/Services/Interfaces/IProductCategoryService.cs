@@ -6,7 +6,7 @@ namespace MiniMarket_API.Application.Services.Interfaces
     public interface IProductCategoryService
     {
         Task<CategoryView> CreateProductCategory(AddCategoryDto addCategoryDto);
-        Task<CategoryView?> UpdateProductCategory(Guid id, UpdateCategoryDto updateCategoryDto);
+        Task<CategoryView?> UpdateProductCategory(Guid id, AddCategoryDto updateCategoryDto);
         Task<CategoryViewProducts?> DeactivateProductCategory(Guid id);
         Task<CategoryView?> RestoreProductCategory(Guid id);
         Task<CategoryViewProducts?> CascadeRestoreProductCategory(Guid id);

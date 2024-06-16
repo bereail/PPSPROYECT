@@ -12,6 +12,9 @@ namespace MiniMarket_API.Model.Entities
         [Column(TypeName = "nvarchar(75)")]
         public string Email { get; set; }
 
+        //[Column(TypeName = "binary(32)")]
+        //public byte[] Password { get; set; }
+
         [Column(TypeName = "nvarchar(300)")]
         public string Password { get; set; }
 

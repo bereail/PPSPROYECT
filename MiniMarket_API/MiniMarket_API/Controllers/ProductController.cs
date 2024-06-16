@@ -20,7 +20,7 @@ namespace MiniMarket_API.Controllers
 
         [HttpPut("{productId}")]
         [Authorize]
-        public async Task<IActionResult> UpdateProductAsync([FromRoute] Guid productId, [FromBody] UpdateProductDto updateProduct)
+        public async Task<IActionResult> UpdateProductAsync([FromRoute] Guid productId, [FromBody] AddProductDto updateProduct)
         {
             var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 
@@ -113,6 +113,18 @@ namespace MiniMarket_API.Controllers
             }
 
             return Ok(getProducts);
+        }
+
+        [HttpGet("{productId}")]
+        public async Task<IActionResult> GetProductByIdAsync([FromRoute] Guid productId)
+        {
+            var getProduct = await productService.GetProductById(productId);
+            if (getProduct == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(getProduct);
         }
 
         [HttpGet("offers")]

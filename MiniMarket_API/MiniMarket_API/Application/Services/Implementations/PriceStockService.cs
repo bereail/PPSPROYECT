@@ -2,7 +2,6 @@
 using MiniMarket_API.Application.Services.Interfaces;
 using MiniMarket_API.Data.Interfaces;
 using MiniMarket_API.Model.Entities;
-using System.Diagnostics;
 
 namespace MiniMarket_API.Application.Services.Implementations
 {

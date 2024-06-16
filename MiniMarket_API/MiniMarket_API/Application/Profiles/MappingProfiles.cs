@@ -49,10 +49,6 @@ namespace MiniMarket_API.Application.Profiles
 
             CreateMap<AddCompanyCodeDto, CompanyCode>().ReverseMap();
 
-            CreateMap<UpdateCategoryDto, ProductCategory>().ReverseMap();
-
-            CreateMap<UpdateProductDto, Product>().ReverseMap();
-
             CreateMap<CreateSellerDto, Seller>().ReverseMap();
 
             CreateMap<CreateUserDto, Customer>().ReverseMap();

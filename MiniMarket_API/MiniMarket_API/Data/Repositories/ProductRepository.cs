@@ -33,6 +33,7 @@ namespace MiniMarket_API.Data.Repositories
             getProduct.Description = product.Description;
             getProduct.Price = product.Price;
             getProduct.Stock = product.Stock;
+            getProduct.Discount = product.Discount;
 
             await _context.SaveChangesAsync();
             return getProduct;

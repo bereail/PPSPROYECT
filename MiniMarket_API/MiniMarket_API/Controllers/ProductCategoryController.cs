@@ -36,6 +36,21 @@ namespace MiniMarket_API.Controllers
             
         }
 
+        [HttpPut("{categoryId}")]
+        [Authorize]
+        public async Task<IActionResult> UpdateProductCategoryAsync([FromRoute] Guid categoryId, [FromBody] AddCategoryDto addCategory)
+        {
+            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            if (userRole == typeof(Seller).Name || userRole == typeof(SuperAdmin).Name)
+            {
+                var updatedCategory = await _productCategoryService.UpdateProductCategory(categoryId, addCategory);
+                return Ok(updatedCategory);
+            }
+
+            return Forbid();
+        }
+
         [HttpDelete("{categoryId}")]
         public async Task<IActionResult> DeactivateProductCategoryAsync([FromRoute] Guid categoryId)
         {
@@ -107,8 +122,6 @@ namespace MiniMarket_API.Controllers
             return Forbid();
         }
 
-
-
         [HttpPost("{categoryId}/products")]
         [Authorize]
         public async Task<IActionResult> CreateProductAsync([FromRoute] Guid categoryId, [FromBody] AddProductDto addProduct)
@@ -127,7 +140,6 @@ namespace MiniMarket_API.Controllers
 
             return Forbid();
         }
-
 
         [HttpGet]
         public async Task<IActionResult> GetAllCategoriesAsync([FromQuery] bool? isActive, [FromQuery] string? sortBy = null, [FromQuery] bool isAscending = true)

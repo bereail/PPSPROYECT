@@ -6,5 +6,7 @@ namespace MiniMarket_API.Application.Services.Interfaces
     {
         Task<string?> Authenticate(LoginRequestDTO loginRequest);
         Task HandlePasswordRecoveryRequest(string email);
+
+        byte[] PasswordHasher(string password);
     }
 }

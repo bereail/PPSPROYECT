@@ -17,6 +17,10 @@ namespace MiniMarket_API.Controllers
             _deliveryAddressService = deliveryAddressService;
         }
 
+        public UserAddressController()
+        {
+        }
+
         [HttpPut]
         public async Task<IActionResult> AddNewDeliveryAddressAsync([FromBody] AddDeliveryAddressDto addDeliveryAddress)
         {
@@ -64,7 +68,8 @@ namespace MiniMarket_API.Controllers
             return NotFound("You have no current Address.");
         }
 
-        private void AddressValidation (AddDeliveryAddressDto addDeliveryAddress)
+        [NonAction]
+        public void AddressValidation (AddDeliveryAddressDto addDeliveryAddress)
         {
             var validProvinces = new string[] { "Buenos Aires", "Ciudad Autónoma De Buenos Aires", "Catamarca", "Chaco", "Chubut",
                 "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza, Misiones",

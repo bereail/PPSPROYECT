@@ -12,7 +12,7 @@ namespace MiniMarket_API.Application.DTOs.Requests
         [StringLength(45, MinimumLength = 3, ErrorMessage = "City must be at least 3 characters, or shorter than 45 characters.")]
         public string City { get; set; }
 
-        [Required(ErrorMessage = "City is Required.")]
+        [Required(ErrorMessage = "Street is Required.")]
         [StringLength(60, MinimumLength = 3, ErrorMessage = "Street must be at least 3 characters, or shorter than 60 characters.")]
         public string Street { get; set; }
 

@@ -19,6 +19,10 @@ namespace MiniMarket_API.Controllers
             this.productImageService = productImageService;
         }
 
+        public ProductImageController()
+        {
+        }
+
         [HttpPost]
         public async Task<IActionResult> UploadProductImageAsynC([FromRoute] Guid productId, [FromForm] AddProductImageDto addProductImage)
         {
@@ -57,7 +61,8 @@ namespace MiniMarket_API.Controllers
             return Forbid();
         }
 
-        private void FileValidation(AddProductImageDto addProductImage)
+        [NonAction]
+        public void FileValidation(AddProductImageDto addProductImage)
         {
             var allowedExtensions = new string[] { ".jpg", ".jpeg", ".png" };
 

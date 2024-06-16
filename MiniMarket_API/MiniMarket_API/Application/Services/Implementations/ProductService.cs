@@ -42,7 +42,7 @@ namespace MiniMarket_API.Application.Services.Implementations
             return _mapper.Map<ProductView>(productToCreate);
         }
 
-        public async Task<ProductView?> UpdateProduct(Guid id, UpdateProductDto updateProductDto)
+        public async Task<ProductView?> UpdateProduct(Guid id, AddProductDto updateProductDto)
         {
             var productToUpdate = _mapper.Map<Product>(updateProductDto);
             productToUpdate = await _productRepository.UpdateProductAsync(id, productToUpdate);

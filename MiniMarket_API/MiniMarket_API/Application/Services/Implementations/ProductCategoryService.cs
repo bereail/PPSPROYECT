@@ -30,7 +30,7 @@ namespace MiniMarket_API.Application.Services.Implementations
             return mapper.Map<CategoryView>(categoryToCreate);
         }
 
-        public async Task<CategoryView?> UpdateProductCategory(Guid id, UpdateCategoryDto updateCategoryDto)
+        public async Task<CategoryView?> UpdateProductCategory(Guid id, AddCategoryDto updateCategoryDto)
         {
             var categoryToUpdate = mapper.Map<ProductCategory>(updateCategoryDto);
             categoryToUpdate = await _categoryRepository.UpdateProductCategoryAsync(id, categoryToUpdate);

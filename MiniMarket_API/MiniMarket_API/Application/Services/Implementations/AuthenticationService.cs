@@ -7,6 +7,7 @@ using MiniMarket_API.Model.Entities;
 using MiniMarket_API.Data.Interfaces;
 using MiniMarket_API.Model.Exceptions;
 using MiniMarket_API.Application.DTOs.Requests.Credentials;
+using System.Security.Cryptography;
 
 namespace MiniMarket_API.Application.Services.Implementations
 {
@@ -32,6 +33,8 @@ namespace MiniMarket_API.Application.Services.Implementations
 
             //We wait for the GetUserByEmail to find the user
             var user = await _userRepository.GetUserByEmailAsync(loginRequest.Email);
+
+            //var passwordHash = PasswordHasher(loginRequest.Password);
 
             //We check that the user we retrieved matches the data from the request
             if (user != null && user.Password == loginRequest.Password) return user;
@@ -136,6 +139,16 @@ namespace MiniMarket_API.Application.Services.Implementations
                 $"If you didn't request for password recovery, you can ignore this message.";
 
             await _emailSenderService.SendEmailAsync(receivingEmail, subject, message);
+        }
+
+        public byte[] PasswordHasher(string password)
+        {
+            SHA256 sha256 = SHA256.Create();
+            byte[] hashValue;
+            UTF8Encoding objUtf8 = new UTF8Encoding();
+            hashValue = sha256.ComputeHash(objUtf8.GetBytes(password));
+
+            return hashValue;
         }
     }
 }
