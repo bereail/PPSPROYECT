@@ -3,6 +3,7 @@ import GetProductBySearch from '../../Products/Crud/GetProductBySearch'
 import './ProductTable.css'
 import ModifyProducts from '../../Products/Crud/ModifyProducts'
 const ProductsTable = () => {
+    const SearchValue = ''
     const [error, setError] = useState()
     const [Products, setProducts] = useState([])
     const [EditProductId, setEditProductId] = useState(null);
@@ -15,7 +16,7 @@ const ProductsTable = () => {
         discount: null
       });
       useEffect(() => {
-        GetProductBySearch(setProducts, setError, pageNumber)
+        GetProductBySearch(setProducts, setError,SearchValue, pageNumber)
 
     }, [pageNumber])
       const handleInputChange = (e) => {

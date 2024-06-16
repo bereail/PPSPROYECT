@@ -6,6 +6,7 @@ const GetProductBySearch = async(setProducts, setError, SearchValue, pageNumber)
         console.log(SearchValue)
         const response = await api.get(`/api/products`, {
             params: { 
+                filterOn: 'Name',
                 filterQuery: SearchValue,
                 pageNumber: pageNumber
               }

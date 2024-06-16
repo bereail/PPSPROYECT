@@ -1,29 +1,29 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\",
+  "WorkspaceRootPath": "C:\\Users\\sebas\\Desktop\\PPSPROYECT\\MiniMarket_API\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\git stuff\\ppsproyect\\ppsproyect\\minimarket_api\\minimarket_api\\controllers\\orderpaymentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|solutionrelative:minimarket_api\\controllers\\orderpaymentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\git stuff\\ppsproyect\\ppsproyect\\minimarket_api\\minimarket_api\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|solutionrelative:minimarket_api\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\git stuff\\ppsproyect\\ppsproyect\\minimarket_api\\minimarket_api\\controllers\\useraddresscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|solutionrelative:minimarket_api\\controllers\\useraddresscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\git stuff\\ppsproyect\\ppsproyect\\minimarket_api\\minimarket_api\\controllers\\saleordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|solutionrelative:minimarket_api\\controllers\\saleordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\git stuff\\ppsproyect\\ppsproyect\\minimarket_api\\minimarket_api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\users\\sebas\\desktop\\ppsproyect\\minimarket_api\\minimarket_api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|solutionrelative:minimarket_api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\git stuff\\ppsproyect\\ppsproyect\\minimarket_api\\minimarket_api\\minimarket_api.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\users\\sebas\\desktop\\ppsproyect\\minimarket_api\\minimarket_api\\controllers\\orderpaymentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|solutionrelative:minimarket_api\\controllers\\orderpaymentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\users\\sebas\\desktop\\ppsproyect\\minimarket_api\\minimarket_api\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|solutionrelative:minimarket_api\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\users\\sebas\\desktop\\ppsproyect\\minimarket_api\\minimarket_api\\controllers\\useraddresscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|solutionrelative:minimarket_api\\controllers\\useraddresscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\users\\sebas\\desktop\\ppsproyect\\minimarket_api\\minimarket_api\\controllers\\saleordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|solutionrelative:minimarket_api\\controllers\\saleordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|c:\\users\\sebas\\desktop\\ppsproyect\\minimarket_api\\minimarket_api\\minimarket_api.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
       "RelativeMoniker": "D:0:0:{A53D08DA-AF49-4D86-ACA2-0A338558108D}|MiniMarket_API\\MiniMarket_API.csproj|solutionrelative:minimarket_api\\minimarket_api.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
     }
   ],
@@ -34,8 +34,12 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 11,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:3:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
@@ -62,36 +66,23 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "OrderPaymentController.cs",
-              "DocumentMoniker": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Controllers\\OrderPaymentController.cs",
-              "RelativeDocumentMoniker": "MiniMarket_API\\Controllers\\OrderPaymentController.cs",
-              "ToolTip": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Controllers\\OrderPaymentController.cs",
-              "RelativeToolTip": "MiniMarket_API\\Controllers\\OrderPaymentController.cs",
-              "ViewState": "AQIAACEAAAAAAAAAAAAowAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-13T19:34:23.105Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "AuthenticationController.cs",
-              "DocumentMoniker": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Controllers\\AuthenticationController.cs",
-              "RelativeDocumentMoniker": "MiniMarket_API\\Controllers\\AuthenticationController.cs",
-              "ToolTip": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Controllers\\AuthenticationController.cs",
-              "RelativeToolTip": "MiniMarket_API\\Controllers\\AuthenticationController.cs",
-              "ViewState": "AQIAABsAAAAAAAAAAAAowAAAAAAAAAAA",
+              "Title": "OrderPaymentController.cs",
+              "DocumentMoniker": "C:\\Users\\sebas\\Desktop\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Controllers\\OrderPaymentController.cs",
+              "RelativeDocumentMoniker": "MiniMarket_API\\Controllers\\OrderPaymentController.cs",
+              "ToolTip": "C:\\Users\\sebas\\Desktop\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Controllers\\OrderPaymentController.cs",
+              "RelativeToolTip": "MiniMarket_API\\Controllers\\OrderPaymentController.cs",
+              "ViewState": "AQIAACEAAAAAAAAAAAAowEEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-13T15:18:11.565Z"
+              "WhenOpened": "2024-06-13T19:34:23.105Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "UserAddressController.cs",
-              "DocumentMoniker": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Controllers\\UserAddressController.cs",
+              "DocumentMoniker": "C:\\Users\\sebas\\Desktop\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Controllers\\UserAddressController.cs",
               "RelativeDocumentMoniker": "MiniMarket_API\\Controllers\\UserAddressController.cs",
-              "ToolTip": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Controllers\\UserAddressController.cs",
+              "ToolTip": "C:\\Users\\sebas\\Desktop\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Controllers\\UserAddressController.cs",
               "RelativeToolTip": "MiniMarket_API\\Controllers\\UserAddressController.cs",
               "ViewState": "AQIAAAkAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -99,11 +90,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "SaleOrderController.cs",
-              "DocumentMoniker": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Controllers\\SaleOrderController.cs",
+              "DocumentMoniker": "C:\\Users\\sebas\\Desktop\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Controllers\\SaleOrderController.cs",
               "RelativeDocumentMoniker": "MiniMarket_API\\Controllers\\SaleOrderController.cs",
-              "ToolTip": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Controllers\\SaleOrderController.cs",
+              "ToolTip": "C:\\Users\\sebas\\Desktop\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Controllers\\SaleOrderController.cs",
               "RelativeToolTip": "MiniMarket_API\\Controllers\\SaleOrderController.cs",
               "ViewState": "AQIAADQAAAAAAAAAAAAswEYAAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -113,9 +104,9 @@
               "$type": "Document",
               "DocumentIndex": 5,
               "Title": "MiniMarket_API.http",
-              "DocumentMoniker": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\MiniMarket_API.http",
+              "DocumentMoniker": "C:\\Users\\sebas\\Desktop\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\MiniMarket_API.http",
               "RelativeDocumentMoniker": "MiniMarket_API\\MiniMarket_API.http",
-              "ToolTip": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\MiniMarket_API.http",
+              "ToolTip": "C:\\Users\\sebas\\Desktop\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\MiniMarket_API.http",
               "RelativeToolTip": "MiniMarket_API\\MiniMarket_API.http",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
@@ -123,15 +114,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\appsettings.json",
+              "DocumentMoniker": "C:\\Users\\sebas\\Desktop\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\appsettings.json",
               "RelativeDocumentMoniker": "MiniMarket_API\\appsettings.json",
-              "ToolTip": "C:\\Git stuff\\PPSProyect\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\appsettings.json",
+              "ToolTip": "C:\\Users\\sebas\\Desktop\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\appsettings.json",
               "RelativeToolTip": "MiniMarket_API\\appsettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAA1AAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-06-13T03:46:37.918Z"
+              "WhenOpened": "2024-06-13T03:46:37.918Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AuthenticationController.cs",
+              "DocumentMoniker": "C:\\Users\\sebas\\Desktop\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Controllers\\AuthenticationController.cs",
+              "RelativeDocumentMoniker": "MiniMarket_API\\Controllers\\AuthenticationController.cs",
+              "ToolTip": "C:\\Users\\sebas\\Desktop\\PPSPROYECT\\MiniMarket_API\\MiniMarket_API\\Controllers\\AuthenticationController.cs",
+              "RelativeToolTip": "MiniMarket_API\\Controllers\\AuthenticationController.cs",
+              "ViewState": "AQIAABsAAAAAAAAAAAAowAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-13T15:18:11.565Z"
             }
           ]
         }

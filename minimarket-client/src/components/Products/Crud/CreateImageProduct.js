@@ -12,7 +12,7 @@ const CreateImageProduct = ({productId}) => {
 
       return;
     }
-
+      
     const formData = new FormData();
     formData.append('productd', productId);
     formData.append('ImageFile', selectedFile);
@@ -28,7 +28,6 @@ const CreateImageProduct = ({productId}) => {
       console.log(selectedFile)
       console.log(productId)
       await api.post(`/api/products/${productId}/images`, formData, config);
-      alert('FUNCIONA')
       window.location.reload();
     } catch (error) {
       console.error('Error add image', error);

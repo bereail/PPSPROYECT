@@ -9,7 +9,7 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Navbar from '../Navbar/Navbar';
 import api from '../../api';
-import CreateOrder from '../../Orders/CreateOrder';
+import CreateOrder from '../Orders/CreateOrder';
 import PayWhitMP from '../PayWhitMP/PayWhitMP';
 import { OrderContext } from '../Context/OrderContext';
 
