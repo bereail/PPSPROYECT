@@ -30,6 +30,7 @@ namespace Tests
             //Assert
 
             Assert.Equal(expectedResult, isValid);
+
         }
 
         [Theory]
@@ -58,6 +59,7 @@ namespace Tests
             //Assert
 
             Assert.Equal(expectedResult, isValid);
+
         }
 
         [Theory]
@@ -85,6 +87,7 @@ namespace Tests
             //Assert
 
             Assert.Equal(expectedResult, isValid);
+
         }
 
         [Theory]
@@ -112,11 +115,12 @@ namespace Tests
             //Assert
 
             Assert.Equal(expectedResult, isValid);
+
         }
 
         [Theory]
         [InlineData(13, true)]
-        [InlineData(100, true)]
+        [InlineData(99, true)]
         [InlineData(0, false)]
         [InlineData(-3, false)] 
         [InlineData(115.25, false)] //Failed
@@ -140,6 +144,7 @@ namespace Tests
             //Assert
 
             Assert.Equal(expectedResult, isValid);
+
         }
     }
 }

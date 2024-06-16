@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using MiniMarket_API.Application.DTOs.Requests;
+using MiniMarket_API.Application.Services.Interfaces;
 using MiniMarket_API.Controllers;
+using Moq;
 using System.Text;
 
 namespace Tests
@@ -12,7 +14,9 @@ namespace Tests
         {
             //Arrange
 
-            var controller = new ProductImageController();
+            var mockService = new Mock<IProductImageService>();
+
+            var controller = new ProductImageController(mockService.Object);
 
             string fileName = "Coca.png";
             int size = 5000;
@@ -38,7 +42,9 @@ namespace Tests
         {
             //Arrange
 
-            var controller = new ProductImageController();
+            var mockService = new Mock<IProductImageService>();
+
+            var controller = new ProductImageController(mockService.Object);
 
             string fileName = "Coca.gif";
             int size = 5000;
@@ -63,7 +69,9 @@ namespace Tests
         {
             //Arrange
 
-            var controller = new ProductImageController();
+            var mockService = new Mock<IProductImageService>();
+
+            var controller = new ProductImageController(mockService.Object);
 
             string fileName = "Coca.png";
             int size = 5242883;

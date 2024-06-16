@@ -17,10 +17,6 @@ namespace MiniMarket_API.Controllers
             _deliveryAddressService = deliveryAddressService;
         }
 
-        public UserAddressController()
-        {
-        }
-
         [HttpPut]
         public async Task<IActionResult> AddNewDeliveryAddressAsync([FromBody] AddDeliveryAddressDto addDeliveryAddress)
         {

@@ -19,10 +19,6 @@ namespace MiniMarket_API.Controllers
             this.productImageService = productImageService;
         }
 
-        public ProductImageController()
-        {
-        }
-
         [HttpPost]
         public async Task<IActionResult> UploadProductImageAsynC([FromRoute] Guid productId, [FromForm] AddProductImageDto addProductImage)
         {

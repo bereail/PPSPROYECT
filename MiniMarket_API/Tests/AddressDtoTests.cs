@@ -1,5 +1,7 @@
 ﻿using MiniMarket_API.Application.DTOs.Requests;
+using MiniMarket_API.Application.Services.Interfaces;
 using MiniMarket_API.Controllers;
+using Moq;
 using System.ComponentModel.DataAnnotations;
 
 namespace Tests
@@ -29,6 +31,7 @@ namespace Tests
             //Assert
 
             Assert.Equal(expectedResult, isValid);
+
         }
 
         [Theory]
@@ -41,11 +44,14 @@ namespace Tests
         {
             //Arrange
 
+            var mockService = new Mock<IDeliveryAddressService>();
+
+            var controller = new UserAddressController(mockService.Object);
+
             var dto = new AddDeliveryAddressDto
             {
                 Province = provinceName,
             };
-            var controller = new UserAddressController();
 
             //Act
 
@@ -54,6 +60,7 @@ namespace Tests
             //Assert
 
             Assert.Equal(controller.ModelState.IsValid, expectedResult);
+
         }
 
         [Theory]
@@ -79,6 +86,7 @@ namespace Tests
             //Assert
 
             Assert.Equal(expectedResult, isValid);
+
         }
 
         [Theory]
@@ -104,6 +112,7 @@ namespace Tests
             //Assert
 
             Assert.Equal(expectedResult, isValid);
+
         }
 
         [Theory]
@@ -128,6 +137,7 @@ namespace Tests
             //Assert
 
             Assert.Equal(expectedResult, isValid);
+
         }
 
         [Theory]
@@ -153,6 +163,7 @@ namespace Tests
             //Assert
 
             Assert.Equal(expectedResult, isValid);
+
         }
     }
 }
