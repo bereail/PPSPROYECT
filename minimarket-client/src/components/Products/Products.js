@@ -52,7 +52,7 @@ const Products = () => {
 
   useEffect(() => {
     if (CategoryId !== null) {
-      GetProductsByCategory(CategoryId, isActive, setProducts, setError, isAscendingOption, SortbydOption, pageNumber); 
+      GetProductsByCategory(CategoryId, isActive, setProducts, setError, isAscendingOption, SortbydOption, pageNumber);
     }
 
   }, [CategoryId, isActive, isAscendingOption, pageNumber]);
@@ -110,38 +110,41 @@ const Products = () => {
     }));
   }
 
-  const handleModifyProduct = (productId) =>{  
-    if (InputValue.name === '' || InputValue.description === '' || InputValue.price === null || InputValue.stock === null || InputValue.discount === null) {    
+  const handleModifyProduct = (productId) => {
+    if (InputValue.name === '' || InputValue.description === '' || InputValue.price === null || InputValue.stock === null || InputValue.discount === null) {
       SetCompleteInput(true)
-      
-    }else{
+
+    } else {
       ModifyProducts(InputValue, productId);
     }
-      
+
   }
 
   return (
     <div>
       {showCartUpdate && <div className="cart-update-notification">Cart updated successfully!</div>}
 
-      <div className='Select-order'>
-        <img src={FotoMensaje} className='Image-MensageProducts'></img>
-        {CategoryId !== null && <>
-          <select id="opciones" name="opciones" value={SortbydOption} onChange={(e) => {SetSortbydOption(e.target.value)}}>
-            <option value='' disabled selected>Sort by:</option>
-            <option value="Name">Name</option>
-            <option value="Price">Price</option>
-            <option value="Discount">Discount</option>
-          </select>
-          {SortbydOption &&
-            <select id="opciones" name="opciones" value={isAscendingOption} onChange={(e) => { SetisAscendingOption(e.target.value) }}>
-              <option value='' disabled selected>Sort order</option>
-              <option value={true}>Ascending</option>
-              <option value={false}>descending</option>
-            </select>
-          }
-        </>}
-
+      <div>
+        <img src={FotoMensaje} className='Image-MensageProducts' />
+        <div className='Select-order'>
+          {CategoryId !== null && (
+            <>
+              <select id="opciones" name="opciones" value={SortbydOption} onChange={(e) => { SetSortbydOption(e.target.value) }}>
+                <option value='' disabled selected>Sort by:</option>
+                <option value="Name">Name</option>
+                <option value="Price">Price</option>
+                <option value="Discount">Discount</option>
+              </select>
+              {SortbydOption &&
+                <select id="opciones" name="opciones" value={isAscendingOption} onChange={(e) => { SetisAscendingOption(e.target.value) }}>
+                  <option value='' disabled selected>Sort order</option>
+                  <option value={true}>Ascending</option>
+                  <option value={false}>descending</option>
+                </select>
+              }
+            </>
+          )}
+        </div>
       </div>
       {role === 'Seller' && CategoryId !== null && <button className='Button-Desactive-Product' onClick={() => { SetisActive(!isActive) }}>Diabel Products</button>}
 
@@ -161,7 +164,7 @@ const Products = () => {
                   {role === 'Seller' && !product.isActive && <FontAwesomeIcon icon={faTrashCanArrowUp} style={{ marginLeft: '10px' }} onClick={() => (RestoreProducts(product.id))} />}
                 </div>
                 : <div>
-                  <input type='text' className="Product-Edit" name='name' placeholder= "Product Name" onChange={handleInputChange}></input>
+                  <input type='text' className="Product-Edit" name='name' placeholder="Product Name" onChange={handleInputChange}></input>
                 </div>
               }
 
@@ -174,15 +177,15 @@ const Products = () => {
                   <p className='Product-Offer'>{product.discount !== 0 && `You take it for US$${product.price * (1 - product.discount / 100).toFixed(2)}`}</p>
                 </>
               ) : (<>
-                <input type="text" className='Product-Edit' name='description' placeholder='Product Description' onChange={handleInputChange}/>
-                <input type="number" className='Product-Edit' name='price' placeholder="Product Price" onChange={handleInputChange}/>
-                <input type="number"  className='Product-Edit' name='discount' placeholder= "Product Discount" onChange={handleInputChange}/>
-                <input type="number"  className='Product-Edit'name='stock' placeholder="Stock" onChange={handleInputChange}/>
-                <button className='Product-Edit-button' onClick={()=>{handleModifyProduct(product.id)}}>Send</button>
-                {!product.image ? <CreateImageProduct productId={product.id} />: <DeleteImageProduct productId={product.id} ></DeleteImageProduct>}
+                <input type="text" className='Product-Edit' name='description' placeholder='Product Description' onChange={handleInputChange} />
+                <input type="number" className='Product-Edit' name='price' placeholder="Product Price" onChange={handleInputChange} />
+                <input type="number" className='Product-Edit' name='discount' placeholder="Product Discount" onChange={handleInputChange} />
+                <input type="number" className='Product-Edit' name='stock' placeholder="Stock" onChange={handleInputChange} />
+                <button className='Product-Edit-button' onClick={() => { handleModifyProduct(product.id) }}>Send</button>
+                {!product.image ? <CreateImageProduct productId={product.id} /> : <DeleteImageProduct productId={product.id} ></DeleteImageProduct>}
                 {CompleteInput && <p className='Error'>Complete Data</p>}
-                </>)}
-              
+              </>)}
+
               {(role === 'Customer' || !role) && <>
                 <div className='Container-Button-Products'>
                   <button onClick={() => handleQuantityChange(product.id, Math.max(quantities[product.id] - 1, 1))}>-</button>
@@ -191,20 +194,20 @@ const Products = () => {
                 </div>
                 <button className='Add-Product' onClick={() => AddCartHandler(product)}>Add</button>
               </>}
-              
+
             </div>
-            
+
           </div>
         ))}
-         {role === 'Seller' &&<> {CategoryId !== null && <CreaateProduct></CreaateProduct>}</>}
+        {role === 'Seller' && <> {CategoryId !== null && <CreaateProduct></CreaateProduct>}</>}
       </div>
       {error && <div>
         <p className='Error-Products'>There are no products in this category.</p>
         <img style={{ width: '350px' }} src={iconerror}></img>
       </div>}
-        
-      {CategoryId !== null && pageNumber != 1 && <button className='Page-button' onClick={()=>{SetpageNumer(pageNumber - 1)}}>previous page</button>}
-      {CategoryId !== null  && !error && <button className='Page-button' onClick={()=>{SetpageNumer(pageNumber + 1)}}>Next page</button>}
+
+      {CategoryId !== null && pageNumber != 1 && <button className='Page-button' onClick={() => { SetpageNumer(pageNumber - 1) }}>previous page</button>}
+      {CategoryId !== null && !error && <button className='Page-button' onClick={() => { SetpageNumer(pageNumber + 1) }}>Next page</button>}
       {role === 'Seller' && <div className='Products-Seller'>
         <CreateCategory></CreateCategory>
       </div>}

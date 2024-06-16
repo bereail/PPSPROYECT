@@ -1,0 +1,193 @@
+
+
+.Container-Table {
+    max-width: 400px;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+  }
+  
+  .Container-Table th {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  .Container-Table th, td {
+    padding: 2px;
+    text-align: left;
+  }
+  .Container-Table tr:hover {
+    background-color: #ddd;
+  }
+  .Value-Table input{
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  
+  .Value-Table button {
+    border: none;
+    color: rgb(104, 102, 102);
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: background-color 0.3s ease;
+}
+.Button-Edit-Table{
+    background-color: #69b6216c; 
+}
+.Button-Edit-Table:hover {
+    background-color: #45a04967; 
+}
+.Button-Delete-Table{
+    background-color: #f81717c0
+}
+.Button-Delete-Table:hover{
+    background-color: #ff0000d5
+}
+.Container-Table {
+  max-width: 600px;
+  margin: 20px auto;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+}
+
+.Container-Table th {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px;
+}
+
+.Container-Table th, .Container-Table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.Container-Table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.no-products {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+  color: #555;
+}
+
+.OrderDetails {
+  max-width: 600px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.OrderDetails h2 {
+  margin-bottom: 20px;
+  color: #4CAF50;
+}
+
+.OrderDetails p {
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+.OrderDetails h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.OrderItem {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #f9f9f9;
+}
+
+.BackButton {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.BackButton:hover {
+  background-color: #45a049;
+}
+
+
+.form-container {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-container label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.form-container input[type='text'],
+.form-container input[type='email'],
+.form-container input[type='password'],
+.form-container input[type='tel'] {
+  width: calc(100% - 20px); 
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; 
+}
+
+.form-container button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-container button:hover {
+  background-color: #0056b3;
+}
+
+
+@media (max-width: 900px) {
+  .Container-Table,
+  .OrderDetails,
+  .form-container {
+      display: none;
+  }
+}

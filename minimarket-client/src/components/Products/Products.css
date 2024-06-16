@@ -273,9 +273,22 @@
     font-size: 20px;
     border-radius: 10px;
 }
+
+
+
+
 @media (max-width: 500px) {
-    .Image-MensageProducts{
-        margin-top: 30px;
-        width: 300px;
+    .Image-MensageProducts {
+      margin-top: 30px;
+      width: 300px;
     }
-}
+  
+    .Select-order {
+      margin-top: 10px;
+      width: 100%; /* Ensure it takes full width on smaller screens */
+    }
+  
+    .Select-order img {
+      width: 100%; /* Adjust image width for smaller screens */
+    }
+  }

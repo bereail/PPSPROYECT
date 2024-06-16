@@ -292,4 +292,18 @@
         margin: 0;
         padding: 0;
       }
-      
+      @media (max-width: 900px) {
+        .Userdetails,
+        .UserProfile,
+        .form-Address,
+        .email-section,
+        .chat-history-container,
+        .Buton-Admin,
+        .Return-Button,
+        .ModifyPassword,
+        .UserOrder,
+        .DeleteUser,
+        .ShowEmail {
+            display: none;
+        }
+    }      

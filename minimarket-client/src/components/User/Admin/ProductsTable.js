@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import GetProductBySearch from '../../Products/Crud/GetProductBySearch'
-import './ProductTable.css'
+import './AdminTable.css'
 import ModifyProducts from '../../Products/Crud/ModifyProducts'
 const ProductsTable = () => {
     const SearchValue = ''

@@ -1,17 +1,13 @@
-import React from 'react'
-import api from '../api'
+import api from '../../api';
 
-const GetOrder = async() => {
-    try{
-        await api.get('/api/orders')
-    }catch(error){
-        console.log('error fetching order',error)
+const GetOrder = async () => {
+    try {
+        const response = await api.get('/api/orders');
+        return response.data;
+    } catch (error) {
+        console.log('error fetching order', error);
+        return null;
     }
-  return (
-    <div>
-      
-    </div>
-  )
-}
+};
 
-export default GetOrder
+export default GetOrder;
