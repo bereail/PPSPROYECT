@@ -14,6 +14,7 @@ import { AuthContext } from '../Context/AuthContext';
 import AddAdressUser from './Crud/AddAdressUser';
 import AdminManagement from '../Admin/AdminManagement';
 import Chathistory from '../ChatBot/Chathistory';
+import AdminTable from './Crud/AdminTable';
 
 const User = () => {
     const { theme } = useContext(ThemeContext);
@@ -21,7 +22,6 @@ const User = () => {
     const [activeButton, setActiveButton] = useState('');
 
     const [emails, setEmails] = useState([]);
-    const [showEmails, setShowEmails] = useState(false);
     const [showChathistory, setShowChathistory] = useState(false);
     const user = GetUserbyid();
 
@@ -47,7 +47,7 @@ const User = () => {
     return (
         <div>
             <Navbar />
-            <div className='User' style={{ alignItems: 'center' }}>
+            <div className='User' >
                 <div className='Userdetails' style={{ backgroundColor: theme === "light" ? "" : "#a5351ca4" }}>
                     <img src={imageuser} alt="User" className="user-image" />
                     <h3>Welcome {user && user.name}!</h3>
@@ -59,55 +59,53 @@ const User = () => {
                     <button onClick={() => setActiveButton('Add Address')}>Address</button>
 
                     {role === 'SuperAdmin' && (
-                        <>
-                            <h2>Subscribed</h2>
-                            <button onClick={() => setShowEmails(!showEmails)}>
-                                {showEmails ? 'Hide Emails' : 'Show Registered Emails'}
+                        <div>
+                            <button onClick={() => setActiveButton("ShowEmails")} className={activeButton === "ShowEmails" ? "User-filter-button active" : ''}>
+                                Show Registered Emails
                             </button>
-                            {showEmails && (
-                                <ul>
+                           
+
+                           
+                            <button className={activeButton === "showChathistory" ? "User-filter-button active" : ''} onClick={() => setActiveButton("showChathistory")}>
+                                {showChathistory ? 'Hide Chat History' : 'Show Chat History'}
+                            </button>
+                            
+
+                            <button onClick={() => setActiveButton('AdminProperties')}
+                                className={activeButton === "AdminProperties" ? "User-filter-button active" : ''}>Admin Properties</button>
+                        </div>
+                    )}
+
+
+                    <button onClick={() => setActiveButton('Delete Account')} style={{ marginTop: "100px" }}
+                        className={activeButton === "Delete Account" ? "User-filter-button active" : ''}>Delete Account</button>
+                </div>
+                <div className="user-content-container">
+                    {activeButton === 'ShowEmails'  && (
+                                <ul className='ShowEmail'>
                                     {emails.map((email, index) => (
                                         <li key={index}>{email}</li>
                                     ))}
                                 </ul>
                             )}
-                            <button onClick={() => setShowChathistory(!showChathistory)} style={{ marginTop: "20px" }}>
-                                {showChathistory ? 'Hide Chat History' : 'Show Chat History'}
-                            </button>
-                            {showChathistory && (
+                    {activeButton === 'showChathistory'  && (
                                 <div className="chat-history-container">
                                     <Chathistory /> {/* Aquí renderiza el componente de historial de chat */}
                                 </div>
                             )}
-
-                            <button onClick={() => setActiveButton('AdminProperties')} style={{ marginTop: "20px" }}
-                                className={activeButton === "AdminProperties" ? "User-filter-button active" : ''}>Admin Properties</button>
-                        </>
-                    )}
-
-                    {role !== 'SuperAdmin' && ( // Renderiza el botón de Chatbot solo si no es SuperAdmin
-                        <button onClick={() => setShowChathistory(!showChathistory)} style={{ marginTop: "20px" }}>
-                            {showChathistory ? 'Hide Chat History' : 'Show Chat History'}
-                        </button>
-                    )}
-
-                    <button onClick={() => setActiveButton('Delete Account')} style={{ marginTop: "20px" }}
-                        className={activeButton === "Delete Account" ? "User-filter-button active" : ''}>Delete Account</button>
-                </div>
-                <div>
                     {activeButton === 'Profile' && <ModifyUser />}
                     {activeButton === 'Orders' && <UserGetOrders />}
                     {activeButton === 'Add Address' && <AddAdressUser />}
+                    
                     {activeButton === 'AdminProperties' && role === 'SuperAdmin' && (
                         <div className="admin-properties">
-                            <p>Administrative settings and options go here.</p>
-                            <AdminManagement />
+                            <AdminTable></AdminTable>
                         </div>
                     )}
                     {activeButton === 'Delete Account' && <DeleteUser handleExit={handleExit} />}
                 </div>
             </div>
-            {role !== 'SuperAdmin' && <Footer />} {/* Renderiza el footer solo si no es SuperAdmin */}
+            <Footer />
         </div>
     );
 };

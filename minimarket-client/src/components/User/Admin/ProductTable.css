@@ -1,0 +1,56 @@
+
+
+.Container-Table {
+    max-width: 400px;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+  }
+  
+  .Container-Table th {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  .Container-Table th, td {
+    padding: 2px;
+    text-align: left;
+  }
+  .Container-Table tr:hover {
+    background-color: #ddd;
+  }
+  .Value-Table input{
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  
+  .Value-Table button {
+    border: none;
+    color: rgb(104, 102, 102);
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: background-color 0.3s ease;
+}
+.Button-Edit-Table{
+    background-color: #69b6216c; 
+}
+.Button-Edit-Table:hover {
+    background-color: #45a04967; 
+}
+.Button-Delete-Table{
+    background-color: #f81717c0
+}
+.Button-Delete-Table:hover{
+    background-color: #ff0000d5
+}

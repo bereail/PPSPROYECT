@@ -39,6 +39,7 @@ const GetProductsFavorite = ({ product, userEmail, favoriteHandler }) => {
                 className={isFavorite ? 'icon-favorite' : 'icon-heart'}
                 onClick={handleFavoriteClick} 
             />
+            
         </div>
     );
 }

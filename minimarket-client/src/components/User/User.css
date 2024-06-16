@@ -6,7 +6,8 @@
 
     background-color: #E49537;
     max-width: 250px;
-    margin-right: 200px
+    margin-right: 200px; 
+    
 }
 
 .Userdetails button {
@@ -157,6 +158,7 @@
     background-color: #D9D9D9;
     border-radius: 13%;
  }
+
 .Get-address p{
     margin: 5px;
     font-size: 20px;
@@ -180,6 +182,56 @@
 .form-Address button{
     background-color: #E49537;
     border-style: none;
+}
+
+
+.ShowEmail{
+    max-width: 470px;
+    flex-direction: column;
+    text-align: justify;
+    padding-right: 40px;
+    padding-left: 30px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    background-color: #D9D9D9;
+    border-radius: 13%;
+    
+}
+.chat-history-container{
+    max-width: 470px;
+    flex-direction: column;
+    text-align: justify;
+    padding-right: 40px;
+    padding-left: 30px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    background-color: #D9D9D9;
+    border-radius: 13%;
+}
+
+.Buton-Admin{
+    display: flex;
+    flex-direction: column;
+}
+.Buton-Admin button{
+    margin-bottom: 30px;
+    border-style: none;
+    font-size:  30px;
+    padding: 10px;
+    background-color: #dd9c23;
+}
+.Buton-Admin button:hover{
+    background-color: #ac7716;
+}
+.Return-Button{
+    width: 100%;
+    padding: 8px;
+    background-color: #adadad;
+    box-sizing: border-box;
+    border: 1px solid #979797;
+    border-radius: 4px;
+    font-size: 14px;
+
 }
  @media (max-width: 768px) {
     
@@ -210,6 +262,7 @@
     margin: 0;
     padding: 0;
   }
+
 
 @media (max-width: 360px) {
     
