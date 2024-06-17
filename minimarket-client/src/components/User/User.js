@@ -105,7 +105,8 @@ const User = () => {
                     {activeButton === 'Delete Account' && <DeleteUser handleExit={handleExit} />}
                 </div>
             </div>
-            <Footer />
+            {role !== 'SuperAdmin' && <Footer />}
+
         </div>
     );
 };

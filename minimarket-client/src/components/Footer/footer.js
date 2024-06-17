@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebook,
@@ -9,6 +9,8 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import "./footer.css";
+import { AuthContext } from '../Context/AuthContext';
+
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -16,6 +18,7 @@ const Footer = () => {
   const [subscribedEmails, setSubscribedEmails] = useState(
     JSON.parse(localStorage.getItem('subscribedEmails')) || []
   );
+  const { role } = useContext(AuthContext); 
 
   const handleFAQsClick = () => {
     navigate('/faqs');
@@ -34,6 +37,8 @@ const Footer = () => {
 
   return (
     <footer className="footer mt-auto py-3">
+      {role !== 'SuperAdmin' && (
+
       <div className="container">
         <div className="row">
           <div className="col-md-6 d-flex flex-column justify-content-center align-items-center mb-3 mb-md-0">
@@ -106,10 +111,11 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
+       )}
+       </footer>
+      
   );
 };
 
 export default Footer;
-
 
