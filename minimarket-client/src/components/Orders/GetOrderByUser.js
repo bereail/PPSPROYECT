@@ -1,16 +1,17 @@
 import React from 'react'
 import api from '../../api';
 
-const GetOrderByid = async(orderId) => {
-
+const GetOrderByUser = async() => {
     try {
-        const response = await api.get(`/api/orders/${orderId}`);
+        const response = await api.get('/api/users/profile/orders');
         return response.data;
     } catch (error) {
         console.log('error fetching order', error);
         return null;
     }
+};
 
-}
 
-export default GetOrderByid
+
+
+export default GetOrderByUser

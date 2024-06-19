@@ -53,8 +53,3 @@
 
 }
 
-@media (max-width: 768px) {
-    .Login-Links {
-        flex-direction: column;
-    }
-}

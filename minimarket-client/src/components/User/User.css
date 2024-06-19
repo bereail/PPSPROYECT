@@ -233,19 +233,7 @@
     font-size: 14px;
 
 }
- @media (max-width: 768px) {
-    
-.Userdetails {
-    margin-right: 10px
-}
-.UserProfile{
-    max-width: 200px;
-}
-.form-Address{
-    max-width: 200px;
-}
 
-}
 .email-section {
     display: flex;
     align-items: center;
@@ -264,10 +252,31 @@
   }
 
 
-@media (max-width: 360px) {
+
+
+
+ @media (max-width: 768px) {
+
+.Userdetails {
+    margin-right: 10px
+    
+}
+.UserProfile{
+    max-width: 200px;
+}
+.form-Address{
+    max-width: 200px;
+}
+
+}
+
+
+
+@media (max-width: 500px) {
     
     .Userdetails {
-        margin-right: 10px
+        margin-right: 0px;
+        max-width: 100px;
     }
     .UserProfile{
         max-width: 180px;
@@ -275,24 +284,16 @@
     .UserProfile input{
         font-size: 12px;
     }
+    .user-image {
+        width: 50px;
     }
-    .email-section {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-      }
-      
-      .email-list {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-      
-      .email-list li {
-        margin: 0;
-        padding: 0;
-      }
-      @media (max-width: 900px) {
+    }
+
+
+    
+    
+        
+      /* @media (max-width: 900px) {
         .Userdetails,
         .UserProfile,
         .form-Address,
@@ -306,4 +307,4 @@
         .ShowEmail {
             display: none;
         }
-    }      
+    }       */

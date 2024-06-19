@@ -20,10 +20,10 @@
     margin-bottom: 100px;
   }
 
-  @media (max-width: 350px) {
+  @media (max-width: 500px) {
     .Carousel-Container{
       top: 130px;
       margin-bottom: 100px;
-      width: 350px;
+      
     }
 }

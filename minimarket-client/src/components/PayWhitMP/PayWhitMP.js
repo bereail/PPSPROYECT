@@ -11,7 +11,7 @@ const PayWhitMP = () => {
 
   const {orderId} = useContext(OrderContext);
 
-
+  alert(orderId)
   useEffect(() => {
     GetPreferenceId()
   }, [orderId]);

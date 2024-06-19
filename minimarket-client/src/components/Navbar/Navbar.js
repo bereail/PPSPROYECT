@@ -66,9 +66,8 @@ const Navbar = () => {
         <div className='NavFavorite-Container'>
           <Link to="/favorite" className='Nav-LinkFavorite'>
             <FontAwesomeIcon
-              className='Nav-iconFavorite'
+              className='Nav-icon'
               icon={faHeart}
-              style={{ fontSize: '30px', marginLeft: "5px" }}
             />
             <p className='Nav-TextFavorite'>Favorites</p>
           </Link>
@@ -78,8 +77,8 @@ const Navbar = () => {
           <div className='NavCart-Container'>
             <Link to="/cart">
               <FontAwesomeIcon
+                className='Nav-icon'
                 icon={faCartShopping}
-                style={{ fontSize: "30px", marginLeft: "5px" }}
               />
               <p>Cart</p>
             </Link>

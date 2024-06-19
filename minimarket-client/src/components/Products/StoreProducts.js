@@ -7,7 +7,6 @@ const StoreProducts = (key, product, quantities, userEmail) => {
     let cart;
     //if (userEmail !== null) {
       try {
-        alert(JSON.stringify(product))
         cart = JSON.parse(window.localStorage.getItem(`${key}_${userEmail}`)) || {};
       } catch (e) {
         cart = {};
@@ -32,7 +31,6 @@ const StoreProducts = (key, product, quantities, userEmail) => {
               quantity: quantities[product.id]
           });
       }
-      alert(JSON.stringify(cart))
 
         window.localStorage.setItem(`${key}_${userEmail}`, JSON.stringify(cart));
         return true;
