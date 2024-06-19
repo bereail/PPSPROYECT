@@ -192,8 +192,9 @@ const Products = () => {
                   <input min="1" value={quantities[product.id] || 1} onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value) || 1)} />
                   <button onClick={() => handleQuantityChange(product.id, quantities[product.id] + 1)}>+</button>
                 </div>
-                <button className='Add-Product' onClick={() => AddCartHandler(product)}>Add</button>
-              </>}
+              </>}                
+              <button className='Add-Product' onClick={() => AddCartHandler(product)}>Add</button>
+
 
             </div>
 

@@ -59,7 +59,7 @@ const SignupUser = () => {
  
     const { name, phoneNumber, email, password, confirmPassword, hexadecimalCode  } = formData;
    
-    if (phoneNumber.trim().length > 13) {
+    if (phoneNumber.trim().length > 13 || phoneNumber.trim().length < 10) {
       setErrors(prevErrors => ({
         ...prevErrors,
         phoneNumber: true
@@ -67,7 +67,7 @@ const SignupUser = () => {
       return;
     }
 
-    if (name.trim() === '' === '' || phoneNumber.trim() === '' || email.trim() === '' || password.trim() === '' || confirmPassword !== password) {
+    if (name.trim() === '' === '' || phoneNumber.trim() === '' || email.trim() === '' || password.length < 8 || confirmPassword !== password) {
       setErrors({
         name: name.trim() === '',
         phoneNumber: phoneNumber.trim() === '',
@@ -75,6 +75,7 @@ const SignupUser = () => {
         password: password.length < 8,
         confirmPassword:password !== confirmPassword,
       });
+     
       return;
     }
     if (Seller && hexadecimalCode.trim() === '') {
@@ -91,6 +92,7 @@ const SignupUser = () => {
       email: email,
       password: password,
       phoneNumber: phoneNumber,
+      ...(Seller && { hexadecimalCode: hexadecimalCode })
     };
    
     const datalogin = {
@@ -149,7 +151,7 @@ const SignupUser = () => {
             <div className="mb-3">
               <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
               <input type="text" className={`form-control ${errors.phoneNumber ? 'is-invalid' : ''}`} id="phoneNumber" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
-              {errors.phoneNumber && <p className='Error'>Phone number must be less than or equal to 10 digits</p>}
+              {errors.phoneNumber && <p className='Error'>The phone number must be between 10 and 13 digits</p>}
             </div>
             <div className="mb-3">
               <label htmlFor="email" className="form-label">Email</label>
