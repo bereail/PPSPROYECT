@@ -30,7 +30,7 @@ namespace MiniMarket_API.Controllers
             {
                 var adminToCreate = mapper.Map<SuperAdmin>(createAdmin);
 
-                var createdAdmin = await _userService.CreateUser(adminToCreate);
+                var createdAdmin = await _userService.CreateUser(adminToCreate, createAdmin.Password);
                 if (createdAdmin == null)
                 {
                     return Conflict("Admin Creation Failed: Email Currently in Use!");

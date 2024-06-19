@@ -27,6 +27,7 @@ namespace MiniMarket_API.Application.Services.Implementations
             {
                 return null;
             }
+
             var detailToCreate = mapper.Map<OrderDetails>(createDetail);
 
             detailToCreate.OrderId = orderId;

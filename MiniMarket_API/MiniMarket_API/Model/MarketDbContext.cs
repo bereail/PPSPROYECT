@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MiniMarket_API.Model.Entities;
+using System.Text;
 
 namespace MiniMarket_API.Model
 {
@@ -25,6 +26,8 @@ namespace MiniMarket_API.Model
         {
             modelBuilder.Entity<User>().HasDiscriminator(u => u.UserType);
 
+            //modelBuilder.Entity<SuperAdmin>().HasData(NewDefaultAdminSeed());
+
             modelBuilder.Entity<SaleOrder>()
                 .HasMany(s => s.Details)
                 .WithOne(d => d.SaleOrder)
@@ -33,7 +36,9 @@ namespace MiniMarket_API.Model
             modelBuilder.Entity<Product>()
                 .HasMany(p => p.Details)
                 .WithOne(d => d.Product)
-                .HasForeignKey(d => d.ProductId);
+                .HasForeignKey(d => d.ProductId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<DeliveryAddress>()
                 .HasMany(d => d.SaleOrders)
@@ -41,7 +46,20 @@ namespace MiniMarket_API.Model
                 .HasForeignKey(s => s.AddressId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.NoAction);
+        }
 
+        private SuperAdmin NewDefaultAdminSeed()
+        {
+            var result = new SuperAdmin
+            {
+                Id = Guid.NewGuid(),
+                Name = "Admin Default",
+                Email = "admin@example.com",
+                PasswordHash = Encoding.UTF8.GetBytes("f0de3280c8f226ce260bd61a13098692881d2626dd5b2c62b1f49dfb35f5a609"),
+                PhoneNumber = "+549999999999",
+            };
+
+            return result;
         }
     }
 }

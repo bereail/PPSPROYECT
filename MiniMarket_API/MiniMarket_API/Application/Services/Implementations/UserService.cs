@@ -15,20 +15,24 @@ namespace MiniMarket_API.Application.Services.Implementations
         private readonly IMapper mapper;
         private readonly ISaleOrderService _saleOrderService;
         private readonly ISaleOrderRepository _saleOrderRepository;
+        private readonly ICustomAuthenticationService _customAuthenticationService;
 
-        public UserService(IUserRepository userRepository, IMapper mapper, ISaleOrderService saleOrderService, ISaleOrderRepository saleOrderRepository)
+        public UserService(IUserRepository userRepository, IMapper mapper, ISaleOrderService saleOrderService, ISaleOrderRepository saleOrderRepository, ICustomAuthenticationService customAuthenticationService)
         {
             _userRepository = userRepository;
             this.mapper = mapper;
             _saleOrderService = saleOrderService;
             _saleOrderRepository = saleOrderRepository;
+            _customAuthenticationService = customAuthenticationService;
         }
 
-        public async Task<UserView?> CreateUser(User user)
+        public async Task<UserView?> CreateUser(User user, string passwordToHash)
         {
             var checkMail = await _userRepository.GetUserIdByEmailAsync(user.Email);
             if (checkMail == Guid.Empty)
             {
+                user.PasswordHash = _customAuthenticationService.PasswordHasher(passwordToHash);
+
                 var newUser = await _userRepository.CreateUserAsync(user);
 
                 return mapper.Map<UserView>(newUser);
@@ -72,11 +76,25 @@ namespace MiniMarket_API.Application.Services.Implementations
             return mapper.Map<UserView?>(userToDeactivate);
         }
 
+        public async Task<UserView?> RestoreUser(Guid id)
+        {
+            var getUser = await _userRepository.GetUserByIdAsync(id);
+
+            if (getUser == null || getUser.IsActive || getUser.UserType == typeof(Seller).Name)
+            {
+                return null;
+            }
+
+            var restoredUser = await _userRepository.RestoreUserAsync(getUser.Id);
+
+            return mapper.Map<UserView?>(restoredUser);
+        }
+
         public async Task SetNewUserPassword(Guid id, NewPasswordRequestDto newPasswordRequest)
         {
-            string validPassword = newPasswordRequest.Password;
+            var passwordHash = _customAuthenticationService.PasswordHasher(newPasswordRequest.Password);
 
-            await _userRepository.SetNewUserPasswordAsync(id, validPassword);
+            await _userRepository.SetNewUserPasswordAsync(id, passwordHash);
         }
 
         public async Task EraseUser(Guid id)

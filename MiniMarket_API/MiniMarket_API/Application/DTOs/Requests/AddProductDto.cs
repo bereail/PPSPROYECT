@@ -17,9 +17,11 @@ namespace MiniMarket_API.Application.DTOs.Requests
         public decimal Price { get; set; }
 
         [Required(ErrorMessage = "Product Stock is Required.")]
+        [RegularExpression(@"^\d+$")]
         [Range(0, 125, MinimumIsExclusive = true, MaximumIsExclusive = false, ErrorMessage = "Product Stock mustn't be below 1, or above 125 units.")]
         public int Stock { get; set; }
 
+        [RegularExpression(@"^\d+$")]
         [Range(0, 99, MinimumIsExclusive = false, MaximumIsExclusive = false, ErrorMessage = "Product Discount mustn't be below 0, or above 99.")]
         public int Discount { get; set; }
     }

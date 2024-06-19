@@ -13,14 +13,16 @@ namespace MiniMarket_API.Application.Services.Implementations
         private readonly ICompanyCodeRepository _companyCodeRepository;
         private readonly IUserRepository _userRepository;
         private readonly IUserService _userService;
+        private readonly ICustomAuthenticationService _customAuthenticationService;
         private readonly IMapper mapper;
 
-        public CompanyService(ICompanyCodeRepository companyCodeRepository, IUserRepository userRepository, IUserService userService, IMapper mapper)
+        public CompanyService(ICompanyCodeRepository companyCodeRepository, IUserRepository userRepository, IUserService userService, IMapper mapper, ICustomAuthenticationService customAuthenticationService)
         {
             _companyCodeRepository = companyCodeRepository;
             _userRepository = userRepository;
             _userService = userService;
             this.mapper = mapper;
+            _customAuthenticationService = customAuthenticationService;
         }
 
 
@@ -97,7 +99,9 @@ namespace MiniMarket_API.Application.Services.Implementations
             if (existingMail == Guid.Empty)
             {
                 var sellerToCreate = mapper.Map<Seller>(createSellerDto);
+
                 sellerToCreate.CompanyCodeId = availableCode.Value;
+                sellerToCreate.PasswordHash = _customAuthenticationService.PasswordHasher(createSellerDto.Password);
 
                 await _userRepository.CreateUserAsync(sellerToCreate);
 
@@ -110,9 +114,32 @@ namespace MiniMarket_API.Application.Services.Implementations
         {
             var adminToCreate = mapper.Map<SuperAdmin>(createSuperAdmin);
 
-            var newAdmin = await _userService.CreateUser(adminToCreate);
+            string passwordToHash = createSuperAdmin.Password;
+
+            var newAdmin = await _userService.CreateUser(adminToCreate, passwordToHash);
 
             return mapper.Map<UserView?>(newAdmin);
+        }
+
+        public async Task<UserView?> RestoreSeller(Guid id)
+        {
+            var getSeller = await _userRepository.GetSellerByIdAsync(id);
+
+            if (getSeller == null || getSeller.IsActive || getSeller.CompanyCodeId == Guid.Empty)
+            {
+                return null;
+            }
+
+            var codeCheck = await _companyCodeRepository.GetCodeByIdAsync(getSeller.CompanyCodeId);
+
+            if (codeCheck == null || !codeCheck.IsActive)
+            {
+                return null;
+            }
+
+            var restoredSeller = await _userRepository.RestoreUserAsync(getSeller.Id);
+
+            return mapper.Map<UserView?>(restoredSeller);
         }
     }
 }

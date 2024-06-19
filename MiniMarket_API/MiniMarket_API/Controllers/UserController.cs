@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MiniMarket_API.Application.DTOs.Requests;
 using MiniMarket_API.Application.DTOs.Requests.Credentials;
 using MiniMarket_API.Application.Services.Interfaces;
+using MiniMarket_API.Model.Entities;
 using MiniMarket_API.Model.Enums;
 using System.Security.Claims;
 
@@ -32,6 +33,7 @@ namespace MiniMarket_API.Controllers
             {
                 return NotFound("Profile Wasn't Found");
             }
+
             return Ok(getProfile);
         }
 
@@ -47,6 +49,7 @@ namespace MiniMarket_API.Controllers
             {
                 return NotFound("You Have No Registered Orders");
             }
+
             return Ok(getOrders);
         }
 
@@ -61,7 +64,28 @@ namespace MiniMarket_API.Controllers
             {
                 return NotFound("No Users Found");
             }
+
             return Ok(getUsers);
+        }
+
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetUserByIdAsync([FromRoute] Guid userId)
+        {
+            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            if (userRole == typeof(SuperAdmin).Name)
+            {
+                var getUser = await _userService.GetUserById(userId);
+
+                if (getUser == null)
+                {
+                    return NotFound("User Couldn't be Found");
+                }
+
+                return Ok(getUser);
+            }
+
+            return Forbid();
         }
 
         [HttpPut("profile")]
@@ -75,6 +99,7 @@ namespace MiniMarket_API.Controllers
             {
                 return NotFound("User Update Failed: User Couldn't be Found");
             }
+
             return Ok(updatedUser);
         }
 
@@ -88,6 +113,51 @@ namespace MiniMarket_API.Controllers
 
             //The return will be an empty Ok or a NoContent.
             return Ok();
+        }
+
+        [HttpDelete("profile")]
+        public async Task<IActionResult> DeactivateMyProfileAsync()
+        {
+            var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
+
+            await _userService.DeactivateUser(userId);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{userId}")]
+        public async Task<IActionResult> DeactivateUserAsync([FromRoute] Guid userId)
+        {
+            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            if (userRole == typeof(SuperAdmin).Name)
+            {
+                await _userService.DeactivateUser(userId);
+
+                return NoContent();
+            }
+
+            return Forbid(); 
+        }
+
+        [HttpPatch("{userId}")]
+        public async Task<IActionResult> RestoreUserAsync([FromRoute] Guid userId)
+        {
+            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            if (userRole == typeof(SuperAdmin).Name)
+            {
+                var restoredUser = await _userService.RestoreUser(userId);
+
+                if (restoredUser == null)
+                {
+                    return NotFound("User restoration failed: User couldn't be found.");
+                }
+
+                return Ok(restoredUser);
+            }
+
+            return Forbid();
         }
     }
 }

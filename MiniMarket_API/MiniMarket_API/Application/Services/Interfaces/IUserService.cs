@@ -8,9 +8,10 @@ namespace MiniMarket_API.Application.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<UserView?> CreateUser(User user);
+        Task<UserView?> CreateUser(User user, string passwordToHash);
         Task<UserView?> UpdateUser(Guid id, UpdateUserDto updateUserDto);
         Task<UserView?> DeactivateUser(Guid id);
+        Task<UserView?> RestoreUser(Guid id);
         Task SetNewUserPassword(Guid id, NewPasswordRequestDto newPasswordRequest);
         Task EraseUser(Guid id);
         Task<IEnumerable<UserView>?> GetAllUsers(bool? isActive, string? filterOn, string? filterQuery,

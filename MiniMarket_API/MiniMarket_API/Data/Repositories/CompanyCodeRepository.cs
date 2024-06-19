@@ -2,7 +2,6 @@
 using MiniMarket_API.Data.Interfaces;
 using MiniMarket_API.Model;
 using MiniMarket_API.Model.Entities;
-using System.Runtime.Versioning;
 
 namespace MiniMarket_API.Data.Repositories
 {
@@ -67,13 +66,8 @@ namespace MiniMarket_API.Data.Repositories
                 .Where(h => h.EmployeeCode == hexCode && h.IsActive && h.Seller == null)        //Finds a code that: A) Matches the hexCode in the db. B) Is currently active. C) Has no seller currently assigned to it.
                 .Select(h => h.Id)              //Selects only the Guid Id, which is what we are looking for.
                 .FirstOrDefaultAsync();
+
             return codeId;
         }
-
-        //public Task<CompanyCode?> GetCodeByHex (string hexCode)             //We can use this to validate unique Hex codes. If there is a match, that means the code already exists
-        //{
-        //    return _context.EmployeeCodes
-        //        .SingleOrDefaultAsync (e => e.EmployeeCode == hexCode);
-        //}
     }
 }

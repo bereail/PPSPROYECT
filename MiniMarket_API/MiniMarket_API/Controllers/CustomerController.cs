@@ -24,7 +24,7 @@ namespace MiniMarket_API.Controllers
         {
             var customerToCreate = mapper.Map<Customer>(createCustomer);
 
-            var createdCustomer = await _userService.CreateUser(customerToCreate);
+            var createdCustomer = await _userService.CreateUser(customerToCreate, createCustomer.Password);
             if (createdCustomer == null)
             {
                 return Conflict("Registration Failed: Email currently in Use!");

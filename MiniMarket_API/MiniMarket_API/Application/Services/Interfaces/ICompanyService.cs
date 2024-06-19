@@ -12,6 +12,7 @@ namespace MiniMarket_API.Application.Services.Interfaces
         Task<CompanyCodeView?> GetCodeById(Guid id);
         Task<UserView?> CreateSeller(CreateSellerDto createSellerDto);
         Task<UserView?> CreateSuperAdmin(CreateUserDto createSuperAdmin);
-        //Task<IEnumerable<SellerDto>?> GetAllSellers();
+        Task<UserView?> RestoreSeller(Guid id);
+
     }
 }

@@ -38,7 +38,7 @@ namespace MiniMarket_API.Data.Repositories
             return getUser;
         }
 
-        public async Task SetNewUserPasswordAsync(Guid id, string password)
+        public async Task SetNewUserPasswordAsync(Guid id, byte[] password)
         {
             var getUser = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
             if (getUser == null)
@@ -46,7 +46,7 @@ namespace MiniMarket_API.Data.Repositories
                 return;
             }
 
-            getUser.Password = password;
+            getUser.PasswordHash = password;
 
             await _context.SaveChangesAsync();
         }
@@ -66,7 +66,7 @@ namespace MiniMarket_API.Data.Repositories
 
         public async Task<User?> RestoreUserAsync(Guid id)
         {
-            var getUserToRestore = await _context.Users.FirstOrDefaultAsync(x =>x.Id == id && !x.IsActive);
+            var getUserToRestore = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
 
             if (getUserToRestore == null)
             {
@@ -143,6 +143,12 @@ namespace MiniMarket_API.Data.Repositories
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public Task<Seller?> GetSellerByIdAsync(Guid id)
+        {
+            return _context.Sellers
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<Guid?> CheckIfUserIdExistsAsync(Guid id)
         {
             var userId = await _context.Users
@@ -166,6 +172,7 @@ namespace MiniMarket_API.Data.Repositories
             var user = await _context.Users
                 .Where(u => u.Email == email && u.IsActive)
                 .FirstOrDefaultAsync();
+
             return user;                                              
         }
     }

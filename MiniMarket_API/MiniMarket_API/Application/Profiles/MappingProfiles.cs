@@ -49,11 +49,14 @@ namespace MiniMarket_API.Application.Profiles
 
             CreateMap<AddCompanyCodeDto, CompanyCode>().ReverseMap();
 
-            CreateMap<CreateSellerDto, Seller>().ReverseMap();
+            CreateMap<CreateSellerDto, Seller>()
+                .ForSourceMember(c => c.Password, opt => opt.DoNotValidate());
 
-            CreateMap<CreateUserDto, Customer>().ReverseMap();
+            CreateMap<CreateUserDto, Customer>()
+                .ForSourceMember(c => c.Password, opt => opt.DoNotValidate());
 
-            CreateMap<CreateUserDto, SuperAdmin>().ReverseMap();
+            CreateMap<CreateUserDto, SuperAdmin>()
+                .ForSourceMember(c => c.Password, opt => opt.DoNotValidate());
 
             CreateMap<UpdateUserDto, Customer>().ReverseMap();
 

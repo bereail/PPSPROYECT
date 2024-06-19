@@ -34,10 +34,11 @@ namespace MiniMarket_API.Application.Services.Implementations
             //We wait for the GetUserByEmail to find the user
             var user = await _userRepository.GetUserByEmailAsync(loginRequest.Email);
 
-            //var passwordHash = PasswordHasher(loginRequest.Password);
+            //We perform the hash of the request's password
+            var passwordHash = PasswordHasher(loginRequest.Password);
 
             //We check that the user we retrieved matches the data from the request
-            if (user != null && user.Password == loginRequest.Password) return user;
+            if (user != null && user.PasswordHash.SequenceEqual(passwordHash)) return user;
 
 
             throw new UnauthenticatedException("Authentication Failed: Credentials aren't valid!");
