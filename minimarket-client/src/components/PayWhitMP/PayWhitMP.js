@@ -11,7 +11,6 @@ const PayWhitMP = () => {
 
   const {orderId} = useContext(OrderContext);
 
-  alert(orderId)
   useEffect(() => {
     GetPreferenceId()
   }, [orderId]);
@@ -28,7 +27,6 @@ const PayWhitMP = () => {
   const GetPreferenceId = async () => {
     try {
         const response = await api.post(`/api/orders/${orderId}/payment`);
-        console.log(response.data.preferenceId);  
         SetpreferenceId(response.data.preferenceId)
     } catch (error) {
         console.error('Error making API request:', error);  
