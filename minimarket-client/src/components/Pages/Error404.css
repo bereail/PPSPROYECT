@@ -5,16 +5,18 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background-image: url("../Image/404.jpg");
+    background-image: url("../Image/404.png");
     background-size: cover;
     background-position: center;
     text-align: top;
-    color:#00f ; /* Ensure text is visible over the background image */
+    color:rgba(0, 0, 0, 0.76);; /* Ensure text is visible over the background image */
   }
   
   /* Additional styling for the link */
-  .error-container a {
-    color: #00f; /* Adjust color as needed */
-    text-decoration: underline;
+  .error-container button {
+    background-color: rgba(221, 135, 22, 0.76); /* Adjust color as needed */
+    border-style: none;
+    padding: 30px;
+    font-size: 30px;
   }
   
