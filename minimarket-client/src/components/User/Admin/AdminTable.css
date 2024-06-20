@@ -1,12 +1,11 @@
 
-
 .Container-Table {
-    max-width: 400px;
-    border-collapse: collapse;
-    border: 1px solid #ddd;
-    background-color: #f9f9f9;
-  }
-  
+  max-width: 600px;
+
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+}
   .Container-Table th {
     background-color: #4CAF50;
     color: white;
@@ -54,13 +53,7 @@
 .Button-Delete-Table:hover{
     background-color: #ff0000d5
 }
-.Container-Table {
-  max-width: 600px;
-  margin: 20px auto;
-  border-collapse: collapse;
-  border: 1px solid #ddd;
-  background-color: #f9f9f9;
-}
+
 
 .Container-Table th {
   background-color: #4CAF50;
@@ -192,6 +185,35 @@
 
 .form-container button:hover {
   background-color: #0056b3;
+}
+
+.Button-CreateSellerCode{
+
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #4f91129c; 
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.Button-CreateSellerCode:hover{
+  background-color: #5ba8149c; 
+}
+.Button-Create{
+  border: none;
+  background-color: #4f91129c; 
+  border-radius: 4px;
+  padding: 3px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.Button-Create:hover{
+  background-color: #5ba8149c; 
 }
 
 

@@ -21,7 +21,7 @@ export default function Cart() {
   const [CartPriceDiscount, SetCartPriceDiscount] = useState();
   const [CartDiscount, SetCartDiscount] = useState();
   const [ButtonMp, SetButtonMp] = useState(false)
-  
+  const navigate = useNavigate();
 
   useEffect(() => {
     const cartData = JSON.parse(window.localStorage.getItem(`Cart_${userEmail}`));
@@ -70,9 +70,7 @@ export default function Cart() {
 
     const orderId = await CreateOrder(orderDetails);
     if (orderId) {
-      SetButtonMp(true)
-      setOrderId(orderId);
-      window.localStorage.setItem('OrderId', orderId); 
+      navigate('/User'); 
     }
   }
   return (
@@ -118,7 +116,6 @@ export default function Cart() {
                 <p> ${CartPriceDiscount}</p>
               </div>
               <button className="Button-Cart" onClick={HandleCreateOrder}>Make an order</button>
-              {ButtonMp && <> <PayWhitMP/> </>}
             </div>
           </div>
           <button className='Button-Products' onClick={HandleCleanCart}>Clean Cart</button>
