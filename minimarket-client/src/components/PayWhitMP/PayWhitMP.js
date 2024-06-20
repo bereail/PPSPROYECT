@@ -10,8 +10,10 @@ const PayWhitMP = () => {
   const [preferenceId, SetpreferenceId] = useState()
 
   const {orderId} = useContext(OrderContext);
+             
 
   useEffect(() => {
+    window.localStorage.removeItem('PreferenceId');
     GetPreferenceId()
   }, [orderId]);
 
@@ -27,7 +29,10 @@ const PayWhitMP = () => {
   const GetPreferenceId = async () => {
     try {
         const response = await api.post(`/api/orders/${orderId}/payment`);
+        console.log(response.data.preferenceId)
         SetpreferenceId(response.data.preferenceId)
+        window.localStorage.setItem('PreferenceId', response.data.preferenceId); 
+
     } catch (error) {
         console.error('Error making API request:', error);  
     }

@@ -17,8 +17,9 @@ import Favorite from "./components/Favorite/Favorite";
 import Navbar from "./components/Navbar/Navbar";
 import { SearchProvider } from "./components/Context/SearchContext";
 import FaQs from "./components/Footer/FaQs";
-import {OrderProvider } from "./components/Context/OrderContext";
+import { OrderProvider } from "./components/Context/OrderContext";
 import PaySuccess from "./components/PayWhitMP/PaySuccess";
+import ProtectedMp from "./components/Pages/ProtectedMp";
 
 
 const router = createBrowserRouter([
@@ -45,8 +46,8 @@ const router = createBrowserRouter([
   {
     path: "/Favorite",
     element: <ProtectedUser>
-                <Favorite />,
-             </ProtectedUser>
+      <Favorite />,
+    </ProtectedUser>
   },
   {
     path: "user",
@@ -66,7 +67,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/PaySucess",
-    element: <PaySuccess />,
+    element: <ProtectedMp>
+      <ProtectedUser>
+        <PaySuccess />
+      </ProtectedUser>
+    </ProtectedMp>,
   }
 ]);
 
@@ -83,17 +88,17 @@ const AppContent = () => {
 
 const App = () => (
   <OrderProvider>
-  <ThemeProvider>
-    <AuthProvider>
-      
+    <ThemeProvider>
+      <AuthProvider>
+
         <CategoryProvider>
           <SearchProvider>
             <AppContent />
           </SearchProvider>
           <CustomChatbot />
         </CategoryProvider>
-    </AuthProvider>
-  </ThemeProvider>
+      </AuthProvider>
+    </ThemeProvider>
   </OrderProvider>
 
 );

@@ -70,6 +70,7 @@ export default function Cart() {
 
     const orderId = await CreateOrder(orderDetails);
     if (orderId) {
+      alert(orderId)
       navigate('/User'); 
     }
   }
