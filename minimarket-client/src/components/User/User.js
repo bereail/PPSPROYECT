@@ -1,112 +1,101 @@
-import React, { useContext, useState, useEffect } from 'react';
-import Footer from '../Footer/footer';
-import imageuser from '../Image/User.png';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil, faXmark } from "@fortawesome/free-solid-svg-icons";
-import './User.css';
-import UserGetOrders from './Crud/UserGetOrders';
-import ModifyUser from './Crud/ModifyUser';
-import { ThemeContext } from '../Context/ThemeContext';
-import Navbar from '../Navbar/Navbar';
+import React, { useState, useEffect, useContext } from 'react';
 import GetUserbyid from './Crud/GetUserbyid';
 import DeleteUser from './Crud/DeleteUser';
-import { AuthContext } from '../Context/AuthContext';
 import AddAdressUser from './Crud/AddAdressUser';
-import AdminManagement from '../Admin/AdminManagement';
-import Chathistory from '../ChatBot/Chathistory';
+import Chathistory from '../ChatBot/Chathistory'; 
 import AdminTable from './Crud/AdminTable';
+import { AuthContext } from '../Context/AuthContext';
+import { ThemeContext } from '../Context/ThemeContext';
+import Navbar from '../Navbar/Navbar'; 
+import Footer from '../Footer/footer';
+import ModifyUser from '../User/Crud/ModifyUser'; 
+import UserGetOrders from '../User/Crud/UserGetOrders'; 
+import imageuser from '../Image/User.png';
+import './User.css';
 
 const User = () => {
     const { theme } = useContext(ThemeContext);
     const { role } = useContext(AuthContext);
     const [activeButton, setActiveButton] = useState('');
-
     const [emails, setEmails] = useState([]);
-    const [showChathistory, setShowChathistory] = useState(false);
-    const user = GetUserbyid();
+    const [chats, setChats] = useState([]); 
+    const [showChathistory, setShowChathistory] = useState(false); // Estado para controlar la visibilidad del historial de chat
+    const user = GetUserbyid(); 
 
     useEffect(() => {
         const storedEmails = JSON.parse(localStorage.getItem('subscribedEmails')) || [];
         setEmails(storedEmails);
-    }, []); 
 
-    useEffect(() => {
-        const storedShowChathistory = localStorage.getItem('showChathistory') === 'true';
-        setShowChathistory(storedShowChathistory);
-    }, []); 
+        if (role === 'SuperAdmin') {
+            const savedChats = JSON.parse(localStorage.getItem('chats')) || [];
+            setChats(savedChats);
+        }
+    }, [role]);
 
-    useEffect(() => {
-        localStorage.setItem('showChathistory', JSON.stringify(showChathistory));
-    }, [showChathistory]);
-
+    const toggleChathistory = () => {
+        setShowChathistory(!showChathistory); // Cambia el estado para mostrar u ocultar el historial de chat
+        setActiveButton(showChathistory ? '' : 'showChathistory'); // Actualiza el estado del botón activo
+    };
 
     const handleExit = () => {
-        setActiveButton('');
+        setActiveButton(''); // Limpia el estado del botón activo al salir
     };
 
     return (
         <div>
             <Navbar />
-            <div className='User' >
+            <div className='User'>
                 <div className='Userdetails' style={{ backgroundColor: theme === "light" ? "" : "#a5351ca4" }}>
                     <img src={imageuser} alt="User" className="user-image" />
                     <h3>Welcome {user && user.name}!</h3>
 
                     <button onClick={() => setActiveButton('Profile')}
-                        className={activeButton === "Profile" ? "User-filter-button active" : ''}> Profile</button>
+                        className={activeButton === "Profile" ? "User-filter-button active" : "User-filter-button"}> Profile</button>
                     <button onClick={() => setActiveButton('Orders')}
-                        className={activeButton === "Orders" ? "User-filter-button active" : ''}>Orders</button>
-                    <button onClick={() => setActiveButton('Add Address')}>Address</button>
+                        className={activeButton === "Orders" ? "User-filter-button active" : "User-filter-button"}>Orders</button>
+                    <button onClick={() => setActiveButton('Add Address')}
+                        className={activeButton === "Add Address" ? "User-filter-button active" : "User-filter-button"}>Address</button>
 
                     {role === 'SuperAdmin' && (
                         <div>
-                            <button onClick={() => setActiveButton("ShowEmails")} className={activeButton === "ShowEmails" ? "User-filter-button active" : ''}>
+                            <button onClick={() => setActiveButton("ShowEmails")} className={activeButton === "ShowEmails" ? "User-filter-button active" : "User-filter-button"}>
                                 Show Registered Emails
                             </button>
-                           
 
-                           
-                            <button className={activeButton === "showChathistory" ? "User-filter-button active" : ''} onClick={() => setActiveButton("showChathistory")}>
-                                {showChathistory ? 'Hide Chat History' : 'Show Chat History'}
+                            <button onClick={toggleChathistory} className={activeButton === 'showChathistory' ? "User-filter-button active" : "User-filter-button"}>
+                                Chat History
                             </button>
-                            
 
                             <button onClick={() => setActiveButton('AdminProperties')}
-                                className={activeButton === "AdminProperties" ? "User-filter-button active" : ''}>Admin Properties</button>
+                                className={activeButton === "AdminProperties" ? "User-filter-button active" : "User-filter-button"}>Admin Properties</button>
                         </div>
                     )}
 
-
                     <button onClick={() => setActiveButton('Delete Account')} style={{ marginTop: "100px" }}
-                        className={activeButton === "Delete Account" ? "User-filter-button active" : ''}>Delete Account</button>
+                        className={activeButton === "Delete Account" ? "User-filter-button active" : "User-filter-button"}>Delete Account</button>
                 </div>
                 <div className="user-content-container">
-                    {activeButton === 'ShowEmails'  && (
-                                <ul className='ShowEmail'>
-                                    {emails.map((email, index) => (
-                                        <li key={index}>{email}</li>
-                                    ))}
-                                </ul>
-                            )}
-                    {activeButton === 'showChathistory'  && (
-                                <div className="chat-history-container">
-                                    <Chathistory /> {/* Aquí renderiza el componente de historial de chat */}
-                                </div>
-                            )}
+                    {activeButton === 'ShowEmails' && (
+                        <ul className='ShowEmail'>
+                            {emails.map((email, index) => (
+                                <li key={index}>{email}</li>
+                            ))}
+                        </ul>
+                    )}
+                    
                     {activeButton === 'Profile' && <ModifyUser />}
                     {activeButton === 'Orders' && <UserGetOrders />}
                     {activeButton === 'Add Address' && <AddAdressUser />}
-                    
+                    {activeButton === 'showChathistory' && <Chathistory chats={chats} />}
                     {activeButton === 'AdminProperties' && role === 'SuperAdmin' && (
                         <div className="admin-properties">
-                            <AdminTable></AdminTable>
+                            <AdminTable />
                         </div>
                     )}
                     {activeButton === 'Delete Account' && <DeleteUser handleExit={handleExit} />}
                 </div>
             </div>
             {role !== 'SuperAdmin' && <Footer />}
-
         </div>
     );
 };

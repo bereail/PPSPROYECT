@@ -1,23 +1,41 @@
 import React from 'react';
+import './Chathistory.css';
 
-const Chathistory = ({ userName, userEmail, userQuery }) => {
+const Chathistory = ({ chats }) => {
+    console.log('Chats received:', chats);
+
+    
+    const validChats = chats.filter(chat => chat && chat.name && chat.email && chat.query);
+
+    console.log('Valid chats:', validChats); 
+
     return (
-        <div>
-            <h2>Chat History</h2>
-            <p>Name: {userName}</p>
-            <p>Email: {userEmail}</p>
-            <p>User Query: {userQuery}</p>
-            {/**/}
-            {/* Por ejemplo: */}
-            <ul>
-                <li>Mensaje 1</li>
-                <li>Mensaje 2</li>
-                
-            </ul>
+        <div className="chathistory">
+            <h3>Chat History</h3>
+            {validChats.length > 0 ? (
+                <ul>
+                    {validChats.map((chat, index) => (
+                        <li key={index}>
+                            <strong>Name:</strong> {chat.name}<br />
+                            <strong>Email:</strong> {chat.email}<br />
+                            <strong>Query:</strong> {chat.query}
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p>No valid chat history available.</p>
+            )}
         </div>
     );
 };
 
 export default Chathistory;
+
+
+
+
+
+
+
 
 

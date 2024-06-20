@@ -83,7 +83,7 @@ export default function Cart() {
           <img src={image} alt="bolsa" className="bolsa-image" />
           <h2>Start a shopping cart!</h2>
           <Link to="/">
-            <button className='Buttom-Cart'>discover products</button>
+            <button className='Buttom-Cart'>Discover products</button>
           </Link>
         </div>
       )}
@@ -101,7 +101,7 @@ export default function Cart() {
                     <p><strong>Description:</strong>{product.description}</p>
                     <p><strong>Price: </strong>{product.price}</p>
                     <p><strong>With discount: </strong>{product.discount}</p>
-                    <p><strong>quantity: </strong>{product.quantity}</p>
+                    <p><strong>Quantity: </strong>{product.quantity}</p>
                   </div>
                   <FontAwesomeIcon icon={faTrashCan} style={{ marginLeft: '90%' }} onClick={() => { HandleDeleteProductcart(product.id) }} />
                 </div>
