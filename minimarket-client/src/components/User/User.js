@@ -51,8 +51,9 @@ const User = () => {
 
                     <button onClick={() => setActiveButton('Profile')}
                         className={activeButton === "Profile" ? "User-filter-button active" : "User-filter-button"}> Profile</button>
-                    <button onClick={() => setActiveButton('Orders')}
-                        className={activeButton === "Orders" ? "User-filter-button active" : "User-filter-button"}>Orders</button>
+                    {role !== 'SuperAdmin' &&
+                    <button onClick={() => setActiveButton('Orders')} className={activeButton === "Orders" ? "User-filter-button active" : "User-filter-button"}>Orders</button>
+                    } 
                     <button onClick={() => setActiveButton('Add Address')}
                         className={activeButton === "Add Address" ? "User-filter-button active" : "User-filter-button"}>Address</button>
 
@@ -84,7 +85,7 @@ const User = () => {
                     )}
                     
                     {activeButton === 'Profile' && <ModifyUser />}
-                    {activeButton === 'Orders' && <UserGetOrders />}
+                    {activeButton === 'Orders' && role !== 'SuperAdmin' && <UserGetOrders />}
                     {activeButton === 'Add Address' && <AddAdressUser />}
                     {activeButton === 'showChathistory' && <Chathistory chats={chats} />}
                     {activeButton === 'AdminProperties' && role === 'SuperAdmin' && (

@@ -151,9 +151,12 @@ const Products = () => {
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
 
         {!error && Products.map(product => (
+
           <div key={product.id} onMouseEnter={() => setHoveredProduct(product.id)} onMouseLeave={() => { setHoveredProduct(null) }}>
-            <div className={product.isActive === false ? 'Container-Products-Disabel' : 'Container-Products'}>
+            <div className={product.isActive === false || product.stock === 0 ? 'Container-Products-Disabel' : 'Container-Products'}>
               {editingProductId !== product.id ?
+
+
                 <div style={{ display: 'flex', position: 'flex 1' }}>
                   {role === 'Seller' && <FontAwesomeIcon icon={faPencil} style={{ marginLeft: '15px' }} onClick={(() => { setEditingProductId(editingProductId === product.id ? null : product.id) })} />}
                   <h5 className="Product-Name" style={{ textAlign: 'center', flex: 1 }}>
@@ -186,15 +189,16 @@ const Products = () => {
                 {CompleteInput && <p className='Error'>Complete Data</p>}
               </>)}
 
-              {(role === 'Customer' || !role) && <>
+              {((role === 'Customer' || !role) && product.stock !== 0) && <>
                 <div className='Container-Button-Products'>
                   <button onClick={() => handleQuantityChange(product.id, Math.max(quantities[product.id] - 1, 1))}>-</button>
                   <input min="1" value={quantities[product.id] || 1} onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value) || 1)} />
                   <button onClick={() => handleQuantityChange(product.id, quantities[product.id] + 1)}>+</button>
                 </div>
-              </>}                
-              <button className='Add-Product' onClick={() => AddCartHandler(product)}>Add</button>
 
+                <button className='Add-Product' onClick={() => AddCartHandler(product)}>Add</button>
+              </>}
+              {product.stock === 0 && <h3>Out of Stock</h3>}
 
             </div>
 

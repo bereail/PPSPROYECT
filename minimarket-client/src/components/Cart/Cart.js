@@ -77,7 +77,7 @@ export default function Cart() {
   return (
     <div style={{ paddingBottom: '500px' }}>
       <Navbar />
-      {(!cart || cart.products.length === 0) && (
+      {(!cart || cart.products.length === 0) ? (
         <div className="Cart">
           <img src={image} alt="bolsa" className="bolsa-image" />
           <h2>Start a shopping cart!</h2>
@@ -85,9 +85,7 @@ export default function Cart() {
             <button className='Buttom-Cart'>Discover products</button>
           </Link>
         </div>
-      )}
-
-      {cart && (
+      ):
         <div>
           <h2>My Cart</h2>
           <div className="Cart-Products">
@@ -104,7 +102,7 @@ export default function Cart() {
                   </div>
                   <FontAwesomeIcon icon={faTrashCan} style={{ marginLeft: '90%' }} onClick={() => { HandleDeleteProductcart(product.id) }} />
                 </div>
-              ))}
+                 ))}
             </div>
             <div className="summary-section">
               <h3>Shopping Summary</h3>
@@ -121,7 +119,7 @@ export default function Cart() {
           </div>
           <button className='Button-Products' onClick={HandleCleanCart}>Clean Cart</button>
         </div>
-      )}
+      }
       <Footer />
     </div>
   );
