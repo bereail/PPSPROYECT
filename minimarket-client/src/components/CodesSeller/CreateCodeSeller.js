@@ -3,7 +3,7 @@ import api from '../../api';
 
 const CreateCodeSeller = async(data) => {
     try {
-        alert(data)
+        
         const response = await api.post('/api/codes',data);
         console.log(response.data)
         return response.data;

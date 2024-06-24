@@ -61,7 +61,7 @@ const Navbar = () => {
         </div>
       }
       <div className='NavRightItems'>
-      {((currentPage === "Home" || currentPage === "User" || currentPage === 'cart') && (role === 'Customer' || !role)) &&
+      {((currentPage === "Home" || currentPage === "User" || currentPage === 'cart') && (role === 'Customer')) &&
 
         <div className='NavFavorite-Container'>
           <Link to="/favorite" className='Nav-LinkFavorite'>

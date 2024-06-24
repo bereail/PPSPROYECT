@@ -33,12 +33,12 @@ const User = () => {
     }, [role]);
 
     const toggleChathistory = () => {
-        setShowChathistory(!showChathistory); // Cambia el estado para mostrar u ocultar el historial de chat
-        setActiveButton(showChathistory ? '' : 'showChathistory'); // Actualiza el estado del botón activo
+        setShowChathistory(!showChathistory); 
+        setActiveButton(showChathistory ? '' : 'showChathistory'); 
     };
 
     const handleExit = () => {
-        setActiveButton(''); // Limpia el estado del botón activo al salir
+        setActiveButton(''); 
     };
 
     return (

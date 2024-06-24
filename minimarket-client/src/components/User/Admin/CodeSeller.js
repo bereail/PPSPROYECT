@@ -1,27 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import GetCodeSeller from '../../CodesSeller/GetCodeSeller';
 import CreateCodeSeller from '../../CodesSeller/CreateCodeSeller';
+import DeleteCodeSeller from '../../CodesSeller/DeleteCodeSeller';
 
 const CodeSeller = () => {
   const [codeSellers, setCodeSellers] = useState([]);
   const [ShowCodeSeller, SetShowCodeSeller] = useState(false);
   const [InputCodeSeller, SetInputCodeSeller] = useState();
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await GetCodeSeller();
-        setCodeSellers(data);
-      } catch (error) {
-        console.error('Error fetching code sellers:', error);
-      }
-    };
+
 
     fetchData();
   }, []);
 
-  const handleDeletecode = (sellerId) => {
-    alert(`Elimino a: ${sellerId}`)
+  const fetchData = async () => {
+    try {
+      const data = await GetCodeSeller();
+      setCodeSellers(data);
+    } catch (error) {
+      console.error('Error fetching code sellers:', error);
+    }
+  };
 
+  const handleDeletecode = async(CodeId) => {
+    
+    try{
+      const response = await DeleteCodeSeller(CodeId)
+      alert(response.status )
+      if (response.status === 204){
+        fetchData();
+      }
+    }catch(error){
+      console.error('Error delete code seller:', error);
+    }
   }
 
   const HandleCreateCodeSeller = async () => {
@@ -31,7 +42,9 @@ const CodeSeller = () => {
   
     try {
       const response = await CreateCodeSeller(data);
-      console.log(response);
+      if (response.status  === 200){
+        fetchData();
+      }
     } catch (error) {
       console.error('Error creating code seller:', error);
     }
@@ -60,7 +73,7 @@ const CodeSeller = () => {
             {ShowCodeSeller && 
             <tr>
               <td>
-                <input type='text' placeholder='New Code Seller' onChange={()=>{SetInputCodeSeller()}}></input>
+                <input type='text' placeholder='New Code Seller' onChange={(e)=>{SetInputCodeSeller(e.target.value)}}></input>
               <button className='Button-Create' onClick={HandleCreateCodeSeller}>Create</button>
               </td>
             </tr>}
