@@ -6,8 +6,8 @@ const ModifyProducts = async(InputValue, prodcutid) => {
   
   if (InputValue.name !== '' && InputValue.description !== '' && InputValue.price !== null && InputValue.discount !== null) {
     try{
-      await api.put(`/api/products/${prodcutid}`,InputValue)   
-      window.location.reload();
+      const response = await api.put(`/api/products/${prodcutid}`,InputValue)   
+      return response
     }catch(error){
       console.log('Error Modify Prodcuts', error)
     }

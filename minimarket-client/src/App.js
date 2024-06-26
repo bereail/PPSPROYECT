@@ -90,7 +90,6 @@ const App = () => (
   <OrderProvider>
     <ThemeProvider>
       <AuthProvider>
-
         <CategoryProvider>
           <SearchProvider>
             <AppContent />

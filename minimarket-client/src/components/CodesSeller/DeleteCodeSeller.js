@@ -4,7 +4,7 @@ import api from '../../api'
 const DeleteCodeSeller = async(codeId) => {
   
     try{
-       const response = await api.delete(`/api/codes/${codeId}/erase`, codeId);
+       const response = await api.delete(`/api/codes/${codeId}`, codeId);
        return response
     }catch(error){
         console.error("Error Delete Code", error)

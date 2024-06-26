@@ -5,7 +5,6 @@ const CreateCodeSeller = async(data) => {
     try {
         
         const response = await api.post('/api/codes',data);
-        console.log(response.data)
         return response.data;
     } catch (error) {
         console.log('error fetching codes', error);

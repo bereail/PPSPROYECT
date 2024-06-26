@@ -26,8 +26,7 @@ const CodeSeller = () => {
     
     try{
       const response = await DeleteCodeSeller(CodeId)
-      alert(response.status )
-      if (response.status === 204){
+      if (response.status === 200){
         fetchData();
       }
     }catch(error){
@@ -56,17 +55,17 @@ const CodeSeller = () => {
           <tr>
             <th>id</th>
             <th>employeeCode</th>
-            <th>seller</th>
             <th>Delete</th>
           </tr>
         </thead>
         <tbody>
           {codeSellers.map((seller, index) => (
-            <tr key={index} className='Value-Table'>
+            <tr key={index} className='Value-Table' style={{ backgroundColor: seller.isActive ? '' : '#b5b8b5' }}>
               <td>{seller.id}</td>
               <td>{seller.employeeCode}</td>
-              <td>{seller.seller}</td>
-              <td><button className='Button-Delete-Table' onClick={() => { handleDeletecode(seller.id) }}>Delete</button></td>
+              {seller.isActive ? <td><button className='Button-Delete-Table' onClick={() => { handleDeletecode(seller.id) }}>Disabel</button></td>:
+              <td><button className='Button-Active-Table' onClick={() => {alert('Aplicar logica en un futuro') }}>Active</button></td>
+              } 
             </tr>
           ))}
           <tfoot>

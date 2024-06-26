@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }) => {
     setrole(role);
     setuserid(id)
   }
+  
   const logout = () => {
     window.localStorage.removeItem('LoggedUser');
     localStorage.removeItem("isFirstLogin");

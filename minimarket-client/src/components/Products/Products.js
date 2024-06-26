@@ -110,14 +110,44 @@ const Products = () => {
     }));
   }
 
-  const handleModifyProduct = (productId) => {
+  const handleModifyProduct = async (productId) => {
     if (InputValue.name === '' || InputValue.description === '' || InputValue.price === null || InputValue.stock === null || InputValue.discount === null) {
       SetCompleteInput(true)
 
     } else {
-      ModifyProducts(InputValue, productId);
-    }
+      try {
+        if (InputValue.name !== '' && InputValue.description !== '' && InputValue.price !== null && InputValue.stock !== null && InputValue.discount !== null) {
+          const response = await ModifyProducts(InputValue, productId);
+          if (response && response.status === 200) {
+            window.location.reload()
+          }
+        }
+      } catch (error) {
+        console.log('Error modifyProducts:', error);
+      }
 
+    }
+  }
+  const handleDisabelProduct = async (productid) => {
+    try {
+      const response = await DisabelProduct(productid);
+      if (response && response.status === 200) {
+        window.location.reload()
+      }
+    } catch (error) {
+      console.log('Error en handleDisabelProduct:', error);
+    }
+  }
+
+  const handleActiveProduct = async (productid) => {
+    try {
+      const response = await RestoreProducts(productid);
+      if (response && response.status === 200) {
+        window.location.reload()
+      }
+    } catch (error) {
+      console.log('Error en handleDisabelProduct:', error);
+    }
   }
 
   return (
@@ -163,8 +193,8 @@ const Products = () => {
                     {hoveredProduct === product.id ? product.name : `${product.name.slice(0, 20)}${product.name.length > 20 ? '...' : ''}`}
                   </h5>
                   {role === 'Customer' && <GetProductsFavorite product={product} userEmail={userEmail} favoriteHandler={favoriteHandler} />}
-                  {role === 'Seller' && product.isActive && <FontAwesomeIcon icon={faTrashCan} style={{ marginLeft: '10px' }} onClick={() => (DisabelProduct(product.id))} />}
-                  {role === 'Seller' && !product.isActive && <FontAwesomeIcon icon={faTrashCanArrowUp} style={{ marginLeft: '10px' }} onClick={() => (RestoreProducts(product.id))} />}
+                  {role === 'Seller' && product.isActive && <FontAwesomeIcon icon={faTrashCan} style={{ marginLeft: '10px' }} onClick={() => (handleDisabelProduct(product.id))} />}
+                  {role === 'Seller' && !product.isActive && <FontAwesomeIcon icon={faTrashCanArrowUp} style={{ marginLeft: '10px' }} onClick={() => (handleActiveProduct(product.id))} />}
                 </div>
                 : <div>
                   <input type='text' className="Product-Edit" name='name' placeholder="Product Name" onChange={handleInputChange}></input>

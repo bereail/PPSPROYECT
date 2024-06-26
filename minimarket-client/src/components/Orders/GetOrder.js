@@ -1,8 +1,12 @@
 import api from '../../api';
 
-const GetOrder = async () => {
+const GetOrder = async (pageNumber) => {
     try {
-        const response = await api.get('/api/orders');
+        const response = await api.get('/api/orders', {
+            params: { 
+                pageNumber: pageNumber
+              }
+        });
         return response.data;
     } catch (error) {
         console.log('error fetching order', error);

@@ -18,6 +18,7 @@
   .Container-Table tr:hover {
     background-color: #ddd;
   }
+
   .Value-Table input{
     width: 100%;
     padding: 8px;
@@ -50,10 +51,21 @@
 .Button-Delete-Table{
     background-color: #f81717c0
 }
+.Button-Active-Table {
+  background-color: #79b3436c
+}
+.Button-Active-Table:hover {
+  background-color: #45a04967
+}
 .Button-Delete-Table:hover{
     background-color: #ff0000d5
 }
-
+.Button-Disabel-Table{
+  background-color: #b6b2b2d5
+}
+.Button-Disabel-Table:hover {
+  background-color: #918f8fd5
+}
 
 .Container-Table th {
   background-color: #4CAF50;

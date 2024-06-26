@@ -4,7 +4,8 @@ import GetProductsByCategory from './GetProducstByCategory';
 const RestoreProducts = async(productId) => {
 
     try{
-        await api.patch(`/api/products/${productId}`);
+        const response = await api.patch(`/api/products/${productId}`);
+        return response
     }catch(error){
         console.log('Error Restaured Products', error)
     }

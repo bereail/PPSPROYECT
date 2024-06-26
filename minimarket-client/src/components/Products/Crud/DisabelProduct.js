@@ -6,9 +6,9 @@ import GetProductsByCategory from './GetProducstByCategory';
 const DisabelProduct = async(product) => {
 
     try{
-      await api.delete(`/api/products/${product}`)
+      const response = await api.delete(`/api/products/${product}`)
       removeProducstFromCarts(product)
-      window.location.reload();
+      return response
     }catch(error){
       console.log('Error disabel products:', error)
     }

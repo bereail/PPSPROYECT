@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import GetOrder from '../../Orders/GetOrder';
 import './AdminTable.css';
 import GetOrderByid from '../../Orders/GetOrderByid';
+import usePagination from '../../CustomHook/usePagination';
 
 const SalesHistory = () => {
     const [Orders, SetOrders] = useState([]);
     const [ShowOrders, SetShowOrders] = useState(false);
     const [OrderDetails, SetOrderDetails] = useState(null);
+    const { pageNumber, PaginationButtons } = usePagination(); // Usa el custom hook para la paginación
 
     useEffect(() => {
         const fetchOrders = async () => {
-            const orders = await GetOrder();
+            const orders = await GetOrder(pageNumber);
             if (orders) {
                 SetOrders(orders);
             } else {
@@ -19,7 +21,7 @@ const SalesHistory = () => {
         };
 
         fetchOrders();
-    }, []);
+    }, [pageNumber]);
 
     const handleRowClick = async (orderId) => {
         SetShowOrders(true);
@@ -57,6 +59,8 @@ const SalesHistory = () => {
                                     ))}
                                 </tbody>
                             </table>
+                            <PaginationButtons /> 
+
                         </>
                     ) : (
                         <div className="no-products">there are no orders</div>

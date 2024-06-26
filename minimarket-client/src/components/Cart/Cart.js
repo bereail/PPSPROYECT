@@ -72,6 +72,8 @@ export default function Cart() {
     if (orderId) {
       alert(orderId)
       navigate('/User'); 
+    }else{
+      navigate('/signupUser'); 
     }
   }
   return (
