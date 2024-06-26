@@ -20,6 +20,8 @@ import GetProductBySearch from './Crud/GetProductBySearch';
 import ModifyProducts from './Crud/ModifyProducts';
 import CreateImageProduct from './Crud/CreateImageProduct';
 import DeleteImageProduct from './Crud/DeleteImageProduct';
+import usePagination from '../CustomHook/usePagination';
+import useProductFilters from '../CustomHook/useProductFilters';
 const Products = () => {
   const [Products, setProducts] = useState([]);
   const [quantities, setQuantities] = useState({});
@@ -27,7 +29,6 @@ const Products = () => {
   const [isActive, SetisActive] = useState();
   const [error, setError] = useState(null);
   const [SortbydOption, SetSortbydOption] = useState('');
-  const [isAscendingOption, SetisAscendingOption] = useState();
   const { CategoryId } = useContext(CategoryContext);
   const { user, userEmail, role } = useContext(AuthContext);
   const [showCartUpdate, setShowCartUpdate] = useState(false);
@@ -41,9 +42,10 @@ const Products = () => {
     stock: null,
     discount: null
   });
+  const { pageNumber, PaginationButtons } = usePagination(); 
 
+  const { sortByOption, isAscending, SortOptions } = useProductFilters();
 
-  const [pageNumber, SetpageNumer] = useState(1)
   useEffect(() => {
     GetProductsByOffers(setProducts, setError)
 
@@ -52,10 +54,10 @@ const Products = () => {
 
   useEffect(() => {
     if (CategoryId !== null) {
-      GetProductsByCategory(CategoryId, isActive, setProducts, setError, isAscendingOption, SortbydOption, pageNumber);
+      GetProductsByCategory(CategoryId, isActive, setProducts, setError, isAscending, sortByOption, pageNumber);
     }
 
-  }, [CategoryId, isActive, isAscendingOption, pageNumber]);
+  }, [CategoryId, isActive, isAscending, pageNumber]);
 
   useEffect(() => {
     if (SearchValue) {
@@ -63,9 +65,7 @@ const Products = () => {
     }
   }, [SearchValue])
 
-  useEffect(() => {
-    SetisAscendingOption('');
-  }, [SortbydOption]);
+
 
 
   useEffect(() => {
@@ -158,21 +158,9 @@ const Products = () => {
         <img src={FotoMensaje} className='Image-MensageProducts' />
         <div className='Select-order'>
           {CategoryId !== null && (
-            <>
-              <select id="opciones" name="opciones" value={SortbydOption} onChange={(e) => { SetSortbydOption(e.target.value) }}>
-                <option value='' disabled selected>Sort by:</option>
-                <option value="Name">Name</option>
-                <option value="Price">Price</option>
-                <option value="Discount">Discount</option>
-              </select>
-              {SortbydOption &&
-                <select id="opciones" name="opciones" value={isAscendingOption} onChange={(e) => { SetisAscendingOption(e.target.value) }}>
-                  <option value='' disabled selected>Sort order</option>
-                  <option value={true}>Ascending</option>
-                  <option value={false}>descending</option>
-                </select>
-              }
-            </>
+               
+              <SortOptions />
+              
           )}
         </div>
       </div>
@@ -240,9 +228,8 @@ const Products = () => {
         <p className='Error-Products'>There are no products in this category.</p>
         <img style={{ width: '350px' }} src={iconerror}></img>
       </div>}
-
-      {CategoryId !== null && pageNumber != 1 && <button className='Page-button' onClick={() => { SetpageNumer(pageNumber - 1) }}>previous page</button>}
-      {CategoryId !== null && !error && <button className='Page-button' onClick={() => { SetpageNumer(pageNumber + 1) }}>Next page</button>}
+   
+      {CategoryId !== null && <PaginationButtons />}
       {role === 'Seller' && <div className='Products-Seller'>
         <CreateCategory></CreateCategory>
       </div>}

@@ -51,7 +51,7 @@ const User = () => {
 
                     <button onClick={() => setActiveButton('Profile')}
                         className={activeButton === "Profile" ? "User-filter-button active" : "User-filter-button"}> Profile</button>
-                    {role !== 'SuperAdmin' &&
+                    {role !== 'SuperAdmin' && role !== 'Seller' &&
                     <button onClick={() => setActiveButton('Orders')} className={activeButton === "Orders" ? "User-filter-button active" : "User-filter-button"}>Orders</button>
                     } 
                     <button onClick={() => setActiveButton('Add Address')}
@@ -71,9 +71,10 @@ const User = () => {
                                 className={activeButton === "AdminProperties" ? "User-filter-button active" : "User-filter-button"}>Admin Properties</button>
                         </div>
                     )}
-
+                    {role === 'Customer' && 
                     <button onClick={() => setActiveButton('Delete Account')} style={{ marginTop: "100px" }}
                         className={activeButton === "Delete Account" ? "User-filter-button active" : "User-filter-button"}>Delete Account</button>
+                    }
                 </div>
                 <div className="user-content-container">
                     {activeButton === 'ShowEmails' && (
@@ -85,7 +86,7 @@ const User = () => {
                     )}
                     
                     {activeButton === 'Profile' && <ModifyUser />}
-                    {activeButton === 'Orders' && role !== 'SuperAdmin' && <UserGetOrders />}
+                    {activeButton === 'Orders' && role !== 'SuperAdmin' && role !== 'Seller' && <UserGetOrders />}
                     {activeButton === 'Add Address' && <AddAdressUser />}
                     {activeButton === 'showChathistory' && <Chathistory chats={chats} />}
                     {activeButton === 'AdminProperties' && role === 'SuperAdmin' && (
@@ -93,7 +94,7 @@ const User = () => {
                             <AdminTable />
                         </div>
                     )}
-                    {activeButton === 'Delete Account' && <DeleteUser handleExit={handleExit} />}
+                    {activeButton === 'Delete Account' && role === 'Customer' && <DeleteUser handleExit={handleExit} />}
                 </div>
             </div>
             {role !== 'SuperAdmin' && <Footer />}

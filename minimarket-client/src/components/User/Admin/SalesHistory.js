@@ -3,26 +3,28 @@ import GetOrder from '../../Orders/GetOrder';
 import './AdminTable.css';
 import GetOrderByid from '../../Orders/GetOrderByid';
 import usePagination from '../../CustomHook/usePagination';
+import useProductFilters from '../../CustomHook/useProductFilters'; // Importa el custom hook de filtros de productos
 
 const SalesHistory = () => {
     const [Orders, SetOrders] = useState([]);
     const [ShowOrders, SetShowOrders] = useState(false);
     const [OrderDetails, SetOrderDetails] = useState(null);
-    const { pageNumber, PaginationButtons } = usePagination(); // Usa el custom hook para la paginación
+
+    const { pageNumber, PaginationButtons } = usePagination();
 
     useEffect(() => {
-        const fetchOrders = async () => {
-            const orders = await GetOrder(pageNumber);
-            if (orders) {
-                SetOrders(orders);
-            } else {
-                console.error('Error fetching orders');
-            }
-        };
 
         fetchOrders();
     }, [pageNumber]);
 
+    const fetchOrders = async () => {
+        const orders = await GetOrder(pageNumber);
+        if (orders) {
+            SetOrders(orders);
+        } else {
+            console.error('Error fetching orders');
+        }
+    };
     const handleRowClick = async (orderId) => {
         SetShowOrders(true);
         const orderDetails = await GetOrderByid(orderId);
@@ -59,7 +61,7 @@ const SalesHistory = () => {
                                     ))}
                                 </tbody>
                             </table>
-                            <PaginationButtons /> 
+                            <PaginationButtons />
 
                         </>
                     ) : (
@@ -68,7 +70,7 @@ const SalesHistory = () => {
                 </>
             )}
 
-{ShowOrders && OrderDetails && (
+            {ShowOrders && OrderDetails && (
                 <div className='OrderDetails'>
                     <h2>Order Details</h2>
                     <p><strong>ID:</strong> {OrderDetails.id}</p>
@@ -77,7 +79,7 @@ const SalesHistory = () => {
                     <p><strong>Status:</strong> {OrderDetails.status}</p>
                     <p><strong>Expiration Time:</strong> {OrderDetails.expirationTime}</p>
                     <p><strong>Finish Time:</strong> {OrderDetails.finishTime}</p>
-                    
+
                     <h3>Delivery Address</h3>
                     <p><strong>Province:</strong> {OrderDetails.deliveryAddress.province}</p>
                     <p><strong>City:</strong> {OrderDetails.deliveryAddress.city}</p>

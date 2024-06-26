@@ -3,10 +3,21 @@ import React, { useContext, useState }  from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil,faXmark } from "@fortawesome/free-solid-svg-icons";
 import { ThemeContext } from '../../Context/ThemeContext';
+import { AuthContext } from '../../Context/AuthContext';
+import api from '../../../api';
 
 export default function DeleteUser( { handleExit }) {
   const { theme } = useContext(ThemeContext);
     const [Showbottom, SetShowbottom] = useState(true);
+    const {logout} = useContext(AuthContext)
+    const handleDisactiveUser = async() =>{
+        try{
+           await api.delete(`/api/users/profile`)
+          logout()
+        }catch(error){
+
+        }
+    }
   return (
     <div>
         {Showbottom === true &&<div className='DeleteUser' style={{ backgroundColor: theme === "light" ? "" : "#a5351ca4" }}>
@@ -21,13 +32,9 @@ export default function DeleteUser( { handleExit }) {
         {Showbottom === false &&
         <div className='DeleteUser' style={{ backgroundColor: theme === "light" ? "" : "#a5351ca4" }}>
             <FontAwesomeIcon icon={faXmark}  onClick={handleExit} style={{paddingLeft:'290px'}} />
-            <p style={{width:'300px'}}>I'm sorry for your decision, goodbye.</p>
-            <p style={{marginBottom: '-10px', textAlign: 'justify'}}>Password</p>
-            <div className='Password-Delete'> 
-            <input type='password' style={{width: '200px', height: '30px'}}></input>
-            <button>Accept</button>
-            </div>
-            
+            <p style={{width:'330px'}}>I'm sorry for your decision, goodbye.</p>
+            <button onClick={handleDisactiveUser}>Accept</button>
+          
         </div>
                   
         } 

@@ -9,6 +9,7 @@ import DeleteProdcut from '../../Products/Crud/DeleteProdcut';
 
 const ProductsTable = () => {
   const SearchValue = '';
+   
   const [error, setError] = useState();
   const [Products, setProducts] = useState([]);
   const [EditProductId, setEditProductId] = useState(null);
