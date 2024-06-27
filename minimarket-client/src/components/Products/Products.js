@@ -46,21 +46,29 @@ const Products = () => {
 
   const { sortByOption, isAscending, SortOptions } = useProductFilters();
 
-  useEffect(() => {
-    GetProductsByOffers(setProducts, setError)
-
-  }, []);
 
 
-  useEffect(() => {
+  const fetchProducts = () => {
     if (CategoryId !== null) {
       GetProductsByCategory(CategoryId, isActive, setProducts, setError, isAscending, sortByOption, pageNumber);
+    } else {
+      GetProductsByOffers(setProducts, setError);
     }
+  };
 
-  }, [CategoryId, isActive, isAscending, pageNumber]);
+  
+  useEffect(() => {
+    fetchProducts()
+  }, []);
 
   useEffect(() => {
+      fetchProducts()
+  }, [CategoryId, isActive, isAscending, pageNumber]);
+
+  
+  useEffect(() => {
     if (SearchValue) {
+   
       GetProductBySearch(setProducts, setError, SearchValue)
     }
   }, [SearchValue])
@@ -118,9 +126,8 @@ const Products = () => {
       try {
         if (InputValue.name !== '' && InputValue.description !== '' && InputValue.price !== null && InputValue.stock !== null && InputValue.discount !== null) {
           const response = await ModifyProducts(InputValue, productId);
-          if (response && response.status === 200) {
-            window.location.reload()
-          }
+          fetchProducts();
+          
         }
       } catch (error) {
         console.log('Error modifyProducts:', error);
@@ -131,9 +138,9 @@ const Products = () => {
   const handleDisabelProduct = async (productid) => {
     try {
       const response = await DisabelProduct(productid);
-      if (response && response.status === 200) {
-        window.location.reload()
-      }
+      
+      fetchProducts();
+      
     } catch (error) {
       console.log('Error en handleDisabelProduct:', error);
     }
@@ -142,9 +149,7 @@ const Products = () => {
   const handleActiveProduct = async (productid) => {
     try {
       const response = await RestoreProducts(productid);
-      if (response && response.status === 200) {
-        window.location.reload()
-      }
+      fetchProducts();
     } catch (error) {
       console.log('Error en handleDisabelProduct:', error);
     }
@@ -185,7 +190,8 @@ const Products = () => {
                   {role === 'Seller' && !product.isActive && <FontAwesomeIcon icon={faTrashCanArrowUp} style={{ marginLeft: '10px' }} onClick={() => (handleActiveProduct(product.id))} />}
                 </div>
                 : <div>
-                  <input type='text' className="Product-Edit" name='name' placeholder="Product Name" onChange={handleInputChange}></input>
+                    <button  className= "Exit-Product"onClick={() => setEditingProductId(null)}>Exit</button>   
+                    <input type='text' className="Product-Edit" name='name' placeholder="Product Name" onChange={handleInputChange}></input>
                 </div>
               }
 
@@ -198,12 +204,13 @@ const Products = () => {
                   <p className='Product-Offer'>{product.discount !== 0 && `You take it for US$${product.price * (1 - product.discount / 100).toFixed(2)}`}</p>
                 </>
               ) : (<>
+             
                 <input type="text" className='Product-Edit' name='description' placeholder='Product Description' onChange={handleInputChange} />
                 <input type="number" className='Product-Edit' name='price' placeholder="Product Price" onChange={handleInputChange} />
                 <input type="number" className='Product-Edit' name='discount' placeholder="Product Discount" onChange={handleInputChange} />
                 <input type="number" className='Product-Edit' name='stock' placeholder="Stock" onChange={handleInputChange} />
                 <button className='Product-Edit-button' onClick={() => { handleModifyProduct(product.id) }}>Send</button>
-                {!product.image ? <CreateImageProduct productId={product.id} /> : <DeleteImageProduct productId={product.id} ></DeleteImageProduct>}
+                {!product.image ? <CreateImageProduct productId={product.id} fetchProducts={fetchProducts} /> : <DeleteImageProduct productId={product.id} fetchProducts={fetchProducts} />}
                 {CompleteInput && <p className='Error'>Complete Data</p>}
               </>)}
 
@@ -222,7 +229,7 @@ const Products = () => {
 
           </div>
         ))}
-        {role === 'Seller' && <> {CategoryId !== null && <CreaateProduct></CreaateProduct>}</>}
+        {role === 'Seller' && <> {CategoryId !== null &&  <CreaateProduct fetchProducts={fetchProducts} />}</>}
       </div>
       {error && <div>
         <p className='Error-Products'>There are no products in this category.</p>

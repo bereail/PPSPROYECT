@@ -79,7 +79,13 @@
 .Add-Product:hover {
     background-color: #b5602d;
 }
+.Exit-Product{
+    border-radius: 10px;
+    border-style: none;
+    background-color: #f19058;
+    margin-right: 10px;
 
+}
 .Button-Add-Category{
     background-color: #1192EF;
     border-style: none;

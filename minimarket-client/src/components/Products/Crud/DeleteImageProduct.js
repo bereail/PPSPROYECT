@@ -1,12 +1,12 @@
 import React from 'react'
 import api from '../../../api'
 
-const DeleteImageProduct = ({productId}) => {
+const DeleteImageProduct = ({productId, fetchProducts}) => {
 
     const HandleDeleteImage = async() =>{
         try{
             await api.delete(`/api/products/${productId}/images`)
-            window.location.reload();
+            fetchProducts();
 
         }catch(error){
             console.log("Errro delete prodcuts", error)

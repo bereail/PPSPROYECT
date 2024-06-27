@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import api from '../../../api';
 
-const CreateImageProduct = ({productId}) => {
+const CreateImageProduct = ({productId, fetchProducts}) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [nameImage, setNameImage] = useState('');
   const [Expanded , SetExpanded] = useState(false)
@@ -28,7 +28,7 @@ const CreateImageProduct = ({productId}) => {
       console.log(selectedFile)
       console.log(productId)
       await api.post(`/api/products/${productId}/images`, formData, config);
-      window.location.reload();
+      fetchProducts();
     } catch (error) {
       console.error('Error add image', error);
     }

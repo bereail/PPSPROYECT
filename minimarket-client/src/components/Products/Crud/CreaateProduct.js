@@ -1,13 +1,11 @@
-import React, {useContext, useEffect, useState } from 'react';
-import '../../Products/Products.css';
+import React, { useContext, useState } from 'react';
 import { CategoryContext } from '../../Context/CategoryContext';
 import api from '../../../api';
-import GetProductsByCategory from './GetProducstByCategory';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 
-const CreaateProduct = () => {
+const CreaateProduct = ({ fetchProducts }) => {
     const [ButtonAddProduct, SetButtonAddProduct] = useState(false);
     const [Name, SetName] = useState('');
     const [Description, SetDescription] = useState('')
@@ -28,7 +26,7 @@ const CreaateProduct = () => {
         }
         try {    
             await api.post(`/api/categories/${CategoryId}/products`, data);
-            window.location.reload();
+            fetchProducts();
         } catch (error) {
           console.error('Error add category:', error);
         }
@@ -64,4 +62,4 @@ const CreaateProduct = () => {
       );
     }
 
-export default CreaateProduct
+export default CreaateProduct;

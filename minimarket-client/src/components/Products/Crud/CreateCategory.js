@@ -4,7 +4,7 @@ import '../../Products/Products.css';
 import api from '../../../api';
 
 
-const CreateCategory = () => {
+const CreateCategory = ({ fetchProducts }) => {
 
   const [ButtonCategory, SetButtonCategory] = useState(false);
   const [ValueCategory, SetValueCategory] = useState('')
