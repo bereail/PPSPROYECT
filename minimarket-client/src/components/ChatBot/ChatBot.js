@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import ChatBot from 'react-simple-chatbot';
-import { AuthContext } from '../Context/AuthContext'; // Import AuthContext
+import { AuthContext } from '../Context/AuthContext'; 
 import './ChatBot.css';
 
 
@@ -80,7 +80,7 @@ const CustomChatbot = () => {
 
   const toggleChatbot = () => {
     if (isOpen) {
-      setSteps(initialSteps); // Reset steps when closing the chat
+      setSteps(initialSteps); 
     }
     setIsOpen(!isOpen);
   };
@@ -104,7 +104,7 @@ const CustomChatbot = () => {
       </button>
       {isOpen && (
         <ChatBot
-          key={isOpen ? 'open' : 'closed'} // Force re-mount of ChatBot component when toggled
+          key={isOpen ? 'open' : 'closed'} 
           headerTitle="ChatBot"
           recognitionEnable={true}
           recognitionThreshold={0.5}

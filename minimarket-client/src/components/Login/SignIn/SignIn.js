@@ -10,6 +10,9 @@ import api from "../../../api";
 import { ThemeContext } from "../../Context/ThemeContext";
 import { AuthContext } from "../../Context/AuthContext";
 import Navbar from "../../Navbar/Navbar";
+import ResetPassword from './ResetPassword';
+
+
 const Signin = () => {
   const { theme } = useContext(ThemeContext);
   const [Style, SetStyle] = useState(faEyeSlash);
@@ -18,6 +21,7 @@ const Signin = () => {
   const [pass, setPass] = useState('');
   const [Error, SetError] = useState('');
  const [ErrorLogin, SetErrorLogin] = useState(0);
+ const [isResetPasswordOpen, setIsResetPasswordOpen] = useState(false);
 
   const {user,login} = useContext(AuthContext);
 
@@ -72,6 +76,13 @@ const Signin = () => {
 
 
   }
+  const openResetPassword = () => {
+    setIsResetPasswordOpen(true);
+  }
+
+  const closeResetPassword = () => {
+    setIsResetPasswordOpen(false);
+  }
 
   return (
     <div  >
@@ -95,13 +106,22 @@ const Signin = () => {
           SetStyle(Style === faEyeSlash ? faEye : faEyeSlash))}></FontAwesomeIcon>
                       
           </div>
+
+          {Error === 1 && (pass === '' || pass.length < 8) && <p className='Error-SingIn'>Set a correct password</p>}
+              <div style={{ marginTop: '10px' }}>
+                <a href="/reset-password" className="reset-password-link">Do you forget your password? Reset</a>
+              </div>
+
           {Error === 1 && (pass === '' || pass.length < 8)&& <p className='Error-SingIn'>Set a correct password</p>}
         </div>
            {ErrorLogin === 1 && <p className='Error-Login'>Incorrect user or password</p>}
+
+
         <button type="submit" className="botton-Singin">Submit</button>
       </form>
       </div>
       </div>
+      {isResetPasswordOpen && <ResetPassword onClose={closeResetPassword} />}
       <Footer/>
     </div>
   );

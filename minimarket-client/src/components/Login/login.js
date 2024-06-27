@@ -93,7 +93,7 @@ const Login = () => {
                     </div>
                 </>)}
             </>}
-            {currentPage == "Login" && (            
+            {currentPage === "Login" && (            
                     <Link
                         to="/signupUser"
                         type="button"
@@ -101,7 +101,7 @@ const Login = () => {
                         Sign Up
                     </Link>
             )}
-            {currentPage == "Register" && (
+            {currentPage === "Register" && (
                 <Link
                     to="/signin"
                     type="button"

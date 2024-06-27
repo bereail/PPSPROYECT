@@ -1,9 +1,13 @@
 import React from 'react';
 import './FaQs.css'
+import Logo from '../Navbar/Logo';
+
 
 const FAQs = () => {
   return (
     <div>
+       <Logo/>
+       
       <h1>Frequently Asked Questions (FAQs)</h1>
       
       <section>
@@ -75,7 +79,10 @@ const FAQs = () => {
         <h2>What safety and hygiene measures are you taking in your stores?</h2>
         <p>We follow all health and safety recommendations, including wearing masks, regular disinfection of surfaces, and maintaining social distancing. We also provide hand sanitizer at all store entrances and exits.</p>
       </section>
+      
+      
     </div>
+   
   );
 };
 

@@ -9,7 +9,7 @@ import Error404 from "./components/Pages/Error404";
 import "./App.css";
 import { ThemeContext, ThemeProvider } from "./components/Context/ThemeContext";
 import ProtectedUser from "./components/Pages/ProtectedUser";
-import Spinner from "./components/Context/Spinner"; // Asegúrate de que esta ruta sea correcta
+import Spinner from "./components/Context/Spinner"; 
 import CustomChatbot from "./components/ChatBot/ChatBot";
 import { CategoryProvider } from "./components/Context/CategoryContext";
 import { AuthProvider } from "./components/Context/AuthContext";
@@ -20,7 +20,8 @@ import FaQs from "./components/Footer/FaQs";
 import { OrderProvider } from "./components/Context/OrderContext";
 import PaySuccess from "./components/PayWhitMP/PaySuccess";
 import ProtectedMp from "./components/Pages/ProtectedMp";
-
+import ResetPassword from "./components/Login/SignIn/ResetPassword";
+import ResetPasswordForm from './components/Login/SignIn/ResetPasswordForm';
 
 const router = createBrowserRouter([
   {
@@ -72,7 +73,16 @@ const router = createBrowserRouter([
         <PaySuccess />
       </ProtectedUser>
     </ProtectedMp>,
-  }
+  },
+  {
+    path: "reset-password",
+    element: <ResetPassword />,
+  },
+  {
+    path: "ResetPasswordForm",
+    element: <ResetPasswordForm />,
+  },
+
 ]);
 
 const AppContent = () => {
