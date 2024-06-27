@@ -1,12 +1,4 @@
-.Welcome {
-    background-color: var(--main-background-color);
-      color: var(--main-text-color);
-}
 
-.form-register {
-  background-color: var(--main-background-color);
-  color: var(--main-text-color);
-}
  .password-input-containers {
   display: flex;
   align-items: center;

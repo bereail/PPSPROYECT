@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import axios from 'axios';
 import Footer from "../../Footer/footer";
 import "./SignIn.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -41,7 +40,7 @@ const Signin = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    if(email == ''){
+    if(email === ''){
       SetError(1);
       return;
     }
@@ -111,8 +110,6 @@ const Signin = () => {
               <div style={{ marginTop: '10px' }}>
                 <a href="/reset-password" className="reset-password-link">Do you forget your password? Reset</a>
               </div>
-
-          {Error === 1 && (pass === '' || pass.length < 8)&& <p className='Error-SingIn'>Set a correct password</p>}
         </div>
            {ErrorLogin === 1 && <p className='Error-Login'>Incorrect user or password</p>}
 

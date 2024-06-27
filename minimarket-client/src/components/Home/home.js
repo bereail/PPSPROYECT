@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import CarrouselPage from "../Carrousel/CarrouselPage/CarrouselPage";
 import Footer from "../Footer/footer";
+import { ThemeContext } from '../Context/ThemeContext';
 import Header from "../Header/header";
 import "./Home.css";
 import Products from "../Products/Products";
@@ -15,7 +16,8 @@ const LoginPopup = ({ showPopup }) => (
 
 const Home = () => {
   const [showPopup, setShowPopup] = useState(false);
-  const { user, isLoading, error } = useContext(AuthContext); // Handle loading and error states
+  const { user, isLoading, error } = useContext(AuthContext); 
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const [role, setRole] = useState(''); 
 
   useEffect(() => {
@@ -27,10 +29,15 @@ const Home = () => {
         setShowPopup(false);
       }, 2000);
     }
-  }, [user]);
+    
+  },[user]);
+
+  useEffect(() => {
+    document.body.className = theme; 
+  }, [theme]);
 
   if (isLoading) {
-    return <p>Loading...</p>; // Display loading state
+    return <p>Loading...</p>; 
   }
 
   if (error) {
@@ -40,6 +47,7 @@ const Home = () => {
   return (
     <div className="Home">
       <Navbar />
+    
       <div className="hh">
         <CarrouselPage />
         {showPopup && <LoginPopup showPopup={showPopup} />} {/* Render popup conditionally */}

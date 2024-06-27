@@ -1,9 +1,3 @@
-.form-Address{
-    background-color: var(--main-background-color);
-    color: var(--main-text-color);
-}
-
-
 .User {
     display: flex;
 }

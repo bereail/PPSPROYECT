@@ -89,7 +89,7 @@ const AppContent = () => {
   const { theme, isLoading } = useContext(ThemeContext);
 
   return (
-    <div className={`${theme === "dark" && "dark-theme"} ${isLoading && "opacity-80"}`}>
+    <div className={`${theme === "dark" && "dark-theme"} ${isLoading && "opacity-50"}`}>
       {isLoading && <Spinner />}
       <RouterProvider router={router} />
     </div>

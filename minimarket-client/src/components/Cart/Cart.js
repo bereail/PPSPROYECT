@@ -107,9 +107,9 @@ export default function Cart() {
                  ))}
             </div>
             <div className="summary-section">
-              <h3 className='product-reverse-theme'>Shopping Summary</h3>
+              <h3>Shopping Summary</h3>
               <div className="Total-Price" style={{ marginTop: '40px' }}>
-                <p className="Total-Price">Discount:</p>
+                <p>Discount:</p>
                 <p>${CartDiscount}</p>
               </div>
               <div className="Total-Price">

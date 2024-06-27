@@ -1,42 +1,39 @@
 .chatbot-container {
-    position: relative;
+  position: relative;
 }
 
 .chatbot-toggle-button {
-    -webkit-box-align: center;
-    align-items: center;
-    cursor: pointer;
-    background: #000000;
-    bottom: 32px;
-    border-radius: 100%;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 12px 24px 0px;
-    display: flex;
-    fill: rgb(255, 255, 255);
-    height: 56px;
-    -webkit-box-pack: center;
-    justify-content: center;
-    position: fixed;
-    right: 32px;
-    transform: scale(1);
-    transition: transform 0.3s ease 0s;
-    width: 56px;
-    z-index: 999;
+  -webkit-box-align: center;
+  align-items: center;
+  cursor: pointer;
+  background: #000000;
+  bottom: 32px;
+  border-radius: 100%;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 12px 24px 0px;
+  display: flex;
+  fill: rgb(255, 255, 255);
+  height: 56px;
+  -webkit-box-pack: center;
+  justify-content: center;
+  position: fixed;
+  right: 32px;
+  transform: scale(1);
+  transition: transform 0.3s ease 0s;
+  width: 56px;
+  z-index: 999;
 }
 
 a {
-    text-decoration: none;
-    color: #181412;
-    cursor: pointer;
+  text-decoration: none;
+  color: #181412;
+  cursor: pointer;
 }
 
 /* Estilos adicionales para asegurar texto negro en burbujas */
 .rsc-message-text {
-    color: #000 !important;
+  color: #000 !important;
 }
 
 .rsc-input {
-    color: #000 !important;
+  color: #000 !important;
 }
-
-
-

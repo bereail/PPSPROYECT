@@ -1,20 +1,3 @@
-:root {
-  --main-text-color: black;
-  --main-background-color: white;
-  --reverse-text-color: var(--main-background-color);
-  --reverse-background-color: var(--main-text-color);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --main-text-color: white;
-    --main-background-color: black;
-    --reverse-text-color: var(--main-background-color);
-    --reverse-background-color: var(--main-text-color);
-  }
-}
-
-
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;

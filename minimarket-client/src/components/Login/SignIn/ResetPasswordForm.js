@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams,Link } from 'react-router-dom';
 import api from "../../../api";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
@@ -23,7 +23,7 @@ const ResetPasswordForm = () => {
     const strength = zxcvbn(password);
     setPasswordStrength(strength);
   };
-  
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -41,26 +41,26 @@ const ResetPasswordForm = () => {
       setError('Passwords do not match.');
       return;
     }
-    
+
     const data = {
-      token: token,
-      newPassword: newPassword,
+      password: newPassword,
       confirmPassword: confirmPassword
     };
 
     try {
-      const response = await api.post('/api/auth/recovery', data);
+      const response = await api.put('/api/users/profile/password', data, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
       if (response.status === 200) {
         setMessage('Your password has been reset successfully.');
       } else {
         setError('Password reset failed.');
       }
-    } catch (error) {
-      if (error.response && error.response.data && error.response.data.message) {
-        setError(error.response.data.message);
-      } else {
-        setError('An error occurred. Please try again.');
-      }
+    } catch (err) {
+      setError('Password reset failed.');
     }
   };
 
@@ -124,11 +124,14 @@ const ResetPasswordForm = () => {
           {message && <p className="message">{message}</p>}
           <button type="submit" className="button-reset">Submit</button>
         </form>
+        <Link to="/" className="button-home">Home</Link>
       </div>
     </div>
   );
 };
 
 export default ResetPasswordForm;
+
+
 
 
