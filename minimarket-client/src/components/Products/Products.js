@@ -182,7 +182,7 @@ const Products = () => {
 
                 <div style={{ display: 'flex', position: 'flex 1' }}>
                   {role === 'Seller' && <FontAwesomeIcon icon={faPencil} style={{ marginLeft: '15px' }} onClick={(() => { setEditingProductId(editingProductId === product.id ? null : product.id) })} />}
-                  <h5 className="Product-Name" style={{ textAlign: 'center', flex: 1 }}>
+                  <h5 className="Product-Name-Theme" style={{ textAlign: 'center', flex: 1 }}>
                     {hoveredProduct === product.id ? product.name : `${product.name.slice(0, 20)}${product.name.length > 20 ? '...' : ''}`}
                   </h5>
                   {role === 'Customer' && <GetProductsFavorite product={product} userEmail={userEmail} favoriteHandler={favoriteHandler} />}
@@ -205,7 +205,7 @@ const Products = () => {
                 </>
               ) : (<>
              
-                <input type="text" className='Product-Edit' name='description' placeholder='Product Description' onChange={handleInputChange} />
+                <input type="text" className='Product-Edit-Theme' name='description' placeholder='Product Description' onChange={handleInputChange} />
                 <input type="number" className='Product-Edit' name='price' placeholder="Product Price" onChange={handleInputChange} />
                 <input type="number" className='Product-Edit' name='discount' placeholder="Product Discount" onChange={handleInputChange} />
                 <input type="number" className='Product-Edit' name='stock' placeholder="Stock" onChange={handleInputChange} />

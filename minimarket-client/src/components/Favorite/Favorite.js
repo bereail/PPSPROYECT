@@ -60,9 +60,9 @@ const Favorite = () => {
                     </button>
                 </div>
             ) : (
-                <div className="favorites-list">
+                <div className="product-item reverse-color">
                     {favoriteProducts.map((product, index) => (
-                        <div key={index} className="product-item">
+                        <div key={index} className="product-item reverse-color">
                             <div>
                                 <h3>{product.name}</h3>
                                 <p>Description: {product.description}</p>

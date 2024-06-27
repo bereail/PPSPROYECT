@@ -49,7 +49,7 @@ const ResetPasswordForm = () => {
     };
 
     try {
-      const response = await api.put('/api/users/profile/password', data);
+      const response = await api.post('/api/auth/recovery', data);
       if (response.status === 200) {
         setMessage('Your password has been reset successfully.');
       } else {
@@ -130,6 +130,5 @@ const ResetPasswordForm = () => {
 };
 
 export default ResetPasswordForm;
-
 
 

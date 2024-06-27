@@ -1,3 +1,8 @@
+.Product-Name-Theme {
+    background-color: var(--main-background-color);
+    color: var(--main-text-color);
+  }
+  
 
 .Container-Products{
     background-color:  #ffffff;
@@ -34,6 +39,8 @@
     margin: 0px;
 }
 .Product-Offer{
+    background-color: var(--main-background-color);
+    color: var(--main-text-color);
     margin: 0px;
     font-size: 20px;
 }

@@ -1,4 +1,6 @@
 .Navbar-Container{
+  background-color: var(--main-background-color);
+  color: var(--main-text-color);
     background-image: linear-gradient(to right,  #812c17a4, #a5351ca4);
     display: flex;
     max-height: 80px;
