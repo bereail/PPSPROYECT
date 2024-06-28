@@ -22,6 +22,7 @@ import PaySuccess from "./components/PayWhitMP/PaySuccess";
 import ProtectedMp from "./components/Pages/ProtectedMp";
 import ResetPassword from "./components/Login/SignIn/ResetPassword";
 import ResetPasswordForm from './components/Login/SignIn/ResetPasswordForm';
+import ProtectedResetPassword from "./components/Pages/ProtectedResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -80,7 +81,9 @@ const router = createBrowserRouter([
   },
   {
     path: "ResetPasswordForm",
-    element: <ResetPasswordForm />,
+    element:<ProtectedResetPassword>
+      <ResetPasswordForm />
+      </ProtectedResetPassword> ,
   },
 
 ]);

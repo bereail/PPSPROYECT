@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useSearchParams,Link } from 'react-router-dom';
 import api from "../../../api";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import zxcvbn from 'zxcvbn';
 import './ResetPasswordForm.css';
+import { AuthContext } from '../../Context/AuthContext';
 
 const ResetPasswordForm = () => {
   const [searchParams] = useSearchParams();
@@ -16,7 +17,7 @@ const ResetPasswordForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const token = searchParams.get('token');
-
+   const {logout} = useContext(AuthContext)
   const handleNewPasswordChange = (e) => {
     const password = e.target.value;
     setNewPassword(password);
@@ -56,6 +57,7 @@ const ResetPasswordForm = () => {
 
       if (response.status === 200) {
         setMessage('Your password has been reset successfully.');
+        logout()
       } else {
         setError('Password reset failed.');
       }
