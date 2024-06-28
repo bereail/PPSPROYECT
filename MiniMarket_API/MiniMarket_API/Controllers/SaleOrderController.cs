@@ -96,5 +96,20 @@ namespace MiniMarket_API.Controllers
             }
             return Ok(getOrders);
         }
+
+        [HttpDelete("{orderId}")]
+        public async Task<IActionResult> CancelOrderAsync([FromRoute] Guid orderId)
+        {
+            var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
+
+            var cancelledOrder = await _saleOrderService.CancelOrder(orderId, userId);
+
+            if (cancelledOrder == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(cancelledOrder);
+        }
     }
 }

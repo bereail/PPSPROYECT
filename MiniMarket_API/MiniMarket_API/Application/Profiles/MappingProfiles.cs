@@ -37,8 +37,6 @@ namespace MiniMarket_API.Application.Profiles
 
             CreateMap<UserViewProfile, User>().ReverseMap();
 
-            CreateMap<SellerView, User>().ReverseMap();
-
             CreateMap<DeliveryAddressView, DeliveryAddress>().ReverseMap();
             #endregion
 

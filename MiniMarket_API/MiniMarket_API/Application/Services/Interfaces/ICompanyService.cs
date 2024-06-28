@@ -7,6 +7,7 @@ namespace MiniMarket_API.Application.Services.Interfaces
     {
         Task<CompanyCodeView?> CreateCompanyCode(AddCompanyCodeDto companyCodeDto);
         Task<CompanyCodeView?> DeactivateCompanyCode(Guid id);
+        Task<CompanyCodeView?> RestoreCompanyCode(Guid id);
         Task EraseCompanyCode(Guid id);
         Task<IEnumerable<CompanyCodeView>?> GetAllCompanyCodes();
         Task<CompanyCodeView?> GetCodeById(Guid id);

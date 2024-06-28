@@ -75,7 +75,7 @@ namespace MiniMarket_API.Controllers
 
             if (userRole == typeof(SuperAdmin).Name)
             {
-                await _productCategoryService.DeactivateProductCategory(categoryId);
+                await _productCategoryService.EraseProductCategory(categoryId);
                
                 return NoContent();
             }
@@ -115,6 +115,7 @@ namespace MiniMarket_API.Controllers
                 {
                     return NotFound("Category Restoration Failed: Category Wasn't Found");
                 }
+
                 return Ok(categoryToCascadeRestore);
             }
 
@@ -162,7 +163,9 @@ namespace MiniMarket_API.Controllers
 
         [HttpGet("{categoryId}/products")]
         //FOR GENERAL USE
-        public async Task<IActionResult> GetProductsByCategoryAsync([FromRoute] Guid categoryId, [FromQuery] bool? isActive, [FromQuery] string? filterOn, [FromQuery] string? filterQuery,
+        public async Task<IActionResult> GetProductsByCategoryAsync([FromRoute] Guid categoryId,
+            [FromQuery] bool? isActive, [FromQuery] bool? inStock,
+            [FromQuery] string? filterOn, [FromQuery] string? filterQuery,
             [FromQuery] string? sortBy, [FromQuery] bool? isAscending,
             [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 15)
         {
@@ -172,9 +175,10 @@ namespace MiniMarket_API.Controllers
             {
                 filterOn = "Name";
                 isActive = true;
+                inStock = true;
             }
 
-            var categoryProducts = await _productCategoryService.GetCategoryCollection(categoryId, isActive, filterOn, filterQuery, sortBy, isAscending, pageNumber, pageSize);
+            var categoryProducts = await _productCategoryService.GetCategoryCollection(categoryId, isActive, inStock, filterOn, filterQuery, sortBy, isAscending, pageNumber, pageSize);
             if (categoryProducts == null)
             {
                 return BadRequest("Category Doesn't Exist");

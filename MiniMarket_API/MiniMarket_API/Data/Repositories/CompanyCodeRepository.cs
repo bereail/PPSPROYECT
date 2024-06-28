@@ -27,13 +27,27 @@ namespace MiniMarket_API.Data.Repositories
             var getCodeToDeactivate = await _context.EmployeeCodes
                 .Include(e => e.Seller)
                 .FirstOrDefaultAsync(e => e.Id == id);
+
             if (getCodeToDeactivate == null)
             {
                 return null;
             }
+
             getCodeToDeactivate.IsActive = false;
             await _context.SaveChangesAsync();
             return getCodeToDeactivate;
+        }
+
+        public async Task<CompanyCode?> RestoreCompanyCodeAsync(Guid id)
+        {
+            var getCodeToRestore = await _context.EmployeeCodes
+                .FirstOrDefaultAsync (e => e.Id == id);
+
+            if (getCodeToRestore == null) { return null; }
+
+            getCodeToRestore.IsActive = true;
+            await _context.SaveChangesAsync();
+            return getCodeToRestore;
         }
 
         public async Task EraseCompanyCodeAsync(Guid id)

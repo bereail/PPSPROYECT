@@ -51,6 +51,15 @@ namespace MiniMarket_API.Application.Services.Implementations
 
             if (checkExistingAddress != Guid.Empty)
             {
+                // Inneficient, but it'll do for the time being.
+                var ordersToNullifyAddress = await saleOrderRepository.GetOrderIdsByUserIdAsync(userId);
+
+                foreach (var order in ordersToNullifyAddress)
+                {
+                    await saleOrderRepository.TerminateOrderAddressRelationship(order);
+                    continue;
+                }
+
                 var ordersToCancel = await saleOrderRepository.GetPendingOrderIdsByUserIdAsync(userId);
 
                 foreach (var orderId in ordersToCancel)

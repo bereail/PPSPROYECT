@@ -56,10 +56,16 @@ namespace MiniMarket_API.Application.Services.Implementations
             }
 
             await _userService.DeactivateUser(sellerToDeactivate.Id);
-            
-            var mappedCode = mapper.Map<CompanyCodeView?>(codeToDeactivate);
 
-            return mappedCode;
+            return mapper.Map<CompanyCodeView?>(codeToDeactivate); 
+        }
+
+        public async Task<CompanyCodeView?> RestoreCompanyCode(Guid id)
+        {
+            var codeToRestore = await _companyCodeRepository.RestoreCompanyCodeAsync(id);
+            if (codeToRestore == null) { return null; }
+
+            return mapper.Map<CompanyCodeView?>(codeToRestore);
         }
 
         public async Task EraseCompanyCode(Guid id)

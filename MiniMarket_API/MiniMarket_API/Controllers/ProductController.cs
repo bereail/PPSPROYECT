@@ -94,7 +94,8 @@ namespace MiniMarket_API.Controllers
         [HttpGet]
         //Can be used for the search bar, but it will require role validation for the isActive param.
         //Anything else: FOR SELLER/ADMIN ONLY = It's meant to work with a general inventory management interface, and it disregards category structuring.
-        public async Task<IActionResult> GetAllProductsAsync([FromQuery] bool? isActive, [FromQuery] string? filterOn, [FromQuery] string? filterQuery,
+        public async Task<IActionResult> GetAllProductsAsync([FromQuery] bool? isActive, [FromQuery] bool? inStock,
+            [FromQuery] string? filterOn, [FromQuery] string? filterQuery,
             [FromQuery] string? sortBy, [FromQuery] bool? isAscending,
             [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 15)
         {
@@ -104,9 +105,10 @@ namespace MiniMarket_API.Controllers
             {
                 filterOn = "Name";
                 isActive = true;
+                inStock = true;
             }
 
-            var getProducts = await productService.GetAllProducts(isActive, filterOn, filterQuery, sortBy, isAscending, pageNumber, pageSize);
+            var getProducts = await productService.GetAllProducts(isActive, inStock, filterOn, filterQuery, sortBy, isAscending, pageNumber, pageSize);
             if (getProducts == null)
             {
                 return NotFound("No Products Found");
@@ -118,13 +120,24 @@ namespace MiniMarket_API.Controllers
         [HttpGet("{productId}")]
         public async Task<IActionResult> GetProductByIdAsync([FromRoute] Guid productId)
         {
-            var getProduct = await productService.GetProductById(productId);
-            if (getProduct == null)
+            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            if (userRole == typeof(Customer).Name)
             {
-                return NotFound();
+                var getProduct = await productService.GetProductById(productId);
+                if (getProduct == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(getProduct);
             }
 
-            return Ok(getProduct);
+            var unrestrictedGet = await productService.UnrestrictedGetProductById(productId);
+
+            if (unrestrictedGet == null) { return NotFound(); } 
+
+            return Ok(unrestrictedGet);
         }
 
         [HttpGet("offers")]
@@ -132,6 +145,7 @@ namespace MiniMarket_API.Controllers
         public async Task<IActionResult> GetProductOffersForHomeAsync()
         {
             bool? isActive = true;
+            bool? inStock = true;
             string? filterOn = null;
             string? filterQuery = null;
             string? sortBy = "discount";
@@ -139,7 +153,9 @@ namespace MiniMarket_API.Controllers
             int pageNumber = 1;
             int pageSize = 9;
 
-            var getOffers = await productService.GetAllProducts(isActive, filterOn, filterQuery, sortBy, isAscending, pageNumber, pageSize);
+            var getOffers = await productService.GetAllProducts(isActive, inStock, filterOn,
+                filterQuery, sortBy, isAscending, pageNumber, pageSize);
+
             if (getOffers == null)
             {
                 return NotFound("No Offers Available");

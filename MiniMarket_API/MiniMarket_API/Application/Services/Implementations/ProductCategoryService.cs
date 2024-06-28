@@ -13,13 +13,18 @@ namespace MiniMarket_API.Application.Services.Implementations
         private readonly IProductRepository productRepository;
         private readonly IProductImageService productImageService;
         private readonly IMapper mapper;
+        private readonly IOrderDetailsService orderDetailsService;
 
-        public ProductCategoryService(IProductCategoryRepository categoryRepository, IProductRepository productRepository, IMapper mapper, IProductImageService productImageService)
+        public ProductCategoryService(IProductCategoryRepository categoryRepository,
+            IProductRepository productRepository,
+            IMapper mapper, IProductImageService productImageService,
+            IOrderDetailsService orderDetailsService)
         {
             _categoryRepository = categoryRepository;
             this.productRepository = productRepository;
             this.mapper = mapper;
             this.productImageService = productImageService;
+            this.orderDetailsService = orderDetailsService;
         }
 
         public async Task<CategoryView> CreateProductCategory(AddCategoryDto addCategoryDto)
@@ -98,6 +103,15 @@ namespace MiniMarket_API.Application.Services.Implementations
 
         public async Task EraseProductCategory(Guid id)
         {
+            // Terribly innefficient, but it works for the time being.
+            var productsToHandleDetails = await productRepository.CategoryAllProductIds(id);
+
+            foreach(var productId in productsToHandleDetails)
+            {
+                await orderDetailsService.HandleProductDetailTermination(productId);
+                continue;
+            }
+
             await _categoryRepository.EraseProductCategoryAsync(id);
         }
 
@@ -111,18 +125,23 @@ namespace MiniMarket_API.Application.Services.Implementations
             return mapper.Map<IEnumerable<CategoryView>>(categories);
         }
 
-        public async Task<CategoryViewProducts?> GetCategoryCollection(Guid categoryId, bool? isActive, string? filterOn, string? filterQuery,
+        public async Task<CategoryViewProducts?> GetCategoryCollection(Guid categoryId, 
+            bool? isActive, bool? inStock,
+            string? filterOn, string? filterQuery,
             string? sortBy, bool? isAscending, int pageNumber, int pageSize)
         {
             if (pageNumber < 1) { pageNumber = 1; }
             if (pageSize < 1 || pageSize > 25) { pageSize = 15; }
 
             var getCategory = await _categoryRepository.GetCategoryByIdAsync(categoryId);
+
             if (getCategory == null)
             {
                 return null;
             }
-            var getProducts = await productRepository.GetAllCategoryProductsAsync(categoryId, isActive, filterOn, filterQuery, sortBy, isAscending ?? true,
+
+            var getProducts = await productRepository.GetAllCategoryProductsAsync(categoryId, isActive, inStock,
+                filterOn, filterQuery, sortBy, isAscending ?? true,
                 pageNumber, pageSize);
 
             var productCollection = mapper.Map<ICollection<ProductView>>(getProducts);

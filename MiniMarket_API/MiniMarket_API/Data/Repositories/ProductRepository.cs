@@ -90,7 +90,7 @@ namespace MiniMarket_API.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Product>> GetAllProductsAsync(bool? isActive, string? filterOn = null, string? filterQuery = null,
+        public async Task<IEnumerable<Product>> GetAllProductsAsync(bool? isActive, bool? inStock, string? filterOn = null, string? filterQuery = null,
             string? sortBy = null, bool isAscending = true, int pageNumber = 1, int pageSize = 15)
         {
             //We define products as Queryable
@@ -101,6 +101,12 @@ namespace MiniMarket_API.Data.Repositories
             if (isActive != null)
             {
                 products = isActive.Value ? products.Where(x => x.IsActive) : products.Where(x => !x.IsActive);
+            }
+
+            //Same deal as with isActive, but for product stocks instead.
+            if (inStock != null)
+            {
+                products = inStock.Value ? products.Where(x => x.Stock >= 1) : products.Where(x => x.Stock <= 0);
             }
 
             //Filtering by the product name using Queryable
@@ -140,7 +146,9 @@ namespace MiniMarket_API.Data.Repositories
             return await products.Skip(skipResults).Take(pageSize).ToListAsync();
         }
 
-        public async Task<IEnumerable<Product>> GetAllCategoryProductsAsync(Guid categoryId, bool? isActive, string? filterOn = null, string? filterQuery = null,
+        public async Task<IEnumerable<Product>> GetAllCategoryProductsAsync(Guid categoryId, 
+            bool? isActive, bool? inStock, 
+            string? filterOn = null, string? filterQuery = null,
             string? sortBy = null, bool isAscending = true, int pageNumber = 1, int pageSize = 15)
         {
             var products = _context.Products.Where(p => p.CategoryId == categoryId).AsQueryable();
@@ -148,6 +156,11 @@ namespace MiniMarket_API.Data.Repositories
             if (isActive != null)
             {
                 products = isActive.Value ? products.Where(x => x.IsActive) : products.Where(x => !x.IsActive);
+            }
+
+            if (inStock != null)
+            {
+                products = inStock.Value ? products.Where(x => x.Stock >= 1) : products.Where(x => x.Stock <= 0);
             }
 
             if (string.IsNullOrWhiteSpace(filterOn) == false && string.IsNullOrWhiteSpace(filterQuery) == false)
@@ -210,6 +223,16 @@ namespace MiniMarket_API.Data.Repositories
         {
             return _context.Products
                 .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<ICollection<Guid>> CategoryAllProductIds(Guid categoryId)
+        {
+            var productIds = await _context.Products
+                .Where(p => p.CategoryId == categoryId)
+                .Select(p => p.Id)
+                .ToListAsync();
+
+            return productIds;
         }
     }
 

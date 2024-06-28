@@ -10,8 +10,10 @@ namespace MiniMarket_API.Application.Services.Interfaces
         Task<ProductView?> DeactivateProduct(Guid id);
         Task<ProductView?> RestoreProduct(Guid id);
         Task EraseProduct(Guid id);
-        Task<IEnumerable<ProductView>?> GetAllProducts(bool? isActive, string? filterOn, string? filterQuery, string? sortBy, bool? isAscending,
+        Task<IEnumerable<ProductView>?> GetAllProducts(bool? isActive, bool? inStock,
+            string? filterOn, string? filterQuery, string? sortBy, bool? isAscending,
             int pageNumber, int pageSize);
         Task<ProductView?> GetProductById(Guid id);
+        Task<ProductView?> UnrestrictedGetProductById(Guid id);
     }
 }

@@ -47,5 +47,16 @@ namespace MiniMarket_API.Application.Services.Implementations
             }
             await _orderDetailRepository.EraseDetailAsync(id);
         }
+
+        public async Task HandleProductDetailTermination(Guid productId)
+        {
+            var detailIds = await _orderDetailRepository.GetDetailIdsByProductId(productId);
+
+            foreach (var id in detailIds)
+            {
+                await _orderDetailRepository.SetProductRelationshipNull(id);
+                continue;
+            }
+        }
     }
 }

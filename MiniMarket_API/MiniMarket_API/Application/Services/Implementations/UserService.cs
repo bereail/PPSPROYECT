@@ -105,8 +105,12 @@ namespace MiniMarket_API.Application.Services.Implementations
         public async Task<IEnumerable<UserView>?> GetAllUsers(bool? isActive, string? filterOn, string? filterQuery,
             string? sortBy, bool? isAscending, int pageNumber, int pageSize)
         {
+            if (pageNumber < 1) { pageNumber = 1; }
+            if (pageSize < 1 || pageSize > 30) { pageSize = 7; }
+
             var users = await _userRepository.GetAllUsersAsync(isActive, filterOn, filterQuery, sortBy, isAscending ?? true,
                 pageNumber, pageSize);
+
             if (!users.Any())
             {
                 return null;

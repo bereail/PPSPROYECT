@@ -7,5 +7,6 @@ namespace MiniMarket_API.Application.Services.Interfaces
     {
         Task<OrderDetails?> CreateOrderDetail(CreateDetailDto createDetail, Guid orderId);
         Task EraseOrderDetail(Guid id);
+        Task HandleProductDetailTermination(Guid productId);
     }
 }

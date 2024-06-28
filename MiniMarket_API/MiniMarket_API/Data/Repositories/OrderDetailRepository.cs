@@ -33,14 +33,6 @@ namespace MiniMarket_API.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<OrderDetails>> GetDetailsByOrderId(Guid orderId)      //Could theoretically be swapped for a .Include(); in SaleOrderRepository
-        {
-            return await
-                _context.Details
-                .Where(d => d.OrderId == orderId)
-                .ToListAsync();
-        }
-
         public Task<OrderDetails?> GetDetailByIdAsync(Guid id)
         {
             return _context.Details
@@ -48,10 +40,24 @@ namespace MiniMarket_API.Data.Repositories
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public Task<OrderDetails?> GetDetailByOrderProductId(Guid orderId, Guid productId)
+        public async Task<ICollection<Guid>> GetDetailIdsByProductId(Guid productId)
         {
-            return _context.Details
-                .FirstOrDefaultAsync(x => x.OrderId == orderId && x.ProductId == productId);
+            var idCollection = await _context.Details
+                .Where(x => x.ProductId == productId)
+                .Select(x => x.Id)
+                .ToListAsync();
+            return idCollection;
+        }
+
+        public async Task SetProductRelationshipNull(Guid id)
+        {
+            var getDetailToUpdate = await _context.Details.FirstOrDefaultAsync(d => d.Id == id);
+
+            if (getDetailToUpdate == null) { return; }
+
+            getDetailToUpdate.ProductId = null;
+
+            await _context.SaveChangesAsync();
         }
     }
 }

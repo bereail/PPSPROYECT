@@ -74,6 +74,25 @@ namespace MiniMarket_API.Controllers
             return Forbid();
         }
 
+        [HttpPatch("{codeId}")]
+        public async Task<IActionResult> RestoreCompanyCodeAsync([FromRoute] Guid codeId)
+        {
+            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            if (userRole == typeof(SuperAdmin).Name)
+            {
+                var restoredCode = await companyService.RestoreCompanyCode(codeId);
+                if (restoredCode == null)
+                {
+                    return NotFound("Code Restoration Failed: Code Couldn't be Found!");
+                }
+
+                return Ok(restoredCode);
+            }
+
+            return Forbid();
+        }
+
         [HttpDelete("{codeId}/erase")]
         public async Task<IActionResult> EraseCompanyCodeAsync([FromRoute] Guid codeId)
         {

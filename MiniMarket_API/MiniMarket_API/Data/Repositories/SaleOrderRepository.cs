@@ -188,5 +188,26 @@ namespace MiniMarket_API.Data.Repositories
 
             return getOrders;
         }
+
+        public async Task<ICollection<Guid>> GetOrderIdsByUserIdAsync(Guid userId)
+        {
+            var getOrders = await _context.Orders
+                .Where(o => o.UserId == userId)
+                .Select(o => o.Id)
+                .ToListAsync();
+
+            return getOrders;
+        }
+
+        public async Task TerminateOrderAddressRelationship(Guid id)
+        {
+            var getOrder = await _context.Orders.FirstOrDefaultAsync(o => o.Id == id);
+
+            if (getOrder == null) { return; }
+
+            getOrder.AddressId = null;
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

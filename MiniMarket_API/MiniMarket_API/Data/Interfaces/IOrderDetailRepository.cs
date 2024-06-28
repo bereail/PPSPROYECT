@@ -6,8 +6,8 @@ namespace MiniMarket_API.Data.Interfaces
     {
         Task<OrderDetails> CreateOrderDetailAsync(OrderDetails orderDetails);
         Task EraseDetailAsync(Guid id);
-        Task<IEnumerable<OrderDetails>> GetDetailsByOrderId(Guid orderId);
         Task<OrderDetails?> GetDetailByIdAsync(Guid id);
-        Task<OrderDetails?> GetDetailByOrderProductId(Guid orderId, Guid productId);
+        Task<ICollection<Guid>> GetDetailIdsByProductId(Guid productId);
+        Task SetProductRelationshipNull(Guid id);
     }
 }

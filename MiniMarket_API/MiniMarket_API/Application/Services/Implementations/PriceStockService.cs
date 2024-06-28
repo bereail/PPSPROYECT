@@ -69,6 +69,8 @@ namespace MiniMarket_API.Application.Services.Implementations
             var getDetail = await orderDetailRepository.GetDetailByIdAsync(detailId);
             if (getDetail == null) { return null; }
 
+            if (getDetail.ProductId == null) { return 0; }
+
             int? quantityToReturn = -getDetail.ProductQuantity;
 
             quantityToReturn = await HandleProductStock(getDetail.Product, quantityToReturn.Value);

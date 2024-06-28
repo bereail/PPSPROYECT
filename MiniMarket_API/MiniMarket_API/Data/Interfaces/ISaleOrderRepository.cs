@@ -19,5 +19,7 @@ namespace MiniMarket_API.Data.Interfaces
         Task<SaleOrder?> GetOrderByIdAsync(Guid id);
         Task<Guid> CheckOrderUserIdAsync(Guid orderId);
         Task<ICollection<Guid>> GetPendingOrderIdsByUserIdAsync(Guid userId);
+        Task<ICollection<Guid>> GetOrderIdsByUserIdAsync(Guid userId);
+        Task TerminateOrderAddressRelationship(Guid id);
     }
 }

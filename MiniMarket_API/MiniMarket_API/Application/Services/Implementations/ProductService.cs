@@ -15,16 +15,19 @@ namespace MiniMarket_API.Application.Services.Implementations
         private readonly IProductImageService _productImageService;
         private readonly IMapper _mapper;
         private readonly IProductEventManager _productEventManager;
+        private readonly IOrderDetailsService _orderDetailsService;
 
         public ProductService(IProductRepository productRepository,
             IMapper mapper, IProductCategoryRepository productCategoryRepository,
-            IProductImageService productImageService, IProductEventManager productEventManager)
+            IProductImageService productImageService, IProductEventManager productEventManager,
+            IOrderDetailsService orderDetailsService)
         {
             _productRepository = productRepository;
             _mapper = mapper;
             _productCategoryRepository = productCategoryRepository;
             _productImageService = productImageService;
             _productEventManager = productEventManager;
+            _orderDetailsService = orderDetailsService;
         }
 
         public async Task<ProductView?> CreateProduct(Guid categoryId, AddProductDto addProductDto)
@@ -87,16 +90,17 @@ namespace MiniMarket_API.Application.Services.Implementations
         public async Task EraseProduct(Guid id)
         {
             await _productImageService.HandleImageDeletion(id);
+            await _orderDetailsService.HandleProductDetailTermination(id);
             await _productRepository.EraseProductAsync(id);
         }
 
-        public async Task<IEnumerable<ProductView>?> GetAllProducts(bool? isActive, string? filterOn, string? filterQuery,
+        public async Task<IEnumerable<ProductView>?> GetAllProducts(bool? isActive, bool? inStock, string? filterOn, string? filterQuery,
             string? sortBy, bool? isAscending, int pageNumber, int pageSize)
         {
             if (pageNumber < 1) { pageNumber = 1; }
             if (pageSize < 1 || pageSize > 30) { pageSize = 15; }
 
-            var products = await _productRepository.GetAllProductsAsync(isActive, filterOn, filterQuery, sortBy, isAscending ?? true,
+            var products = await _productRepository.GetAllProductsAsync(isActive, inStock, filterOn, filterQuery, sortBy, isAscending ?? true,
                 pageNumber, pageSize);    //If the bool is null, it's changed to true.
 
             if (!products.Any())
@@ -119,6 +123,23 @@ namespace MiniMarket_API.Application.Services.Implementations
         public async Task<ProductView?> GetProductById(Guid id)
         {
             var getProduct = await _productRepository.GetProductByIdAsync(id);
+            if (getProduct == null)
+            {
+                return null;
+            }
+            var productView = _mapper.Map<ProductView?>(getProduct);
+            var productImage = await _productImageService.GetProductImage(id);
+            if (productImage == null)
+            {
+                return productView;
+            }
+            productView.Image = productImage;
+            return productView;
+        }
+
+        public async Task<ProductView?> UnrestrictedGetProductById(Guid id)
+        {
+            var getProduct = await _productRepository.UnrestrictedGetByIdAsync(id);
             if (getProduct == null)
             {
                 return null;
