@@ -51,7 +51,7 @@ El listado de paquetes NuGet de alto nivel utilizados es el siguiente:
 - Swashbuckle.AspNetCore 6.5.0
 - System.IdentityModel.Tokens.Jwt 7.5.1
 
-* BACKEND TESTING:
+3) BACKEND TESTING:
 
 El testing unitario del Backend fue desarrollado utilizando la herramienta de testeo unitario xUnit.net
 
@@ -63,6 +63,6 @@ El listado de paquetes NuGet de alto nivel utilizados en el testing es el siguie
 - xunit 2.5.3
 - xunit.runner.visualstudio 2.5.3
 
-* BASE DE DATOS:
+4) BASE DE DATOS:
 
 La base de datos fue implementada a traves de el Code-First Approach. Se utilizo SQL Server 2022 v.16.0.1000.6, Developer Edition (64-bit).
