@@ -4,7 +4,7 @@ El proyecto fue realizado para las materias de Laboratorio de Computacion IV, y 
 
 Tecnologias utilizadas:
 
-- FRONTEND:
+1) FRONTEND:
 
 El Frontend fue desarrollado con la libreria ReactJS, version 18.2.0
 El listado de librerias adicionales utilizadas es el siguiente:
@@ -33,7 +33,7 @@ El listado de librerias adicionales utilizadas es el siguiente:
 - web-vitals: 2.1.4
 - zxcvbn: 4.4.2
 
-- BACKEND:
+2) BACKEND:
 
 El Backend fue desarrollado el Framework de .NET 8, para la implementacion de una API MVC.
 El listado de paquetes NuGet de alto nivel utilizados es el siguiente:
