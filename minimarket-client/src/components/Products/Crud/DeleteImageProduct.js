@@ -9,7 +9,6 @@ const DeleteImageProduct = ({productId, fetchProducts}) => {
             fetchProducts();
 
         }catch(error){
-            console.log("Errro delete prodcuts", error)
         }
     }
 

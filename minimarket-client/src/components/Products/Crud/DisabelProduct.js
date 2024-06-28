@@ -10,7 +10,7 @@ const DisabelProduct = async(product) => {
       removeProducstFromCarts(product)
       return response
     }catch(error){
-      console.log('Error disabel products:', error)
+      throw error;
     }
 }
 

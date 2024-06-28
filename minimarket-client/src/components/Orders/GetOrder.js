@@ -9,8 +9,7 @@ const GetOrder = async (pageNumber, isAscendingOption,SortbydOption) => {
         });
         return response.data;
     } catch (error) {
-        console.log('error fetching order', error);
-        return null;
+        throw error;
     }
 };
 

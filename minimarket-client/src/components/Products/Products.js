@@ -132,7 +132,6 @@ const Products = () => {
           
         }
       } catch (error) {
-        console.log('Error modifyProducts:', error);
       }
 
     }
@@ -144,7 +143,6 @@ const Products = () => {
       fetchProducts();
       
     } catch (error) {
-      console.log('Error en handleDisabelProduct:', error);
     }
   }
 
@@ -153,7 +151,6 @@ const Products = () => {
       const response = await RestoreProducts(productid);
       fetchProducts();
     } catch (error) {
-      console.log('Error en handleDisabelProduct:', error);
     }
   }
 

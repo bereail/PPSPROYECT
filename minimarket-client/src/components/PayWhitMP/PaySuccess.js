@@ -40,10 +40,8 @@ const PaySuccess = () => {
   
 
   try {
-    const response = await api.post(`/api/orders/${orderId}/payment/success`);
-    console.log(response.data);
+    await api.post(`/api/orders/${orderId}/payment/success`);
   } catch (error) {
-    console.error('Error making API request:', error);
   }
 };
 

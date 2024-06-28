@@ -79,7 +79,6 @@ const SignupUser = () => {
       return;
     }
     if (Seller && hexadecimalCode.trim() === '') {
-      console.log("HexadecimalCode validation error");
       setErrors(prevErrors => ({
           ...prevErrors,
           hexadecimalCode: true

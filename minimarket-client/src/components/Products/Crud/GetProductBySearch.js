@@ -3,7 +3,7 @@ import api from '../../../api';
 
 const GetProductBySearch = async(setProducts, setError, SearchValue, pageNumber) => {
     try {
-        console.log(SearchValue)
+
         const response = await api.get(`/api/products`, {
             params: { 
                 filterOn: 'Name',
@@ -11,7 +11,6 @@ const GetProductBySearch = async(setProducts, setError, SearchValue, pageNumber)
                 pageNumber: pageNumber
               }
         });
-        console.log(response.data)
         setProducts(response.data); 
         setError(null);
       } catch (error) {

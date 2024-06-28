@@ -47,13 +47,12 @@ const ProductsTable = () => {
      try {
       if (InputValue.name !== '' && InputValue.description !== '' && InputValue.price !== null && InputValue.stock !== null && InputValue.discount !== null) {
         const response = await ModifyProducts(InputValue, productId);
-        alert(response.status)
       if (response && response.status === 200) {
         fetchData();
       }
     }
     } catch (error) {
-      console.log('Error en handleDisabelProduct:', error);
+     
     }
   };
 
@@ -64,7 +63,7 @@ const ProductsTable = () => {
         fetchData();
       }
     } catch (error) {
-      console.log('Error en handleDisabelProduct:', error);
+    
     }
   };
 
@@ -75,7 +74,7 @@ const ProductsTable = () => {
         fetchData();
       }
     } catch (error) {
-      console.log('Error en handleDisabelProduct:', error);
+
     }
   };
 
@@ -86,7 +85,7 @@ const ProductsTable = () => {
         fetchData();
       }
     } catch (error) {
-      console.log('Error en handleDisabelProduct:', error);
+      
     }
   };
 

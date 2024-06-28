@@ -35,10 +35,6 @@ const StoreProducts = (key, product, quantities, userEmail) => {
         window.localStorage.setItem(`${key}_${userEmail}`, JSON.stringify(cart));
         return true;
 
-      //} else {
-     // alert('Usuario no logeado');
-      //return false;
-    //}
     
 }
 

@@ -4,11 +4,9 @@ import api from '../../api';
 const GetCodeSeller = async() => {
     try {
         const response = await api.get('/api/codes');
-        console.log(response.data)
         return response.data;
     } catch (error) {
-        console.log('error fetching codes', error);
-        return null;
+        throw error;
     }
 
 

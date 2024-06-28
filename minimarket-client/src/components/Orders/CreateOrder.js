@@ -12,11 +12,8 @@ const CreateOrder = async (OrdenDetails) => {
       return orderId;
     }
   } catch(error) {
-    console.error('Error Create Order', error);
+    throw error;
   }
-
-  // Aquí podrías retornar algún JSX si es necesario, aunque en tu caso actual no es necesario.
-  return null;
 }
 
 export default CreateOrder;

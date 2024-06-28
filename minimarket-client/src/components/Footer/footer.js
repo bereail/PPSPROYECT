@@ -30,7 +30,6 @@ const Footer = () => {
       const updatedEmails = [...subscribedEmails, email];
       setSubscribedEmails(updatedEmails);
       localStorage.setItem('subscribedEmails', JSON.stringify(updatedEmails));
-      alert('Email registrado');
       setEmail('');
     }
   };

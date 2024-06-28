@@ -7,7 +7,7 @@ const RestoreProducts = async(productId) => {
         const response = await api.patch(`/api/products/${productId}`);
         return response
     }catch(error){
-        console.log('Error Restaured Products', error)
+        throw error;
     }
 
 }

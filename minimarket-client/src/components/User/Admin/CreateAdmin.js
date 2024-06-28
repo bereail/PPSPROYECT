@@ -56,10 +56,9 @@ const CreateAdmin = () => {
 
         if (InputValue.name !== '' && InputValue.email !== '' && InputValue.password !== '' && InputValue.phoneNumber !== null) {    
            try{
-            const response = await api.post('/api/admin',InputValue)
-            console.log(response.data); 
+            await api.post('/api/admin',InputValue)
            }catch(error){
-            console.log('Erro create Admin',error)
+   
            }
         }
           
