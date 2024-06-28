@@ -6,12 +6,12 @@ import './ChatBot.css';
 
 const theme = {
   background: '#f5f8fb',
-  headerBgColor: '#eb3449',
+  headerBgColor: '#c56c18',
   headerFontColor: '#fff',
   headerFontSize: '20px',
-  botBubbleColor: '#eb3449',
+  botBubbleColor: '#c56c18',
   botFontColor: '#000',
-  userBubbleColor: '#0cb3c9',
+  userBubbleColor: '#cf7b0c',
   userFontColor: '#000',
 };
 
@@ -99,7 +99,8 @@ const CustomChatbot = () => {
   if (role === 'SuperAdmin') {
     return null;
   }
-  return (
+  return (        
+  <ThemeProvider theme={theme}>
     <div className='chatbot-container'>
       <button
         className={`chatbot-toggle-button ${isOpen ? 'open' : ''}`}
@@ -107,8 +108,7 @@ const CustomChatbot = () => {
         aria-label="Toggle chatbot"
       >
       </button>
-      {isOpen && (
-        <ThemeProvider theme={theme}>
+      {isOpen && ( 
           <ChatBot
             key={isOpen ? 'open' : 'closed'} 
             headerTitle="ChatBot"
@@ -118,9 +118,10 @@ const CustomChatbot = () => {
             handleEnd={handleEnd}
             floating={true}
           />
-        </ThemeProvider>
       )}
-    </div>
+    </div>        
+    </ThemeProvider>
+
   );
 };
 

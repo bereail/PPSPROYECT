@@ -8,28 +8,30 @@ import '../User.css'
 import GetOrderByid from '../../Orders/GetOrderByid';
 import PayWhitMP from '../../PayWhitMP/PayWhitMP';
 import { OrderContext } from '../../Context/OrderContext';
+import usePagination from '../../CustomHook/usePagination';
 export default function UserGetOrders() {
     const [Orders, SetOrders] = useState([]);
     const [ShowOrders, SetShowOrders] = useState(false);
     const [OrderDetails, SetOrderDetails] = useState(null);
     const [ButtonMp, SetButtonMp] = useState(false)
     const { setOrderId} = useContext(OrderContext);
+    const { pageNumber, PaginationButtons } = usePagination();
 
     useEffect(() => {
 
-        const fetchData = async () => {
-            try {
-                const data = await GetOrderByUser();
-                SetOrders(data)
-            } catch (error) {
-                console.error('Error fetching code sellers:', error);
-            }
-        };
 
-        fetchData();
-    }, []);
+        fetchData(pageNumber);
+    }, [pageNumber]);
 
     
+    const fetchData = async (pageNumber) => {
+        try {
+            const data = await GetOrderByUser(pageNumber);
+            SetOrders(data)
+        } catch (error) {
+            console.error('Error fetching code sellers:', error);
+        }
+    };
     const handleRowClick = async (orderId) => {
         SetShowOrders(true);
         const orderDetails = await GetOrderByid(orderId);
@@ -72,6 +74,8 @@ export default function UserGetOrders() {
                                 ))}
                             </tbody>
                         </table>
+                        <PaginationButtons />
+
                     </>
                 ) : (
                     <div className="no-products">there are no orders</div>

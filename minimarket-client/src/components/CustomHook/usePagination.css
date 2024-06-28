@@ -1,0 +1,17 @@
+
+.Page-button{
+    border-style: none;
+    background-color: #c56f28;
+    margin-left: 50px;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+.dark-theme .Page-button {
+    background-color: #613f1e;
+  }
+  
+  .dark-theme .Page-button:hover {
+    background-color: #503519;
+  }

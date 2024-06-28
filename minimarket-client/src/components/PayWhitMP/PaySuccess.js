@@ -36,14 +36,11 @@ const PaySuccess = () => {
     }, [orderId, navigate]);
 
   const handlePay = async () => {
-    const data = {
-    orderId: orderId,
-    userId: "0C964749-FF23-4B54-A083-223BDF8A5D5C"
-  };
+
   
 
   try {
-    const response = await api.post(`/api/orders/${orderId}/payment/success`, data);
+    const response = await api.post(`/api/orders/${orderId}/payment/success`);
     console.log(response.data);
   } catch (error) {
     console.error('Error making API request:', error);

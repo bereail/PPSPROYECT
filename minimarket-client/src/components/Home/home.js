@@ -7,18 +7,17 @@ import "./Home.css";
 import Products from "../Products/Products";
 import { AuthContext } from "../Context/AuthContext";
 import Navbar from "../Navbar/Navbar";
-
-const LoginPopup = ({ showPopup }) => (
-  <div className={`Time-window ${showPopup ? "show" : ""}`} aria-live="polite">
-    <p>Successfully logged in!</p>
-  </div>
-);
+import { useLocation } from 'react-router-dom';
+import TemporaryMessage from "./TemporaryMessage";
+import LoginPopup from "./LoginPopup";
 
 const Home = () => {
   const [showPopup, setShowPopup] = useState(false);
   const { user, isLoading, error } = useContext(AuthContext); 
-  const { theme, toggleTheme } = useContext(ThemeContext);
-  const [role, setRole] = useState(''); 
+  const { theme } = useContext(ThemeContext);
+  const [role, setRole] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const location = useLocation();
 
   useEffect(() => {
     const isFirstLogin = localStorage.getItem("isFirstLogin");
@@ -30,7 +29,15 @@ const Home = () => {
       }, 2000);
     }
     
-  },[user]);
+    const searchParams = new URLSearchParams(location.search);
+    const message = searchParams.get('message');
+    if (message) {
+      setErrorMessage(message);
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 5000); // Tiempo en milisegundos para mostrar el mensaje
+    }
+  }, [user, location.search]);
 
   useEffect(() => {
     document.body.className = theme; 
@@ -41,7 +48,7 @@ const Home = () => {
   }
 
   if (error) {
-    return <p>Error fetching user data: {error.message}</p>; // Display error message
+    return <p>Error fetching user data: {error.message}</p>; 
   }
 
   return (
@@ -50,18 +57,24 @@ const Home = () => {
     
       <div className="hh">
         <CarrouselPage />
-        {showPopup && <LoginPopup showPopup={showPopup} />} {/* Render popup conditionally */}
+        {showPopup && <LoginPopup showPopup={showPopup} />} 
       </div>
+      
+      <div className="hh">
+        {errorMessage && (
+          <TemporaryMessage message={errorMessage} />
+        )}
+      </div>
+
       <div className="content">
         <Header />
         <Products />
       </div>
-      {role !== 'SuperAdmin' && <Footer />} 
+      
+      <Footer /> 
 
     </div>
   );
 };
 
 export default Home;
-
-

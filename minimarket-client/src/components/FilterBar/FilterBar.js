@@ -8,21 +8,23 @@ import { faTrashCan, faTrashCanArrowUp, faSortDown } from "@fortawesome/free-sol
 import { CategoryContext } from "../Context/CategoryContext";
 import api from "../../api";
 import { AuthContext } from "../Context/AuthContext";
+import { ThemeContext } from "../Context/ThemeContext";
 
 
 
 export default function FilterBar() {
   const { CategoryId, SetCategoryId } = useContext(CategoryContext);
   const [isExpanded, setIsExpanded] = useState(false);
+  const { theme } = useContext(ThemeContext);
   const [Category, SetCategory] = useState([]);
   const [isActive, SetisActive] = useState(false)
-  const {role} = useContext(AuthContext)
+  const { role } = useContext(AuthContext)
   const fetchCategories = async (isactive) => {
     try {
       if (isActive !== '') {
         SetisActive(!isActive)
       }
-        
+
       const response = await api.get("/api/categories", {
         params: { isActive: isactive }
       });
@@ -42,8 +44,8 @@ export default function FilterBar() {
       console.error('Error fetching categories:', error);
     }
   }
-  const handleActiveCategory = async ()=>{
-    try {      
+  const handleActiveCategory = async () => {
+    try {
       await api.patch(`/api/categories/${CategoryId}`);
       fetchCategories()
     } catch (error) {
@@ -67,16 +69,16 @@ export default function FilterBar() {
       <div
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}>
-        <div className="icon-category">
+        <div className={`icon-category ${theme === 'dark' ? 'dark-theme' : ''}`}>
           <FontAwesomeIcon icon={faBars} /> Categories
         </div>
         {isExpanded && (
-          <div className="filter-bar">
+          <div className='filter-bar'>
             {Category.map((category) => (<>
-           
+
               <div
                 key={category.id}
-                className={`${CategoryId === category.id ? "filter-button active" : "filter-button"} ${!category.isActive ? "Category-disabled" : ""}`}
+                className={`${CategoryId === category.id ? "filter-button active" : "filter-button"} ${!category.isActive ? "Category-disabled" : ""} ${theme === 'dark' ? 'dark-theme-category' : ''}`}
                 onClick={() => handleFilter(category.id)}
               >
                 {category.categoryName}

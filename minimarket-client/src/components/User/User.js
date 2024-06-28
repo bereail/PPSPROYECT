@@ -46,8 +46,7 @@ const User = () => {
         <div>
             <Navbar />
             <div className='User'>
-                <div className='Userdetails' style={{ backgroundColor: theme === "light" ? "" : "#a5351ca4" }}>
-                    <img src={imageuser} alt="User" className="user-image" />
+            <div className={`Userdetails ${theme === 'dark' ? 'dark-theme' : ''}`}>                    <img src={imageuser} alt="User" className="user-image" />
                     <h3>Welcome {user && user.name}!</h3>
 
                     <button onClick={() => setActiveButton('Profile')}

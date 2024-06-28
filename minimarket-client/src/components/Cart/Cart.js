@@ -12,6 +12,7 @@ import api from '../../api';
 import CreateOrder from '../Orders/CreateOrder';
 import PayWhitMP from '../PayWhitMP/PayWhitMP';
 import { OrderContext } from '../Context/OrderContext';
+import { ThemeContext } from '../Context/ThemeContext';
 
 
 export default function Cart() {
@@ -20,7 +21,8 @@ export default function Cart() {
   const [cart, setCart] = useState(null);
   const [CartPriceDiscount, SetCartPriceDiscount] = useState();
   const [CartDiscount, SetCartDiscount] = useState();
-  const [ButtonMp, SetButtonMp] = useState(false)
+  const [ButtonMp, SetButtonMp] = useState(false);
+  const { theme } = useContext(ThemeContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -89,12 +91,12 @@ export default function Cart() {
         </div>
       ):
         <div>
-          <h2>My Cart</h2>
+          <h1 style={{textAlign: 'center'}}>My shopping cart</h1>
           <div className="Cart-Products">
             <div className="product-list">
 
               {cart.products.map((product, index) => (
-                <div key={index} className="product-item">
+                <div key={index} className={`${theme === "dark" ? "dark-product-item" : "product-item "}`}>
                   <div>
                     <h1>{product.name}</h1>
                     <p><strong>Description:</strong>{product.description}</p>
@@ -106,7 +108,7 @@ export default function Cart() {
                 </div>
                  ))}
             </div>
-            <div className="summary-section">
+            <div className={`${theme === "dark" ? "dark-summary-section" : "summary-section"}`}>
               <h3>Shopping Summary</h3>
               <div className="Total-Price" style={{ marginTop: '40px' }}>
                 <p>Discount:</p>

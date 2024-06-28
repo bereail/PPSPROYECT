@@ -22,7 +22,27 @@
     max-width: 250px;
     max-height: 200px;
 }
+.Container-Products.dark {
+    /* Estilos para el contenedor de productos en tema oscuro */
+    background-color: #7e4d31;;
+    color: #000000;
+    border-color: rgba(145, 85, 51, 0.451)
 
+}
+.Container-Products-Disabel.dark{
+    background-color: #7c5742;;
+    color: #000000;
+    border-color: rgba(145, 85, 51, 0.451)
+}
+
+.Container-Products:hover.dark  {
+    background-color: #7e4d31;
+    
+}
+.Container-Products-Disabel:hover.dark  {
+    background-color: #7c5742;;
+}
+  
 .Product-Name {
     font-size: 22px; 
     text-shadow: 1px 1px 2px rgba(0,0,0,0.5); 
@@ -62,6 +82,7 @@
     border-radius: 40%;
 }
 
+
 .Container-Products:hover {
     transform: scale(1.5);
     box-shadow: 5px 5px 3px rgba(0,0,0,0.5);    
@@ -87,7 +108,7 @@
 
 }
 .Button-Add-Category{
-    background-color: #1192EF;
+    background-color: #f19058;
     border-style: none;
     border-radius: 10%;
     font-size: 30px;
@@ -95,6 +116,23 @@
     margin-left: 20px;
     max-width: 220px;
 }
+.Button-Add {
+    padding: 1px;
+    border-style: none;
+    border-bottom-right-radius: 10%;
+    background-color: #c56f28;
+}
+.dark-theme .Button-Add{
+    background-color: #884c1b;
+
+}
+.dark-theme .Button-Add-Category {
+    background-color: #693e13;
+  }
+  
+  .dark-theme .Button-Add-Category:hover {
+    background-color: #5a3511;
+  }
 .Button-Add-Product{
     background-color: #ffffff;
     border-style: none;
@@ -104,6 +142,23 @@
     margin-left: 20px;
     max-width: 300px;
     
+}
+.dark-Button-Add-Product{
+    background-color: #613f1e;
+    border-style: none;
+    border-radius: 20px;
+    padding: 20px;
+    font-size: 30px;
+    margin-left: 20px;
+    max-width: 300px;
+    
+
+}
+.Container-Add-Category button{
+    padding: 1px;
+    border-style: none;
+    border-bottom-right-radius: 10%;
+    background-color: #c56f28;
 }
 .Container-Add-Category {
     display: flex; 
@@ -164,12 +219,7 @@
     border: none;
     padding: 1px;
 }
-.Container-Add-Category button{
-    padding: 1px;
-    border-style: none;
-    border-bottom-right-radius: 10%;
-    background-color: #1192EF;
-}
+
 .Products-Seller{
     display: flex;
     flex-direction: column;
@@ -270,15 +320,6 @@
     padding: 5px;
 }
 
-
-.Page-button{
-    border-style: none;
-    background-color: #c56f28;
-    margin-left: 50px;
-    padding: 10px;
-    font-size: 20px;
-    border-radius: 10px;
-}
 
 
 

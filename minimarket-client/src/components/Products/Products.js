@@ -22,6 +22,7 @@ import CreateImageProduct from './Crud/CreateImageProduct';
 import DeleteImageProduct from './Crud/DeleteImageProduct';
 import usePagination from '../CustomHook/usePagination';
 import useProductFilters from '../CustomHook/useProductFilters';
+import { ThemeContext } from '../Context/ThemeContext';
 const Products = () => {
   const [Products, setProducts] = useState([]);
   const [quantities, setQuantities] = useState({});
@@ -45,6 +46,7 @@ const Products = () => {
   const { pageNumber, PaginationButtons } = usePagination(); 
 
   const { sortByOption, isAscending, SortOptions } = useProductFilters();
+  const { theme } = useContext(ThemeContext);
 
 
 
@@ -176,8 +178,7 @@ const Products = () => {
         {!error && Products.map(product => (
 
           <div key={product.id} onMouseEnter={() => setHoveredProduct(product.id)} onMouseLeave={() => { setHoveredProduct(null) }}>
-            <div className={product.isActive === false || product.stock === 0 ? 'Container-Products-Disabel' : 'Container-Products'}>
-              {editingProductId !== product.id ?
+            <div className={`${product.isActive === false || product.stock === 0 ? 'Container-Products-Disabel' : 'Container-Products'} ${theme === 'dark' ? 'dark' : ''}`}>               {editingProductId !== product.id ?
 
 
                 <div style={{ display: 'flex', position: 'flex 1' }}>

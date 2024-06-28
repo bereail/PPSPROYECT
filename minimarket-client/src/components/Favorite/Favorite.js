@@ -5,12 +5,13 @@ import Footer from '../Footer/footer';
 import './Favorite.css'; // Crear e importar un archivo CSS para estilos
 import FavoriteEmpty from './../Image/FavoriteEmpty.png';
 import StoreProducts from '../Products/StoreProducts';
+import { ThemeContext } from '../Context/ThemeContext';
 
 const Favorite = () => {
     const { userEmail } = useContext(AuthContext);
     const [favoriteProducts, setFavoriteProducts] = useState([]);
     const [quantities, setQuantities] = useState({});
-
+    const { theme } = useContext(ThemeContext);
     useEffect(() => {
         const storedProducts = JSON.parse(window.localStorage.getItem(`Favorite_${userEmail}`));
         if (storedProducts && storedProducts.products) {
@@ -62,7 +63,7 @@ const Favorite = () => {
             ) : (
                 <div className="favorites-list">
                     {favoriteProducts.map((product, index) => (
-                        <div key={index} className="product-item">
+                    <div key={index} className={`${theme === "dark" ? "dark-product-item" : "product-item "}`}>
                             <div>
                                 <h3>{product.name}</h3>
                                 <p>Description: {product.description}</p>

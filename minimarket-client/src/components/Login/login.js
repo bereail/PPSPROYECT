@@ -5,12 +5,14 @@ import "./Login.css"
 import { Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthContext';
 import GetUserbyid from '../User/Crud/GetUserbyid';
+import { ThemeContext } from '../Context/ThemeContext';
 const Login = () => {
     const [isExpanded, setIsExpanded] = useState(false);
     const { pathname } = useLocation();
     const [currentPage, SetCurrentPage] = useState("Home");
     const { user, logout } = useContext(AuthContext);
     const userData = GetUserbyid(); // Obtener el usuario usando el hook GetUserbyid
+    const { theme } = useContext(ThemeContext); // Consumir el contexto de tema
 
 
     useEffect(() => {
@@ -53,7 +55,7 @@ const Login = () => {
                 {isExpanded && !user && (
                     <div
                         onMouseLeave={() => setIsExpanded(false)}
-                        className={`Login-Content ${isExpanded ? 'expanded' : ''}`} >
+                        className={`Login-Content ${isExpanded ? 'expanded' : ''} ${theme === 'dark' ? 'dark-theme-content' : ''}`} >
                         <div className="Login-Links">
                             <Link
                                 to="/signupUser"
@@ -75,7 +77,7 @@ const Login = () => {
                 {isExpanded && user && (<>
                     <div
                         onMouseLeave={() => setIsExpanded(false)}
-                        className={`Login-Content ${isExpanded ? 'expanded' : ''}`} >
+                        className={`Login-Content ${isExpanded ? 'expanded' : ''} ${theme === 'dark' ? 'dark-theme-content' : ''}`} >
                         <div className="Login-Links">
                             <Link
                                 to="/User"

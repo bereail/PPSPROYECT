@@ -100,8 +100,9 @@ const AppContent = () => {
 };
 
 const App = () => (
+  <ThemeProvider>
+
   <OrderProvider>
-    <ThemeProvider>
       <AuthProvider>
         <CategoryProvider>
           <SearchProvider>
@@ -110,8 +111,8 @@ const App = () => (
           <CustomChatbot />
         </CategoryProvider>
       </AuthProvider>
-    </ThemeProvider>
   </OrderProvider>
+  </ThemeProvider>
 
 );
 

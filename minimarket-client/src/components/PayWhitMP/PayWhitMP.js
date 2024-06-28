@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import api from '../../api';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import { OrderContext } from '../Context/OrderContext';
 
 const PayWhitMP = () => {
  
-
+  const navigate = useNavigate();
   const [preferenceId, SetpreferenceId] = useState()
 
   const {orderId} = useContext(OrderContext);
@@ -34,8 +34,11 @@ const PayWhitMP = () => {
         window.localStorage.setItem('PreferenceId', response.data.preferenceId); 
 
     } catch (error) {
+    
         console.error('Error making API request:', error);  
-    }
+        
+        navigate(`/?message=The%20payment%20order%20has%20been%20canceled`);
+      }
     }
 
 

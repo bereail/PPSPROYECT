@@ -27,7 +27,7 @@ export default function ModifyUser() {
 
 
   return (
-    <div className='UserProfile' style={{ backgroundColor: theme === "light" ? "" : "#a5351ca4" }}>
+    <div className='UserProfile'>
       <form onSubmit={handleModifyUser}>
         {available === false && (<FontAwesomeIcon icon={faXmark} onClick={() => (Setavailable(true))} />)}
         <h4>Name</h4>
