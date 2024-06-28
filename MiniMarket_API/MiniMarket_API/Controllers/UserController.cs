@@ -120,6 +120,13 @@ namespace MiniMarket_API.Controllers
         {
             var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
 
+            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            if (userRole == typeof(SuperAdmin).Name)
+            {
+                return Forbid();
+            }
+
             await _userService.DeactivateUser(userId);
 
             return NoContent();
@@ -130,7 +137,9 @@ namespace MiniMarket_API.Controllers
         {
             var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 
-            if (userRole == typeof(SuperAdmin).Name)
+            var adminId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
+
+            if (userRole == typeof(SuperAdmin).Name && adminId != userId)
             {
                 await _userService.DeactivateUser(userId);
 

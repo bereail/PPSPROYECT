@@ -42,10 +42,17 @@ namespace MiniMarket_API.Controllers
         }
 
         [HttpGet]
-        //FOR ADMIN ONLY. This is a test endpoint for enum functionality.
+        //FOR ADMIN ONLY.
         public async Task<IActionResult> GetAllOrdersAsync([FromQuery] OrderStatus? status, [FromQuery] string? sortBy, [FromQuery] bool? isAscending,
             [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 7)
         {
+            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            if (userRole != typeof(SuperAdmin).Name)
+            {
+                return Forbid();
+            }
+
             var getOrders = await _saleOrderService.GetAllOrders(status, sortBy, isAscending, pageNumber, pageSize);
 
             if (getOrders == null || !getOrders.Any()) 
@@ -74,6 +81,13 @@ namespace MiniMarket_API.Controllers
             [FromQuery] string? sortBy, [FromQuery] bool? isAscending,
             [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 7)
         {
+            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            if (userRole != typeof(SuperAdmin).Name)
+            {
+                return Forbid();
+            }
+
             var getOrders = await _saleOrderService.GetAllOrdersByTimeframe(filterDays, status, sortBy, isAscending, pageNumber, pageSize);
 
             if (getOrders == null || !getOrders.Any())

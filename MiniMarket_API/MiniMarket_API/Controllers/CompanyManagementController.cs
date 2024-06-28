@@ -58,12 +58,20 @@ namespace MiniMarket_API.Controllers
         [HttpDelete("{codeId}")]
         public async Task<IActionResult> DeactivateCompanyCodeAsync([FromRoute] Guid codeId)
         {
-            var deactivatedCode = await companyService.DeactivateCompanyCode(codeId);
-            if (deactivatedCode == null)
+            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            if (userRole == typeof(SuperAdmin).Name)
             {
-                return NotFound("Code Deactivation Failed: Code Couldn't be Found!");
+                var deactivatedCode = await companyService.DeactivateCompanyCode(codeId);
+                if (deactivatedCode == null)
+                {
+                    return NotFound("Code Deactivation Failed: Code Couldn't be Found!");
+                }
+
+                return Ok(deactivatedCode);
             }
-            return Ok(deactivatedCode);
+
+            return Forbid();
         }
 
         [HttpDelete("{codeId}/erase")]

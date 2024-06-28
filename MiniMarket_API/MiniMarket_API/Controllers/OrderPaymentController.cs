@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MiniMarket_API.Application.DTOs.Preferences;
 using MiniMarket_API.Application.Services.Interfaces;
 using System.Security.Claims;
 
@@ -33,23 +32,10 @@ namespace MiniMarket_API.Controllers
         }
 
         [HttpPost("success")]
-        // Unsure of how to actually chain it to the previous endpoint. I'd also like to prevent users from
-        // calling this endpoint by themselves and passing matching params to force the status update
-        // but I still don't know how to do so.
-        public async Task<IActionResult> HandleSuccessfulPaymentAsync([FromRoute] Guid orderId,
-            [FromBody] ReceivedPreferenceData receivedPreferenceData)
+        // For now remains a simple implementation to get around MP's localhost limitations
+        public async Task<IActionResult> HandleSuccessfulPaymentAsync([FromRoute] Guid orderId)
         {
-            if (orderId != receivedPreferenceData.OrderId)
-            {
-                return BadRequest();
-            }
-
             var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
-
-            if (userId != receivedPreferenceData.UserId)
-            {
-                return BadRequest();
-            }
 
             var paidOrder = await _orderService.SetPaidOrderStatus(orderId, userId);
 
@@ -59,7 +45,6 @@ namespace MiniMarket_API.Controllers
             }
 
             return Ok(paidOrder);
-
         }
     }
 }

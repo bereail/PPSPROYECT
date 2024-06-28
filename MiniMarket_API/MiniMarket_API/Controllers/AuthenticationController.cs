@@ -36,6 +36,5 @@ namespace MiniMarket_API.Controllers
             //The result should not inform the user if the email was successfully sent.
             return NoContent();
         }
-
     }
 }

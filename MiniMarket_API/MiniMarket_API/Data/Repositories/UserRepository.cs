@@ -53,7 +53,8 @@ namespace MiniMarket_API.Data.Repositories
 
         public async Task<User?> DeactivateUserAsync(Guid id)
         {
-            var getUserToDeactivate = await _context.Users.FirstOrDefaultAsync(x => x.Id == id && x.IsActive);
+            var getUserToDeactivate = await _context.Users.FirstOrDefaultAsync(x => x.Id == id && x.IsActive
+            && x.UserType != typeof(SuperAdmin).Name);
             if (getUserToDeactivate == null)
             {
                 return null;
@@ -174,6 +175,16 @@ namespace MiniMarket_API.Data.Repositories
                 .FirstOrDefaultAsync();
 
             return user;                                              
+        }
+
+        public async Task<ICollection<string>> GetAllCustomerEmailsAsync()
+        {
+            var emails = await _context.Users
+                .Where(u => u.IsActive && u.UserType == typeof(Customer).Name)
+                .Select(u => u.Email)
+                .ToListAsync();
+
+            return emails;
         }
     }
 }

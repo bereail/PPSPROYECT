@@ -35,9 +35,9 @@ namespace MiniMarket_API.Application.Services.Implementations
 
                 BackUrls = new PreferenceBackUrlsRequest
                 {
-                    Success = "https://tu-sitio.com/success",
-                    Failure = "https://tu-sitio.com/failure",
-                    Pending = "https://tu-sitio.com/pending"
+                    Success = "http://localhost:3000/paySucess",
+                    Failure = "http://localhost:3000/User",
+                    Pending = "http://localhost:3000/User"
                 },
                 AutoReturn = "approved"
             };

@@ -17,5 +17,6 @@ namespace MiniMarket_API.Data.Interfaces
         Task<Guid?> CheckIfUserIdExistsAsync(Guid id);
         Task<Guid?> GetUserIdByEmailAsync(string email);
         Task<User?> GetUserByEmailAsync(string email);
+        Task<ICollection<string>> GetAllCustomerEmailsAsync();
     }
 }

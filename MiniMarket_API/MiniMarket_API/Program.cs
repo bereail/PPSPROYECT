@@ -13,6 +13,7 @@ using Serilog;
 using MiniMarket_API.Middlewares;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using MiniMarket_API.Application.Events.ProductEvents;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -69,6 +70,10 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("MarketConnection
 
 #region Mappings
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
+#endregion
+
+#region EventManagers
+builder.Services.AddScoped<IProductEventManager, ProductEventManager>();
 #endregion
 
 #region Services

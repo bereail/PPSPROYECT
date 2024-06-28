@@ -74,7 +74,7 @@ namespace MiniMarket_API.Controllers
 
             if (!validProvinces.Contains(addDeliveryAddress.Province)) 
             {
-                ModelState.AddModelError("province", "Address Generation Failed: Please provice a valid Province.");
+                ModelState.AddModelError("province", "Address Generation Failed: Please provide a valid Province.");
             }
         }
     }

@@ -54,11 +54,10 @@ namespace MiniMarket_API.Application.Services.Implementations
             {
                 return mapper.Map<CompanyCodeView?>(codeToDeactivate);
             }
-            var deactivatedSeller = await _userService.DeactivateUser(sellerToDeactivate.Id);
+
+            await _userService.DeactivateUser(sellerToDeactivate.Id);
             
             var mappedCode = mapper.Map<CompanyCodeView?>(codeToDeactivate);
-
-            mappedCode.Seller = deactivatedSeller;
 
             return mappedCode;
         }

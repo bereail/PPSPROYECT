@@ -129,7 +129,7 @@ namespace MiniMarket_API.Application.Services.Implementations
 
             string param = "?token=" + recoveryToken;
 
-            string url = @"http://www.mywebsite.com/Recovery" + param;
+            string url = @"http://localhost:3000/ResetPasswordForm" + param;
 
             var receivingEmail = email;
             var subject = "Password Recovery Request";

@@ -33,7 +33,6 @@ namespace MiniMarket_API.Controllers
             }
 
             return Forbid();
-            
         }
 
         [HttpPut("{categoryId}")]
@@ -184,6 +183,7 @@ namespace MiniMarket_API.Controllers
             {
                 return NotFound("Category is Empty");
             }
+
             return Ok(categoryProducts);
         }
     }

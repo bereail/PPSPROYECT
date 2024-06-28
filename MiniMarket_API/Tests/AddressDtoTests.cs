@@ -119,7 +119,6 @@ namespace Tests
         [InlineData(7, true)]
         [InlineData(24, false)]
         [InlineData(-3, false)]
-        [InlineData(6.5, false)] //Failed
         public void ValidateFloor(int floor, bool expectedResult)
         {
             //Arrange

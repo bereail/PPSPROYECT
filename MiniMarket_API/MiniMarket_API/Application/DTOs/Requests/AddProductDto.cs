@@ -22,7 +22,7 @@ namespace MiniMarket_API.Application.DTOs.Requests
         public int Stock { get; set; }
 
         [RegularExpression(@"^\d+$")]
-        [Range(0, 99, MinimumIsExclusive = false, MaximumIsExclusive = false, ErrorMessage = "Product Discount mustn't be below 0, or above 99.")]
+        [Range(0, 95, MinimumIsExclusive = false, MaximumIsExclusive = false, ErrorMessage = "Product Discount mustn't be below 0, or above 95.")]
         public int Discount { get; set; }
     }
 }

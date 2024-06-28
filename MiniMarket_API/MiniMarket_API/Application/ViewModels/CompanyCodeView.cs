@@ -4,6 +4,6 @@
     {
         public Guid Id { get; set; }
         public string EmployeeCode { get; set; }
-        public UserView? Seller { get; set; }
+        public bool IsActive { get; set; }
     }
 }

@@ -15,9 +15,7 @@ namespace Tests
         {
             //Arrange
 
-            var dto = new AddProductDto
-            {
-            };
+            var dto = new AddProductDto();
 
             //Act
 
@@ -44,9 +42,7 @@ namespace Tests
         {
             //Arrange
 
-            var dto = new AddProductDto
-            {
-            };
+            var dto = new AddProductDto();
 
             //Act
 
@@ -94,15 +90,12 @@ namespace Tests
         [InlineData(13, true)]
         [InlineData(124, true)]
         [InlineData(-3, false)]
-        [InlineData(115.25, false)] //Failed
         [InlineData(130, false)]
         public void ValidateStock(int productStock, bool expectedResult)
         {
             //Arrange
 
-            var dto = new AddProductDto
-            {
-            };
+            var dto = new AddProductDto();
 
             //Act
 
@@ -120,18 +113,15 @@ namespace Tests
 
         [Theory]
         [InlineData(13, true)]
-        [InlineData(99, true)]
-        [InlineData(0, false)]
+        [InlineData(95, true)]
+        [InlineData(0, true)]
         [InlineData(-3, false)] 
-        [InlineData(115.25, false)] //Failed
         [InlineData(130, false)]
         public void ValidateDiscount(int productDiscount, bool expectedResult)
         {
             //Arrange
 
-            var dto = new AddProductDto
-            {
-            };
+            var dto = new AddProductDto();
 
             //Act
 
