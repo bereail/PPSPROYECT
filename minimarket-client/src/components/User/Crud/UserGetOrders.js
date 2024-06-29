@@ -54,7 +54,7 @@ export default function UserGetOrders() {
         <div>
         {!ShowOrders && (
             <>
-                {Orders.length > 0 ? (
+                { Orders && Orders.length > 0 ? (
                     <>
                         <table className='Container-Table'>
                             <thead>

@@ -53,11 +53,11 @@ const router = createBrowserRouter([
   },
   {
     path: "user",
-    element: (
+    element: 
       <ProtectedUser>
         <User />
       </ProtectedUser>
-    ),
+    
   },
   {
     path: "FaQs",
