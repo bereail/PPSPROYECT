@@ -7,8 +7,7 @@ const GetOrderByid = async(orderId) => {
         const response = await api.get(`/api/orders/${orderId}`);
         return response.data;
     } catch (error) {
-        console.log('error fetching order', error);
-        return null;
+        throw error;
     }
 
 }

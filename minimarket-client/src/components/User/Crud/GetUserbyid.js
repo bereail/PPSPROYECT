@@ -10,7 +10,7 @@ const GetUserbyid = () => {
         const response = await api.get(`/api/users/profile`);
         setUser(response.data);
       } catch (error) {
-        console.log("Error fetching user", error);
+        
       }
     };
 

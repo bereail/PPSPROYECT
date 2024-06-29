@@ -21,7 +21,7 @@ export default function ModifyUser() {
       const response = await api.put('/api/users', editData); 
       Setavailable(true);
     } catch (error) {
-      console.log('Error Modify User', error);
+      
     }
   };
 

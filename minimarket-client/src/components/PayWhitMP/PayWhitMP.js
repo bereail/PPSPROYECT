@@ -29,7 +29,6 @@ const PayWhitMP = () => {
   const GetPreferenceId = async () => {
     try {
         const response = await api.post(`/api/orders/${orderId}/payment`);
-        console.log(response.data.preferenceId)
         SetpreferenceId(response.data.preferenceId)
         window.localStorage.setItem('PreferenceId', response.data.preferenceId); 
 

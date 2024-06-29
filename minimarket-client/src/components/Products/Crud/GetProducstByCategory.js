@@ -14,7 +14,6 @@ const GetProductsByCategory = async (CategoryId, isactive, setProducts, setError
             pageNumber: pageNumber
           }
     });
-    console.log(response.data)
     setProducts(response.data.products);
    
     setError(null);

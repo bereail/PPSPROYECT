@@ -2,12 +2,10 @@ import React from 'react';
 import './Chathistory.css';
 
 const Chathistory = ({ chats }) => {
-    console.log('Chats received:', chats);
 
     
     const validChats = chats.filter(chat => chat && chat.name && chat.email && chat.query);
 
-    console.log('Valid chats:', validChats); 
 
     return (
         <div className="chathistory">

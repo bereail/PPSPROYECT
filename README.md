@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+Este repositorio contiene el codigo realizado para la creacion de una aplicacion web, desarrollada utilizando la libreria ReactJS, y el framework backend .NET
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+El proyecto fue realizado para las materias de Laboratorio de Computacion IV, y Practica Profesional Supervisada, de la Tecnicatura Universitaria en Programacion, UTN FRRO.
 
-## Available Scripts
+Tecnologias utilizadas:
 
-In the project directory, you can run:
+1) FRONTEND:
 
-### `npm start`
+El Frontend fue desarrollado con la libreria ReactJS, version 18.2.0
+El listado de librerias adicionales utilizadas es el siguiente:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- fortawesome/fontawesome-svg-core: 6.5.2
+- fortawesome/free-brands-svg-icons: 6.5.2
+- fortawesome/free-regular-svg-icons: 6.5.2
+- fortawesome/free-solid-svg-icons: 6.5.2
+- fortawesome/react-fontawesome: 0.2.2
+- mercadopago/sdk-react: 0.0.19
+- testing-library/user-event: 13.5.0
+- axios: 1.7.2
+- bootstrap: 5.3.3
+- fontawesome: 5.6.3
+- jwt-decode: 4.0.0
+- mercadopago: 2.0.9
+- query-string: 9.0.0
+- react-bootstrap: 2.10.2
+- react-dom: 18.2.0
+- react-icons: 5.0.1
+- react-router-dom: 6.23.1
+- react-scripts: 5.0.1
+- react-simple-chatbot: 0.6.1
+- reactstrap: 9.2.2
+- styled-components: 4.4.1
+- web-vitals: 2.1.4
+- zxcvbn: 4.4.2
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2) BACKEND:
 
-### `npm test`
+El Backend fue desarrollado el Framework de .NET 8, para la implementacion de una API MVC.
+El listado de paquetes NuGet de alto nivel utilizados es el siguiente:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- AutoMapper 13.0.1
+- mercadopago-sdk 2.3.8
+- Microsoft.AspNetCore.Authentication.JwtBearer 8.0.4
+- Microsoft.AspNetCore.Identity.EntityFrameworkCore 8.0.4
+- Microsoft.EntityFrameworkCore.SqlServer 8.0.4
+- Microsoft.EntityFrameworkCore.Tools 8.0.5
+- Serilog 3.1.1
+- Serilog.AspNetCore 8.0.1
+- Serilog.Sinks.Console 5.0.1
+- Serilog.Sinks.File 5.0.0
+- Swashbuckle.AspNetCore 6.5.0
+- System.IdentityModel.Tokens.Jwt 7.5.1
 
-### `npm run build`
+3) BACKEND TESTING:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+El testing unitario del Backend fue desarrollado utilizando la herramienta de testeo unitario xUnit.net
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+El listado de paquetes NuGet de alto nivel utilizados en el testing es el siguiente:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- coverlet.collector 6.0.0
+- Microsoft.NET.Test.Sdk 17.8.0
+- Moq 4.20.70
+- xunit 2.5.3
+- xunit.runner.visualstudio 2.5.3
 
-### `npm run eject`
+4) BASE DE DATOS:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+La base de datos fue implementada a traves de el Code-First Approach. Se utilizo SQL Server 2022 v.16.0.1000.6, Developer Edition (64-bit).

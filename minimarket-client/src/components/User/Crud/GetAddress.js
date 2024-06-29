@@ -11,7 +11,7 @@ const GetAddress = ({ handleEmptyAddress }) => {
                 const addresses = Array.isArray(response.data) ? response.data : [response.data];
                 SetAdress(addresses);
             } catch (error) {
-                console.log('Error al obtener la dirección', error);
+           
                 handleEmptyAddress(true)
             }
         };

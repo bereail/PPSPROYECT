@@ -27,8 +27,15 @@ namespace MiniMarket_API.Application.Services.Implementations
             this.orderDetailsService = orderDetailsService;
         }
 
-        public async Task<CategoryView> CreateProductCategory(AddCategoryDto addCategoryDto)
+        public async Task<CategoryView?> CreateProductCategory(AddCategoryDto addCategoryDto)
         {
+            var checkCategoryName = await _categoryRepository.CheckIfCategoryExistsAsync(addCategoryDto.CategoryName);
+
+            if (checkCategoryName)
+            {
+                return null;
+            }
+
             var categoryToCreate = mapper.Map<ProductCategory>(addCategoryDto);
             await _categoryRepository.CreateProductCategoryAsync(categoryToCreate);
 

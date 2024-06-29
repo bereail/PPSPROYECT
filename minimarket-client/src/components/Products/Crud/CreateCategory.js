@@ -20,7 +20,6 @@ const CreateCategory = ({ fetchProducts }) => {
         const data = {
           categoryName: ValueCategory
         }
-        console.log("Cabecera de la solicitud:", api.defaults.headers);
         const response = await api.post("/api/categories", data);
         SetCategoryError(false)
         window.location.reload();
@@ -28,7 +27,6 @@ const CreateCategory = ({ fetchProducts }) => {
     } catch (error) {
 
       SetCategoryError(true)
-      alert('error')
       console.error('Error add category:', error);
     }
   }

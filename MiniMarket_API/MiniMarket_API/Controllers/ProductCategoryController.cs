@@ -29,6 +29,12 @@ namespace MiniMarket_API.Controllers
             if (userRole == typeof(Seller).Name || userRole == typeof(SuperAdmin).Name)
             {
                 var createdCategory = await _productCategoryService.CreateProductCategory(addCategory);
+
+                if (createdCategory == null)
+                {
+                    return Conflict("Category Creation Failed: Category already exists.");
+                }
+
                 return Ok(createdCategory);
             }
 

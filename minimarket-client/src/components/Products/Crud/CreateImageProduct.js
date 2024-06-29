@@ -24,9 +24,6 @@ const CreateImageProduct = ({productId, fetchProducts}) => {
           'Content-Type': 'multipart/form-data'
         }
       };
-      console.log(nameImage)
-      console.log(selectedFile)
-      console.log(productId)
       await api.post(`/api/products/${productId}/images`, formData, config);
       fetchProducts();
     } catch (error) {

@@ -7,7 +7,7 @@ const DeleteProdcut = async(product) => {
         const response = await api.delete(`/api/products/${product}/erase`)
         return response
       }catch(error){
-        console.log('Error disabel products:', error)
+        throw error;
       }
 }
 

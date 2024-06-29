@@ -37,9 +37,10 @@ namespace MiniMarket_API.Application.Services.Implementations
             {
                 throw new BadHttpRequestException("Product Creation Failed: Category Wasn't Found or is Currently Inactive");
             }
+
             var checkProductName = await _productRepository.CheckIfProductExistsAsync(addProductDto.Name);
 
-            if (checkProductName != Guid.Empty)
+            if (checkProductName)
             {
                 return null;
             }
@@ -57,6 +58,7 @@ namespace MiniMarket_API.Application.Services.Implementations
         public async Task<ProductView?> UpdateProduct(Guid id, AddProductDto updateProductDto)
         {
             var productToUpdate = _mapper.Map<Product>(updateProductDto);
+
             productToUpdate = await _productRepository.UpdateProductAsync(id, productToUpdate);
 
             if (productToUpdate == null)

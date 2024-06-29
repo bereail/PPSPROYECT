@@ -26,7 +26,7 @@ const AddAdressUser = () => {
              await api.put('/api/users/addresses',data)
              window.location.reload();
         }catch(error){
-            console.log('Error Modify Adress', error)
+            
         }
     }
     const handleEmptyAddress = (isEmpty) => {

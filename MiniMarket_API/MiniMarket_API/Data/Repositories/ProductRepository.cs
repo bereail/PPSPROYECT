@@ -208,14 +208,20 @@ namespace MiniMarket_API.Data.Repositories
                 .FirstOrDefaultAsync(x => x.Id == id && x.IsActive && x.Stock >= 1);
         }
 
-        public async Task<Guid?> CheckIfProductExistsAsync(string productName)
+        public async Task<bool> CheckIfProductExistsAsync(string productName)
         {
-            var productId = await _context.Products
-                .Where(p => p.Name == productName)
-                .Select(p => p.Id)
-                .FirstOrDefaultAsync();
+            bool exists = false;
 
-            return productId;
+            var checkProduct = await _context.Products
+                .FirstOrDefaultAsync(p => p.Name.Equals(productName));
+
+            if (checkProduct != null)
+            {
+                exists = true;
+                return exists;
+            }
+            
+            return exists;
         }
 
         //FOR SELLER/ADMIN & RESTRICED METHOD USE ONLY

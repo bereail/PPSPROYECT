@@ -28,8 +28,9 @@ namespace MiniMarket_API.Application.Services.Implementations
 
         public async Task<CompanyCodeView?> CreateCompanyCode(AddCompanyCodeDto companyCodeDto)
         {
-            var existingCode = await _companyCodeRepository.GetCodeIdByHexAsync(companyCodeDto.EmployeeCode);
-            if (existingCode == Guid.Empty)
+            var existingCode = await _companyCodeRepository.CheckExistingCodeHexAsync(companyCodeDto.EmployeeCode);
+
+            if (!existingCode)
             {
                 var newCode = mapper.Map<CompanyCode>(companyCodeDto);
 
@@ -37,8 +38,8 @@ namespace MiniMarket_API.Application.Services.Implementations
 
                 return mapper.Map<CompanyCodeView>(newCode);
             }
-            return null;
 
+            return null;
         }
 
         public async Task<CompanyCodeView?> DeactivateCompanyCode(Guid id)
@@ -95,13 +96,18 @@ namespace MiniMarket_API.Application.Services.Implementations
 
         public async Task<UserView?> CreateSeller(CreateSellerDto createSellerDto)
         {
-            Guid? availableCode = await _companyCodeRepository.GetCodeIdByHexAsync(createSellerDto.HexadecimalCode);              //Checks if the employee code received is both real and available.
+            // Checks if the employee code received is both real and available.
+            Guid? availableCode = await _companyCodeRepository.CheckAvailableCodeAsync(createSellerDto.HexadecimalCode);    
+            
             if (availableCode == Guid.Empty)
             {
                 throw new ValidationException("Seller Creation Failed: Not a valid Company Code!");
             }
-            var existingMail = await _userRepository.GetUserIdByEmailAsync(createSellerDto.Email);      //Checks if the mail already exists in the database.
-            if (existingMail == Guid.Empty)
+
+            // Checks if the mail already exists in the database.
+            var existingMail = await _userRepository.CheckExistingEmailAsync(createSellerDto.Email);      
+
+            if (!existingMail)
             {
                 var sellerToCreate = mapper.Map<Seller>(createSellerDto);
 
@@ -112,6 +118,7 @@ namespace MiniMarket_API.Application.Services.Implementations
 
                 return mapper.Map<UserView>(sellerToCreate);
             }
+
             return null;
         }
 

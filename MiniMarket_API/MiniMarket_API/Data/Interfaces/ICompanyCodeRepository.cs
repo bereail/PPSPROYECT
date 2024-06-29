@@ -10,7 +10,8 @@ namespace MiniMarket_API.Data.Interfaces
         Task EraseCompanyCodeAsync(Guid id);
         Task<IEnumerable<CompanyCode>> GetAllCodesAsync();
         Task<CompanyCode?> GetCodeByIdAsync(Guid id);
-        Task<Guid?> GetCodeIdByHexAsync(string hexCode);
+        Task<bool> CheckExistingCodeHexAsync(string hexCode);
+        Task<Guid?> CheckAvailableCodeAsync(string hexCode);
 
     }
 }

@@ -13,10 +13,10 @@ const CreateOrder = async (OrdenDetails) => {
       
       throw new Error(`Order creation failed with status code: ${response.status}`);
     }
-  } catch (error) {
-    console.error('Error creating order:', error); 
+  } catch(error) {
+    throw error;
   }
-};
+}
 
 export default CreateOrder;
 

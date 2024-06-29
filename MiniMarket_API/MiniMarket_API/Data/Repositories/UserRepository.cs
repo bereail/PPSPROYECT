@@ -150,22 +150,21 @@ namespace MiniMarket_API.Data.Repositories
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<Guid?> CheckIfUserIdExistsAsync(Guid id)
+        public async Task<bool> CheckExistingEmailAsync(string email)
         {
-            var userId = await _context.Users
-                .Where(u => u.Id == id)
-                .Select(u => u.Id)
-                .FirstOrDefaultAsync();
-            return userId;                                              //Checks if the User's ID already exists in the db. If it does, it will return the ID, else it will be null.
-        }
+            bool exists = false;
 
-        public async Task<Guid?> GetUserIdByEmailAsync(string email)
-        {
-            var userId = await _context.Users
-                .Where(u => u.Email == email)
-                .Select(u => u.Id)
-                .FirstOrDefaultAsync();
-            return userId;                                              //Checks if the User's Email already exists in the db. If it does, it will return the User's ID, else it will be null.
+            var emailCheck = await _context.Users
+                .FirstOrDefaultAsync(u => u.Email.Equals(email));
+
+            // Checks if the User's Email already exists in the db. If it does, it will return true, else, false.
+            if (emailCheck != null)
+            {
+                exists = true;
+                return exists;
+            }
+
+            return exists;                                              
         }
 
         public async Task<User?> GetUserByEmailAsync(string email)

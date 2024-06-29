@@ -9,7 +9,7 @@ const ModifyProducts = async(InputValue, prodcutid) => {
       const response = await api.put(`/api/products/${prodcutid}`,InputValue)   
       return response
     }catch(error){
-      console.log('Error Modify Prodcuts', error)
+      throw error;
     }
 }
 }
