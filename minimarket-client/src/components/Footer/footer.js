@@ -10,8 +10,8 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import "./footer.css";
 import { AuthContext } from '../Context/AuthContext';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
+
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -31,11 +31,6 @@ const Footer = () => {
       const updatedEmails = [...subscribedEmails, email];
       setSubscribedEmails(updatedEmails);
       localStorage.setItem('subscribedEmails', JSON.stringify(updatedEmails));
-<<<<<<< HEAD
-      alert('Email regisered');
-
-=======
->>>>>>> a8fdc32b82475586257b5f8f5300c238778e0df3
       setEmail('');
     }
   };
