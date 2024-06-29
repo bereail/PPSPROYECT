@@ -74,10 +74,27 @@ namespace MiniMarket_API.Data.Repositories
                 .FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<Guid?> GetCodeIdByHexAsync(string hexCode)        
+        public async Task<bool> CheckExistingCodeHexAsync(string hexCode)
         {
+            bool exists = false;
+
+            var checkCode = await _context.EmployeeCodes
+                .FirstOrDefaultAsync(c => c.EmployeeCode.Equals(hexCode));
+
+            if (checkCode != null)
+            {
+                exists = true;
+                return exists;
+            }
+
+            return exists;
+        }
+
+        public async Task<Guid?> CheckAvailableCodeAsync(string hexCode)
+        {
+            // Finds a code that: A) Matches the hexCode in the db. B) Is currently active. C) Has no seller currently assigned to it.
             var codeId = await _context.EmployeeCodes
-                .Where(h => h.EmployeeCode == hexCode && h.IsActive && h.Seller == null)        //Finds a code that: A) Matches the hexCode in the db. B) Is currently active. C) Has no seller currently assigned to it.
+                .Where(h => h.EmployeeCode == hexCode && h.IsActive && h.Seller == null)
                 .Select(h => h.Id)              //Selects only the Guid Id, which is what we are looking for.
                 .FirstOrDefaultAsync();
 

@@ -14,8 +14,7 @@ namespace MiniMarket_API.Data.Interfaces
             string? sortBy = null, bool isAscending = true, int pageNumber = 1, int pageSize = 30);
         Task<User?> GetUserByIdAsync(Guid id);
         Task<Seller?> GetSellerByIdAsync(Guid id);
-        Task<Guid?> CheckIfUserIdExistsAsync(Guid id);
-        Task<Guid?> GetUserIdByEmailAsync(string email);
+        Task<bool> CheckExistingEmailAsync(string email);
         Task<User?> GetUserByEmailAsync(string email);
         Task<ICollection<string>> GetAllCustomerEmailsAsync();
     }

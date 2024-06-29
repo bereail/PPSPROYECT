@@ -28,8 +28,9 @@ namespace MiniMarket_API.Application.Services.Implementations
 
         public async Task<UserView?> CreateUser(User user, string passwordToHash)
         {
-            var checkMail = await _userRepository.GetUserIdByEmailAsync(user.Email);
-            if (checkMail == Guid.Empty)
+            var checkMail = await _userRepository.CheckExistingEmailAsync(user.Email);
+
+            if (!checkMail)
             {
                 user.PasswordHash = _customAuthenticationService.PasswordHasher(passwordToHash);
 

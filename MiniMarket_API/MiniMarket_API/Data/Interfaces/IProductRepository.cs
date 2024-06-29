@@ -18,7 +18,7 @@ namespace MiniMarket_API.Data.Interfaces
             string? sortBy = null, bool isAscending = true, int pageNumber = 1, int pageSize = 15);
         Task<ICollection<Guid>> CascadeProductIds(Guid categoryId, DateTime filterTime);
         Task<Product?> GetProductByIdAsync(Guid id);
-        Task<Guid?> CheckIfProductExistsAsync(string productName);
+        Task<bool> CheckIfProductExistsAsync(string productName);
         Task<Product?> UnrestrictedGetByIdAsync(Guid id);       //FOR SELLER/ADMIN & RESTRICED METHOD USE ONLY
         Task<ICollection<Guid>> CategoryAllProductIds(Guid categoryId);
 

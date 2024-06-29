@@ -12,5 +12,6 @@ namespace MiniMarket_API.Data.Interfaces
         Task EraseProductCategoryAsync(Guid id);
         Task<IEnumerable<ProductCategory>> GetAllProductCategoriesAsync(bool? isActive, string? sortBy = null, bool isAscending = true);
         Task<ProductCategory?> GetCategoryByIdAsync(Guid id);
+        Task<bool> CheckIfCategoryExistsAsync(string categoryName);
     }
 }
