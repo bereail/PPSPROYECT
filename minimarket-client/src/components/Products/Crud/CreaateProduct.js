@@ -29,7 +29,6 @@ const CreaateProduct = ({ fetchProducts }) => {
       await api.post(`/api/categories/${CategoryId}/products`, data);
       fetchProducts();
     } catch (error) {
-      console.error('Error add category:', error);
     }
   }
 

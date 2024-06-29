@@ -22,7 +22,6 @@ const CodeSeller = () => {
       const data = await GetCodeSeller();
       setCodeSellers(data);
     } catch (error) {
-      console.error('Error fetching code sellers:', error);
     }
   };
 
@@ -35,7 +34,6 @@ const CodeSeller = () => {
         fetchData();
       }
     }catch(error){
-      console.error('Error delete code seller:', error);
     }
   }
 
@@ -47,7 +45,6 @@ const CodeSeller = () => {
         fetchData();
       }
     }catch(error){
-      console.error('Error delete code seller:', error);
     }
   }
 
@@ -58,7 +55,6 @@ const CodeSeller = () => {
       fetchData();
     }
   }catch(error){
-    console.error('Error delete code seller:', error);
   }
  }
 

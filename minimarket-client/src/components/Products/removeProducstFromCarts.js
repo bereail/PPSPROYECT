@@ -10,7 +10,6 @@ const removeProducstFromCarts = (productId) => {
     try {
       cart = JSON.parse(localStorage.getItem(key));
     } catch (error) {
-      console.error(`Error parsing ${key}:`, error);
       return;
     }
     

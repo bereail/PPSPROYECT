@@ -10,7 +10,9 @@ const CreateCategory = ({ fetchProducts }) => {
   const [ButtonCategory, SetButtonCategory] = useState(false);
   const [ValueCategory, SetValueCategory] = useState('')
   const [CategoryError, SetCategoryError] = useState(false)
+  const [CategoryExisting, SetCategoryExisting] = useState(false)
   const { theme } = useContext(ThemeContext);
+
 
 
   const HandleSubmitCategory = async (event) => {
@@ -21,13 +23,17 @@ const CreateCategory = ({ fetchProducts }) => {
           categoryName: ValueCategory
         }
         const response = await api.post("/api/categories", data);
+        
         SetCategoryError(false)
         window.location.reload();
       }
     } catch (error) {
-
-      SetCategoryError(true)
-      console.error('Error add category:', error);
+      if (error.response && error.response.status === 409) {
+        SetCategoryExisting(true);
+      }else {
+        SetCategoryError(true);
+      }
+  
     }
   }
   return (
@@ -45,6 +51,7 @@ const CreateCategory = ({ fetchProducts }) => {
             <button className={`Button-Add ${theme === 'dark' ? 'dark-theme' : ''}`}>Add</button>
           </form>
           {CategoryError && <p className='Error'>Could not add category</p>}
+          {CategoryExisting && <p className='Error'> existing category</p>}
         </div>
       </div>
     </div>

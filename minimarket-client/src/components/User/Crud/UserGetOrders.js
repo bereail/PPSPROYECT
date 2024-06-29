@@ -29,7 +29,6 @@ export default function UserGetOrders() {
             const data = await GetOrderByUser(pageNumber);
             SetOrders(data)
         } catch (error) {
-            console.error('Error fetching code sellers:', error);
         }
     };
     const handleRowClick = async (orderId) => {
@@ -38,7 +37,6 @@ export default function UserGetOrders() {
         if (orderDetails) {
             SetOrderDetails(orderDetails);
         } else {
-            console.error('Error fetching order details');
         }
     };
 

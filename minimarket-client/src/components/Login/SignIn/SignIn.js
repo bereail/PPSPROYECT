@@ -69,7 +69,6 @@ const Signin = () => {
       if (error.response && error.response.status === 401) {
         SetErrorLogin(1); 
       } else {
-        console.error('Error:', error.message); 
       }
     }
 

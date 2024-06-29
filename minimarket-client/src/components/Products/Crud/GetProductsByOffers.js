@@ -10,7 +10,6 @@ const GetProductsByOffers = async (setProducts, setError) => {
         setError(null)
         
     } catch (error) {
-        console.error('Error fetching products:', error);
     }
 
 

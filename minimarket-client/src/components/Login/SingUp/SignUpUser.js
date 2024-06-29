@@ -120,7 +120,6 @@ const SignupUser = () => {
         SetExistingUser(true);
       } else {
         SetErrorLogin(true)
-        console.error('Error:', error.message);
       }
       
     }

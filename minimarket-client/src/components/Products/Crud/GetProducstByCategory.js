@@ -18,7 +18,6 @@ const GetProductsByCategory = async (CategoryId, isactive, setProducts, setError
    
     setError(null);
   } catch (error) {
-    console.error('Error fetching products category:', error);
     setError(error)
   }
 };

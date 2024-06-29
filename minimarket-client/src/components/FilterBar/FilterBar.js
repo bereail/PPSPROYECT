@@ -30,7 +30,6 @@ export default function FilterBar() {
       });
       SetCategory(response.data);
     } catch (error) {
-      console.error('Error fetching categories:', error);
     }
   };
   useEffect(() => {
@@ -41,7 +40,6 @@ export default function FilterBar() {
       await api.delete(`/api/categories/${CategoryId}`)
       fetchCategories()
     } catch (error) {
-      console.error('Error fetching categories:', error);
     }
   }
   const handleActiveCategory = async () => {
@@ -49,7 +47,6 @@ export default function FilterBar() {
       await api.patch(`/api/categories/${CategoryId}`);
       fetchCategories()
     } catch (error) {
-      console.error('Error fetching categories:', error);
     }
   };
 

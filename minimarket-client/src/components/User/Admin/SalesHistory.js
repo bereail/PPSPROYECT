@@ -22,7 +22,6 @@ const SalesHistory = () => {
         if (orders) {
             SetOrders(orders);
         } else {
-            console.error('Error fetching orders');
         }
     };
     const handleRowClick = async (orderId) => {
@@ -31,7 +30,6 @@ const SalesHistory = () => {
         if (orderDetails) {
             SetOrderDetails(orderDetails);
         } else {
-            console.error('Error fetching order details');
         }
     };
 

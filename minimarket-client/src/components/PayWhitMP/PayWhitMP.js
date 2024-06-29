@@ -34,7 +34,6 @@ const PayWhitMP = () => {
 
     } catch (error) {
     
-        console.error('Error making API request:', error);  
         
         navigate(`/?message=The%20payment%20order%20has%20been%20canceled`);
       }

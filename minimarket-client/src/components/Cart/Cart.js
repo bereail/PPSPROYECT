@@ -16,7 +16,7 @@ import { ThemeContext } from '../Context/ThemeContext';
 
 
 export default function Cart() {
-  const { userEmail } = useContext(AuthContext);
+  const {user, userEmail } = useContext(AuthContext);
   const { setOrderId} = useContext(OrderContext);
   const [cart, setCart] = useState(null);
   const [CartPriceDiscount, SetCartPriceDiscount] = useState();
@@ -71,11 +71,15 @@ export default function Cart() {
     const orderDetails = { newDetails };
 
     const orderId = await CreateOrder(orderDetails);
+
     if (orderId) {
       navigate('/User'); 
-    }else{
+    }else if(user == null){
       navigate('/signupUser'); 
+    }else{
+      navigate(`/?message=Enter%20an%20address`);
     }
+    
   }
   return (
     <div style={{ paddingBottom: '500px' }}>

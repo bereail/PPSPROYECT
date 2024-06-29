@@ -27,7 +27,6 @@ const CreateImageProduct = ({productId, fetchProducts}) => {
       await api.post(`/api/products/${productId}/images`, formData, config);
       fetchProducts();
     } catch (error) {
-      console.error('Error add image', error);
     }
   };
 
