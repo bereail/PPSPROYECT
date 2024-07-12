@@ -6,7 +6,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import zxcvbn from 'zxcvbn';
 import './ResetPasswordForm.css';
 import { AuthContext } from '../../Context/AuthContext';
-
+import { toast } from 'react-toastify';
 const ResetPasswordForm = () => {
   const [searchParams] = useSearchParams();
   const [newPassword, setNewPassword] = useState('');
@@ -39,7 +39,7 @@ const ResetPasswordForm = () => {
     setMessage('');
 
     if (newPassword !== confirmPassword) {
-      setError('Passwords do not match.');
+      toast.error('Passwords do not match.');
       return;
     }
 
@@ -56,13 +56,13 @@ const ResetPasswordForm = () => {
       });
 
       if (response.status === 200) {
-        setMessage('Your password has been reset successfully.');
+        toast.success('Your password has been reset successfully.');
         logout()
       } else {
-        setError('Password reset failed.');
+        toast.error('Password reset failed.');
       }
     } catch (err) {
-      setError('Password reset failed.');
+      toast.error('Password reset failed.');
     }
   };
 

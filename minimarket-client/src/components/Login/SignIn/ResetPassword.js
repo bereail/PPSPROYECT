@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import './ResetPassword.css';
 import api from "../../../api";
+import { toast } from 'react-toastify';
 
 const ResetPassword = () => {
   const [email, setEmail] = useState('');
   const [confirmEmail, setConfirmEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
+ 
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -18,39 +18,38 @@ const ResetPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    setMessage('');
+   
 
     if (!email || !confirmEmail) {
-      setError('Please enter your email address and confirm it.');
+      toast.error('Please enter your email address and confirm it.');
       return;
     }
 
     if (email !== confirmEmail) {
-      setError('Email addresses do not match. Please try again.');
+      toast.error('Email addresses do not match. Please try again.');
       return;
     }
 
     const data = {
       email: email,
-      confirmEmail : confirmEmail
+      confirmEmail:confirmEmail
     };
 
     try {
       const response = await api.post('/api/auth/recovery', data);
-
+      console.log( response);
       if (response.status === 200) {
-        setMessage('A link to reset your password has been sent to your email.');
+        toast.success('A link to reset your password has been sent to your email.');
       } else if (response.status === 404) {
-        setError('Email not found. Please check your email address and try again.');
+        toast.error('Email not found. Please check your email address and try again.');
       }
     } catch (error) {
       if (error.response && error.response.status === 404) {
-        setError('Email not found. Please check your email address and try again.');
+        toast.error('Email not found. Please check your email address and try again.');
       } else {
-        setError('An error occurred. Please try again.');
+        toast.error('An error occurred. Please try again.');
       }
-    }
+    };
   };
 
   return (
@@ -80,8 +79,7 @@ const ResetPassword = () => {
               required
             />
           </div>
-          {error && <p className="error">{error}</p>}
-          {message && <p className="message">{message}</p>}
+          
           <button type="submit" className="button-reset">Submit</button>
         </form>
         <button className="button-close" onClick={() => window.location.reload()}>Close</button>

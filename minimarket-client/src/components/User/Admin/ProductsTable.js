@@ -6,11 +6,13 @@ import DisabelProduct from '../../Products/Crud/DisabelProduct';
 import RestoreProducts from '../../Products/Crud/RestoreProducts';
 import usePagination from '../../CustomHook/usePagination'; 
 import DeleteProdcut from '../../Products/Crud/DeleteProdcut';
+import { toast } from 'react-toastify';
 
 const ProductsTable = () => {
   const SearchValue = '';
    
   const [error, setError] = useState();
+  const [successMessage, setSuccessMessage] = useState('');
   const [Products, setProducts] = useState([]);
   const [EditProductId, setEditProductId] = useState(null);
   const { pageNumber, PaginationButtons } = usePagination(); 
@@ -49,9 +51,12 @@ const ProductsTable = () => {
         const response = await ModifyProducts(InputValue, productId);
       if (response && response.status === 200) {
         fetchData();
+      
+        toast.success('Product edit successfuly');
       }
     }
     } catch (error) {
+      toast.error('Error, please try again');
      
     }
   };
@@ -61,9 +66,10 @@ const ProductsTable = () => {
       const response = await DeleteProdcut(productid);
       if (response && response.status === 204) {
         fetchData();
+        toast.success('Product deletd');
       }
     } catch (error) {
-    
+      toast.error('Error, please try again');
     }
   };
 
@@ -72,9 +78,10 @@ const ProductsTable = () => {
       const response = await DisabelProduct(productid);
       if (response && response.status === 200) {
         fetchData();
+        toast.success('Product desabled');
       }
     } catch (error) {
-
+      toast.error('Error try again');
     }
   };
 
@@ -83,14 +90,17 @@ const ProductsTable = () => {
       const response = await RestoreProducts(productid);
       if (response && response.status === 200) {
         fetchData();
+        toast.success('Product activated');
       }
     } catch (error) {
+      toast.error('Error try again');
       
     }
   };
 
   return (
     <div className="products-table">
+      {successMessage && <div className="success-message">{successMessage}</div>}
       {Products.length > 0 ? (
         <>
           <table className='Container-Table'>
@@ -103,7 +113,7 @@ const ProductsTable = () => {
                 <th>Discount</th>
                 <th>Edit</th>
                 <th>Delete</th>
-                <th>Disabel</th>
+                <th>Disable</th>
               </tr>
             </thead>
             <tbody>
@@ -116,7 +126,7 @@ const ProductsTable = () => {
                   <td><input type="text" placeholder={product.discount} disabled={EditProductId !== product.id} onChange={(e) => handleInputChange(e, product.id)} name="discount" /></td>
                   {EditProductId !== product.id && <td><button className='Button-Edit-Table' onClick={() => handleProductEdit(product.id)}>Edit</button></td>}
                   {EditProductId === product.id && <td><button className='Button-Edit-Table' onClick={() => { handleModifyProduct(product.id) }}>Send</button></td>}
-                  {product.isActive ? <td><button className='Button-Disabel-Table' onClick={() => { handleDisabelProduct(product.id) }}>Disabel</button></td> : <td><button className='Button-Active-Table' onClick={() => { handleActiveProduct(product.id) }}>Active</button></td>}
+                  {product.isActive ? <td><button className='Button-Disabel-Table' onClick={() => { handleDisabelProduct(product.id) }}>Disable</button></td> : <td><button className='Button-Active-Table' onClick={() => { handleActiveProduct(product.id) }}>Active</button></td>}
                   <td><button className='Button-Delete-Table' onClick={() => { handleDeleteProduct(product.id) }}>Delete</button></td>
                 </tr>
               ))}

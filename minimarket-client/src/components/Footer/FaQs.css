@@ -1,16 +1,16 @@
 /* FAQs.css */
 
 .faq-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+    max-width: 1000px;
+    margin: 0 20px;
+    padding: 10px;
     font-family: Arial, sans-serif;
-    color: #171515;
+    color: #000000;
   }
   
   .faq-container h1 {
     text-align: center;
-    color: #0073e6;
+    color: #0a0a0a;
     margin-bottom: 20px;
   }
   
@@ -26,6 +26,6 @@
   }
   
   .faq-section:hover h2 {
-    color: #003366;
+    color: #131517;
   }
   

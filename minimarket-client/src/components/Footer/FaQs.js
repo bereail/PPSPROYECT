@@ -1,13 +1,13 @@
 import React from 'react';
 import './FaQs.css'
-import Logo from '../Navbar/Logo';
+
+import Navbar from '../Navbar/Navbar';
 
 
 const FAQs = () => {
   return (
-    <div>
-       <Logo/>
-       
+    <div className="faq-container">
+      <Navbar />
       <h1>Frequently Asked Questions (FAQs)</h1>
       
       <section>

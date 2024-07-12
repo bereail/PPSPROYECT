@@ -88,7 +88,7 @@ const Signin = () => {
       <div className="Singin-Container">
       {user ? <Navigate to="/" /> : null}
       <div className="Form-Login" style={{ backgroundColor: theme === "light" ? "#CC713D" : "#a5351ca4" }}>
-        <h2>Sing In</h2>
+        <h2>Sign In</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>

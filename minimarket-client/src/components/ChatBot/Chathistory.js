@@ -3,9 +3,7 @@ import './Chathistory.css';
 
 const Chathistory = ({ chats }) => {
 
-    
     const validChats = chats.filter(chat => chat && chat.name && chat.email && chat.query);
-
 
     return (
         <div className="chathistory">
@@ -13,10 +11,14 @@ const Chathistory = ({ chats }) => {
             {validChats.length > 0 ? (
                 <ul>
                     {validChats.map((chat, index) => (
-                        <li key={index}>
-                            <strong>Name:</strong> {chat.name}<br />
-                            <strong>Email:</strong> {chat.email}<br />
-                            <strong>Query:</strong> {chat.query}
+                        <li key={index} className="chat-item">
+                            <div className="chat-header">
+                                <p><strong>Name:</strong> {chat.name}</p>
+                                <p><strong>Email:</strong> {chat.email}</p>
+                            </div>
+                            <div className="chat-query">
+                                <p><strong>Query:</strong> {chat.query}</p>
+                            </div>
                         </li>
                     ))}
                 </ul>
@@ -28,6 +30,7 @@ const Chathistory = ({ chats }) => {
 };
 
 export default Chathistory;
+
 
 
 

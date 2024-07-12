@@ -3,6 +3,7 @@ import api from '../../../api'
 
 const GetAddress = ({ handleEmptyAddress }) => {
     const [Adress, SetAdress] = useState([])
+    const [successMessage, setSuccessMessage] = useState('');
 
     useEffect(() => {
         const GetAddressUser = async () => {
@@ -10,6 +11,9 @@ const GetAddress = ({ handleEmptyAddress }) => {
                 const response = await api.get('/api/users/addresses');
                 const addresses = Array.isArray(response.data) ? response.data : [response.data];
                 SetAdress(addresses);
+                setSuccessMessage('Addresses retrieved successfully!');
+               
+
             } catch (error) {
            
                 handleEmptyAddress(true)
@@ -21,6 +25,7 @@ const GetAddress = ({ handleEmptyAddress }) => {
 
     return (
         <div className='Get-address'>
+                    {successMessage && <div className="success-message">{successMessage}</div>}
             {Adress.map((address, index) => (
                 <div key={index} style={{ marginBottom: '20px' }}>
                     <p><strong>Province:</strong> {address.province}</p>

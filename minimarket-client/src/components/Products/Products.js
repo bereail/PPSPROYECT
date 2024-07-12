@@ -168,7 +168,7 @@ const Products = () => {
           )}
         </div>
       </div>
-      {role === 'Seller' && CategoryId !== null && <button className='Button-Desactive-Product' onClick={() => { SetisActive(!isActive) }}>Diabel Products</button>}
+      {role === 'Seller' && CategoryId !== null && <button className='Button-Desactive-Product' onClick={() => { SetisActive(!isActive) }}>Disable Products</button>}
 
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
 

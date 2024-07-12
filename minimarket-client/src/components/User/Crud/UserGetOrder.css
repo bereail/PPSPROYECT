@@ -1,0 +1,58 @@
+
+.order.status-paid{
+    background-color: rgb(69, 43, 162);
+    color: rgb(238, 10, 10);
+}
+
+.order.status-paid {
+    background-color: green;
+    color: white;
+}
+
+.Container-Table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.Container-Table th, .Container-Table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.Container-Table th {
+    background-color: #9e9992;
+    color: rgb(207, 118, 18);
+}
+
+.Value-Table {
+    cursor: pointer;
+    color: rgb(11, 11, 11);
+
+}
+
+.Value-Table:hover {
+    background-color: #252020;
+}
+
+.OrderDetails {
+    margin-top: 20px;
+    color: #0b0e0c;
+}
+
+.OrderDetails h2, .OrderDetails h3 {
+    color: #333;
+}
+
+.OrderDetails p {
+    margin: 5px 0;
+    color: rgb(9, 10, 10);
+}
+
+.BackButton, .Pay-Button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px
+}

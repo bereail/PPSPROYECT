@@ -9,6 +9,7 @@
   .Container-Table th {
     background-color: #4CAF50;
     color: white;
+    color: black; 
   }
 
   .Container-Table th, td {
@@ -25,13 +26,14 @@
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 18px;
+    color: black;
   }
 
   
   .Value-Table button {
     border: none;
-    color: rgb(104, 102, 102);
+    color: rgb(12, 12, 12);
     padding: 8px 12px;
     text-align: center;
     text-decoration: none;
@@ -43,44 +45,59 @@
     transition: background-color 0.3s ease;
 }
 .Button-Edit-Table{
-    background-color: #69b6216c; 
+    background-color: #040a4e6c; 
+    color: black;
 }
 .Button-Edit-Table:hover {
-    background-color: #45a04967; 
+    background-color: #1064e267; 
+    color: black;
 }
 .Button-Delete-Table{
-    background-color: #f81717c0
+    background-color: #c91a1ac0;
+    
+    color: black;
 }
 .Button-Active-Table {
-  background-color: #79b3436c
+  background-color: #3ca9276c;
+  color: black;
+
 }
 .Button-Active-Table:hover {
-  background-color: #45a04967
+  background-color: #18dc2167 ;
+  color: black;
 }
 .Button-Delete-Table:hover{
-    background-color: #ff0000d5
+    background-color: #272424d5 ;
+    color: black;
 }
 .Button-Disabel-Table{
-  background-color: #b6b2b2d5
+  background-color: #b39436d5;
+  color: black;
 }
 .Button-Disabel-Table:hover {
-  background-color: #918f8fd5
+  background-color: #7a3838d5;
+  color: black;
+  
+
 }
 
 .Container-Table th {
-  background-color: #4CAF50;
+  background-color: #14d61b;
   color: white;
   padding: 12px;
+  
 }
 
 .Container-Table th, .Container-Table td {
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+ 
 }
 
 .Container-Table tr:hover {
   background-color: #f1f1f1;
+  
 }
 
 .no-products {
