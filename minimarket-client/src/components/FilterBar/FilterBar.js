@@ -88,7 +88,7 @@ export default function FilterBar() {
               </div>
             </>
             ))}
-            {role === 'Seller' && <button className="Buton-Disabel-Category" onClick={() => { fetchCategories(!isActive) }}>GetCategoryDisabel</button>}
+            {role === 'Seller' && <button className="Buton-Disabel-Category" onClick={() => { fetchCategories(!isActive) }}>GetCategoryDisable</button>}
           </div>
         )}
       </div>
