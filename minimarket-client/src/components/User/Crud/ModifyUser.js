@@ -4,6 +4,8 @@ import { faPencil, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { ThemeContext } from "../../Context/ThemeContext";
 import GetUserbyid from './GetUserbyid';
 import api from '../../../api';
+import { toast } from 'react-toastify';
+
 export default function ModifyUser() {
   const { theme } = useContext(ThemeContext);
   const [available, Setavailable] = useState(true);
@@ -18,10 +20,11 @@ export default function ModifyUser() {
         name: name || user?.name,
         phoneNumber: phoneNumber || user?.phoneNumber, 
       };
-      const response = await api.put('/api/users', editData); 
+       const response = await api.put('/api/users', editData); 
       Setavailable(true);
+      toast.success('User updated successfully!');
     } catch (error) {
-      
+      toast.error('An error occurred while updating the user.');
     }
   };
 

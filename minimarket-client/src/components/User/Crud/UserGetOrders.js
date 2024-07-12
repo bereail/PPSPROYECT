@@ -67,7 +67,7 @@ export default function UserGetOrders() {
                                         <tr
                                             key={index}
                                             className={`Value-Table ${
-                                                order.status === "pending" ? "status-pending" : order.status === "paid" ? "status-paid" : " "
+                                                order.status === "pend" ? "status-pend" : order.status === "paid" ? "status-paid" : " "
                                             }`}
                                             onClick={() => handleRowClick(order.id)}
                                         >

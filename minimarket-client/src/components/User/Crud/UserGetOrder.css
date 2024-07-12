@@ -1,13 +1,17 @@
 
-.order.status-paid{
+.status-paid{
     background-color: rgb(69, 43, 162);
     color: rgb(238, 10, 10);
 }
 
-.order.status-paid {
+.status-pend {
     background-color: green;
     color: white;
 }
+.status-other {
+    background-color: #4336f4; /* Rojo u otro color para los demás estados */
+}
+
 
 .Container-Table {
     width: 100%;
@@ -37,7 +41,7 @@
 
 .OrderDetails {
     margin-top: 20px;
-    color: #0b0e0c;
+    color: #14d454;
 }
 
 .OrderDetails h2, .OrderDetails h3 {

@@ -7,6 +7,9 @@ import Cart from "./components/Cart/Cart";
 import User from "./components/User/User";
 import Error404 from "./components/Pages/Error404";
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { ThemeContext, ThemeProvider } from "./components/Context/ThemeContext";
 import ProtectedUser from "./components/Pages/ProtectedUser";
 import Spinner from "./components/Context/Spinner"; 
@@ -107,6 +110,7 @@ const App = () => (
         <CategoryProvider>
           <SearchProvider>
             <AppContent />
+            <ToastContainer />
           </SearchProvider>
           <CustomChatbot />
         </CategoryProvider>
