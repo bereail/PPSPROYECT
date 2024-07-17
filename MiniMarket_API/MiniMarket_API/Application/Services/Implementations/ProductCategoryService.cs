@@ -142,7 +142,7 @@ namespace MiniMarket_API.Application.Services.Implementations
 
             var getCategory = await _categoryRepository.GetCategoryByIdAsync(categoryId);
 
-            if (getCategory == null)
+            if (getCategory == null || !getCategory.IsActive)
             {
                 return null;
             }

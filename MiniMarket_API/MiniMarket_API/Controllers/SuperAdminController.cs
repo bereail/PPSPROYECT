@@ -10,7 +10,7 @@ namespace MiniMarket_API.Controllers
 {
     [Route("api/admin")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class SuperAdminController : ControllerBase
     {
         private readonly IUserService _userService;

@@ -121,7 +121,7 @@ namespace MiniMarket_API.Data.Repositories
         public Task<ProductCategory?> GetCategoryByIdAsync(Guid id)
         {
             return _context.Categories
-                .FirstOrDefaultAsync(c => c.Id == id && c.IsActive);
+                .FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<bool> CheckIfCategoryExistsAsync(string categoryName)

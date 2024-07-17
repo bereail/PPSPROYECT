@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MiniMarket_API.Application.DTOs.Requests;
-using MiniMarket_API.Application.Events.ProductEvents;
+//using MiniMarket_API.Application.Events.ProductEvents;
 using MiniMarket_API.Application.Services.Interfaces;
 using MiniMarket_API.Application.ViewModels;
 using MiniMarket_API.Data.Interfaces;
@@ -14,26 +14,26 @@ namespace MiniMarket_API.Application.Services.Implementations
         private readonly IProductCategoryRepository _productCategoryRepository;
         private readonly IProductImageService _productImageService;
         private readonly IMapper _mapper;
-        private readonly IProductEventManager _productEventManager;
+        //private readonly IProductEventManager _productEventManager;
         private readonly IOrderDetailsService _orderDetailsService;
 
         public ProductService(IProductRepository productRepository,
             IMapper mapper, IProductCategoryRepository productCategoryRepository,
-            IProductImageService productImageService, IProductEventManager productEventManager,
+            IProductImageService productImageService, //IProductEventManager productEventManager,
             IOrderDetailsService orderDetailsService)
         {
             _productRepository = productRepository;
             _mapper = mapper;
             _productCategoryRepository = productCategoryRepository;
             _productImageService = productImageService;
-            _productEventManager = productEventManager;
+            //_productEventManager = productEventManager;
             _orderDetailsService = orderDetailsService;
         }
 
         public async Task<ProductView?> CreateProduct(Guid categoryId, AddProductDto addProductDto)
         {
             var checkCategory = await _productCategoryRepository.GetCategoryByIdAsync(categoryId);
-            if (checkCategory == null)
+            if (checkCategory == null || !checkCategory.IsActive)
             {
                 throw new BadHttpRequestException("Product Creation Failed: Category Wasn't Found or is Currently Inactive");
             }
@@ -50,7 +50,7 @@ namespace MiniMarket_API.Application.Services.Implementations
             await _productRepository.CreateProductAsync(productToCreate);
 
             //Notify here
-            await _productEventManager.NotifyCustomersOfNewProduct(productToCreate.Name, checkCategory.CategoryName);
+            //await _productEventManager.NotifyCustomersOfNewProduct(productToCreate.Name, checkCategory.CategoryName);
 
             return _mapper.Map<ProductView>(productToCreate);
         }
